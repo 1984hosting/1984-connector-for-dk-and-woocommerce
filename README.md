@@ -57,7 +57,7 @@ The project is managed by [Helgi](mailto:helgi@1984.is) on behalf of [1984 Hosti
 
 ### Code commenting
 
-1. The most important aim of commenting is to explain **why** things are done in the way they are. Explaining **what** the code does can be useful if it's complicated and/or messy, but not when the code is already simple enough to read.
+1. The most important aim of commenting is to explain **why** things are done in the way they are. Explaining **what** the code does can be useful if it's complicated and/or messy, but not when the code is already simple enough to read. Explaining **why** is almost always useful, however.
 
 2. When a code segment is best understood in the context of a code segment in a different location, it is helpful to point out the other location in a comment.
 
