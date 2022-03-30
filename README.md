@@ -55,6 +55,16 @@ The project is managed by [Helgi](mailto:helgi@1984.is) on behalf of [1984 Hosti
 
 ## Technical Notes
 
+### Code commenting
+
+1. The most important aim of commenting is to explain **why** things are done in the way they are. Explaining **what** the code does can be useful if it's complicated and/or messy, but not when the code is already simple enough to read.
+
+2. When a code segment is best understood in the context of a code segment in a different location, it is helpful to point out the other location in a comment.
+
+3. Comments do not need to explain the programming language or its features. The reader is assumed to know the programming language used and have access to its documentation.
+
+4. In large segments of code, comments are helpful to periodically break up functionality. Examples: `// At this point, the user is logged in.` and `// We are now done with the fancy calculations.`.
+
 ### Running process
 
 A running process (crontab) may be necessary for cleaning stale data, such as items still in a cart of a user that has left the website without completing the purchase.
