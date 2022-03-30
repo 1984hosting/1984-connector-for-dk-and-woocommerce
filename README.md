@@ -36,6 +36,10 @@ However, there are other products that cater to non-Icelandic bookkeeping softwa
 
 We have already tried installing the MyWorks Software solution, and while their website does not explain the code license, the downloaded plugin contains a file called `LICENSE.txt` which contains the [GNU General Public License, version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html), which is the same license that we will be using, although possibly a later version of it such as [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) or [AGPL](https://www.gnu.org/licenses/agpl-3.0.en.html).
 
+# Management
+
+The project is managed by [Helgi](mailto:helgi@1984.is) on behalf of [1984 Hosting](https://1984.hosting/).
+
 # Project
 
 ## Preparatory tasks
