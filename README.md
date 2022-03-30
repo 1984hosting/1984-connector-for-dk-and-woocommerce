@@ -68,12 +68,3 @@ The project is managed by [Helgi](mailto:helgi@1984.is) on behalf of [1984 Hosti
 ### Running process
 
 A running process (crontab) may be necessary for cleaning stale data, such as items still in a cart of a user that has left the website without completing the purchase.
-
-### "Product"
-A product is currently believed to be consist of the following properties.
-
-* Product number
-* Name
-* Description
-* Price
-* Inventory status
