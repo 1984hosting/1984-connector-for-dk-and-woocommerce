@@ -57,9 +57,9 @@ The project is managed by [Helgi](mailto:helgi@1984.is) on behalf of [1984 Hosti
 
 ## DK API
 
-The API is exposed at `[https://api.dkplus.is/api/v1](https://api.dkplus.is/api/v1)`.
+The API is exposed at [`https://api.dkplus.is/api/v1`](https://api.dkplus.is/api/v1).
 
-Documentation can be found at `[https://apidoc.dkplus.is/](https://apidoc.dkplus.is/)`, including staging account information (a token) that can be used during development.
+Documentation can be found at [`https://apidoc.dkplus.is/`](https://apidoc.dkplus.is/), including staging account information (a token) that can be used during development.
 
 ### API versions
 
@@ -72,12 +72,14 @@ We will not concern ourselves with version 2 until we run into a reason to.
 The API is provided in OpenAPI format. A client library may be automatically generated with the [Swagger Editor](https://editor.swagger.io) for most programming languages.
 
 1. Open the [Swagger Editor](https://editor.swagger.io) in a browser.
-2. Go to `File` -> `Import URL` and paste the URL `[https://api.dkplus.is/api/v1](https://api.dkplus.is/api/v1)`.
+2. Go to `File` -> `Import URL` and paste the URL [`https://api.dkplus.is/api/v1`](https://api.dkplus.is/api/v1).
 3. Browse the API with the generated documentation and experimentation tools.
 
 ### WebHooks
 
-WebHooks provide a way for DK to notify an external program of a change that occurs. This can be used to replace functionality that constantly pulls new information from the WooCommerce side.
+WebHooks provide a way for DK to notify an external program of a change that occurs. This can be used instead of constantly pulling new information with a scheduled task runner.
+
+In other words, we can both have WooCommerce speak with DK, and DK speak with WooCommerce.
 
 This is described further in the API documentation available via Swagger.
 
