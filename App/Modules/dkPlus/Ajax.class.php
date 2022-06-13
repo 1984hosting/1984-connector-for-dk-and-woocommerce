@@ -1,30 +1,25 @@
 <?php
 
-namespace woo_bookkeeping\Modules\dkPlus;
+namespace woo_bookkeeping\App\Modules\dkPlus;
 
-class Ajax
+class Ajax extends Main
 {
-    private array $settings;
-
     public function __construct()
     {
-        if (!current_user_can('manage_options') || empty($_POST['data'])) return;
 
-        $this->settings = get_option(PLUGIN_SLUG);
         $this->registerActions();
     }
 
     public function syncProductsAll()
     {
-        $dkPlus = new dkPlus($this->settings['dkPlus']);
-
         $params = [];
         parse_str($_POST['data'], $params);
 
-        $dkPlus->productSyncAll(array_keys($params));
+        $product = new Product();
+        $product->productSyncAll(array_keys($params));
     }
 
-    /*public function sync_product_one()
+    /*public function syncProductsOne()
     {
         $dkPlus = new dkPlus($settings_option['dkPlus']);
 
@@ -40,7 +35,7 @@ class Ajax
      */
     private function registerActions()
     {
-        add_action('admin_action_dkPlus_sync_products_all', [$this, 'sync_products_all']);
+        add_action('admin_action_dkPlus_sync_products_all', [$this, 'syncProductsAll']);
     }
 
 }

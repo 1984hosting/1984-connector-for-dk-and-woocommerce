@@ -2,109 +2,71 @@
 
 namespace woo_bookkeeping\App\Core;
 
+use woo_bookkeeping\App\Modules\dkPlus\Main as dkPlus;
+
 class Main
 {
-    private array $settings;
+    public static array $settings;
+
+    /**
+     * @var array $actions - collection actions
+     */
+    public static array $actions;
+
+    /**
+     * @var array $styles - collection styles
+     */
+    public static array $styles;
+
+    /**
+     * @var array $scripts - collection scripts
+     *
+     */
+    public static array $scripts;
+
 
     public function __construct()
     {
-        $settings = get_option(PLUGIN_SLUG);
+        self::$settings = get_option(PLUGIN_SLUG);
 
-        $this->settings = $settings;
+        self::$styles = [
+            'main',
+        ];
+        self::$scripts = [
+            'main',
+        ];
+
+        $this->LoadModules();
         $this->registerActions();
     }
 
-    public function addAdminPages()
+    private function LoadModules()
     {
-        include_once WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . PLUGIN_SLUG . '/templates/dkPlus/settings.php';
-
+        new dkPlus(self::$settings);
+        new Page();
     }
 
-    public function addAdminMenus()
+    public function EnqueueScripts(): void
     {
-        add_menu_page(
-            PLUGIN_NAME,
-            PLUGIN_NAME,
-            'manage_options',
-            PLUGIN_SLUG,
-            //[self::class, 'addAdminPages'],
-            [$this, 'addAdminPages'],
-            'dashicons-buddicons-activity',
-            20,
-        );
-    }
+        if (!empty(self::$styles)) {
+            foreach (self::$styles as $style) {
+                wp_enqueue_style(PLUGIN_SLUG . '_' . $style, PLUGIN_URL . 'templates/assets/css/' . $style . '.css', [], time());
+            }
+        }
 
-    public function registerSettings()
-    {
-        register_setting(PLUGIN_SLUG, PLUGIN_SLUG);
+        if (empty(self::$scripts)) return;
 
-        add_settings_section('dkPlus', '', '', PLUGIN_SLUG);
+        foreach (self::$scripts as $script) {
+            if (filter_var($script, FILTER_VALIDATE_URL) === FALSE) {
+                $script_name = $script;
+                $script_uri = PLUGIN_URL . 'templates/assets/js/' . $script . '.js';
+            } else {
+                $script_name = pathinfo($script, PATHINFO_FILENAME);
+                $script_uri = $script;
+            }
 
-        add_settings_field(
-            'dkPlus_login',
-            'Login',
-            [$this, 'settings_fields_format'],
-            PLUGIN_SLUG,
-            'dkPlus',
-            [
-                'label_for' => 'dkPlus_login',
-                'name' => PLUGIN_SLUG . '[dkPlus][login]',
-                'type' => 'text',
-                'value' => !empty($this->settings['dkPlus']['login']) ? $this->settings['dkPlus']['login'] : '',
-                'placeholder' => 'Login',
-            ]
-        );
-        add_settings_field(
-            'dkPlus_password',
-            'Password',
-            [$this, 'settings_fields_format'],
-            PLUGIN_SLUG,
-            'dkPlus',
-            [
-                'label_for' => 'dkPlus_password',
-                'name' => PLUGIN_SLUG . '[dkPlus][password]',
-                'type' => 'password',
-                'value' => !empty($this->settings['dkPlus']['password']) ? $this->settings['dkPlus']['password'] : '',
-                'placeholder' => 'Password',
-            ]
-        );
-
-
-    }
-
-    public static function settings_fields_format($args)
-    {
-        $type = !empty($args['type']) ? $args['type'] : '';
-        $id = !empty($args['label_for']) ? $args['label_for'] : '';
-        $name = !empty($args['name']) ? $args['name'] : $id;
-        $value = !empty($args['value']) ? $args['value'] : 'text';
-        $placeholder = !empty($args['placeholder']) ? $args['placeholder'] : '';
-
-        printf(
-            '<input type="%1$s" id="%2$s" name="%3$s" value="%4$s" placeholder="%5$s" />',
-            esc_attr($type),
-            esc_attr($id),
-            esc_attr($name),
-            esc_attr($value),
-            esc_attr($placeholder),
-        );
-    }
-
-
-    public function WPInit()
-    {
-    }
-
-    public function WPAdminInit()
-    {
-        self::registerSettings();
-    }
-
-    public function EnqueueScripts()
-    {
-        wp_enqueue_style(PLUGIN_SLUG . '_main', PLUGIN_URL . 'assets/css/main.css');
-
-        wp_enqueue_script(PLUGIN_SLUG . '_main', PLUGIN_URL . 'assets/js/main.js');
+            wp_enqueue_script(PLUGIN_SLUG . '_' . $style, $script_uri, [], time(), true);
+        }
 
         wp_localize_script(PLUGIN_SLUG . '_main', 'ajax', [
             'url' => esc_url(admin_url('admin.php')),
@@ -113,10 +75,6 @@ class Main
 
     protected function registerActions()
     {
-        add_action('init', [$this, 'WPInit']);
-        add_action('admin_menu', [$this, 'addAdminMenus'], 25);
-        add_action('admin_init', [$this, 'WPAdminInit'], 25);
         add_action('admin_enqueue_scripts', [$this, 'EnqueueScripts'], 99);
-        //add_action('after_setup_theme', [$this, 'load_text_domain']);
     }
 }

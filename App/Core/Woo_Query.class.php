@@ -5,15 +5,14 @@ class Woo_Query
 {
 
     /**
-     * Returns the *Singleton* instance of this class.
+     * Returns the *Woo_Query* instance of this class.
      *
-     * @staticvar Singleton $instance The *Singleton* instances of this class.
+     * @staticvar Woo_Query $instance The *Woo_Query* instances of this class.
      *
-     * @return Singleton The *Singleton* instance.
+     * @return Woo_Query The *Woo_Query* instance.
      */
     public static function getInstance()
     {
-
         static $instance = null;
         if ( NULL === $instance)
         {
@@ -26,25 +25,25 @@ class Woo_Query
 
     /**
      * Protected constructor to prevent creating a new instance of the
-     * *Singleton* via the `new` operator from outside of this class.
+     * *Woo_Query* via the `new` operator from outside of this class.
      */
     protected function __construct() { }
 
     /**
      * Private clone method to prevent cloning of the instance of the
-     * *Singleton* instance.
+     * *Woo_Query* instance.
      *
      * @return void
      */
     private function __clone() { }
 
     /**
-     * Private unserialize method to prevent unserializing of the *Singleton*
+     * Private unserialize method to prevent unserializing of the *Woo_Query*
      * instance.
      *
      * @return void
      */
-    private function __wakeup() { }
+    //private function __wakeup() { }
 
 
     /**

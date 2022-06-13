@@ -1,10 +1,12 @@
 <?php
 
-namespace woo_bookkeeping\Modules\dkPlus;
+namespace woo_bookkeeping\App\Modules\dkPlus;
 
 class Product extends \woo_bookkeeping\App\Core\Woo_Query
 {
     use API;
+
+    public function __construct() { }
 
     public function productSyncOne(array $needed_fields, $product_id): bool
     {
@@ -85,6 +87,7 @@ class Product extends \woo_bookkeeping\App\Core\Woo_Query
 
     private function productFetchAll(): array
     {
+        var_dump($this->getToken());die();
         $method = '/Product';
         $args = [
             'headers' => [

@@ -1,18 +1,18 @@
 <?php
-namespace woo_bookkeeping\Modules\dkPlus;
+namespace woo_bookkeeping\App\Modules\dkPlus;
 
 use woo_bookkeeping\App\Core\WP_Notice;
 
 trait API
 {
-    private static array $dkPlus;
-    private static string $token = '';
+    public static array $dkPlus = [];
+    private static $token = '';
     private string $api_url = 'https://api.dkplus.is/api/v1';
 
     public function getToken()
     {
-        if (!empty($data->dkPlus['token'])) {
-            self::$token = $data['token'];
+        if (!empty(self::$dkPlus[Main::$module_slug]['token'])) {
+            self::$token = self::$dkPlus[Main::$module_slug]['token'];
         } else {
             $this->setToken();
         }
@@ -28,10 +28,8 @@ trait API
             return;
         }
 
-        self::$dkPlus['token'] = self::$token;
-        $data_update['dkPlus'] = self::$dkPlus;
-
-        update_option(PLUGIN_SLUG, $data_update, 'no');
+        self::$dkPlus[Main::$module_slug]['token'] = self::$token;
+        update_option(PLUGIN_SLUG, self::$dkPlus, 'no');
     }
 
     private function createToken(): void
@@ -39,7 +37,7 @@ trait API
         $method = '/token';
         $args = [
             'headers' => [
-                'Authorization' => 'Basic ' . base64_encode(self::$dkPlus['login'] . ':' . self::$dkPlus['password']),
+                'Authorization' => 'Basic ' . base64_encode(self::$dkPlus[Main::$module_slug]['login'] . ':' . self::$dkPlus[Main::$module_slug]['password']),
                 'Content-type' => 'application/x-www-form-urlencoded',
             ],
             'body' => [
