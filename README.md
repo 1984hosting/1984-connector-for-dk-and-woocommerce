@@ -63,6 +63,10 @@ Products are synchronized between Woocommerce and DK by product ID (SKU). Inform
 
 * Products are reserved when they are placed in a cart. After a configurable amount of minutes (default 20), the cart is emptied and the item returned into stock.
 
+### Payment and invoicing
+
+* Invoices are sent once the user has completed the purchase, including payment.
+
 # Technical Notes
 
 ## DK API
