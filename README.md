@@ -57,6 +57,10 @@ The project is managed by [Helgi](mailto:helgi@1984.is) on behalf of [1984 Hosti
 
 Products are synchronized between Woocommerce and DK by product ID (SKU). Information about the product is entered into the site, but the quantity and whether an item is in stock, is determined on DK's side. (See [issue #1](https://github.com/1984hosting/woocoo/issues/1).)
 
+### Cart behavior
+
+* Products are reserved when they are placed in a cart. After a configurable amount of minutes (default 20), the cart is emptied and the item returned into stock.
+
 # Technical Notes
 
 ## DK API
