@@ -33,7 +33,7 @@ class Ajax extends Main
      * Ajax actions
      * dkPlus_sync_products_all
      */
-    private function registerActions()
+    public function registerActions()
     {
         add_action('admin_action_dkPlus_sync_products_all', [$this, 'syncProductsAll']);
     }

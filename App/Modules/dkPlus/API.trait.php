@@ -1,43 +1,56 @@
 <?php
+
 namespace woo_bookkeeping\App\Modules\dkPlus;
 
+use woo_bookkeeping\App\Core\Main as Core;
 use woo_bookkeeping\App\Core\WP_Notice;
 
 trait API
 {
-    public static array $dkPlus = [];
     private static $token = '';
-    private string $api_url = 'https://api.dkplus.is/api/v1';
+    private static string $api_url = 'https://api.dkplus.is/api/v1';
 
-    public function getToken()
+
+    public static function getToken()
     {
-        if (!empty(self::$dkPlus[Main::$module_slug]['token'])) {
-            self::$token = self::$dkPlus[Main::$module_slug]['token'];
-        } else {
-            $this->setToken();
+        static $token = null;
+
+        if (NULL === $token) {
+            $settings = Core::getInstance();
+
+            if (!empty($settings[Main::getModuleSlug()]['token'])) {
+                $token = $settings[Main::getModuleSlug()]['token'];
+            } else {
+                self::setToken();
+            }
         }
+
+        return $token;
     }
 
     //todo: check valid token, if isn't valid -> update
-    private function setToken(): void
+    private static function setToken(): void
     {
-        $this->createToken();
+        $new_settings = Core::getInstance();
+
+        self::createToken($new_settings);
 
         if (empty(self::$token)) {
             new WP_Notice('error', 'Error: Please, check the correctness of the login and password.');
             return;
         }
 
-        self::$dkPlus[Main::$module_slug]['token'] = self::$token;
-        update_option(PLUGIN_SLUG, self::$dkPlus, 'no');
+
+        $new_settings[self::getModuleSlug()]['token'] = self::$token;
+        update_option(PLUGIN_SLUG, $new_settings, 'no');
     }
 
-    private function createToken(): void
+    private static function createToken($data): void
     {
         $method = '/token';
         $args = [
             'headers' => [
-                'Authorization' => 'Basic ' . base64_encode(self::$dkPlus[Main::$module_slug]['login'] . ':' . self::$dkPlus[Main::$module_slug]['password']),
+                'Authorization' => 'Basic ' . base64_encode($data[self::getModuleSlug()]['login'] . ':' . $data[self::getModuleSlug()]['password']),
                 'Content-type' => 'application/x-www-form-urlencoded',
             ],
             'body' => [
@@ -46,16 +59,60 @@ trait API
             'method' => 'POST',
         ];
 
-        $result = $this->request($method, $args);
+        $result = self::request($method, $args);
 
         if (!empty($result['Token'])) {
             self::$token = $result['Token'];
         }
     }
 
-    private function request(string $method, array $args): array
+
+    /**
+     * @param string $product_id - get product with dkPlus API
+     * @return array
+     */
+    /*private function productFetchOne(string $product_id): array
     {
-        $response = wp_remote_request($this->api_url . $method, $args);
+        $method = '/Product/' . $product_id; //:code
+        $args = [
+            'headers' => [
+                'Authorization' => 'Bearer ' . self::$token,
+                'Content-type' => 'application/x-www-form-urlencoded',
+            ],
+            'method' => 'GET',
+        ];
+
+        return $this->request($method, $args);
+    }*/
+
+    public function productFetchAll(): array
+    {
+        $products = $this->request('/Product', $this->setHeaders());
+        print_r($products);
+        return static::productMap($products);
+    }
+
+    public static function productMap($product)
+    {
+        //todo create template product
+        return ProductMap::ProductMap($product);
+    }
+
+    private function setHeaders()
+    {
+        return [
+            'headers' => [
+                'Authorization' => 'Bearer ' . self::$token,
+                'Content-type' => 'application/x-www-form-urlencoded',
+            ],
+            'method' => 'GET',
+            'timeout' => 30,
+        ];
+    }
+
+    private static function request(string $method, array $args): array
+    {
+        $response = wp_remote_request(self::$api_url . $method, $args);
         $body = wp_remote_retrieve_body($response);
 
         return json_decode($body, true);

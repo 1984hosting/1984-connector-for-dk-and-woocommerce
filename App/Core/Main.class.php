@@ -6,43 +6,62 @@ use woo_bookkeeping\App\Modules\dkPlus\Main as dkPlus;
 
 class Main
 {
-    public static array $settings;
+    public static array $settings = [];
 
     /**
-     * @var array $actions - collection actions
+     * collection actions
+     * @var array $actions
      */
-    public static array $actions;
+    public static array $actions = [];
 
     /**
-     * @var array $styles - collection styles
+     * collection styles
+     * @var array $styles
      */
-    public static array $styles;
+    public static array $styles = [];
 
     /**
-     * @var array $scripts - collection scripts
+     * collection scripts
+     * @var array $scripts
+     */
+    public static array $scripts = [];
+
+
+    /**
+     * Returns the *Main* instance of this class.
      *
+     * @staticvar Main $instance The *Main* instances of this class.
+     *
+     * @return Main The *Main* instance.
      */
-    public static array $scripts;
-
-
-    public function __construct()
+    public static function getInstance()
     {
-        self::$settings = get_option(PLUGIN_SLUG);
+        static $settings = null;
+        if (NULL === $settings) {
+            $settings = get_option(PLUGIN_SLUG);
+        }
 
+        return $settings;
+    }
+
+
+    public static function LoadCore()
+    {
         self::$styles = [
-            'main',
+            //'main',
         ];
         self::$scripts = [
             'main',
         ];
 
-        $this->LoadModules();
-        $this->registerActions();
+        $main = new Main();
+        $main->LoadModules();
+        $main->registerActions();
     }
 
     private function LoadModules()
     {
-        new dkPlus(self::$settings);
+        new dkPlus(self::getInstance());
         new Page();
     }
 
@@ -65,7 +84,7 @@ class Main
                 $script_uri = $script;
             }
 
-            wp_enqueue_script(PLUGIN_SLUG . '_' . $style, $script_uri, [], time(), true);
+            wp_enqueue_script(PLUGIN_SLUG . '_' . $script, $script_uri, [], time(), true);
         }
 
         wp_localize_script(PLUGIN_SLUG . '_main', 'ajax', [
@@ -76,5 +95,18 @@ class Main
     protected function registerActions()
     {
         add_action('admin_enqueue_scripts', [$this, 'EnqueueScripts'], 99);
+    }
+
+
+    protected function __construct()
+    {
+    }
+
+    private function __clone()
+    {
+    }
+
+    public function __wakeup()
+    {
     }
 }

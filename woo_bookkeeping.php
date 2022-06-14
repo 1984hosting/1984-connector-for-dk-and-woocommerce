@@ -40,7 +40,7 @@ function woo_bookkeeping_load()
     }
 
     /** Load plugin core */
-    new woo_bookkeeping\App\Core\Main();
+    woo_bookkeeping\App\Core\Main::LoadCore();
 
     return true;
 }

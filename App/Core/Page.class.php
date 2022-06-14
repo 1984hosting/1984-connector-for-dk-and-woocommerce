@@ -4,10 +4,15 @@ namespace woo_bookkeeping\App\Core;
 
 class Page
 {
+    /**
+     * Variable tpl name from plugin_uri/templates/
+     * @var string $tpl_name
+     */
     public static string $tpl_name;
 
     public function __construct()
     {
+
         self::$tpl_name = 'settings';
 
         $this->addContentPlugin();
@@ -17,7 +22,7 @@ class Page
     public function addContentPlugin()
     {
         add_action(PLUGIN_SLUG . '_content', function() {
-            include_once PLUGIN_TPL_DIR . '/dkPlus/' . self::$tpl_name . '.php';
+            include_once PLUGIN_TPL_DIR . '/' . self::$tpl_name . '.php';
         }, 10);
     }
 
@@ -51,6 +56,8 @@ class Page
 
     public function registerSettings()
     {
+        $settings = Main::getInstance();
+
         register_setting(PLUGIN_SLUG, PLUGIN_SLUG);
 
         add_settings_section('dkPlus', '', '', PLUGIN_SLUG);
@@ -65,7 +72,7 @@ class Page
                 'label_for' => 'dkPlus_login',
                 'name' => PLUGIN_SLUG . '[dkPlus][login]',
                 'type' => 'text',
-                'value' => !empty(Main::$settings['dkPlus']['login']) ? Main::$settings['dkPlus']['login'] : '',
+                'value' => !empty($settings['dkPlus']['login']) ? $settings['dkPlus']['login'] : '',
                 'placeholder' => 'Login',
             ]
         );
@@ -79,7 +86,7 @@ class Page
                 'label_for' => 'dkPlus_password',
                 'name' => PLUGIN_SLUG . '[dkPlus][password]',
                 'type' => 'password',
-                'value' => !empty(Main::$settings['dkPlus']['password']) ? Main::$settings['dkPlus']['password'] : '',
+                'value' => !empty($settings['dkPlus']['password']) ? $settings['dkPlus']['password'] : '',
                 'placeholder' => 'Password',
             ]
         );

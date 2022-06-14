@@ -34,7 +34,7 @@ class Product extends \woo_bookkeeping\App\Core\Woo_Query
      */
     public function productSyncAll(array $needed_fields): bool
     {
-        $dkPlus_products = $this->productFetchAll();
+        $dkPlus_products = $this->productFetchAll(); //todo set classmapper
 
         if (empty($dkPlus_products)) return true;
 
@@ -67,39 +67,6 @@ class Product extends \woo_bookkeeping\App\Core\Woo_Query
         return true;
     }
 
-    /**
-     * @param string $product_id - get product with dkPlus API
-     * @return array
-     */
-    private function productFetchOne(string $product_id): array
-    {
-        $method = '/Product/' . $product_id; //:code
-        $args = [
-            'headers' => [
-                'Authorization' => 'Bearer ' . self::$token,
-                'Content-type' => 'application/x-www-form-urlencoded',
-            ],
-            'method' => 'GET',
-        ];
-
-        return $this->request($method, $args);
-    }
-
-    private function productFetchAll(): array
-    {
-        var_dump($this->getToken());die();
-        $method = '/Product';
-        $args = [
-            'headers' => [
-                'Authorization' => 'Bearer ' . self::$token,
-                'Content-type' => 'application/x-www-form-urlencoded',
-            ],
-            'method' => 'GET',
-            'timeout' => 30,
-        ];
-
-        return $this->request($method, $args);
-    }
 
     /**
      * @param int $product_id
@@ -169,13 +136,11 @@ class Product extends \woo_bookkeeping\App\Core\Woo_Query
                 'field' => 'min_price',
                 'table' => 'wc_product_meta_lookup',
                 'tag_id' => 'product_id',
-                'callback' => 'setPrice'
             ],
             'UnitQuantity' => [//TotalQuantityInWarehouse todo: waiting for a response from the customer
                 'field' => 'stock_quantity',
                 'table' => 'wc_product_meta_lookup',
                 'tag_id' => 'product_id',
-                'callback' => 'setQty',
             ],
         ];
 
