@@ -59,6 +59,8 @@ Products are synchronized between Woocommerce and DK by product ID (SKU). Inform
 
 ### Cart behavior
 
+* Product quantity can be cached for a configurable amount of minutes, to reduce hits to back-end system (DK). The default cache is 0 minutes, which means it's disabled. Product quantity is still always checked when a) a user views a product and b) when the user adds that item to the cart. In listings from then on, cache is used.
+
 * Products are reserved when they are placed in a cart. After a configurable amount of minutes (default 20), the cart is emptied and the item returned into stock.
 
 # Technical Notes
