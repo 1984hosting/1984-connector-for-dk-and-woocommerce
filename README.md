@@ -46,12 +46,16 @@ The project is managed by [Helgi](mailto:helgi@1984.is) on behalf of [1984 Hosti
 
 - [ ] Investigate current options to connect WooCommerce to inventory and bookkeeping systems.
 
-## Required functionality
+## Functionality
 
 - [ ] Inventory accounting connected to WooCommerce.
 - [ ] Set inventory status when item is placed in cart.
 - [ ] Mark product as purchesed on payment.
 - [ ] Create and send invoice.
+
+### Product synchronization
+
+Products are synchronized between Woocommerce and DK by product ID (SKU). Information about the product is entered into the site, but the quantity and whether an item is in stock, is determined on DK's side. (See [issue #1](https://github.com/1984hosting/woocoo/issues/1).)
 
 # Technical Notes
 
