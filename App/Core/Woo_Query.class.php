@@ -50,7 +50,7 @@ class Woo_Query
      * @param string $fields
      * @return array|\stdClass[]
      */
-    public function getProducts(string $fields): array
+    public static function getProducts(string $fields): array
     {
         $table = 'wc_product_meta_lookup';
 
@@ -61,12 +61,44 @@ class Woo_Query
      * @param string $fields
      * @return array|\stdClass[]
      */
-    public function getProduct(string $fields, int $product_id): array
+    public static function getProduct(string $fields, int $product_id): array
     {
         $table = 'wc_product_meta_lookup';
 
-        return self::getInstance()->get_results('SELECT ' . $fields . ' FROM `' . self::getInstance()->prefix . $table . '` WHERE `product_id` = ' . $product_id . ' LIMIT 1', ARRAY_A);
+        return self::getInstance()->get_results('SELECT ' . $fields . ' FROM `' . self::getInstance()->prefix . $table . '` WHERE `product_id` = ' . $product_id . ' LIMIT 1', ARRAY_A)[0];
     }
+
+    /**
+     * Update product price
+     * @param $price - new price
+     * @param $post_id - post id
+     */
+    /*private function updatePrice($price, $post_id)
+    {
+        $this->update([
+            'meta_value' => $price,
+        ], 'postmeta', [
+            'post_id' => $post_id,
+            'meta_key' => '_price'
+        ]);
+    }*/
+
+    /**
+     * Update product quantity
+     * @param $qty - new quantity
+     * @param $post_id - post id
+     */
+    /*public function updateStock($qty, $post_id)
+    {
+        //wc_update_product_stock (  $post_id ,  $qty  ) ;
+
+        $this->update([
+            'meta_value' => $qty,
+        ], 'postmeta', [
+            'post_id' => $post_id,
+            'meta_key' => '_stock'
+        ]);
+    }*/
 
     /**
      * @param string $table

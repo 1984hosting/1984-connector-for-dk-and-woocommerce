@@ -4,6 +4,7 @@ namespace woo_bookkeeping\App\Modules\dkPlus;
 
 use woo_bookkeeping\App\Core\Main as Core;
 use woo_bookkeeping\App\Core\WP_Notice;
+//use woo_bookkeeping\App\Core\Woo_Query;
 
 trait API
 {
@@ -59,7 +60,7 @@ trait API
             'method' => 'POST',
         ];
 
-        $result = self::request($method, $args);
+        $result = static::request($method, $args);
 
         if (!empty($result['Token'])) {
             self::$token = $result['Token'];
@@ -68,41 +69,49 @@ trait API
 
 
     /**
-     * @param string $product_id - get product with dkPlus API
-     * @return array
+     * getting a product with a dkplus API
+     * @param string $product_sku
+     * @return array Product data
      */
-    /*private function productFetchOne(string $product_id): array
+    public static function productFetchOne(string $product_sku): array
     {
-        $method = '/Product/' . $product_id; //:code
-        $args = [
-            'headers' => [
-                'Authorization' => 'Bearer ' . self::$token,
-                'Content-type' => 'application/x-www-form-urlencoded',
-            ],
-            'method' => 'GET',
-        ];
+        $products = static::request('/Product/' . $product_sku, static::setHeaders());
 
-        return $this->request($method, $args);
-    }*/
+        $result = static::productMap($products);
 
-    public function productFetchAll(): array
-    {
-        $products = $this->request('/Product', $this->setHeaders());
-        print_r($products);
-        return static::productMap($products);
+        return $result;
     }
 
+    /**
+     * getting all products with dkplus API
+     * @return array Products
+     */
+    public function productFetchAll(): array
+    {
+        $products = static::request('/Product', static::setHeaders());
+        $result = [];
+
+        foreach($products as $product) {
+            $result[] = static::productMap($product);
+        }
+
+        return $result;
+    }
+
+    /**
+     * getting one a product with dkplus API
+     * @return array
+     */
     public static function productMap($product)
     {
-        //todo create template product
         return ProductMap::ProductMap($product);
     }
 
-    private function setHeaders()
+    private static function setHeaders()
     {
         return [
             'headers' => [
-                'Authorization' => 'Bearer ' . self::$token,
+                'Authorization' => 'Bearer ' . static::getToken(),
                 'Content-type' => 'application/x-www-form-urlencoded',
             ],
             'method' => 'GET',
@@ -112,7 +121,7 @@ trait API
 
     private static function request(string $method, array $args): array
     {
-        $response = wp_remote_request(self::$api_url . $method, $args);
+        $response = wp_remote_request(static::$api_url . $method, $args);
         $body = wp_remote_retrieve_body($response);
 
         return json_decode($body, true);

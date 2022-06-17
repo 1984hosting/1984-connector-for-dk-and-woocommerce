@@ -51,8 +51,8 @@
                 [
                     'type' => 'checkbox', //require
                     'label' => 'Description', //require
-                    'id' => 'description', //require
-                    'name' => 'Description', //require
+                    'id' => 'set_description', //require
+                    'name' => 'set_description', //require
                     /*
                      * Description
                      */
@@ -61,8 +61,8 @@
                 [
                     'type' => 'checkbox',
                     'label' => 'Price',
-                    'id' => 'UnitPrice1',
-                    'name' => 'UnitPrice1',
+                    'id' => 'set_price',
+                    'name' => 'set_price',
                     /*
                      * todo: ??? UnitPrice1WithTax
                      */
@@ -71,8 +71,8 @@
                 [
                     'type' => 'checkbox',
                     'label' => 'Quantity',
-                    'id' => 'UnitQuantity',
-                    'name' => 'UnitQuantity',
+                    'id' => 'set_stock_quantity',
+                    'name' => 'set_stock_quantity',
                     /*
                      * todo: ??? TotalQuantityInWarehouse
                      */
@@ -81,13 +81,14 @@
                 [
                     'type' => 'checkbox',
                     'label' => 'Data modified',
-                    'id' => 'RecordModified',
-                    'name' => 'RecordModified',
-                    /*
-                     * > RecordModified //2022-05-20T11:52:59
-                     * >> post_modified  //2022-05-23 04:33:05
-                     */
+                    'id' => 'set_date_modified',
+                    'name' => 'set_date_modified',
                     'checked' => true,
+                ],
+                [
+                    'type' => 'hidden',
+                    'name' => 'action',
+                    'value' => 'dkPlus_sync_products_all',
                 ],
             ]; ?>
 
@@ -97,16 +98,20 @@
                     <br/>
                 <table class="form-table" role="presentation">
                     <tbody>
-                    <?php foreach ($syncParams as $param): ?>
-                        <tr>
-                            <th scope="row">
-                                <label for="<?php echo $param['id']; ?>"><?php echo $param['label']; ?></label>
-                            </th>
-                            <td>
-                                <input type="<?php echo $param['type']; ?>" id="<?php echo $param['id']; ?>" name="<?php echo $param['name']; ?>" <?php if (!empty($param['checked'])) echo 'checked'; ?>>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+                        <?php foreach ($syncParams as $param): ?>
+                            <?php if ($param['type'] === 'hidden'): ?>
+                                <input type="hidden" name="<?php echo $param['name']; ?>" value="<?php echo $param['value']; ?>">
+                            <?php else: ?>
+                                <tr>
+                                    <th scope="row">
+                                        <label for="<?php echo $param['id']; ?>"><?php echo $param['label']; ?></label>
+                                    </th>
+                                    <td>
+                                        <input type="<?php echo $param['type']; ?>" id="<?php echo $param['id']; ?>" name="<?php echo $param['name']; ?>" <?php if (!empty($param['checked'])) echo 'checked'; ?>>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
                 </p>

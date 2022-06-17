@@ -1,15 +1,16 @@
 (function ($) {
-    $(document).on('submit', '.dkPlus_sync', function (e) {
+    $('.dkPlus_sync').submit(function (e) {
         e.preventDefault()
 
         var form = $(this)
         var button = form.find('input[type="submit"]')
+        var action = form.find('input[name="action"]').val()
 
         $.ajax({
             url: ajax.url,
             type: 'POST',
             data: {
-                'action': 'dkPlus_sync_products_all',
+                'action': action,
                 'data': form.serialize()
             },
             beforeSend: function () {
@@ -17,7 +18,6 @@
             },
             success: function () {
                 button.prop('disabled', 0)
-                //$.ajax($fragment_refresh);
             }
         })
     })
