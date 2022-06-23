@@ -22,6 +22,12 @@ class Main extends \woo_bookkeeping\App\Core\Main
             return;
         }
 
+        //self::productUpdateDK('pih607gblbe');
+        /*$wc_product = new \WC_Product(16);
+        $wc_product->set_regular_price(663.71);
+
+        $wc_product->save();*/
+
         $this->getToken();
         $this->LoadModules();
 

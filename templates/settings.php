@@ -61,8 +61,8 @@
                 [
                     'type' => 'checkbox',
                     'label' => 'Price',
-                    'id' => 'set_price',
-                    'name' => 'set_price',
+                    'id' => 'set_regular_price',
+                    'name' => 'set_regular_price',
                     /*
                      * todo: ??? UnitPrice1WithTax
                      */
@@ -124,7 +124,6 @@
             );
             ?>
         </div>
-        <input type="hidden" name="action" value="dkPlus_sync">
     </form>
 
 

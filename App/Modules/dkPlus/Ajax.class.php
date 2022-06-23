@@ -36,7 +36,7 @@ class Ajax extends Main
     public function syncProductsOne()
     {
         $this->getParams();
-        Product::productSyncOne($this->params, $this->product_id);
+        echo json_encode(Product::productSyncOne($this->params, $this->product_id));
     }
 
     /**

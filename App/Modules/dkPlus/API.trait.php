@@ -82,6 +82,16 @@ trait API
         return $result;
     }
 
+    public static function productUpdateDK(string $product_sku)
+    {
+        $body = [
+            'UnitPrice1' => '333.76',
+        ];
+        $products = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $body));
+
+        return $products;
+    }
+
     /**
      * getting all products with dkplus API
      * @return array Products
@@ -107,14 +117,16 @@ trait API
         return ProductMap::ProductMap($product);
     }
 
-    private static function setHeaders()
+
+    private static function setHeaders($method = 'GET', $body = [])
     {
         return [
+            'body' => $body,
             'headers' => [
                 'Authorization' => 'Bearer ' . static::getToken(),
                 'Content-type' => 'application/x-www-form-urlencoded',
             ],
-            'method' => 'GET',
+            'method' => $method,
             'timeout' => 30,
         ];
     }

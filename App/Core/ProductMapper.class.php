@@ -17,4 +17,21 @@ abstract class ProductMapper
 
         return $result;
     }
+
+    static function ProductContentMap(array $product): array
+    {
+        $result = [];
+
+        foreach (static::Map as $relation) {
+            if (empty($relation['content'])) continue;
+            $result[$relation['content']] = $product[$relation['field']] ?? '';
+        }
+
+        return $result;
+    }
+
+    public static function toFloat($price): float
+    {
+        return number_format((float)$price, 2, '.', '');
+    }
 }

@@ -69,38 +69,6 @@ class Woo_Query
     }
 
     /**
-     * Update product price
-     * @param $price - new price
-     * @param $post_id - post id
-     */
-    /*private function updatePrice($price, $post_id)
-    {
-        $this->update([
-            'meta_value' => $price,
-        ], 'postmeta', [
-            'post_id' => $post_id,
-            'meta_key' => '_price'
-        ]);
-    }*/
-
-    /**
-     * Update product quantity
-     * @param $qty - new quantity
-     * @param $post_id - post id
-     */
-    /*public function updateStock($qty, $post_id)
-    {
-        //wc_update_product_stock (  $post_id ,  $qty  ) ;
-
-        $this->update([
-            'meta_value' => $qty,
-        ], 'postmeta', [
-            'post_id' => $post_id,
-            'meta_key' => '_stock'
-        ]);
-    }*/
-
-    /**
      * @param string $table
      * @param array $data
      * @return bool|int|\mysqli_result|resource|null

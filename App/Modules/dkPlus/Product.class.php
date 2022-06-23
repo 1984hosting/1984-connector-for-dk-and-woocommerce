@@ -7,17 +7,19 @@ use woo_bookkeeping\App\Core\Woo_Query;
 class Product extends \woo_bookkeeping\App\Core\Product
 {
 
-    public static function productSyncOne(array $needed_fields, $product_id): bool
+    public static function productSyncOne(array $needed_fields, $product_id): array
     {
         $product_sku = Woo_Query::getProduct('sku', $product_id)['sku'];
-        /*$product = wc_get_product( $product_id );
-        $product_sku = $product->get_sku();*/
+
+        if (empty($product_sku)) return ['status' => false];
 
         $product = API::productFetchOne($product_sku);
+        $product_update = self::productUpdate($needed_fields, $product_id, $product_sku, $product);
 
-        self::productUpdate($needed_fields, $product_id, $product_sku, $product);
+        $result['status'] = $product_update;
+        $result['content'] = ProductMap::ProductContentMap($product);
 
-        return true;
+        return $result;
     }
 
     public static function productSyncAll(array $needed_fields)
