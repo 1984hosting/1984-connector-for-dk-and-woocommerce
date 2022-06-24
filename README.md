@@ -46,12 +46,30 @@ The project is managed by [Helgi](mailto:helgi@1984.is) on behalf of [1984 Hosti
 
 - [ ] Investigate current options to connect WooCommerce to inventory and bookkeeping systems.
 
-## Required functionality
+## Functionality
 
 - [ ] Inventory accounting connected to WooCommerce.
 - [ ] Set inventory status when item is placed in cart.
 - [ ] Mark product as purchesed on payment.
 - [ ] Create and send invoice.
+
+### Product synchronization
+
+Products are synchronized between Woocommerce and DK by product ID (SKU). Information about the product is entered into the site, but the quantity and whether an item is in stock, is determined on DK's side. (See [issue #1](https://github.com/1984hosting/woocoo/issues/1).)
+
+### Pricing
+
+* Only one price field is supported per product, at least in the first version. Back-end systems such as DK may support multiple prices, for discounts or special deals but only the main price is used.
+
+### Cart behavior
+
+* Product quantity can be cached for a configurable amount of minutes, to reduce hits to back-end system (DK). The default cache is 0 minutes, which means it's disabled. Product quantity is still always checked when a) a user views a product and b) when the user adds that item to the cart. In listings from then on, cache is used.
+
+* Products are reserved when they are placed in a cart. After a configurable amount of minutes (default 20), the cart is emptied and the item returned into stock.
+
+### Payment and invoicing
+
+* Invoices are sent once the user has completed the purchase, including payment.
 
 # Technical Notes
 
