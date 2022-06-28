@@ -1,17 +1,18 @@
 (function ($) {
-    $('.dkPlus_sync').submit(function (e) {
+    $('.dkPlus_sync input[type="submit"]').click(function (e) {
         e.preventDefault()
 
-        var form = $(this)
-        var button = form.find('input[type="submit"]')
-        var action = form.find('input[name="action"]').val()
+        var button = $(this),
+            button_type = button.data('type'),
+            form = button.closest('.dkPlus_sync'),
+            action = form.find('input[name="action"]').val();
 
         $.ajax({
             url: ajax.url,
             type: 'POST',
             data: {
                 'action': action,
-                'data': form.serialize()
+                'data': form.serialize() + '&type=' + button_type
             },
             beforeSend: function () {
                 button.prop('disabled', 1)
@@ -21,6 +22,15 @@
             }
         })
     })
+
+    /*$('.dkPlus_sync').submit(function (e) {
+        e.preventDefault()
+
+        var form = $(this)
+        var button = form.find('input[type="submit"]')
+        var action = form.find('input[name="action"]').val()
+
+    })*/
 
     $('.product_sync_form button').click(function (e) {
         e.preventDefault()

@@ -10,29 +10,34 @@ class Page extends \woo_bookkeeping\App\Core\Page
         $this->registerActions();
     }
 
-
     /**
      * Add a custom product data tab
      */
-    public function product_tab_create( $default_tabs ) {
-        $default_tabs['custom_tab'] = array(
-            'label'   =>  __('dkPlus synchronization', PLUGIN_SLUG),
-            'target'  =>  'product_tab_content',
+    public function product_tab_create($default_tabs)
+    {
+        $default_tabs['custom_tab'] = [
+            'label' => __('dkPlus synchronization', PLUGIN_SLUG),
+            'target' => 'product_tab_content',
             'priority' => 25,
-            'class'   => array()
-        );
+            'class' => []
+        ];
         return $default_tabs;
     }
 
-    public function product_tab_content() {
+    /**
+     * Adds a sync tab for the product
+     */
+    public function product_tab_content()
+    {
         include_once PLUGIN_TPL_DIR . '/dkPlus/product-tab.php';
     }
 
-
-
+    /**
+     * Register required actions
+     */
     protected function registerActions()
     {
-        add_filter( 'woocommerce_product_data_tabs', [$this, 'product_tab_create'], 10, 1 );
-        add_action( 'woocommerce_product_data_panels', [$this, 'product_tab_content'] );
+        add_filter('woocommerce_product_data_tabs', [$this, 'product_tab_create'], 10, 1);
+        add_action('woocommerce_product_data_panels', [$this, 'product_tab_content']);
     }
 }

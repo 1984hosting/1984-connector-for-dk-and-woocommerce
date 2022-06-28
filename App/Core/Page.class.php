@@ -22,7 +22,7 @@ class Page
     public function addContentPlugin()
     {
         add_action(PLUGIN_SLUG . '_content', function() {
-            include_once PLUGIN_TPL_DIR . '/' . self::$tpl_name . '.php';
+            include_once PLUGIN_TPL_DIR . '/' . static::$tpl_name . '.php';
         }, 10);
     }
 

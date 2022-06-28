@@ -19,7 +19,7 @@ abstract class Product extends Woo_Query
      * @param $sku_field_name SKU field name in array
      * @return array Product data
      */
-    public function searchProduct(string $product_sku, array $products, $sku_field_name): array
+    public static function searchProduct(string $product_sku, array $products, string $sku_field_name): array
     {
         $found_key = array_search($product_sku, array_column($products, $sku_field_name));
 
@@ -28,7 +28,15 @@ abstract class Product extends Woo_Query
         return $products[$found_key];
     }
 
-    public static function productUpdate(array $needed_fields, $product_id, $product_sku, $product): bool
+    /**
+     * Product update in woocommerce
+     * @param array $needed_fields
+     * @param $product_id
+     * @param $product_sku
+     * @param $product
+     * @return bool
+     */
+    public static function productUpdate(array $needed_fields, $product_id, $product): bool
     {
         $wc_product = new \WC_Product($product_id);
 
@@ -42,39 +50,4 @@ abstract class Product extends Woo_Query
 
         return true;
     }
-
-
-
-    /*public function productSyncAll(array $needed_fields): bool
-    {
-        $dkPlus_products = $this->productFetchAll(); //todo set classmapper
-
-        if (empty($dkPlus_products)) return true;
-
-        $woo_products = Woo_Query::getProducts('product_id, sku');
-
-        foreach ($woo_products as $woo_product) {
-            $product_id = (int)$woo_product['product_id'];
-            $product_sku = $woo_product['sku'];
-
-            $found_key = array_search($product_sku, array_column($dkPlus_products, 'ItemCode'));
-
-            if (!$found_key) continue;
-
-            $product_data = $this->productData($product_id, $needed_fields, $dkPlus_products[$found_key]);
-        }
-
-        if (empty($product_data)) {
-            return true;
-        }
-
-        foreach ($product_data as $item) {
-            foreach ($item as $table => $data) {
-                $this->update($data['fields'], $table, $data['where']);
-            }
-        }
-
-        return true;
-    }*/
-
 }

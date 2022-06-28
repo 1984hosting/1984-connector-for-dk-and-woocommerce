@@ -25,9 +25,6 @@
                 'label' => 'Description', //require
                 'id' => 'set_description', //require
                 'name' => 'set_description', //require
-                /*
-                 * Description
-                 */
                 'checked' => true, //optional
             ],
             [
@@ -35,9 +32,6 @@
                 'label' => 'Price',
                 'id' => 'set_regular_price',
                 'name' => 'set_regular_price',
-                /*
-                 * todo: ??? UnitPrice1WithTax
-                 */
                 'checked' => true,
             ],
             [
@@ -45,9 +39,6 @@
                 'label' => 'Quantity',
                 'id' => 'set_stock_quantity',
                 'name' => 'set_stock_quantity',
-                /*
-                 * todo: ??? TotalQuantityInWarehouse
-                 */
                 'checked' => true,
             ],
             /*[

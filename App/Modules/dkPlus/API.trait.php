@@ -29,7 +29,6 @@ trait API
         return $token;
     }
 
-    //todo: check valid token, if isn't valid -> update
     private static function setToken(): void
     {
         $new_settings = Core::getInstance();
@@ -68,6 +67,16 @@ trait API
     }
 
 
+    /*public static function productUpdateDK(string $product_sku)
+    {
+        $body = [
+            'UnitPrice1' => '333.76',
+        ];
+        $products = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $body));
+
+        return $products;
+    }*/
+
     /**
      * getting a product with a dkplus API
      * @param string $product_sku
@@ -82,21 +91,11 @@ trait API
         return $result;
     }
 
-    public static function productUpdateDK(string $product_sku)
-    {
-        $body = [
-            'UnitPrice1' => '333.76',
-        ];
-        $products = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $body));
-
-        return $products;
-    }
-
     /**
      * getting all products with dkplus API
      * @return array Products
      */
-    public function productFetchAll(): array
+    public static function productFetchAll(): array
     {
         $products = static::request('/Product', static::setHeaders());
         $result = [];
@@ -116,7 +115,6 @@ trait API
     {
         return ProductMap::ProductMap($product);
     }
-
 
     private static function setHeaders($method = 'GET', $body = [])
     {

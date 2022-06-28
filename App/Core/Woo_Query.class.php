@@ -47,8 +47,9 @@ class Woo_Query
 
 
     /**
+     * Get all products from woocommerce
      * @param string $fields
-     * @return array|\stdClass[]
+     * @return array
      */
     public static function getProducts(string $fields): array
     {
@@ -58,8 +59,10 @@ class Woo_Query
     }
 
     /**
+     * Product search in woocommerce
      * @param string $fields
-     * @return array|\stdClass[]
+     * @param int $product_id
+     * @return array
      */
     public static function getProduct(string $fields, int $product_id): array
     {
@@ -71,9 +74,9 @@ class Woo_Query
     /**
      * @param string $table
      * @param array $data
-     * @return bool|int|\mysqli_result|resource|null
+     * @return bool|int
      */
-    public function create(string $table, array $data)
+    private function create(string $table, array $data)
     {
         return self::getInstance()->insert( self::getInstance()->prefix . $table, $data);
     }
@@ -82,9 +85,9 @@ class Woo_Query
      * @param array $fields
      * @param string $table
      * @param array $where
-     * @return bool|int|\mysqli_result|resource|null
+     * @return bool|int
      */
-    public function update(array $fields, string $table, array $where)
+    private function update(array $fields, string $table, array $where)
     {
         return self::getInstance()->update(self::getInstance()->prefix . $table, $fields, $where);
     }
@@ -92,9 +95,9 @@ class Woo_Query
     /**
      * @param array $table
      * @param array $where
-     * @return bool|int|\mysqli_result|resource|null
+     * @return bool|int
      */
-    public function delete(array $table, array $where)
+    private function delete(array $table, array $where)
     {
         return self::getInstance()->delete(self::getInstance()->prefix . $table, $where);
     }
