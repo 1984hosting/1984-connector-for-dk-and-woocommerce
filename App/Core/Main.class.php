@@ -57,6 +57,7 @@ class Main
         $main = new Main();
         $main->LoadModules();
         $main->registerActions();
+        CronSchedule::registerActions();
     }
 
     private function LoadModules()
@@ -96,7 +97,6 @@ class Main
     {
         add_action('admin_enqueue_scripts', [$this, 'EnqueueScripts'], 99);
     }
-
 
     protected function __construct()
     {

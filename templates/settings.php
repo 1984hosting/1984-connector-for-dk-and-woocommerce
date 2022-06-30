@@ -1,3 +1,8 @@
+<?php
+$main = \woo_bookkeeping\App\Core\Main::getInstance();
+$dkPlus = !empty($main['dkPlus']) ? $main['dkPlus'] : false;
+$dkPlus_schedule = !empty($dkPlus['schedule']) ? $dkPlus['schedule'] : false;
+?>
 <div class="wrap">
     <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 
@@ -22,7 +27,6 @@
     </form>
 
     <form method="post" action="" class="dkPlus_sync">
-        <?php $dkPlus = \woo_bookkeeping\App\Core\Main::getInstance()['dkPlus']['schedule']; ?>
         <div id="universal-message-container">
             <h2><?php echo esc_html(__('Product synchronization', PLUGIN_SLUG)); ?></h2>
             <?php $syncParams = [
@@ -41,6 +45,11 @@
                     'label' => 'Quantity',
                     'id' => 'set_stock_quantity',
                     'name' => 'set_stock_quantity',
+                ], [
+                    'type' => 'checkbox',
+                    'label' => 'Enable stock (if disabled)',
+                    'id' => 'set_manage_stock',
+                    'name' => 'set_manage_stock',
                 ], [
                     'type' => 'checkbox',
                     'label' => 'Data modified',
@@ -68,7 +77,7 @@
                                         <label for="<?php echo $param['id']; ?>"><?php echo $param['label']; ?></label>
                                     </th>
                                     <td>
-                                        <input type="<?php echo $param['type']; ?>" id="<?php echo $param['id']; ?>" name="<?php echo $param['name']; ?>" <?php if (in_array($param['name'], $dkPlus['params'])) echo 'checked'; ?>>
+                                        <input type="<?php echo $param['type']; ?>" id="<?php echo $param['id']; ?>" name="<?php echo $param['name']; ?>" <?php if (isset($dkPlus_schedule['params']) && in_array($param['name'], $dkPlus_schedule['params'])) echo 'checked'; ?>>
                                     </td>
                                 </tr>
                             <?php endif; ?>
@@ -81,7 +90,7 @@
                                 <?php $variations = \woo_bookkeeping\App\Modules\dkPlus\Events::getVariations(); ?>
                                 <select class="postform" name="woocoo_schedule" id="woocoo_schedule" required="">
                                     <?php foreach ($variations as $key => $variation): ?>
-                                        <option value="<?php echo $key; ?>" <?php if (isset($dkPlus['name']) && $dkPlus['name'] === $key) echo 'selected'; ?>><?php echo $variation['display']; ?></option>
+                                        <option value="<?php echo $key; ?>" <?php if (isset($dkPlus_schedule['name']) && $dkPlus_schedule['name'] === $key) echo 'selected'; ?>><?php echo $variation['display']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </td>
@@ -115,6 +124,5 @@
             </p>
         </div>
     </form>
-
 
 </div><!-- .wrap -->

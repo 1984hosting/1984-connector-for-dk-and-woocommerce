@@ -48,7 +48,7 @@ class loader
             $item = $_item;
         }
 
-        $this->loadClass($item) || $this->loadInterface($item) || $this->loadTrait($item);
+        $this->loadClass($item) || $this->loadInterface($item) || $this->loadTrait($item) || var_dump($item);
     }
 
     public function loadClass($classname): bool

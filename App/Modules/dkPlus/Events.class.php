@@ -51,8 +51,15 @@ class Events extends CronSchedule
 
     public static function register_cron_events()
     {
+        add_action(
+            'woocoo_update_products_' . Main::$module_slug,
+            [self::class, 'run']
+        );
+    }
+
+    public static function run() {
         $settings = Main::getInstance();
 
-        add_action('woocoo_update_products_' . Main::$module_slug, [Product::class, 'productSyncAll', $settings]);
+        Product::productSyncAll($settings[Main::$module_slug]['schedule']['params']);
     }
 }

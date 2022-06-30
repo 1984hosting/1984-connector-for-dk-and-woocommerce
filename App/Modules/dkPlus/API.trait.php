@@ -36,6 +36,8 @@ trait API
         self::createToken($new_settings);
 
         if (empty(self::$token)) {
+            if (!isset($_GET['page']) || $_GET['page'] !== 'woo_bookkeeping') return;
+
             new WP_Notice('error', 'Error: Please, check the correctness of the login and password.');
             return;
         }

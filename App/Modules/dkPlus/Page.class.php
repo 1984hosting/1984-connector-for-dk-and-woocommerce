@@ -7,6 +7,13 @@ class Page extends \woo_bookkeeping\App\Core\Page
 {
     function __construct()
     {
+        $settings = Main::getInstance();
+
+        /**
+         * If dk params isn't valid, disable tab for the product
+         */
+        if (empty($settings[Main::$module_slug]['token'])) return;
+
         $this->registerActions();
     }
 

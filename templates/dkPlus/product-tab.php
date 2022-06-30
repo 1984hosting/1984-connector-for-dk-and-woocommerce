@@ -25,35 +25,26 @@
                 'label' => 'Description', //require
                 'id' => 'set_description', //require
                 'name' => 'set_description', //require
-                'checked' => true, //optional
-            ],
-            [
+            ], [
                 'type' => 'checkbox',
                 'label' => 'Price',
                 'id' => 'set_regular_price',
                 'name' => 'set_regular_price',
-                'checked' => true,
-            ],
-            [
+            ], [
                 'type' => 'checkbox',
                 'label' => 'Quantity',
                 'id' => 'set_stock_quantity',
                 'name' => 'set_stock_quantity',
-                'checked' => true,
-            ],
-            /*[
+            ], [
                 'type' => 'checkbox',
-                'label' => 'Data modified',
-                'id' => 'set_date_modified',
-                'name' => 'set_date_modified',
-                'checked' => true,
-            ],*/
-            [
+                'label' => 'Enable stock (if disabled)',
+                'id' => 'set_manage_stock',
+                'name' => 'set_manage_stock',
+            ], [
                 'type' => 'hidden',
                 'name' => 'sync_action',
                 'value' => 'dkPlus_sync_products_one',
-            ],
-            [
+            ], [
                 'type' => 'hidden',
                 'name' => 'product_id',
                 'value' => get_the_ID(),

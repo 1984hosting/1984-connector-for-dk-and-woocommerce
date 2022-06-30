@@ -14,6 +14,9 @@ class Ajax extends Main
         $this->registerActions();
     }
 
+    /**
+     * Getting parameters passed in ajax request
+     */
     private function getParams(): void
     {
         $params = [];
@@ -34,10 +37,14 @@ class Ajax extends Main
         $this->params = array_keys($params);
     }
 
+    /**
+     * Saving sync settings
+     */
     public function syncSave()
     {
         $this->getParams();
 
+        //if selected button save and sync (additional synchronization is performed)
         if ($this->button_type === 'save_and_sync') {
             Product::productSyncAll($this->params);
         }
@@ -45,6 +52,9 @@ class Ajax extends Main
         $this->saveOptions();
     }
 
+    /**
+     * Saving Options and Installing a Cron Job
+     */
     private function saveOptions()
     {
         $settings = Main::getInstance();
@@ -55,7 +65,7 @@ class Ajax extends Main
 
         wp_clear_scheduled_hook($task_name); //remove old event
 
-        if (isset($this->woocoo_schedule) && $this->woocoo_schedule !== 'disabled') {
+        if (isset($this->woocoo_schedule) && $this->woocoo_schedule !== 'disabled' && $settings[static::$module_slug]['token']) {
             $settings[static::$module_slug]['schedule']['name'] = $this->woocoo_schedule;
 
             wp_schedule_event(time(), $this->woocoo_schedule, $task_name);
@@ -64,13 +74,9 @@ class Ajax extends Main
         update_option(PLUGIN_SLUG, $settings, 'no');
     }
 
-    /*public function syncProductsAll()
-    {
-        $this->getParams();
-
-        Product::productSyncAll($this->params);
-    }*/
-
+    /**
+     * Synchronization of a single product
+     */
     public function syncProductsOne()
     {
         $this->getParams();
@@ -88,5 +94,4 @@ class Ajax extends Main
         add_action('admin_action_dkPlus_save_sync', [$this, 'syncSave']);
         add_action('admin_action_dkPlus_sync_products_one', [$this, 'syncProductsOne']);
     }
-
 }

@@ -19,6 +19,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
         if (empty($product_sku)) return ['status' => false];
 
         $product = API::productFetchOne($product_sku);
+        $product['set_manage_stock'] = true;
         $product_update = self::productUpdate($needed_fields, $product_id, $product);
 
         $result['status'] = $product_update;
@@ -41,6 +42,8 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
         foreach ($products as $product) {
             $product_prop = self::searchProduct($product['sku'], $dkProducts, 'sku');
+            $product_prop['set_manage_stock'] = true;
+
             self::productUpdate($needed_fields, $product['product_id'], $product_prop);
         }
 
