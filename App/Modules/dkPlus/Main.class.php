@@ -18,6 +18,8 @@ class Main extends \woo_bookkeeping\App\Core\Main
         static::$module_slug = self::getModuleSlug();
 
         if (empty($settings[static::$module_slug]['login']) || empty($settings[static::$module_slug]['password'])) {
+            if (!isset($_GET['page']) || $_GET['page'] !== PLUGIN_SLUG) return;
+
             new WP_Notice('error', 'Error: Please, check the correctness of the login and password.');
             return;
         }

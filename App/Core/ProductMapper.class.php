@@ -10,10 +10,15 @@ abstract class ProductMapper
     {
         $result = [];
         foreach (static::Map as $key => $relation) {
-            $result[$relation['field']] = !empty($relation['callback']) ? call_user_func($relation['callback'], $product[$key]) : ($product[$key] ?? '');
+            $result[$relation['field']] = !empty($relation['callback']) ? call_user_func($relation['callback'], $product[$key] ?? '') : ($product[$key] ?? '');
         }
 
         return $result;
+    }
+
+    public static function setBoolTrue(): float
+    {
+        return true;
     }
 
     public static function toFloat($price): float

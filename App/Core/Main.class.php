@@ -58,6 +58,7 @@ class Main
         $main->LoadModules();
         $main->registerActions();
         CronSchedule::registerActions();
+
     }
 
     private function LoadModules()

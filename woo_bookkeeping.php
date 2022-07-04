@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
 /**
  * Plugin global settings
  */
-define('PLUGIN_SLUG', 'woo_bookkeeping');
+define('PLUGIN_SLUG', basename(__DIR__));
 define('PLUGIN_NAME', __('Woo Bookkeeping', PLUGIN_SLUG));
 define('PLUGIN_URL', plugin_dir_url(__FILE__));
 

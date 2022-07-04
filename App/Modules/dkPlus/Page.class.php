@@ -39,6 +39,29 @@ class Page extends \woo_bookkeeping\App\Core\Page
         include_once PLUGIN_TPL_DIR . '/dkPlus/product-tab.php';
     }
 
+
+    public function create_meta_box()
+    {
+
+        add_meta_box(
+            'dkplus', //id
+            'dkPlus sync', //title
+            [$this, 'meta_box_content'], //callback content function
+            'product', //post type
+            'side', //position (normal, side, advanced)
+            'high' //priority (default, low, high, core)
+        );
+
+    }
+
+    public function meta_box_content($post)
+    {
+
+        echo 'hello';
+
+    }
+
+
     /**
      * Register required actions
      */
@@ -46,5 +69,6 @@ class Page extends \woo_bookkeeping\App\Core\Page
     {
         add_filter('woocommerce_product_data_tabs', [$this, 'product_tab_create'], 10, 1);
         add_action('woocommerce_product_data_panels', [$this, 'product_tab_content']);
+        add_action('add_meta_boxes', [$this, 'create_meta_box']);
     }
 }

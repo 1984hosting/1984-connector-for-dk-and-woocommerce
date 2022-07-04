@@ -71,6 +71,16 @@ class Woo_Query
         return self::getInstance()->get_results('SELECT ' . $fields . ' FROM `' . self::getInstance()->prefix . $table . '` WHERE `product_id` = ' . $product_id . ' LIMIT 1', ARRAY_A)[0];
     }
 
+    public static function getChildren($product_id)
+    {
+        $product = wc_get_product($product_id);
+        $product_children = $product->get_children();
+
+        if (empty($product_children)) return false;
+
+        return $product_children;
+    }
+
     /**
      * @param string $table
      * @param array $data

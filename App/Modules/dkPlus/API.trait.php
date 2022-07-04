@@ -4,6 +4,7 @@ namespace woo_bookkeeping\App\Modules\dkPlus;
 
 use woo_bookkeeping\App\Core\Main as Core;
 use woo_bookkeeping\App\Core\WP_Notice;
+
 //use woo_bookkeeping\App\Core\Woo_Query;
 
 trait API
@@ -36,7 +37,7 @@ trait API
         self::createToken($new_settings);
 
         if (empty(self::$token)) {
-            if (!isset($_GET['page']) || $_GET['page'] !== 'woo_bookkeeping') return;
+            if (!isset($_GET['page']) || $_GET['page'] !== PLUGIN_SLUG) return;
 
             new WP_Notice('error', 'Error: Please, check the correctness of the login and password.');
             return;
@@ -68,16 +69,27 @@ trait API
         }
     }
 
-
-    /*public static function productUpdateDK(string $product_sku)
+    public static function sendProductPrice($product_sku, $price)
     {
-        $body = [
-            'UnitPrice1' => '333.76',
+        $args = [
+            'UnitPrice1' => (float)$price,
         ];
-        $products = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $body));
 
+        self::productUpdateDK($product_sku, $args);
+    }
+
+    /**
+     * Send data to dkPlus
+     * @param string $product_sku
+     * @return array
+     */
+    public static function productUpdateDK(string $product_sku, $data)
+    {
+        $products = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $data));
+        print_r($products);
+        die();
         return $products;
-    }*/
+    }
 
     /**
      * getting a product with a dkplus API
@@ -87,6 +99,8 @@ trait API
     public static function productFetchOne(string $product_sku): array
     {
         $products = static::request('/Product/' . $product_sku, static::setHeaders());
+
+        if (empty($products) || is_bool($products)) return [];
 
         $result = static::productMap($products);
 
@@ -102,7 +116,7 @@ trait API
         $products = static::request('/Product', static::setHeaders());
         $result = [];
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $result[] = static::productMap($product);
         }
 
@@ -131,11 +145,11 @@ trait API
         ];
     }
 
-    private static function request(string $method, array $args): array
+    private static function request(string $method, array $args)
     {
         $response = wp_remote_request(static::$api_url . $method, $args);
         $body = wp_remote_retrieve_body($response);
 
-        return json_decode($body, true);
+        return !empty($body) ? json_decode($body, true) : true;
     }
 }

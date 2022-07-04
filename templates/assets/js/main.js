@@ -77,15 +77,9 @@
                 }
 */
                 button.prop('disabled', 0)
-                window.location.href = window.location.href + '&message=1'
+                //window.location.href = window.location.href + '&message=1'
 
             }
         })
     })
-
-    function content_replace_items(params) {
-        $.each(params, function(i, item) {
-            $(i).val(item.content)
-        })
-    }
 })(jQuery)

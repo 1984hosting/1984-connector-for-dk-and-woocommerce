@@ -1,24 +1,6 @@
 <div id="product_tab_content" class="panel woocommerce_options_panel product_sync_form">
     <div id="universal-message-container" class="wc-metaboxes-wrapper">
         <h2><?php echo esc_html(__('Product synchronization', PLUGIN_SLUG)); ?></h2>
-        <?php
-        /*
-         * wp_posts:
-         * id
-         * post_content
-         * post_title
-         * post_status (draft, publish)
-         * post_modified, post_modified_gmt
-         *
-         * product_id
-         * sku
-         * min_price
-         * max_price
-         * onsale(продается?)
-         * stock_quantity
-         * stock_status
-          */
-        ?>
         <?php $syncParams = [
             [
                 'type' => 'checkbox', //require
@@ -69,3 +51,4 @@
         </div>
     </div>
 </div>
+

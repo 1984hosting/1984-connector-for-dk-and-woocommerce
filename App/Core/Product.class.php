@@ -4,10 +4,6 @@ namespace woo_bookkeeping\App\Core;
 
 abstract class Product extends Woo_Query
 {
-    public function __construct()
-    {
-    }
-
     abstract protected static function productSyncOne(array $needed_fields, $product_id);
 
     abstract protected static function productSyncAll(array $needed_fields);
@@ -32,7 +28,6 @@ abstract class Product extends Woo_Query
      * Product update in woocommerce
      * @param array $needed_fields
      * @param $product_id
-     * @param $product_sku
      * @param $product
      * @return bool
      */
@@ -50,4 +45,27 @@ abstract class Product extends Woo_Query
 
         return true;
     }
+
+    /**
+     * Variation update in woocommerce
+     * @param array $needed_fields
+     * @param $variation_id
+     * @param $product
+     * @return bool
+     */
+    public static function variationUpdate(array $needed_fields, $variation_id, $product): bool
+    {
+        $wc_variation = new \WC_Product_Variation($variation_id);
+
+        foreach ($product as $key => $value) {
+            if (!in_array($key, $needed_fields)) continue;
+
+            call_user_func([$wc_variation, $key], $value);
+        }
+
+        $wc_variation->save();
+
+        return true;
+    }
+
 }

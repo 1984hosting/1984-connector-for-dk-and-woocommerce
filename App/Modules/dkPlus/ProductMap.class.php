@@ -26,6 +26,7 @@ class ProductMap extends ProductMapper
         ],
         'set_manage_stock' => [
             'field' => 'set_manage_stock',
+            'callback' => [ProductMapper::class, 'setBoolTrue'],
         ],
     ];
 

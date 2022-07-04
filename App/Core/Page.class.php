@@ -99,7 +99,7 @@ class Page
         $type = !empty($args['type']) ? $args['type'] : '';
         $id = !empty($args['label_for']) ? $args['label_for'] : '';
         $name = !empty($args['name']) ? $args['name'] : $id;
-        $value = !empty($args['value']) ? $args['value'] : 'text';
+        $value = !empty($args['value']) ? $args['value'] : '';
         $placeholder = !empty($args['placeholder']) ? $args['placeholder'] : '';
 
         printf(
