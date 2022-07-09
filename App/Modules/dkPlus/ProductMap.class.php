@@ -11,21 +11,21 @@ class ProductMap extends ProductMapper
             'field' => 'sku',
         ],
         'Description' => [//update post
-            'field' => 'set_description',
+            'field' => 'description',
         ],
         'RecordModified' => [
-            'field' => 'set_date_modified',
+            'field' => 'date_modified',
         ],
         'UnitPrice1' => [
-            'field' => 'set_regular_price',
+            'field' => 'regular_price',
             'callback' => [ProductMapper::class, 'toFloat'],
         ],
         'UnitQuantity' => [
-            'field' => 'set_stock_quantity',
+            'field' => 'stock_quantity',
             //'callback' => [ProductMapper::class, 'activateStock'],
         ],
         'set_manage_stock' => [
-            'field' => 'set_manage_stock',
+            'field' => 'manage_stock',
             'callback' => [ProductMapper::class, 'setBoolTrue'],
         ],
     ];

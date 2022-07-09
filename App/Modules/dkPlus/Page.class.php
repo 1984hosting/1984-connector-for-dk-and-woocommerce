@@ -42,7 +42,6 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
     public function create_meta_box()
     {
-
         add_meta_box(
             'dkplus', //id
             'dkPlus sync', //title
@@ -56,11 +55,33 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
     public function meta_box_content($post)
     {
-
-        echo 'hello';
-
+        //print_r($post);
+        include_once PLUGIN_TPL_DIR . '/dkPlus/product-meta_content.php';
     }
 
+    /**
+     * Saving Options and Installing a Cron Job
+     */
+    public static function saveOptions()
+    {
+        $settings = Main::getInstance();
+
+        $data = $_POST['data'];
+
+        $settings[Main::$module_slug]['schedule']['params'] = $data['sync_params'];
+
+        $task_name = 'woocoo_update_products_' . Main::$module_slug;
+
+        wp_clear_scheduled_hook($task_name); //remove old event
+
+        if (isset($data['woocoo_schedule']) && $data['woocoo_schedule'] !== 'disabled' && $settings[Main::$module_slug]['token']) {
+            $settings[Main::$module_slug]['schedule']['name'] = $data['woocoo_schedule'];
+
+            wp_schedule_event(time(), $data['woocoo_schedule'], $task_name);
+        }
+
+        update_option(PLUGIN_SLUG, $settings, 'no');
+    }
 
     /**
      * Register required actions
@@ -70,5 +91,15 @@ class Page extends \woo_bookkeeping\App\Core\Page
         add_filter('woocommerce_product_data_tabs', [$this, 'product_tab_create'], 10, 1);
         add_action('woocommerce_product_data_panels', [$this, 'product_tab_content']);
         add_action('add_meta_boxes', [$this, 'create_meta_box']);
+
+        /** Ajax actions */
+        new \woo_bookkeeping\App\Core\Ajax('dkPlus_save_and_sync', function () {
+            Product::productSyncAll();
+
+            Page::saveOptions();
+        });
+        new \woo_bookkeeping\App\Core\Ajax('dkPlus_save', [Page::class, 'saveOptions']);
+        new \woo_bookkeeping\App\Core\Ajax('dkPlus_sync_product_one', [Product::class, 'productSyncOne']);
+        new \woo_bookkeeping\App\Core\Ajax('send_to_dkPlus', [Product::class, 'productSend']); //json_encode(Product::productSend($this->sync_params, $this->product_id, $this->product_sku))
     }
 }

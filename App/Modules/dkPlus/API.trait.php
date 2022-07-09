@@ -68,27 +68,23 @@ trait API
             self::$token = $result['Token'];
         }
     }
-
+/*
     public static function sendProductPrice($product_sku, $price)
     {
-        $args = [
-            'UnitPrice1' => (float)$price,
-        ];
 
         self::productUpdateDK($product_sku, $args);
-    }
+    }*/
 
     /**
      * Send data to dkPlus
      * @param string $product_sku
      * @return array
      */
-    public static function productUpdateDK(string $product_sku, $data)
+    public static function productUpdateDK(string $product_sku, $args): bool
     {
-        $products = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $data));
-        print_r($products);
-        die();
-        return $products;
+        $products = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $args));
+
+        return true;
     }
 
     /**

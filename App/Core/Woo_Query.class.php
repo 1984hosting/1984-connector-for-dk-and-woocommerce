@@ -55,7 +55,7 @@ class Woo_Query
     {
         $table = 'wc_product_meta_lookup';
 
-        return self::getInstance()->get_results('SELECT ' . $fields . ' FROM `' . self::getInstance()->prefix . $table . '`', ARRAY_A);
+        return self::getInstance()->get_results('SELECT ' . $fields . ' FROM `' . self::getInstance()->prefix . $table . '` WHERE `sku` != ""', ARRAY_A);
     }
 
     /**

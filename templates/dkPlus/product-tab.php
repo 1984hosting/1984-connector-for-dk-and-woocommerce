@@ -6,26 +6,22 @@
                 'type' => 'checkbox', //require
                 'label' => 'Description', //require
                 'id' => 'set_description', //require
-                'name' => 'set_description', //require
+                'name' => 'description', //require
             ], [
                 'type' => 'checkbox',
                 'label' => 'Price',
                 'id' => 'set_regular_price',
-                'name' => 'set_regular_price',
+                'name' => 'regular_price',
             ], [
                 'type' => 'checkbox',
                 'label' => 'Quantity',
                 'id' => 'set_stock_quantity',
-                'name' => 'set_stock_quantity',
+                'name' => 'stock_quantity',
             ], [
                 'type' => 'checkbox',
                 'label' => 'Enable stock (if disabled)',
                 'id' => 'set_manage_stock',
-                'name' => 'set_manage_stock',
-            ], [
-                'type' => 'hidden',
-                'name' => 'sync_action',
-                'value' => 'dkPlus_sync_products_one',
+                'name' => 'manage_stock',
             ], [
                 'type' => 'hidden',
                 'name' => 'product_id',
@@ -47,7 +43,8 @@
             <?php endforeach; ?>
         </div>
         <div class="toolbar">
-            <button type="button" class="button button-primary">Product synchronization</button>
+            <button type="button" class="button button-primary" data-action="dkPlus_sync_product_one"><?php echo __('Product synchronization', PLUGIN_SLUG); ?></button>
+            <button type="button" class="button button-primary send_to_dkPlus" data-action="send_to_dkPlus"><?php echo __('Send to dkPlus', PLUGIN_SLUG); ?></button>
         </div>
     </div>
 </div>

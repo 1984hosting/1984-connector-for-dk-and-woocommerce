@@ -5,14 +5,35 @@
         var button = $(this),
             button_type = button.data('type'),
             form = button.closest('.dkPlus_sync'),
-            action = form.find('input[name="action"]').val();
+            action = button.data('action'),
+            inputs = form.find('input'),
+            itemName, itemVal,
+            formData = {
+                'sync_params': {},
+                'woocoo_schedule': form.find('select[name="woocoo_schedule"]').val()
+            };
+
+        inputs.each(function (e) {
+            itemName = $(this).prop('name')
+            itemVal = $(this).val()
+
+            if ($(this).prop('type') === 'checkbox') {
+                if (!$(this).prop('checked')) return;
+
+                formData['sync_params'][e] = itemName
+            }
+
+            if ($(this).prop('type') === 'hidden') {
+                formData[itemName] = itemVal
+            }
+        })
 
         $.ajax({
             url: ajax.url,
             type: 'POST',
             data: {
                 'action': action,
-                'data': form.serialize() + '&type=' + button_type
+                'data': formData
             },
             beforeSend: function () {
                 button.prop('disabled', 1)
@@ -32,14 +53,14 @@
 
     })*/
 
-    $('.product_sync_form button').click(function (e) {
+    $('button[data-action="dkPlus_sync_product_one"], button[data-action="send_to_dkPlus"]').click(function (e) {
         e.preventDefault()
 
         var form = $('.product_sync_form')
         var inputs = form.find('input')
         var button = $(this)
-        var action = form.find('input[name="sync_action"]').val()
-        var formData = []
+        var action = button.data('action')
+        var formData = {'sync_params': {}}
         var itemName, itemVal
         var sku = $('input[name="_sku"]')
 
@@ -50,13 +71,21 @@
             return;
         }
 
+        formData['sku'] = sku.val()
+
         inputs.each(function (e) {
             itemName = $(this).prop('name')
             itemVal = $(this).val()
 
-            if (itemName === 'sync_action') return
+            if ($(this).prop('type') === 'checkbox') {
+                if (!$(this).prop('checked')) return;
 
-            formData[e] = itemName + '=' + itemVal
+                formData['sync_params'][e] = itemName
+            }
+
+            if ($(this).prop('type') === 'hidden') {
+                formData[itemName] = itemVal
+            }
         })
 
         $.ajax({
@@ -64,7 +93,7 @@
             type: 'POST',
             data: {
                 'action': action,
-                'data': formData.join('&'),
+                'data': formData,
             },
             beforeSend: function () {
                 button.prop('disabled', 1)

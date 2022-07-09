@@ -34,31 +34,27 @@ $dkPlus_schedule = !empty($dkPlus['schedule']) ? $dkPlus['schedule'] : false;
                     'type' => 'checkbox', //require
                     'label' => 'Description', //require
                     'id' => 'set_description', //require
-                    'name' => 'set_description', //require
+                    'name' => 'description', //require
                 ], [
                     'type' => 'checkbox',
                     'label' => 'Price',
                     'id' => 'set_regular_price',
-                    'name' => 'set_regular_price',
+                    'name' => 'regular_price',
                 ], [
                     'type' => 'checkbox',
                     'label' => 'Quantity',
                     'id' => 'set_stock_quantity',
-                    'name' => 'set_stock_quantity',
+                    'name' => 'stock_quantity',
                 ], [
                     'type' => 'checkbox',
                     'label' => 'Enable stock (if disabled)',
                     'id' => 'set_manage_stock',
-                    'name' => 'set_manage_stock',
+                    'name' => 'manage_stock',
                 ], [
                     'type' => 'checkbox',
                     'label' => 'Data modified',
                     'id' => 'set_date_modified',
-                    'name' => 'set_date_modified',
-                ],[
-                    'type' => 'hidden',
-                    'name' => 'action',
-                    'value' => 'dkPlus_save_sync',
+                    'name' => 'date_modified',
                 ],
             ]; ?>
 
@@ -100,27 +96,8 @@ $dkPlus_schedule = !empty($dkPlus['schedule']) ? $dkPlus['schedule'] : false;
                 </p>
             </div>
             <p>
-                <?php
-                submit_button(
-                    __('dkPlus save', PLUGIN_SLUG),
-                    'primary',
-                    'dkPlus_save',
-                    false,
-                    [
-                        'data-type' => 'save',
-                    ]
-                );?>
-                <?php
-                submit_button(
-                    __('dkPlus save and sync', PLUGIN_SLUG),
-                    'primary',
-                    'dkPlus_save_and_sync',
-                    false,
-                    [
-                       'data-type' => 'save_and_sync',
-                    ]
-                );
-                ?>
+                <input type="submit" name="dkPlus_save" id="dkPlus_save" class="button button-primary" value="<?php echo __('dkPlus save', PLUGIN_SLUG); ?>" data-action="dkPlus_save">
+                <input type="submit" name="dkPlus_save_and_sync" id="dkPlus_save_and_sync" class="button button-primary" value="<?php echo __('dkPlus save and sync', PLUGIN_SLUG); ?>" data-action="dkPlus_save_and_sync">
             </p>
         </div>
     </form>

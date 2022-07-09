@@ -23,14 +23,13 @@ class Main extends \woo_bookkeeping\App\Core\Main
             new WP_Notice('error', 'Error: Please, check the correctness of the login and password.');
             return;
         }
-//print_r($settings);
+
         $this->getToken();
         $this->LoadModules();
     }
 
     private function LoadModules()
     {
-        new Ajax();
         new Page();
         Events::register_cron_events();
     }

@@ -42,12 +42,6 @@ function woo_bookkeeping_activate()
     /** Load plugin core */
     woo_bookkeeping\App\Core\Main::LoadCore();
 
-    /*call_user_func(
-        Product::class,
-        'productSyncAll',
-        Main::getInstance()[Main::$module_slug]['schedule']['params']
-    );*/
-
     return true;
 }
 
