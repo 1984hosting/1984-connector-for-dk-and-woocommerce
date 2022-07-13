@@ -31,6 +31,7 @@ class Main extends \woo_bookkeeping\App\Core\Main
     private function LoadModules()
     {
         new Page();
+        Product::registerActions();
         Events::register_cron_events();
     }
 

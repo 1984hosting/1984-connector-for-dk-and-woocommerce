@@ -38,7 +38,7 @@ abstract class ProductMapper
         return $fields;
     }
 
-    public static function setBoolTrue(): float
+    public static function setBoolTrue(): bool
     {
         return true;
     }

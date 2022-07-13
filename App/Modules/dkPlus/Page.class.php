@@ -70,6 +70,8 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
         $settings[Main::$module_slug]['schedule']['params'] = $data['sync_params'];
 
+        unset($settings[Main::$module_slug]['schedule']['name']);
+
         $task_name = 'woocoo_update_products_' . Main::$module_slug;
 
         wp_clear_scheduled_hook($task_name); //remove old event

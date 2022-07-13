@@ -24,7 +24,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
         $product_children = Woo_Query::getChildren($product_id);
 
         if ($product_children) {
-            foreach($product_children as $child_id) {
+            foreach ($product_children as $child_id) {
                 $product_sku = Woo_Query::getProduct('sku', $child_id)['sku'];
                 $variation = self::variationGet($needed_fields, $child_id);
                 API::productUpdateDK($product_sku, $variation);
@@ -46,27 +46,33 @@ class Product extends \woo_bookkeeping\App\Core\Product
     /**
      * Performing a sync for a single product
      * @param array $needed_fields needed fields for sync
-     * @param $product_id
+     * @param int $product_id
      * @return bool
      */
     //public static function productSyncOne(array $needed_fields, $product_id): bool
-    public static function productSyncOne(): bool
+    public static function productSyncOne(array $needed_fields = [], int $product_id = 0): bool
     {
-        $data = $_POST['data'];
+        if (empty($needed_fields) || $product_id === 0) {
+            $data = $_POST['data'];
 
-        if (empty($data['sync_params'])) return true;
+            if (empty($data['sync_params'])) return true;
 
-        $needed_fields = $data['sync_params'];
-        $product_id = $data['product_id'];
-        $product_sku = $data['sku'];
+            $needed_fields = $data['sync_params'];
+            $product_id = $data['product_id'];
+            $product_sku = $data['sku'];
+        } else {
+            $wc_product = Woo_Query::getProduct('sku', $product_id);
 
-        /*$product = Woo_Query::getProduct('sku, product_id', $product_id);
-        $product_id = $product['product_id'];
-        $product_sku = $product['sku'];*/
+            //no sku specified, product not associated with dk
+            if (empty($wc_product['sku'])) return true;
+
+            $product_sku = $wc_product['sku'];
+        }
+
         $product_children = Woo_Query::getChildren($product_id);
 
         if ($product_children) {
-            foreach($product_children as $child_id) {
+            foreach ($product_children as $child_id) {
                 self::variationSync($needed_fields, $child_id);
             }
             //variations sync is completed, return true
@@ -126,6 +132,36 @@ class Product extends \woo_bookkeeping\App\Core\Product
         }
 
         return ['status' => true];
+    }
+
+
+    public static function add_to_cart_validation($passed, $product_id, $quantity)
+    {
+        self::productSyncOne([
+            'regular_price',
+            'stock_quantity',
+        ], $product_id);
+
+        return $passed;
+    }
+
+    public static function before_checkout_process()
+    {
+        foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+            $pdt_id = $cart_item['product_id'];
+
+            self::productSyncOne([
+                'regular_price',
+                'stock_quantity',
+            ], $pdt_id);
+        }
+    }
+
+    public static function registerActions()
+    {
+        add_filter('woocommerce_add_to_cart_validation', [self::class, 'add_to_cart_validation'], 10, 5);
+        add_action('woocommerce_before_checkout_process', [self::class, 'before_checkout_process']);
+        //add_action( 'woocommerce_checkout_process', 'woocommerce_checkout_process_action' );
     }
 
 

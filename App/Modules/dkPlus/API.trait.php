@@ -111,7 +111,6 @@ trait API
     {
         $products = static::request('/Product', static::setHeaders());
         $result = [];
-
         foreach ($products as $product) {
             $result[] = static::productMap($product);
         }
@@ -146,6 +145,7 @@ trait API
         $response = wp_remote_request(static::$api_url . $method, $args);
         $body = wp_remote_retrieve_body($response);
 
+        //var_dump($body);die('gg');
         return !empty($body) ? json_decode($body, true) : true;
     }
 }
