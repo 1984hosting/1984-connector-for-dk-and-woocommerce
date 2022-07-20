@@ -61,19 +61,19 @@ abstract class CronSchedule
         ];
         $schedules['hourly'] = [
             'interval' => 3600,
-            'display' => __('Once Hourly', PLUGIN_SLUG),
+            'display' => __('Hourly', PLUGIN_SLUG),
         ];
         $schedules['twice_daily'] = [
             'interval' => 43200,
-            'display' => __('Twice Daily', PLUGIN_SLUG),
+            'display' => __('Twice a day', PLUGIN_SLUG),
         ];
         $schedules['daily'] = [
             'interval' => 86400,
-            'display' => __('Once Daily', PLUGIN_SLUG),
+            'display' => __('Daily', PLUGIN_SLUG),
         ];
         $schedules['weekly'] = [
             'interval' => 604800,
-            'display' => __('Once Weekly', PLUGIN_SLUG),
+            'display' => __('Weekly', PLUGIN_SLUG),
         ];
         $schedules['fifteen_days'] = [
             'interval' => 1296000,

@@ -32,27 +32,27 @@ $dkPlus_schedule = !empty($dkPlus['schedule']) ? $dkPlus['schedule'] : false;
             <?php $syncParams = [
                 [
                     'type' => 'checkbox', //require
-                    'label' => 'Description', //require
+                    'label' => __('Description', PLUGIN_SLUG), //require
                     'id' => 'set_description', //require
                     'name' => 'description', //require
                 ], [
                     'type' => 'checkbox',
-                    'label' => 'Price',
+                    'label' => __('Price', PLUGIN_SLUG),
                     'id' => 'set_regular_price',
                     'name' => 'regular_price',
                 ], [
                     'type' => 'checkbox',
-                    'label' => 'Quantity',
+                    'label' => __('Quantity', PLUGIN_SLUG),
                     'id' => 'set_stock_quantity',
                     'name' => 'stock_quantity',
                 ], [
                     'type' => 'checkbox',
-                    'label' => 'Enable stock (if disabled)',
+                    'label' => __('Enable stock (if disabled)', PLUGIN_SLUG),
                     'id' => 'set_manage_stock',
                     'name' => 'manage_stock',
                 ], [
                     'type' => 'checkbox',
-                    'label' => 'Data modified',
+                    'label' => __('Data modified', PLUGIN_SLUG),
                     'id' => 'set_date_modified',
                     'name' => 'date_modified',
                 ],
@@ -80,7 +80,7 @@ $dkPlus_schedule = !empty($dkPlus['schedule']) ? $dkPlus['schedule'] : false;
                         <?php endforeach; ?>
                         <tr>
                             <th scope="row" valign="top">
-                                <label for="crontrol_schedule">Recurrence</label>
+                                <label for="crontrol_schedule"><?php echo __('Recurrence', PLUGIN_SLUG); ?></label>
                             </th>
                             <td>
                                 <?php $variations = \woo_bookkeeping\App\Modules\dkPlus\Events::getVariations(); ?>

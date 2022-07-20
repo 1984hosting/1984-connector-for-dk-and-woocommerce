@@ -22,7 +22,6 @@ class ProductMap extends ProductMapper
         ],
         'UnitQuantity' => [
             'field' => 'stock_quantity',
-            //'callback' => [ProductMapper::class, 'activateStock'],
         ],
         'set_manage_stock' => [
             'field' => 'manage_stock',

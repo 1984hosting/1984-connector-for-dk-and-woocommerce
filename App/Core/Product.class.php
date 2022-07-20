@@ -125,11 +125,6 @@ abstract class Product extends Woo_Query
 
     public static function dataFormatSet(array $product_data): array
     {
-        /*$data = [];
-        foreach ($product_data as $key => $value) {
-            $key = 'set_' . $key;
-            $data[$key] = $value;
-        }*/
         foreach ($product_data as &$value) {
             $value = 'set_' . $value;
         }

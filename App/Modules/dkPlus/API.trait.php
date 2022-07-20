@@ -82,8 +82,8 @@ trait API
      */
     public static function productUpdateDK(string $product_sku, $args): bool
     {
-        $products = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $args));
-
+        $product = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $args));
+//print_r($product);
         return true;
     }
 

@@ -7,21 +7,25 @@
                 'label' => 'Description', //require
                 'id' => 'set_description', //require
                 'name' => 'description', //require
+                'checked' => true,
             ], [
                 'type' => 'checkbox',
                 'label' => 'Price',
                 'id' => 'set_regular_price',
                 'name' => 'regular_price',
+                'checked' => true,
             ], [
                 'type' => 'checkbox',
                 'label' => 'Quantity',
                 'id' => 'set_stock_quantity',
                 'name' => 'stock_quantity',
+                'checked' => true,
             ], [
                 'type' => 'checkbox',
                 'label' => 'Enable stock (if disabled)',
                 'id' => 'set_manage_stock',
                 'name' => 'manage_stock',
+                'checked' => true,
             ], [
                 'type' => 'hidden',
                 'name' => 'product_id',
