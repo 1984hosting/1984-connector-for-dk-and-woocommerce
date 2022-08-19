@@ -21,8 +21,8 @@ class Page
 
     public function addContentPlugin()
     {
-        add_action(PLUGIN_SLUG . '_content', function() {
-            include_once PLUGIN_TPL_DIR . '/' . static::$tpl_name . '.php';
+        add_action(PLUGIN_SLUG . '_content', function () {
+            include_once PLUGIN_TPL_DIR . '/' . static::$tpl_name . '.php'; //TODO: add exception check file
         }, 10);
     }
 
@@ -54,67 +54,38 @@ class Page
         }
     }
 
-    public function registerSettings()
+    /**
+     * Saving Options and Installing a Cron Job
+     */
+    public static function saveDataAccount()
     {
         $settings = Main::getInstance();
 
-        register_setting(PLUGIN_SLUG, PLUGIN_SLUG);
+        foreach ($_POST[PLUGIN_SLUG] as $key => $account_data) {
+            if (empty($settings[$key])) {
+                $settings[$key] = $account_data;
+                continue;
+            }
 
-        add_settings_section('dkPlus', '', '', PLUGIN_SLUG);
+            unset($settings[$key]['token']);
+            foreach ($account_data as $k => $v) {
+                $settings[$key][$k] = $v;
+            }
+        }
+        update_option(PLUGIN_SLUG, $settings, 'no');
 
-        add_settings_field(
-            'dkPlus_login',
-            'Login',
-            [$this, 'settings_fields_format'],
-            PLUGIN_SLUG,
-            'dkPlus',
-            [
-                'label_for' => 'dkPlus_login',
-                'name' => PLUGIN_SLUG . '[dkPlus][login]',
-                'type' => 'text',
-                'value' => !empty($settings['dkPlus']['login']) ? $settings['dkPlus']['login'] : '',
-                'placeholder' => 'Login',
-            ]
-        );
-        add_settings_field(
-            'dkPlus_password',
-            'Password',
-            [$this, 'settings_fields_format'],
-            PLUGIN_SLUG,
-            'dkPlus',
-            [
-                'label_for' => 'dkPlus_password',
-                'name' => PLUGIN_SLUG . '[dkPlus][password]',
-                'type' => 'password',
-                'value' => !empty($settings['dkPlus']['password']) ? $settings['dkPlus']['password'] : '',
-                'placeholder' => 'Password',
-            ]
-        );
-
-
-    }
-
-    public function settings_fields_format($args)
-    {
-        $type = !empty($args['type']) ? $args['type'] : '';
-        $id = !empty($args['label_for']) ? $args['label_for'] : '';
-        $name = !empty($args['name']) ? $args['name'] : $id;
-        $value = !empty($args['value']) ? $args['value'] : '';
-        $placeholder = !empty($args['placeholder']) ? $args['placeholder'] : '';
-
-        printf(
-            '<input type="%1$s" id="%2$s" name="%3$s" value="%4$s" placeholder="%5$s" />',
-            esc_attr($type),
-            esc_attr($id),
-            esc_attr($name),
-            esc_attr($value),
-            esc_attr($placeholder),
-        );
+        return true;
     }
 
     protected function registerActions()
     {
         add_action('admin_menu', [$this, 'addAdminMenu'], 25);
-        add_action('admin_init', [$this, 'registerSettings'], 25);
+
+        new \woo_bookkeeping\App\Core\Ajax('woo_save_account', function () {
+            self::saveDataAccount();
+
+            $message = __('Account data success updated', PLUGIN_SLUG);
+            AJAX::response(1, $message);
+        });
     }
 }

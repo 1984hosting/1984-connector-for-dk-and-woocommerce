@@ -29,6 +29,16 @@ class Ajax
         call_user_func($this->callback, $this->params);
     }
 
+    public static function response(int $status, string $message)
+    {
+        $response = [
+            'status' => $status,
+            'message' => $message,
+        ];
+
+        echo json_encode($response);
+    }
+
     private function registerActions()
     {
         if ($this->is_admin) {//todo: wp is admin??

@@ -3,9 +3,8 @@
 namespace woo_bookkeeping\App\Modules\dkPlus;
 
 use woo_bookkeeping\App\Core\Main as Core;
+use woo_bookkeeping\App\Core\WP_Exceptions;
 use woo_bookkeeping\App\Core\WP_Notice;
-
-//use woo_bookkeeping\App\Core\Woo_Query;
 
 trait API
 {
@@ -15,6 +14,7 @@ trait API
 
     public static function getToken()
     {
+
         static $token = null;
 
         if (NULL === $token) {
@@ -62,18 +62,18 @@ trait API
             'method' => 'POST',
         ];
 
-        $result = static::request($method, $args);
+        try {
+            $result = static::request($method, $args);
 
-        if (!empty($result['Token'])) {
+            if (empty($result['Token'])) {
+                throw WP_Exceptions::invalidAccount();
+            }
+
             self::$token = $result['Token'];
+        } catch (WP_Exceptions $e) {
+            //echo $e->getMessage();
         }
     }
-/*
-    public static function sendProductPrice($product_sku, $price)
-    {
-
-        self::productUpdateDK($product_sku, $args);
-    }*/
 
     /**
      * Send data to dkPlus
@@ -82,8 +82,16 @@ trait API
      */
     public static function productUpdateDK(string $product_sku, $args): bool
     {
-        $product = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $args));
-//print_r($product);
+        try {
+            $product = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $args));
+
+            if (empty($product)) {
+                throw WP_Exceptions::invalidProduct();
+            }
+        } catch (WP_Exceptions $e) {
+            echo $e->getMessage();
+        }
+
         return true;
     }
 
@@ -94,11 +102,17 @@ trait API
      */
     public static function productFetchOne(string $product_sku): array
     {
-        $products = static::request('/Product/' . $product_sku, static::setHeaders());
+        try {
+            $product = static::request('/Product/' . $product_sku, static::setHeaders());
 
-        if (empty($products) || is_bool($products)) return [];
+            if (empty($product) || is_bool($product)) {
+                throw WP_Exceptions::invalidProduct();
+            }
 
-        $result = static::productMap($products);
+            $result = static::productMap($product);
+        } catch (WP_Exceptions $e) {
+            echo $e->getMessage();
+        }
 
         return $result;
     }
@@ -109,10 +123,19 @@ trait API
      */
     public static function productFetchAll(): array
     {
-        $products = static::request('/Product', static::setHeaders());
-        $result = [];
-        foreach ($products as $product) {
-            $result[] = static::productMap($product);
+        try {
+            $products = static::request('/Product', static::setHeaders());
+
+            if (empty($products)) {
+                throw WP_Exceptions::invalidProduct();
+            }
+
+            $result = [];
+            foreach ($products as $product) {
+                $result[] = static::productMap($product);
+            }
+        } catch (WP_Exceptions $e) {
+            echo $e->getMessage();
         }
 
         return $result;
@@ -142,8 +165,18 @@ trait API
 
     private static function request(string $method, array $args)
     {
-        $response = wp_remote_request(static::$api_url . $method, $args);
-        $body = wp_remote_retrieve_body($response);
+        try {
+            $request = wp_remote_request(static::$api_url . $method, $args);
+            $response_code = wp_remote_retrieve_response_code($request);
+
+            if ($response_code != 200) {
+                throw WP_Exceptions::invalidResponse($response_code);
+            }
+
+            $body = wp_remote_retrieve_body($request);
+        } catch (WP_Exceptions $e) {
+            //echo $e->getMessage();
+        }
 
         //var_dump($body);die('gg');
         return !empty($body) ? json_decode($body, true) : true;

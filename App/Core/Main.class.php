@@ -48,7 +48,7 @@ class Main
     public static function LoadCore()
     {
         self::$styles = [
-            //'main',
+            'main',
         ];
         self::$scripts = [
             'main',
@@ -58,6 +58,7 @@ class Main
         $main->LoadModules();
         $main->registerActions();
         CronSchedule::registerActions();
+
 
     }
 
@@ -69,6 +70,9 @@ class Main
 
     public function EnqueueScripts(): void
     {
+        /** For UI page settings */
+        wp_enqueue_script("jquery-ui-tabs");
+
         if (!empty(self::$styles)) {
             foreach (self::$styles as $style) {
                 wp_enqueue_style(PLUGIN_SLUG . '_' . $style, PLUGIN_URL . 'templates/assets/css/' . $style . '.css', [], time());

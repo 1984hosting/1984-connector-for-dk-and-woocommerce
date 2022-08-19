@@ -111,8 +111,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
      */
     public static function productSyncAll(): array
     {
-        $data = $_POST['data'];
-        $needed_fields = $data['sync_params'];
+        $needed_fields = $_POST['sync_params'];
 
         $products = Woo_Query::getProducts('product_id, sku, tax_class');
         $dkProducts = API::productFetchAll();
@@ -144,6 +143,42 @@ class Product extends \woo_bookkeeping\App\Core\Product
         return API::productUpdateDK($product_sku, $product);
     }
 
+
+    /**
+     * Import products from dk
+     * @param array $needed_fields - Required fields for synchronization
+     * @return bool
+     */
+    public static function productImportAll(): array
+    {
+        $needed_fields = $_POST['sync_params'];
+
+        $products = Woo_Query::getProducts('product_id, sku, tax_class');
+        $dkProducts = API::productFetchAll();
+
+        if (empty($dkProducts)) return ['status' => true];
+
+        foreach ($dkProducts as $product) {
+            $product_prop = self::searchProductArray($product['sku'], $products);
+
+            /** Check product if exists */
+            if (!empty($product_prop)) {
+                /** If the product has variations, then update the variations */
+                if ($product_prop['tax_class'] === 'parent') {
+                    self::variationUpdate($needed_fields, $product_prop['product_id'], $product);
+                } else {
+                    self::productUpdate($needed_fields, $product_prop['product_id'], $product);
+                }
+            } else {
+                self::productAdd($needed_fields, $product);
+            }
+
+
+        }
+
+        return ['status' => true];
+    }
+
     public static function add_to_cart_validation($passed, $product_id, $quantity)
     {
         self::productSyncOne([
@@ -165,8 +200,8 @@ class Product extends \woo_bookkeeping\App\Core\Product
             ], $product_id);
 
             $qty = $product['stock_quantity'] - 1;
-/*var_dump($qty);
-die();*/
+            /*var_dump($qty);
+            die();*/
             self::productSendQty($product['sku'], $qty);
 
             return true;
@@ -192,6 +227,5 @@ die();*/
         add_action('woocommerce_order_status_changed', [self::class, 'change_order_status'], 10, 3);
         //add_action( 'woocommerce_checkout_process', 'woocommerce_checkout_process_action' );
     }
-
 
 }

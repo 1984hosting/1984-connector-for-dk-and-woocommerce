@@ -2,6 +2,7 @@
 
 namespace woo_bookkeeping\App\Modules\dkPlus;
 
+use woo_bookkeeping\App\Core\Ajax;
 
 class Page extends \woo_bookkeeping\App\Core\Page
 {
@@ -66,7 +67,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
     {
         $settings = Main::getInstance();
 
-        $data = $_POST['data'];
+        $data = $_POST;
 
         $settings[Main::$module_slug]['schedule']['params'] = $data['sync_params'];
 
@@ -82,7 +83,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
             wp_schedule_event(time(), $data['woocoo_schedule'], $task_name);
         }
 
-        update_option(PLUGIN_SLUG, $settings, 'no');
+        return update_option(PLUGIN_SLUG, $settings, 'no');
     }
 
     /**
@@ -95,13 +96,37 @@ class Page extends \woo_bookkeeping\App\Core\Page
         add_action('add_meta_boxes', [$this, 'create_meta_box']);
 
         /** Ajax actions */
-        new \woo_bookkeeping\App\Core\Ajax('dkPlus_save_and_sync', function () {
+        new Ajax('dkPlus_save_and_sync', function () {
             Product::productSyncAll();
 
             Page::saveOptions();
+
+            $message = __('Saved settings and synced successfully', PLUGIN_SLUG);
+            AJAX::response(1, $message);
         });
-        new \woo_bookkeeping\App\Core\Ajax('dkPlus_save', [Page::class, 'saveOptions']);
-        new \woo_bookkeeping\App\Core\Ajax('dkPlus_sync_product_one', [Product::class, 'productSyncOne']);
-        new \woo_bookkeeping\App\Core\Ajax('send_to_dkPlus', [Product::class, 'productSend']); //json_encode(Product::productSend($this->sync_params, $this->product_id, $this->product_sku))
+        new Ajax('dkPlus_save', function () {
+            Page::saveOptions();
+
+            $message = __('Settings saved successfully', PLUGIN_SLUG);
+            AJAX::response(1, $message);
+        });
+        new Ajax('dkPlus_sync_product_one', function () {
+            Product::productSyncOne();
+
+            $message = __('The product has been successfully synced, the page will be refreshed now', PLUGIN_SLUG);
+            AJAX::response(1, $message);
+        });
+        new Ajax('send_to_dkPlus', function () {
+            Product::productSend();
+
+            $message = __('The product data successfully sent to dkPlus', PLUGIN_SLUG);
+            AJAX::response(1, $message);
+        });
+        new Ajax('dkPlus_import', function () {
+            Product::productImportAll();
+
+            $message = __('Products successfully imported', PLUGIN_SLUG);
+            AJAX::response(1, $message);
+        });
     }
 }

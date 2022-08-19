@@ -6,7 +6,6 @@ use woo_bookkeeping\App\Core\CronSchedule;
 
 class Events extends CronSchedule
 {
-
     /**
      * Running cron tasks
      */
@@ -57,7 +56,8 @@ class Events extends CronSchedule
         );
     }
 
-    public static function run() {
+    public static function run()
+    {
         $settings = Main::getInstance();
 
         Product::productSyncAll($settings[Main::$module_slug]['schedule']['params']);

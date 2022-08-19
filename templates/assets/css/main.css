@@ -1,0 +1,28 @@
+.woocoo_tabs {
+    background: #fff;
+    padding: 25px 30px;
+}
+.tabs_list {
+    vertical-align: top;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+}
+.tabs_list .ui-tabs-active {
+    box-shadow: inset 0 -3px #3582c4;
+    font-weight: 600;
+}
+.tabs_list a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: .5rem 1rem 1rem;
+    margin: 0 1rem;
+    transition: box-shadow .5s ease-in-out;
+
+}
+.tabs_list a:focus {
+    box-shadow: none;
+}
+.dkPlus_import {
+    margin-top: 50px;
+}

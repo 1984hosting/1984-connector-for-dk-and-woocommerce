@@ -25,6 +25,22 @@ abstract class Product extends Woo_Query
         return $products[$found_key];
     }
 
+    public static function productAdd(array $needed_fields, $product): int
+    {
+        $wc_product = new \WC_Product();
+
+        $functions = array_combine(static::dataFormatSet($needed_fields), $needed_fields);
+
+        foreach ($functions as $key => $value) {
+            call_user_func([$wc_product, $key], $product[$value]);
+        }
+
+        call_user_func([$wc_product, 'set_sku'], $product['sku']);
+        call_user_func([$wc_product, 'set_name'], $product['sku']);
+
+        return $wc_product->save();
+    }
+
     /**
      * Product update in woocommerce
      * @param array $needed_fields
