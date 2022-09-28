@@ -1,4 +1,5 @@
 <?php
+
 namespace woo_bookkeeping\App\Core;
 
 class Woo_Query
@@ -14,8 +15,7 @@ class Woo_Query
     public static function getInstance()
     {
         static $instance = null;
-        if ( NULL === $instance)
-        {
+        if (NULL === $instance) {
             global $wpdb;
             $instance = &$wpdb;
         }
@@ -27,7 +27,9 @@ class Woo_Query
      * Protected constructor to prevent creating a new instance of the
      * *Woo_Query* via the `new` operator from outside of this class.
      */
-    protected function __construct() { }
+    protected function __construct()
+    {
+    }
 
     /**
      * Private clone method to prevent cloning of the instance of the
@@ -35,7 +37,9 @@ class Woo_Query
      *
      * @return void
      */
-    private function __clone() { }
+    private function __clone()
+    {
+    }
 
     /**
      * Private unserialize method to prevent unserializing of the *Woo_Query*
@@ -43,7 +47,9 @@ class Woo_Query
      *
      * @return void
      */
-    public function __wakeup() { }
+    public function __wakeup()
+    {
+    }
 
 
     /**
@@ -71,6 +77,13 @@ class Woo_Query
         return self::getInstance()->get_results('SELECT ' . $fields . ' FROM `' . self::getInstance()->prefix . $table . '` WHERE `product_id` = ' . $product_id . ' LIMIT 1', ARRAY_A)[0];
     }
 
+
+    public static function getAllProductsSKU()
+    {
+        $results = self::getInstance()->get_results('SELECT meta_value FROM `' . self::getInstance()->prefix . 'postmeta` WHERE `meta_key` = "_sku"', ARRAY_A);
+        return !empty($results) ? array_column($results, 'meta_value') : false;
+    }
+
     public static function getChildren($product_id)
     {
         $product = wc_get_product($product_id);
@@ -88,7 +101,7 @@ class Woo_Query
      */
     private function create(string $table, array $data)
     {
-        return self::getInstance()->insert( self::getInstance()->prefix . $table, $data);
+        return self::getInstance()->insert(self::getInstance()->prefix . $table, $data);
     }
 
     /**

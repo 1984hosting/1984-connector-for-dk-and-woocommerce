@@ -123,10 +123,14 @@ class Page extends \woo_bookkeeping\App\Core\Page
             AJAX::response(1, $message);
         });
         new Ajax('dkPlus_import', function () {
-            Product::productImportAll();
+            $response = Product::productImportAll();
 
-            $message = __('Products successfully imported', PLUGIN_SLUG);
-            AJAX::response(1, $message);
+            echo json_encode($response);
+        });
+        new Ajax('dkPlus_prolong_import', function () {
+            $response = Product::prolongImport();
+
+            echo json_encode($response);
         });
     }
 }

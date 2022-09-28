@@ -10,7 +10,10 @@ class ProductMap extends ProductMapper
         'ItemCode' => [
             'field' => 'sku',
         ],
-        'Description' => [//update post
+        'Description' => [
+            'field' => 'name',
+        ],
+        'Description2' => [
             'field' => 'description',
         ],
         'RecordModified' => [

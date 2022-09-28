@@ -4,25 +4,31 @@
         <?php $syncParams = [
             [
                 'type' => 'checkbox', //require
-                'label' => 'Description', //require
-                'id' => 'set_description', //require
-                'name' => 'description', //require
+                'label' => __('Product name', PLUGIN_SLUG), //require
+                'id' => 'set_name', //require
+                'name' => 'name', //require
                 'checked' => true,
             ], [
                 'type' => 'checkbox',
-                'label' => 'Price',
+                'label' => 'Description',
+                'id' => 'set_description',
+                'name' => 'description',
+                'checked' => true,
+            ], [
+                'type' => 'checkbox',
+                'label' => __('Price', PLUGIN_SLUG),
                 'id' => 'set_regular_price',
                 'name' => 'regular_price',
                 'checked' => true,
             ], [
                 'type' => 'checkbox',
-                'label' => 'Quantity',
+                'label' => __('Quantity', PLUGIN_SLUG),
                 'id' => 'set_stock_quantity',
                 'name' => 'stock_quantity',
                 'checked' => true,
             ], [
                 'type' => 'checkbox',
-                'label' => 'Enable stock (if disabled)',
+                'label' => __('Enable stock (if disabled)', PLUGIN_SLUG),
                 'id' => 'set_manage_stock',
                 'name' => 'manage_stock',
                 'checked' => true,

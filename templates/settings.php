@@ -5,10 +5,16 @@ $dkPlus_schedule = !empty($dkPlus['schedule']) ? $dkPlus['schedule'] : false;
 
 $syncParams = [
     [
-        'type' => 'checkbox', //require
-        'label' => __('Description', PLUGIN_SLUG), //require
-        'id' => 'description', //require
-        'name' => 'sync_params[]', //require
+        'type' => 'checkbox',
+        'label' => __('Product name', PLUGIN_SLUG),
+        'id' => 'name',
+        'name' => 'sync_params[]',
+        'value' => 'name',
+    ], [
+        'type' => 'checkbox',
+        'label' => __('Description', PLUGIN_SLUG),
+        'id' => 'description',
+        'name' => 'sync_params[]',
         'value' => 'description',
     ], [
         'type' => 'checkbox',
@@ -50,11 +56,11 @@ $syncParams = [
                 <form method="post" action="<?php echo 'options.php'; ?>" class="woo_save_account">
 
                     <div id="universal-message-container">
-                        <h2><?php echo __('Account settings dkPlus', PLUGIN_SLUG); ?></h2>
+                        <h2><?php echo __('Account settings', PLUGIN_SLUG); ?></h2>
 
                         <div class="options">
                             <p>
-                                <label><?php echo __('Please enter your dkPlus account details', PLUGIN_SLUG); ?></label>
+                                <label><?php echo __('Please enter your account details', PLUGIN_SLUG); ?></label>
                                 <br>
                             </p>
                         </div>
@@ -108,49 +114,47 @@ $syncParams = [
                             <p>
                                 <label><?php echo __('Select options to sync', PLUGIN_SLUG); ?></label>
                                 <br/>
-                            <table class="form-table" role="presentation">
-                                <tbody>
+                            </p>
+                            <div class="form-table" role="presentation">
                                 <?php foreach ($syncParams as $param): ?>
                                     <?php if ($param['type'] === 'hidden'): ?>
                                         <input type="hidden" name="<?php echo $param['name']; ?>"
                                                value="<?php echo $param['value']; ?>">
                                     <?php else: ?>
-                                        <tr>
-                                            <th scope="row">
+                                        <div class="form-table-item bg-color">
+                                            <div class="th" scope="row">
                                                 <label for="<?php echo $param['id']; ?>"><?php echo $param['label']; ?></label>
-                                            </th>
-                                            <td>
+                                            </div>
+                                            <div class="td">
                                                 <input type="<?php echo $param['type']; ?>"
                                                        id="<?php echo $param['id']; ?>"
                                                        name="<?php echo $param['name']; ?>"
                                                        <?php if (isset($param['value'])): ?>value="<?php echo $param['value']; ?>"<?php endif; ?>
                                                     <?php if (isset($dkPlus_schedule['params']) && in_array($param['id'], $dkPlus_schedule['params'])) echo 'checked'; ?>>
-                                            </td>
-                                        </tr>
+                                            </div>
+                                        </div>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
-                                <tr>
-                                    <th scope="row" valign="top">
-                                        <label for="crontrol_schedule"><?php echo __('Recurrence', PLUGIN_SLUG); ?></label>
-                                    </th>
-                                    <td>
-                                        <?php $variations = \woo_bookkeeping\App\Modules\dkPlus\Events::getVariations(); ?>
-                                        <select class="postform" name="woocoo_schedule" id="woocoo_schedule" required="">
-                                            <?php foreach ($variations as $key => $variation): ?>
-                                                <option value="<?php echo $key; ?>" <?php if (isset($dkPlus_schedule['name']) && $dkPlus_schedule['name'] === $key) echo 'selected'; ?>><?php echo $variation['display']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            </p>
-                        </div>
+                               </div>
+                            <div class="form-table-item select">
+                                <div class="th" scope="row" valign="top">
+                                    <label for="crontrol_schedule"><?php echo __('Recurrence', PLUGIN_SLUG); ?></label>
+                                </div>
+                                <div class="td">
+                                    <?php $variations = \woo_bookkeeping\App\Modules\dkPlus\Events::getVariations(); ?>
+                                    <select class="postform" name="woocoo_schedule" id="woocoo_schedule" required="">
+                                        <?php foreach ($variations as $key => $variation): ?>
+                                            <option value="<?php echo $key; ?>" <?php if (isset($dkPlus_schedule['name']) && $dkPlus_schedule['name'] === $key) echo 'selected'; ?>><?php echo $variation['display']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                          </div>
                         <p>
                             <input type="submit" name="dkPlus_save" id="dkPlus_save" class="button button-primary"
-                                   value="<?php echo __('dkPlus save', PLUGIN_SLUG); ?>" data-action="dkPlus_save">
+                                   value="<?php echo __('save', PLUGIN_SLUG); ?>" data-action="dkPlus_save">
                             <input type="submit" name="dkPlus_save_and_sync" id="dkPlus_save_and_sync" class="button button-primary"
-                                   value="<?php echo __('dkPlus save and sync', PLUGIN_SLUG); ?>"
+                                   value="<?php echo __('save / synchronization', PLUGIN_SLUG); ?>"
                                    data-action="dkPlus_save_and_sync">
                         </p>
                     </div>
@@ -163,35 +167,39 @@ $syncParams = [
                             <p>
                                 <label><?php echo __('Select options to import and sync', PLUGIN_SLUG); ?></label>
                                 <br/>
-                            <table class="form-table" role="presentation">
-                                <tbody>
+                            <div class="form-table" role="presentation">
                                 <?php foreach ($syncParams as $param): ?>
                                     <?php if ($param['type'] === 'hidden'): ?>
                                         <input type="hidden" name="<?php echo $param['name']; ?>"
                                                value="<?php echo $param['value']; ?>">
                                     <?php else: ?>
-                                        <tr>
-                                            <th scope="row">
-                                                <label for="<?php echo $param['id']; ?>"><?php echo $param['label']; ?></label>
-                                            </th>
-                                            <td>
+                                        <div class="form-table-item bg-color">
+                                            <div class="th" scope="row">
+                                                <label for="<?php echo $param['id']; ?>_import"><?php echo $param['label']; ?></label>
+                                            </div>
+                                            <div class="td">
                                                 <input type="<?php echo $param['type']; ?>"
-                                                       id="<?php echo $param['id']; ?>"
+                                                       id="<?php echo $param['id']; ?>_import"
                                                        name="<?php echo $param['name']; ?>"
                                                        <?php if (isset($param['value'])): ?>value="<?php echo $param['value']; ?>"<?php endif; ?>
                                                        <?php if (isset($dkPlus_schedule['params']) && in_array($param['id'], $dkPlus_schedule['params'])) echo 'checked'; ?>>
-                                            </td>
-                                        </tr>
+                                            </div>
+                                        </div>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                            </div>
                             </p>
                         </div>
                         <p>
                             <input type="submit" name="dkPlus_import" id="dkPlus_import" class="button button-primary"
-                                   value="<?php echo __('dkPlus import', PLUGIN_SLUG); ?>" data-action="dkPlus_import">
+                                   value="<?php echo __('import', PLUGIN_SLUG); ?>" data-action="dkPlus_import">
                         </p>
+
+                        <div class="dkPlus_import_progress" style="display: none">
+                            <p><?php echo __('Progress', PLUGIN_SLUG); ?></p>
+                            <progress class="progress_import" max="100" value="0"></progress>
+                        </div>
+
                     </div>
                     <input type="hidden" name="action" value="dkPlus_import">
                 </form>

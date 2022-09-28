@@ -131,8 +131,10 @@ trait API
             }
 
             $result = [];
-            foreach ($products as $product) {
-                $result[] = static::productMap($product);
+            if (is_array($products)) {
+                foreach ($products as $product) {
+                    $result[] = static::productMap($product);
+                }
             }
         } catch (WP_Exceptions $e) {
             echo $e->getMessage();

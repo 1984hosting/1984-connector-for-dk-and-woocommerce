@@ -14,6 +14,6 @@ class WP_Exceptions extends \Exception
     }
     public static function invalidResponse($code)
     {
-        return new static('Invalid response, error: ', $code);
+        return new static('Invalid response, error: ' . $code);
     }
 }

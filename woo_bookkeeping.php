@@ -17,9 +17,11 @@ defined('ABSPATH') || exit;
 define('PLUGIN_SLUG', basename(__DIR__));
 define('PLUGIN_NAME', __('Woo Bookkeeping', PLUGIN_SLUG));
 define('PLUGIN_URL', plugin_dir_url(__FILE__));
+define('PLUGIN_PATH', plugin_dir_path(__FILE__));
+define('PLUGIN_TEMP', plugin_dir_path(__FILE__) . 'tmp' . DIRECTORY_SEPARATOR);
 
 if (!defined('PLUGIN_TPL_DIR')) {
-    define('PLUGIN_TPL_DIR', WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . PLUGIN_SLUG . '/templates');
+    define('PLUGIN_TPL_DIR', PLUGIN_PATH . 'templates');
 }
 
 /**
@@ -77,4 +79,8 @@ function do_this_hourly()
 function woocoo_deactivation()
 {
     wp_clear_scheduled_hook('woocoo_event');
+}
+function calc_percent($total, $number): float
+{
+    return abs(round((($number - $total) * 100) / $number, 2));
 }

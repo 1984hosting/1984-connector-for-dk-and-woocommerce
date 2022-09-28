@@ -140,12 +140,65 @@
 
             success: function (data) {
                 var response = $.parseJSON(data)
-                button.prop('disabled', 0)
 
-                alert(response.message)
+                setProgressbar('.dkPlus_import_progress', response.completed_percent)
+                switch (response.status) {
+                    case 'prolong':
+                        prolongImport(button)
+                        break
+                    case 'success':
+                        button.prop('disabled', 0)
+                        alert(response.message)
+                        break
+                    default:
+                        alert('not valid response status')
+                }
             }
         })
     })
+
+    /**
+     * Setting progress bar
+     * @param tag response from backend DOM tag
+     * @param value value percent
+     */
+    function setProgressbar(tag, value) {
+        let progress_block = $(tag)
+        let progress_bar = progress_block.find('progress')
+        let progress_title = progress_block.find('p')
+        let width = value < 4 ? '100px' : value + '%'
+        let data_value = value === 100 ? 'completed' : value
+
+        progress_block.css('display', 'block')
+        progress_title.width(width).attr('data-value', data_value)
+        progress_bar.val(value)
+    }
+    function prolongImport(button) {
+        console.log('load function prolong')
+        $.ajax({
+            url: ajax.url,
+            type: 'POST',
+            data: {
+                'action': 'dkPlus_prolong_import',
+            },
+            success: function (data) {
+                var response = $.parseJSON(data)
+
+                setProgressbar('.dkPlus_import_progress', response.completed_percent)
+                switch (response.status) {
+                    case 'prolong':
+                        prolongImport(button)
+                        break
+                    case 'success':
+                        button.prop('disabled', 0)
+                        alert(response.message)
+                        break
+                    default:
+                        alert('not valid response status')
+                }
+            }
+        })
+    }
 
 
     function propButtons(buttons, name, value) {
