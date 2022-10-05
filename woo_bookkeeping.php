@@ -82,5 +82,5 @@ function woocoo_deactivation()
 }
 function calc_percent($total, $number): float
 {
-    return abs(round((($number - $total) * 100) / $number, 2));
+    return $number === 0 ? 100 : abs(round((($number - $total) * 100) / $total, 2));
 }

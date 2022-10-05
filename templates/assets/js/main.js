@@ -1,19 +1,44 @@
 (function ($) {
     /** Tabs */
-    $('.woocoo_tabs').tabs();
+    $('.woocoo_tabs').tabs()
 
     /**
      * Save data account
      */
-    $('.woo_save_account').on('submit', function (e) {
+    $('.dkPlus_save_account').submit(function (e) {
         e.preventDefault()
-        var form = $(this),
-            button = $(this).find('input[type="submit"]')
+        var button = $(this).find('input[type="submit"]')
 
         $.ajax({
             url: ajax.url,
             type: 'POST',
-            data: form.serializeArray(),
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                button.prop('disabled', 1)
+            },
+            success: function (data) {
+                var response = $.parseJSON(data)
+                button.prop('disabled', 0)
+                $('.woo_progress').hide()
+
+                alert(response.message)
+            }
+        })
+    })
+
+    /**
+     * Product Sync Settings
+     */
+    $('.dkPlus_sync_save').submit(function (e) {
+        e.preventDefault()
+        var button = form.find('input[type="submit"]')
+
+        $.ajax({
+            url: ajax.url,
+            type: 'POST',
+            data: new FormData(this),
             beforeSend: function () {
                 button.prop('disabled', 1)
             },
@@ -26,34 +51,48 @@
         })
     })
 
+    let sync_progress_tag = '.dkPlus_import_progress'
     /**
-     * Save sync settings on plugin settings page
+     * Manual start of synchronization
      */
-    $('.dkPlus_sync input[type="submit"]').click(function (e) {
+    $('.dkPlus_sync').submit(function (e) {
         e.preventDefault()
 
-        var button = $(this),
-            form = button.closest('.dkPlus_sync'),
-            action = button.data('action'),
-            buttons = form.find('input[type="submit"]'),
-            formData = form.serializeArray()
-
-        formData.push({name: 'action', value: action})
+        var form = $(this),
+            button = $(this).find('input[type="submit"]'),
+            button_prolong = form.find('input[name="dkPlus_sync_prolong"]')
 
         $.ajax({
             url: ajax.url,
             type: 'POST',
-            data: formData,
-
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
             beforeSend: function () {
-                propButtons(buttons, 'disabled', 1)
+                button.prop('disabled', 1)
+                button_prolong.prop('disabled', 1)
+                setProgressbar(sync_progress_tag, 0)
             },
-
             success: function (data) {
                 var response = $.parseJSON(data)
-                propButtons(buttons, 'disabled', 0)
 
-                alert(response.message)
+                setProgressbar(sync_progress_tag, response.completed_percent)
+                switch (response.status) {
+                    case 'prolong':
+                        productssyncProlong(button)
+                        break
+                    case 'success':
+                        button.prop('disabled', 0)
+                        button_prolong.remove()
+                        alert(response.message)
+                        break
+                    case 'empty':
+                    default:
+                        alert(response.message ?? 'not valid response status')
+                        button.prop('disabled', 0)
+                        button_prolong.prop('disabled', 0)
+                        unsetProgressbar(sync_progress_tag)
+                }
             }
         })
     })
@@ -61,7 +100,7 @@
     /**
      * Sync dk single product page
      */
-    $('button[data-action="dkPlus_sync_product_one"], button[data-action="send_to_dkPlus"]').click(function (e) {
+    $('button[data-action="dkPlus_sync_product_one"], button[data-action="dkPlus_send_to"]').click(function (e) {
         e.preventDefault()
 
         var form = $('.product_sync_form'),
@@ -123,31 +162,77 @@
     /**
      * Import products
      */
-    $('form.dkPlus_import').on('submit', function (e) {
+    let import_progress_tag = '.dkPlus_import_progress'
+
+    $('.dkPlus_import').submit(function (e) {
         e.preventDefault()
 
         var form = $(this),
-            button = $(this).find('input[type="submit"]')
+            button = $(this).find('input[type="submit"]'),
+            button_prolong = form.find('input[name="dkPlus_import_prolong"]')
 
         $.ajax({
             url: ajax.url,
             type: 'POST',
-            data: form.serializeArray(),
-
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
             beforeSend: function () {
                 button.prop('disabled', 1)
+                button_prolong.prop('disabled', 1)
+                setProgressbar(import_progress_tag, 0)
             },
+            success: function (data) {
+                var response = $.parseJSON(data)
 
+                setProgressbar(import_progress_tag, response.completed_percent)
+                switch (response.status) {
+                    case 'prolong':
+                        productsImportProlong(button)
+                        break
+                    case 'success':
+                        button.prop('disabled', 0)
+                        button_prolong.remove()
+                        alert(response.message)
+                        break
+                    case 'empty':
+                    default:
+                        alert(response.message ?? 'not valid response status')
+                        button.prop('disabled', 0)
+                        button_prolong.prop('disabled', 0)
+                        unsetProgressbar(import_progress_tag)
+                }
+            }
+        })
+    })
+
+    $('form input[name="dkPlus_import_prolong"]').on('click', function (e) {
+        e.preventDefault()
+        var form = $(this).closest('form')
+        var button = form.find('input[name="dkPlus_import"]')
+        var button_prolong = $(this)
+
+        $.ajax({
+            url: ajax.url,
+            type: 'POST',
+            data: {
+                'action': 'dkPlus_import_refresh',
+            },
+            beforeSend: function() {
+                button.prop('disabled', 1)
+                button_prolong.prop('disabled', 1)
+            },
             success: function (data) {
                 var response = $.parseJSON(data)
 
                 setProgressbar('.dkPlus_import_progress', response.completed_percent)
                 switch (response.status) {
                     case 'prolong':
-                        prolongImport(button)
+                        productsImportProlong(button)
                         break
                     case 'success':
                         button.prop('disabled', 0)
+                        button_prolong.remove()
                         alert(response.message)
                         break
                     default:
@@ -169,17 +254,21 @@
         let width = value < 4 ? '100px' : value + '%'
         let data_value = value === 100 ? 'completed' : value
 
-        progress_block.css('display', 'block')
+        progress_block.show('fast')
         progress_title.width(width).attr('data-value', data_value)
         progress_bar.val(value)
     }
-    function prolongImport(button) {
-        console.log('load function prolong')
+
+    function unsetProgressbar(tag) {
+        $(tag).hide('fast')
+    }
+
+    function productsImportProlong(button) {
         $.ajax({
             url: ajax.url,
             type: 'POST',
             data: {
-                'action': 'dkPlus_prolong_import',
+                'action': 'dkPlus_import_prolong',
             },
             success: function (data) {
                 var response = $.parseJSON(data)
@@ -187,7 +276,7 @@
                 setProgressbar('.dkPlus_import_progress', response.completed_percent)
                 switch (response.status) {
                     case 'prolong':
-                        prolongImport(button)
+                        productsImportProlong(button)
                         break
                     case 'success':
                         button.prop('disabled', 0)
@@ -200,11 +289,9 @@
         })
     }
 
-
     function propButtons(buttons, name, value) {
         buttons.each(function () {
             $(this).prop(name, value)
         })
     }
-
 })(jQuery)

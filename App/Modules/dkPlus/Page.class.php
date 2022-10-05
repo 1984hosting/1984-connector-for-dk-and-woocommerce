@@ -3,6 +3,7 @@
 namespace woo_bookkeeping\App\Modules\dkPlus;
 
 use woo_bookkeeping\App\Core\Ajax;
+use woo_bookkeeping\App\Core\Logs;
 
 class Page extends \woo_bookkeeping\App\Core\Page
 {
@@ -86,6 +87,16 @@ class Page extends \woo_bookkeeping\App\Core\Page
         return update_option(PLUGIN_SLUG, $settings, 'no');
     }
 
+    public static function incompleteImport()
+    {
+        return Logs::readLog('dkPlus/import_products_status');
+    }
+
+    public static function incompleteSync()
+    {
+        return Logs::readLog('dkPlus/sync_products_status');
+    }
+
     /**
      * Register required actions
      */
@@ -96,41 +107,61 @@ class Page extends \woo_bookkeeping\App\Core\Page
         add_action('add_meta_boxes', [$this, 'create_meta_box']);
 
         /** Ajax actions */
-        new Ajax('dkPlus_save_and_sync', function () {
+        new Ajax(Main::$module_slug . '_save', function () {
+            Page::saveOptions();
+
+            AJAX::response([
+                'status' => 1,
+                'message' => 'Settings saved successfully',
+            ]);
+        });
+        new Ajax(Main::$module_slug . '_sync_and_save', function () {
             Product::productSyncAll();
 
             Page::saveOptions();
 
-            $message = __('Saved settings and synced successfully', PLUGIN_SLUG);
-            AJAX::response(1, $message);
+            AJAX::response([
+                'status' => 1,
+                'message' => 'Saved settings and synced successfully',
+            ]);
         });
-        new Ajax('dkPlus_save', function () {
+        new Ajax(Main::$module_slug . '_sync_prolong', function () {
+            $response = Product::productProlongSync();
+
             Page::saveOptions();
 
-            $message = __('Settings saved successfully', PLUGIN_SLUG);
-            AJAX::response(1, $message);
+            AJAX::response($response);
         });
-        new Ajax('dkPlus_sync_product_one', function () {
+        new Ajax(Main::$module_slug . '_sync_product_one', function () {
             Product::productSyncOne();
 
-            $message = __('The product has been successfully synced, the page will be refreshed now', PLUGIN_SLUG);
-            AJAX::response(1, $message);
+            AJAX::response([
+                'status' => 1,
+                'message' => 'The product has been successfully synced, the page will be refreshed now',
+            ]);
         });
-        new Ajax('send_to_dkPlus', function () {
+        new Ajax(Main::$module_slug . '_send_to', function () {
             Product::productSend();
 
-            $message = __('The product data successfully sent to dkPlus', PLUGIN_SLUG);
-            AJAX::response(1, $message);
+            AJAX::response([
+                'status' => 1,
+                'message' => 'The product data successfully sent to dkPlus',
+            ]);
         });
-        new Ajax('dkPlus_import', function () {
-            $response = Product::productImportAll();
+        new Ajax(Main::$module_slug . '_import', function () {
+            $response = Product::productsImport();
 
-            echo json_encode($response);
+            AJAX::response($response);
         });
-        new Ajax('dkPlus_prolong_import', function () {
-            $response = Product::prolongImport();
+        new Ajax(Main::$module_slug . '_import_prolong', function () {
+            $response = Product::productsImportProlong();
 
-            echo json_encode($response);
+            AJAX::response($response);
+        });
+        new Ajax(Main::$module_slug . '_import_refresh', function () {
+            $response = Product::productsImport();
+
+            AJAX::response($response);
         });
     }
 }

@@ -4,10 +4,12 @@ namespace woo_bookkeeping\App\Modules\dkPlus;
 
 use woo_bookkeeping\App\Core\Woo_Query;
 use woo_bookkeeping\App\Core\Logs;
+use woo_bookkeeping\App\Core\Ajax;
 
 class Product extends \woo_bookkeeping\App\Core\Product
 {
     private static int $import_slice = 35; //how many products to import per iteration (more php execution limit more number)
+    private static int $sync_slice = 35; //how many products to sync per iteration (more php execution limit more number)
 
     /**
      * Performing a sync for a single product
@@ -107,59 +109,164 @@ class Product extends \woo_bookkeeping\App\Core\Product
     }
 
     /**
-     * Performing a sync for an all products
+     * Synchronization request from the admin panel (sync all products)
      * @param array $needed_fields - Required fields for synchronization
      * @return array|false[]
      */
     public static function productSyncAll(): array
     {
         $needed_fields = $_POST['sync_params'];
+        $existing_products = Woo_Query::getProducts('product_id, sku, tax_class');
 
-        $products = Woo_Query::getProducts('product_id, sku, tax_class');
-        $dkProducts = API::productFetchAll();
-
-        if (empty($dkProducts) || empty($products)) return ['status' => true];
-
-        foreach ($products as $product) {
-            $product_prop = self::searchProductArray($product['sku'], $dkProducts);
-
-            /**
-             * If the product has variations, then update the variations
-             */
-            if ($product['tax_class'] === 'parent') {
-                self::variationUpdate($needed_fields, $product['product_id'], $product_prop);
-            } else {
-                self::productUpdate($needed_fields, $product['product_id'], $product_prop);
-            }
+        if (empty($existing_products)) {
+            return [
+                'status' => 'empty',
+                'message' => 'Missing products for sync, please add products',
+            ];
         }
 
-        return ['status' => true];
-    }
+        $dkProducts = API::productFetchAll();
 
-    public static function productSendQty($product_sku, $qty): bool
-    {
-        $product = [
-            'UnitQuantity' => $qty,
+        if (empty($dkProducts)) {
+            return [
+                'status' => 'empty',
+                'message' => 'no products for sync on DK side',
+            ];
+        }
+
+        Logs::writeLog('dkPlus/sync_products', [
+                'products' => $dkProducts,
+                'needed_fields' => $needed_fields,
+                'existing_products' => $existing_products,
+            ]
+        );
+
+        Logs::writeLog('dkPlus/sync_products_status', [
+            'status' => 'processing',
+            'completed_percent' => 0,
+        ]);
+
+        return [
+            'status' => 'prolong',
+            'message' => 'Synchronization in progress ...'
         ];
-
-        return API::productUpdateDK($product_sku, $product);
     }
 
+    /**
+     * Synchronization in progress
+     * @return array
+     */
+    public static function productProlongSync(): array
+    {
+        $sync_products = Logs::readLog('dkPlus/sync_products');
+        $sync_products_status = Logs::readLog('dkPlus/sync_products_status');
+
+        //Bring products to woo import format
+        if (!empty($sync_products['existing_products'])) {
+            $products = self::compareProducts($sync_products['products'], $sync_products['existing_products']);
+            $sync_products_status['start_count_products'] = count($products);
+            $sync_products_status['status'] = 'prolong';
+            $sync_products_status['completed_percent'] = 0;
+            $sync_products_status['message'] = 'Synchronization in progress, please do not close the tab';
+        } else {
+            $products = self::productsSync($sync_products['needed_fields'], $sync_products['products']);
+            $sync_products_status['count_products'] = count($products);
+            $sync_products_status['status'] = $sync_products_status['count_products'] > 0 ? 'prolong' : 'success';
+            $sync_products_status['completed_percent'] = calc_percent($sync_products_status['start_count_products'], $sync_products_status['count_products']);
+            $sync_products_status['message'] = $sync_products_status['count_products'] > 0 ? 'Synchronization in progress, please do not close the tab' : 'Import products is successfully completed';
+        }
+
+        $sync_products['products'] = $products;
+
+        Logs::writeLog('dkPlus/sync_products', $sync_products);
+        Logs::writeLog('dkPlus/sync_products_status', $sync_products_status);
+
+        return $sync_products_status;
+    }
 
     /**
      * Import products from dk
      * @param array $needed_fields - Required fields for synchronization
      * @return bool
      */
-    public static function productImportAll(): array
+    public static function productsImport(): array
     {
-        $needed_fields = $_POST['sync_params'];
+        if (isset($_POST['sync_params'])) {
+            $needed_fields = $_POST['sync_params'];
+            $products = API::productFetchAll();
+            $import_products_status['start_count_products'] = count($products);
+        } else {
+            $import_products = Logs::readLog('dkPlus/import_products');
+            $import_products_status = Logs::readLog('dkPlus/import_products_status');
+            $products = $import_products['products'];
+            $needed_fields = $import_products['needed_fields'];
+        }
 
-        $existing_sku = self::getAllProductsSKU();
-        $dkProducts = API::productFetchAll();
+        $existing_products = self::getAllProductsSKU();
 
-        if (empty($dkProducts)) return ['status' => true];
+        if (empty($products)) {
+            return [
+                'status' => 'empty',
+                'message' => 'No data to import, please try again later',
+            ];
+        }
 
+        $products = self::filterProducts($products, $existing_products);
+
+        if (empty($products)) {
+            return [
+                'status' => 'empty',
+                'message' => 'New products for import not found',
+            ];
+        }
+
+        if (isset($_POST['sync_params'])) {
+            $import_products_status['start_count_products'] = count($products);
+        }
+
+        $import_products['products'] = $products;
+        $import_products['needed_fields'] = $needed_fields;
+        $import_products['existing_products'] = $existing_products;
+
+        $import_products_status['count_products'] = count($products);
+        $import_products_status['message'] = $import_products_status['count_products'] > 0 ? 'Import in progress, please do not close the tab' : 'Import products is successfully completed';
+        $import_products_status['status'] = $import_products_status['count_products'] > 0 ? 'prolong' : 'success';
+        $import_products_status['completed_percent'] = calc_percent($import_products_status['start_count_products'], $import_products_status['count_products']);
+
+        Logs::writeLog('dkPlus/import_products', $import_products);
+        Logs::writeLog('dkPlus/import_products_status', $import_products_status);
+
+        return $import_products_status;
+    }
+
+    public static function productsImportProlong(): array
+    {
+        $import_products = Logs::readLog('dkPlus/import_products');
+        $import_products_status = Logs::readLog('dkPlus/import_products_status');
+
+        $products = self::productsAdd($import_products['needed_fields'], $import_products['products']);
+
+        $import_products_status['count_products'] = count($products);
+        $import_products_status['status'] = $import_products_status['count_products'] > 0 ? 'prolong' : 'success';
+        $import_products_status['completed_percent'] = calc_percent($import_products_status['start_count_products'], $import_products_status['count_products']);
+        $import_products_status['message'] = $import_products_status['count_products'] > 0 ? 'Import in progress, please do not close the tab' : 'Import products is successfully completed';
+
+        $import_products['products'] = $products;
+
+        Logs::writeLog('dkPlus/import_products', $import_products);
+        Logs::writeLog('dkPlus/import_products_status', $import_products_status);
+
+        return $import_products_status;
+    }
+
+    /**
+     * Search for new products in the array
+     * @param $dkProducts - products array from dkPlus
+     * @param $existing_sku - array of sku local products
+     * @return array
+     */
+    private static function filterProducts($dkProducts, $existing_sku): array
+    {
         if (!empty($existing_sku)) {
             foreach ($dkProducts as $key => $dk_product) {
                 //if existing product
@@ -171,99 +278,43 @@ class Product extends \woo_bookkeeping\App\Core\Product
             }
         }
 
-        $response = [];
-        $count_products = count($dkProducts);
-        $log['count_products'] = $count_products;
-
-        if ($count_products > self::$import_slice) {
-            $leftover = $count_products % self::$import_slice;
-
-            if ($leftover > 0) {
-                $dkProducts = self::productsAdd($leftover, $needed_fields, $dkProducts);
-            }
-
-            Logs::writeLog(
-                'dkPlus/import_products',
-                [
-                    'products' => $dkProducts,
-                    'needed_fields' => $needed_fields
-                ]
-            );
-
-            $log['pieces_left'] = $count_products - $leftover;
-            $log['completed_percent'] = calc_percent($count_products, $log['pieces_left']);
-
-            $response['status'] = 'prolong';
-            $response['message'] = __('Product imports continue');
-            $response['completed_percent'] = $log['completed_percent'];
-        } else {
-            foreach ($dkProducts as $dk_product) {
-                self::productAdd($needed_fields, $dk_product);
-            }
-
-            Logs::writeLog('dkPlus/import_products', []);
-
-            $log['completed_percent'] = 100;
-            $log['pieces_left'] = 0;
-
-            $response['status'] = 'success';
-            $response['message'] = __('Import products is successfully completed');
-            $response['completed_percent'] = 100;
-        }
-
-        Logs::writeLog('dkPlus/import_products_status', $log);
-
-        return $response;
+        return $dkProducts;
     }
 
-    public static function prolongImport(): array
+    /**
+     * Bring the product into the format for importing voo
+     * @param $dkProducts
+     * @param $existing_products
+     * @return array
+     */
+    private static function compareProducts($dkProducts, $existing_products): array
     {
-        $import_products = Logs::readLog('dkPlus/import_products');
-        $products = $import_products['products'];
-        $needed_fields = $import_products['needed_fields'];
+        foreach ($dkProducts as &$product) {
+            $product_prop = self::searchProductArray($product['sku'], $existing_products);
 
-        $response = [];
-        $log = Logs::readLog('dkPlus/import_products_status');
-        $count_products = count($products);
-
-        if ($count_products > self::$import_slice) {
-            $products = self::productsAdd(self::$import_slice, $needed_fields, $products);
-
-            Logs::writeLog(
-                'dkPlus/import_products',
-                [
-                    'products' => $products,
-                    'needed_fields' => $needed_fields
-                ]
-            );
-
-            $log['pieces_left'] = $count_products - self::$import_slice;
-            $log['completed_percent'] = calc_percent($log['count_products'], $log['pieces_left']);
-
-            $response['status'] = 'prolong';
-            $response['message'] = __('Product imports continue');
-            $response['completed_percent'] = $log['completed_percent'];
-        } else {
-            foreach ($products as $product) {
-                self::productAdd($needed_fields, $product);
+            if (empty($product_prop)) {
+                unset($product);
+                continue;
             }
 
-            Logs::writeLog('dkPlus/import_products', []);
-
-            $log['completed_percent'] = 100;
-            $log['pieces_left'] = 0;
-
-            $response['status'] = 'success';
-            $response['message'] = __('Import products is successfully completed');
-            $response['completed_percent'] = 100;
+            $product = array_merge($product, $product_prop);
         }
 
-
-        Logs::writeLog('dkPlus/import_products_status', $log);
-
-        return $response;
+        return $dkProducts;
     }
 
+    /**
+     * Updating the number of units in stock
+     * @param $product_sku - product sku
+     * @param $qty - new qty
+     * @return bool
+     */
+    public static function productSendQty($product_sku, $qty): bool
+    {
+        $product['UnitQuantity'] = $qty;
+
+        return API::productUpdateDK($product_sku, $product);
+    }
 
     /**
      * @param $count - how many products to import from array
@@ -271,14 +322,38 @@ class Product extends \woo_bookkeeping\App\Core\Product
      * @param $dkProducts - array products from DK
      * @return array - products without imported products
      */
-    public static function productsAdd($count, $needed_fields, $dkProducts): array
+    public static function productsAdd($needed_fields, $dkProducts): array
     {
+        $count = self::$import_slice;
         $count_products = count($dkProducts);
+
         if ($count > $count_products) $count = $count_products;
 
         for ($i = $count; $i > 0; $i--) {
             $product = array_shift($dkProducts);
             self::productAdd($needed_fields, $product);
+        }
+
+        return $dkProducts;
+    }
+
+    public static function productsSync($needed_fields, $dkProducts): array
+    {
+        $count = self::$sync_slice;
+        $count_products = count($dkProducts);
+
+        if ($count > $count_products) $count = $count_products;
+
+        for ($i = $count; $i > 0; $i--) {
+            $product = array_shift($dkProducts);
+            /**
+             * If the product has variations, then update the variations
+             */
+            if ($product['tax_class'] === 'parent') {
+                self::variationUpdate($needed_fields, $product['product_id'], $product);
+            } else {
+                self::productUpdate($needed_fields, $product['product_id'], $product);
+            }
         }
 
         return $dkProducts;
@@ -306,8 +381,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
             ], $product_id);
 
             $qty = $product['stock_quantity'] - 1;
-            /*var_dump($qty);
-            die();*/
+
             self::productSendQty($product['sku'], $qty);
 
             return true;

@@ -168,6 +168,7 @@ trait API
     private static function request(string $method, array $args)
     {
         try {
+            $args['timeout'] = 300;
             $request = wp_remote_request(static::$api_url . $method, $args);
             $response_code = wp_remote_retrieve_response_code($request);
 
@@ -180,7 +181,6 @@ trait API
             //echo $e->getMessage();
         }
 
-        //var_dump($body);die('gg');
         return !empty($body) ? json_decode($body, true) : true;
     }
 }

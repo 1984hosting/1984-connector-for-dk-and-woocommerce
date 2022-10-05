@@ -21,4 +21,35 @@ class Logs
 
         return false;
     }
+
+    public static function removeLogs(): bool
+    {
+        if (file_exists(PLUGIN_TEMP)) {
+            self::delTree(PLUGIN_TEMP);
+        }
+
+        mkdir(PLUGIN_TEMP);
+        mkdir(PLUGIN_TEMP . '/dkPlus/');
+
+        // Generate .htaccess file`
+        $htaccess_file = path_join(PLUGIN_TEMP, '.htaccess');
+        if (!file_exists($htaccess_file)) {
+            if ($handle = fopen($htaccess_file, 'w')) {
+                fwrite($handle, "Options -Indexes \n <Files *.php> \n deny from all \n </Files>");
+                fclose($handle);
+            }
+        }
+
+        return true;
+    }
+
+
+    private static function delTree($dir)
+    {
+        $files = array_diff(scandir($dir), ['.', '..']);
+        foreach ($files as $file) {
+            is_dir($dir . $file) ? self::delTree($dir . $file . '/') : unlink($dir . $file);
+        }
+        return rmdir($dir);
+    }
 }

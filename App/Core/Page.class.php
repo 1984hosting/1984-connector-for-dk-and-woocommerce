@@ -83,9 +83,12 @@ class Page
 
         new \woo_bookkeeping\App\Core\Ajax('woo_save_account', function () {
             self::saveDataAccount();
+            Logs::removeLogs();
 
-            $message = __('Account data success updated', PLUGIN_SLUG);
-            AJAX::response(1, $message);
+            AJAX::response([
+                'status' => 1,
+                'message' => 'Account data success updated',
+            ]);
         });
     }
 }
