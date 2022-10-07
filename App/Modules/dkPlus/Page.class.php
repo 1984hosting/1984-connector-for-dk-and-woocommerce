@@ -84,7 +84,15 @@ class Page extends \woo_bookkeeping\App\Core\Page
             wp_schedule_event(time(), $data['woocoo_schedule'], $task_name);
         }
 
-        return update_option(PLUGIN_SLUG, $settings, 'no');
+        $update_otion = update_option(PLUGIN_SLUG, $settings, 'no');
+
+        return $update_otion ? [
+            'status' => 'success',
+            'message' => 'Settings saved successfully',
+        ] : [
+            'status' => 'error',
+            'message' => 'Settings is not saved',
+        ];
     }
 
     public static function incompleteImport()
@@ -108,27 +116,12 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
         /** Ajax actions */
         new Ajax(Main::$module_slug . '_save', function () {
-            Page::saveOptions();
+            $response = Page::saveOptions();
 
-            AJAX::response([
-                'status' => 1,
-                'message' => 'Settings saved successfully',
-            ]);
+            AJAX::response($response);
         });
-        new Ajax(Main::$module_slug . '_sync_and_save', function () {
-            Product::productSyncAll();
-
-            Page::saveOptions();
-
-            AJAX::response([
-                'status' => 1,
-                'message' => 'Saved settings and synced successfully',
-            ]);
-        });
-        new Ajax(Main::$module_slug . '_sync_prolong', function () {
-            $response = Product::productProlongSync();
-
-            Page::saveOptions();
+        new Ajax(Main::$module_slug . '_sync', function () {
+            $response = Product::productSyncAll();
 
             AJAX::response($response);
         });
@@ -136,7 +129,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
             Product::productSyncOne();
 
             AJAX::response([
-                'status' => 1,
+                'status' => 'success',
                 'message' => 'The product has been successfully synced, the page will be refreshed now',
             ]);
         });
@@ -144,7 +137,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
             Product::productSend();
 
             AJAX::response([
-                'status' => 1,
+                'status' => 'success',
                 'message' => 'The product data successfully sent to dkPlus',
             ]);
         });
@@ -160,6 +153,11 @@ class Page extends \woo_bookkeeping\App\Core\Page
         });
         new Ajax(Main::$module_slug . '_import_refresh', function () {
             $response = Product::productsImport();
+
+            AJAX::response($response);
+        });
+        new Ajax(Main::$module_slug . '_status', function () {
+            $response = Product::getStatus();
 
             AJAX::response($response);
         });

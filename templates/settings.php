@@ -3,7 +3,7 @@ $main = woo_bookkeeping\App\Core\Main::getInstance();
 $dkPlus = !empty($main['dkPlus']) ? $main['dkPlus'] : false;
 $dkPlus_schedule = !empty($dkPlus['schedule']) ? $dkPlus['schedule'] : false;
 $import_status = woo_bookkeeping\App\Modules\dkPlus\Page::incompleteImport();
-$import_status = woo_bookkeeping\App\Modules\dkPlus\Page::incompleteSync();
+$sync_status = woo_bookkeeping\App\Modules\dkPlus\Page::incompleteSync();
 
 $syncParams = [
     [
@@ -108,9 +108,9 @@ $syncParams = [
                 </div>
 
                 <div id="dkPlus_service">
-                    <form method="post" action="" class="dkPlus_save">
+                    <form method="post" action="" class="dkPlus_sync">
                         <div id="universal-message-container">
-                            <h2><?php echo esc_html(__('Product Sync Settings', PLUGIN_SLUG)); ?></h2>
+                            <h2><?php echo esc_html(__('Automatic product synchronization', PLUGIN_SLUG)); ?></h2>
 
                             <div class="options">
                                 <p>
@@ -154,95 +154,28 @@ $syncParams = [
                                 </div>
                             </div>
                             <p>
-                                <input type="submit" name="dkPlus_save" id="dkPlus_save" class="button button-primary" value="<?php echo __('save', PLUGIN_SLUG); ?>">
-                            </p>
-                        </div>
-                        <input type="hidden" name="action" value="dkPlus_save">
-                    </form>
-
-                    <form method="post" action="" class="dkPlus_sync">
-                        <div id="universal-message-container">
-                            <h2><?php echo esc_html(__('Product synchronization', PLUGIN_SLUG)); ?></h2>
-
-                            <div class="options">
-                                <p>
-                                    <label><?php echo __('Select options to sync', PLUGIN_SLUG); ?></label>
-                                    <br/>
-                                </p>
-                                <div class="form-table" role="presentation">
-                                    <?php foreach ($syncParams as $param): ?>
-                                        <?php if ($param['type'] === 'hidden'): ?>
-                                            <input type="hidden" name="<?php echo $param['name']; ?>"
-                                                   value="<?php echo $param['value']; ?>">
-                                        <?php else: ?>
-                                            <div class="form-table-item bg-color">
-                                                <div class="th" scope="row">
-                                                    <label for="<?php echo $param['id']; ?>"><?php echo $param['label']; ?></label>
-                                                </div>
-                                                <div class="td">
-                                                    <input type="<?php echo $param['type']; ?>"
-                                                           id="<?php echo $param['id']; ?>"
-                                                           name="<?php echo $param['name']; ?>"
-                                                           <?php if (isset($param['value'])): ?>value="<?php echo $param['value']; ?>"<?php endif; ?>
-                                                        <?php if (isset($dkPlus_schedule['params']) && in_array($param['id'], $dkPlus_schedule['params'])) echo 'checked'; ?>>
-                                                </div>
-                                            </div>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                </div>
-                                <div class="form-table-item select">
-                                    <div class="th" scope="row" valign="top">
-                                        <label for="crontrol_schedule"><?php echo __('Recurrence', PLUGIN_SLUG); ?></label>
-                                    </div>
-                                    <div class="td">
-                                        <?php $variations = woo_bookkeeping\App\Modules\dkPlus\Events::getVariations(); ?>
-                                        <select class="postform" name="woocoo_schedule" id="woocoo_schedule"
-                                                required="">
-                                            <?php foreach ($variations as $key => $variation): ?>
-                                                <option value="<?php echo $key; ?>" <?php if (isset($dkPlus_schedule['name']) && $dkPlus_schedule['name'] === $key) echo 'selected'; ?>><?php echo $variation['display']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>
-                                <input type="submit" name="dkPlus_save_and_sync" id="dkPlus_save_and_sync"
+                                <input type="button"
+                                       name="dkPlus_save"
+                                       id="dkPlus_save"
                                        class="button button-primary"
-                                       value="<?php echo __('Synchronization', PLUGIN_SLUG); ?>"
-                                       data-action="dkPlus_sync_and_save">
+                                       value="<?php echo __('Save', PLUGIN_SLUG); ?>"
+                                        data-action="dkPlus_save">
+                                <input type="button"
+                                       name="dkPlus_sync"
+                                       id="dkPlus_sync"
+                                       class="button button-primary"
+                                       value="<?php echo __('Manual start sync', PLUGIN_SLUG); ?>"
+                                       data-action="dkPlus_sync"
+                                       <?php if (isset($sync_status['completed_percent']) && $sync_status['completed_percent'] < 100) echo 'disabled'; ?>>
                             </p>
-
-
-                            <p>
-                                <?php if (isset($sync_status['completed_percent']) && $sync_status['completed_percent'] < 100): ?>
-                                    <input type="button" name="dkPlus_sync_prolong" id="dkPlus_sync_prolong"
-                                           class="button button-primary"
-                                           value="<?php echo __('Prolong sync', PLUGIN_SLUG); ?>"
-                                           data-action="dkPlus_sync">
-                                    <input type="submit" name="dkPlus_sync" id="dkPlus_sync"
-                                           class="button button-danger"
-                                           value="<?php echo __('Start a new sync', PLUGIN_SLUG); ?>"
-                                           data-action="dkPlus_sync">
-                                <?php else: ?>
-                                    <input type="submit" name="dkPlus_sync" id="dkPlus_sync"
-                                           class="button button-primary"
-                                           value="<?php echo __('sync', PLUGIN_SLUG); ?>" data-action="dkPlus_sync">
-                                <?php endif; ?>
-                            </p>
-
-                            <div class="dkPlus_sync_progress woo_progress"
-                                 <?php if (!isset($sync_status['completed_percent']) || $sync_status['completed_percent'] == 100): ?>style="display: none"<?php endif; ?>>
+                            <div class="dkPlus_sync_progress woo_progress" <?php if (!isset($sync_status['completed_percent']) || $sync_status['completed_percent'] == 100): ?>style="display: none"<?php endif; ?>>
                                 <p <?php if (isset($sync_status['completed_percent'])): ?> style="width: <?php echo $sync_status['completed_percent'] > 10 ? $sync_status['completed_percent'] . '%' : '100px'; ?>" data-value="<?php echo $sync_status['completed_percent']; ?>"<?php endif; ?>><?php echo __('Progress', PLUGIN_SLUG); ?></p>
-                                <progress class="progress_sync" max="100"
-                                          value="<?php echo $sync_status['completed_percent'] ?? 0; ?>"></progress>
+                                <progress class="progress_sync" max="100" value="<?php echo $sync_status['completed_percent'] ?? 0; ?>"></progress>
                             </div>
-
-
                         </div>
-                        <input type="hidden" name="action" value="dkPlus_sync">
                     </form>
 
-                    <form method="post" action="" class="dkPlus_sync">
+                    <form method="post" action="" class="dkPlus_import">
                         <div id="universal-message-container">
                             <h2><?php echo esc_html(__('Import products from dkPlus', PLUGIN_SLUG)); ?></h2>
                             <div class="options">
@@ -289,11 +222,9 @@ $syncParams = [
                                 <?php endif; ?>
                             </p>
 
-                            <div class="dkPlus_import_progress woo_progress"
-                                 <?php if (!isset($import_status['completed_percent']) || $import_status['completed_percent'] == 100): ?>style="display: none"<?php endif; ?>>
+                            <div class="dkPlus_import_progress woo_progress" <?php if (!isset($import_status['completed_percent']) || $import_status['completed_percent'] == 100): ?>style="display: none"<?php endif; ?>>
                                 <p <?php if (isset($import_status['completed_percent'])): ?> style="width: <?php echo $import_status['completed_percent'] > 10 ? $import_status['completed_percent'] . '%' : '100px'; ?>" data-value="<?php echo $import_status['completed_percent']; ?>"<?php endif; ?>><?php echo __('Progress', PLUGIN_SLUG); ?></p>
-                                <progress class="progress_import" max="100"
-                                          value="<?php echo $import_status['completed_percent'] ?? 0; ?>"></progress>
+                                <progress class="progress_import" max="100" value="<?php echo $import_status['completed_percent'] ?? 0; ?>"></progress>
                             </div>
 
                         </div>
@@ -311,3 +242,20 @@ $syncParams = [
         })
     </script>
 <?php endif; ?>
+
+
+
+    <script type="text/javascript">
+        //<![CDATA[
+        jQuery(document).ready( function($) {
+            //jQuery selector to point to
+            $('#menu-dashboard').pointer({
+                content: '<h3>WordPress Answers</h3>',
+                position: 'top',
+                close: function() {
+                    // This function is fired when you click the close button
+                }
+            }).pointer('open');
+        });
+        //]]>
+    </script>

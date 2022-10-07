@@ -29,12 +29,11 @@ class Ajax
         call_user_func($this->callback, $this->params);
     }
 
-    /**
-     * @param array $args['status'] / ['message'] is required
-     */
     public static function response(array $args)
     {
-        $args['message'] = __($args['message'], PLUGIN_SLUG);
+        if (isset($args['message'])) {
+            $args['message'] = __($args['message'], PLUGIN_SLUG);
+        }
         echo json_encode($args);
     }
 

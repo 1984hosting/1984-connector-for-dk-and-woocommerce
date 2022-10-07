@@ -24,7 +24,7 @@
 .tabs_list a:focus {
     box-shadow: none;
 }
-.dkPlus_import {
+.dkPlus_import, .dkPlus_sync {
     margin-top: 50px;
 }
 .form-table {
@@ -82,8 +82,7 @@
     transition: all 250ms linear;
     border: none;
 }
-.dkPlus_import,
-.dkPlus_sync{
+#dkPlus_service > form {
     padding: 0 15px;
     border: 2px solid #f0f0f1;
     -webkit-box-shadow: 0px 5px 10px 2px rgba(179, 201, 219, 0.2);
@@ -149,7 +148,7 @@
     .form-table .td{
         padding: 15px 10% 15px 10px;
     }
-    .dkPlus_import, .dkPlus_sync{
+    #dkPlus_service > form {
         padding: 0 20px;
     }
 }

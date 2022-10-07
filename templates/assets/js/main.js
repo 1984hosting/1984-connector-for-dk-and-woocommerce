@@ -19,6 +19,7 @@
                 button.prop('disabled', 1)
             },
             success: function (data) {
+                if (!isJson(data)) return false
                 var response = $.parseJSON(data)
                 button.prop('disabled', 0)
                 $('.woo_progress').hide()
@@ -31,21 +32,30 @@
     /**
      * Product Sync Settings
      */
-    $('.dkPlus_sync_save').submit(function (e) {
+    $('.dkPlus_sync input[type="button"]').click(function (e) {
         e.preventDefault()
-        var button = form.find('input[type="submit"]')
+        var button = $(this),
+            action = button.data('action'),
+            form = button.closest('form'),
+            form_buttons = form.find('input[type="button"]'),
+            form_data = new FormData(form[0])
+
+        form_data.append('action', action)
 
         $.ajax({
             url: ajax.url,
             type: 'POST',
-            data: new FormData(this),
+            data: form_data,
+            processData: false,
+            contentType: false,
             beforeSend: function () {
-                button.prop('disabled', 1)
+                propButtons(form_buttons, 'disabled', 1)
             },
             success: function (data) {
+                if (!isJson(data)) return false
                 var response = $.parseJSON(data)
-                button.prop('disabled', 0)
-
+                propButtons(form_buttons, 'disabled', 0)
+                updateProgress()
                 alert(response.message)
             }
         })
@@ -74,6 +84,7 @@
                 setProgressbar(sync_progress_tag, 0)
             },
             success: function (data) {
+                if (!isJson(data)) return false
                 var response = $.parseJSON(data)
 
                 setProgressbar(sync_progress_tag, response.completed_percent)
@@ -85,6 +96,7 @@
                         button.prop('disabled', 0)
                         button_prolong.remove()
                         alert(response.message)
+                        unsetProgressbar(sync_progress_tag)
                         break
                     case 'empty':
                     default:
@@ -147,6 +159,7 @@
                 propButtons(buttons, 'disabled', 1)
             },
             success: function (data) {
+                if (!isJson(data)) return false
                 var response = $.parseJSON(data)
 
                 propButtons(buttons, 'disabled', 0)
@@ -183,6 +196,7 @@
                 setProgressbar(import_progress_tag, 0)
             },
             success: function (data) {
+                if (!isJson(data)) return false
                 var response = $.parseJSON(data)
 
                 setProgressbar(import_progress_tag, response.completed_percent)
@@ -194,6 +208,7 @@
                         button.prop('disabled', 0)
                         button_prolong.remove()
                         alert(response.message)
+                        unsetProgressbar(import_progress_tag)
                         break
                     case 'empty':
                     default:
@@ -223,6 +238,7 @@
                 button_prolong.prop('disabled', 1)
             },
             success: function (data) {
+                if (!isJson(data)) return false
                 var response = $.parseJSON(data)
 
                 setProgressbar('.dkPlus_import_progress', response.completed_percent)
@@ -242,26 +258,6 @@
         })
     })
 
-    /**
-     * Setting progress bar
-     * @param tag response from backend DOM tag
-     * @param value value percent
-     */
-    function setProgressbar(tag, value) {
-        let progress_block = $(tag)
-        let progress_bar = progress_block.find('progress')
-        let progress_title = progress_block.find('p')
-        let width = value < 4 ? '100px' : value + '%'
-        let data_value = value === 100 ? 'completed' : value
-
-        progress_block.show('fast')
-        progress_title.width(width).attr('data-value', data_value)
-        progress_bar.val(value)
-    }
-
-    function unsetProgressbar(tag) {
-        $(tag).hide('fast')
-    }
 
     function productsImportProlong(button) {
         $.ajax({
@@ -271,6 +267,7 @@
                 'action': 'dkPlus_import_prolong',
             },
             success: function (data) {
+                if (!isJson(data)) return false
                 var response = $.parseJSON(data)
 
                 setProgressbar('.dkPlus_import_progress', response.completed_percent)
@@ -295,3 +292,61 @@
         })
     }
 })(jQuery)
+
+var $ = jQuery
+
+/**
+ * Setting progress bar
+ * @param tag response from backend DOM tag
+ * @param value value percent
+ */
+function setProgressbar(tag, value) {
+    let progress_block = $(tag)
+    let progress_bar = progress_block.find('progress')
+    let progress_title = progress_block.find('p')
+    let width = value < 4 ? '100px' : value + '%'
+    let data_value = value === 100 ? 'completed' : value
+
+    progress_block.show('fast')
+    progress_title.width(width).attr('data-value', data_value)
+    progress_bar.val(value)
+}
+
+function unsetProgressbar(tag) {
+    $(tag).hide('fast')
+}
+
+function updateProgress() {
+    $.ajax({
+        url: ajax.url,
+        type: 'POST',
+        data: {
+            'action': 'dkPlus_status',
+        },
+        success: function (data) {
+            if (!isJson(data)) return false
+            let response = $.parseJSON(data)
+
+            $.each(response,function(index,value) {
+                //response tag - class form class name
+                let tag = '.' + index + ' .woo_progress'
+
+                setProgressbar(tag, value.completed_percent)
+                if (value.completed_percent == 100) {
+                    alert('response.message')
+                    unsetProgressbar(tag)
+                }
+            })
+        }
+    })
+}
+
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        alert('bad response from server')
+        return false;
+    }
+    return true;
+}

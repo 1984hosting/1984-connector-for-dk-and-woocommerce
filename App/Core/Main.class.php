@@ -54,6 +54,10 @@ class Main
             'main',
         ];
 
+        if (isset($_GET['page']) && $_GET['page'] === 'woo_bookkeeping') {
+            self::$scripts[] = 'woocoo_sync';
+        }
+
         $main = new Main();
         $main->LoadModules();
         $main->registerActions();

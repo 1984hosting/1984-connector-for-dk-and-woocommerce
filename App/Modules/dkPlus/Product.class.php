@@ -198,6 +198,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
         } else {
             $import_products = Logs::readLog('dkPlus/import_products');
             $import_products_status = Logs::readLog('dkPlus/import_products_status');
+            if ($import_products_status['status'] !== 'prolong') return false;
             $products = $import_products['products'];
             $needed_fields = $import_products['needed_fields'];
         }
@@ -257,6 +258,17 @@ class Product extends \woo_bookkeeping\App\Core\Product
         Logs::writeLog('dkPlus/import_products_status', $import_products_status);
 
         return $import_products_status;
+    }
+
+    public static function getStatus(): array
+    {
+        $sync_products_status = Logs::readLog('dkPlus/sync_products_status');
+        $import_products_status = Logs::readLog('dkPlus/import_products_status');
+
+        return [
+            Main::$module_slug . '_sync' => $sync_products_status,
+            Main::$module_slug . '_import' => $import_products_status,
+        ];
     }
 
     /**

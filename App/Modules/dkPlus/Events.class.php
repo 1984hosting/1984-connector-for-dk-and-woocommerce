@@ -60,6 +60,8 @@ class Events extends CronSchedule
     {
         $settings = Main::getInstance();
 
-        Product::productSyncAll($settings[Main::$module_slug]['schedule']['params']);
+//TODO: rewrite logic cron events
+
+        //Product::productSyncAll($settings[Main::$module_slug]['schedule']['params']);
     }
 }
