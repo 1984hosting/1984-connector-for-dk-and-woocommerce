@@ -242,20 +242,3 @@ $syncParams = [
         })
     </script>
 <?php endif; ?>
-
-
-
-    <script type="text/javascript">
-        //<![CDATA[
-        jQuery(document).ready( function($) {
-            //jQuery selector to point to
-            $('#menu-dashboard').pointer({
-                content: '<h3>WordPress Answers</h3>',
-                position: 'top',
-                close: function() {
-                    // This function is fired when you click the close button
-                }
-            }).pointer('open');
-        });
-        //]]>
-    </script>
