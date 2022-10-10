@@ -43,6 +43,7 @@ abstract class CronSchedule
     public static function registerActions()
     {
         add_filter('cron_schedules', [self::class, 'woocoo_intervals']);
+
     }
 
     /**
@@ -50,7 +51,8 @@ abstract class CronSchedule
      * @param $schedules
      * @return mixed
      */
-    public static function woocoo_intervals ($schedules) {
+    public static function woocoo_intervals($schedules)
+    {
         $schedules['every_minute'] = [
             'interval' => 60,
             'display' => __('Every minute', PLUGIN_SLUG),

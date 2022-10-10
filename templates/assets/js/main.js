@@ -324,17 +324,19 @@ function updateProgress() {
             'action': 'dkPlus_status',
         },
         success: function (data) {
-            if (!isJson(data)) return false
+            if (data.length === 0 || !isJson(data)) return false
             let response = $.parseJSON(data)
 
             $.each(response,function(index,value) {
                 //response tag - class form class name
-                let tag = '.' + index + ' .woo_progress'
+                if (value !== false) {
+                    let tag = '.' + index + ' .woo_progress'
 
-                setProgressbar(tag, value.completed_percent)
-                if (value.completed_percent == 100) {
-                    alert('response.message')
-                    unsetProgressbar(tag)
+                    setProgressbar(tag, value.completed_percent)
+                    if (value.completed_percent == 100) {
+                        alert(response.message)
+                        unsetProgressbar(tag)
+                    }
                 }
             })
         }
@@ -345,7 +347,7 @@ function isJson(str) {
     try {
         JSON.parse(str);
     } catch (e) {
-        alert('bad response from server')
+        console.log('bad response from server')
         return false;
     }
     return true;

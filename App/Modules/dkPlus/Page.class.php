@@ -74,10 +74,15 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
         unset($settings[Main::$module_slug]['schedule']['name']);
 
-        $task_name = 'woocoo_update_products_' . Main::$module_slug;
+        $task_name = 'woocoo_update_' . Main::$module_slug;
+        $regular_task_name = 'woocoo_check_' . Main::$module_slug;
 
-        wp_clear_scheduled_hook($task_name); //remove old event
+        /** Remove old events */
+        wp_unschedule_hook($task_name);
+        wp_unschedule_hook($regular_task_name);
 
+        /** Add events */
+        wp_schedule_event(time(), 'every_minute', $regular_task_name);
         if (isset($data['woocoo_schedule']) && $data['woocoo_schedule'] !== 'disabled' && $settings[Main::$module_slug]['token']) {
             $settings[Main::$module_slug]['schedule']['name'] = $data['woocoo_schedule'];
 

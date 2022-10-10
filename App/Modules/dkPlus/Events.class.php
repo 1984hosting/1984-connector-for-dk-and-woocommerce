@@ -3,6 +3,7 @@
 namespace woo_bookkeeping\App\Modules\dkPlus;
 
 use woo_bookkeeping\App\Core\CronSchedule;
+use woo_bookkeeping\App\Core\Logs;
 
 class Events extends CronSchedule
 {
@@ -50,18 +51,19 @@ class Events extends CronSchedule
 
     public static function register_cron_events()
     {
-        add_action(
-            'woocoo_update_products_' . Main::$module_slug,
-            [self::class, 'run']
-        );
+        /** Updating and preparing products for synchronization */
+        add_action('woocoo_update_' . Main::$module_slug, [self::class, 'sync']);
+
+        /** Performing synchronization */
+        add_action('woocoo_check_' . Main::$module_slug, [Product::class, 'productProlongSync']);
     }
 
-    public static function run()
+    public static function sync()
     {
-        $settings = Main::getInstance();
+        $sync_products_status = Logs::readLog(Main::$module_slug . '/sync_products_status');
 
-//TODO: rewrite logic cron events
-
-        //Product::productSyncAll($settings[Main::$module_slug]['schedule']['params']);
+        if (!isset($sync_products_status['status']) || $sync_products_status['status'] === 'success') {
+            Product::productSyncAll();
+        }
     }
 }

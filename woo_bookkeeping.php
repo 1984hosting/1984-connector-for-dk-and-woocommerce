@@ -78,6 +78,7 @@ function do_this_hourly()
 
 function woocoo_deactivation()
 {
+    //TODO: remove event every minute for check imports etc.
     wp_clear_scheduled_hook('woocoo_event');
 }
 function calc_percent($total, $number): float

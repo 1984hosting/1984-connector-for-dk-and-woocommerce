@@ -115,7 +115,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
      */
     public static function productSyncAll(): array
     {
-        $needed_fields = $_POST['sync_params'];
+        $needed_fields = $_POST['sync_params'] ?? Main::getInstance()[Main::$module_slug]['sync_params'];
         $existing_products = Woo_Query::getProducts('product_id, sku, tax_class');
 
         if (empty($existing_products)) {
@@ -134,15 +134,15 @@ class Product extends \woo_bookkeeping\App\Core\Product
             ];
         }
 
-        Logs::writeLog('dkPlus/sync_products', [
+        Logs::writeLog(Main::$module_slug . '/sync_products', [
                 'products' => $dkProducts,
                 'needed_fields' => $needed_fields,
                 'existing_products' => $existing_products,
             ]
         );
 
-        Logs::writeLog('dkPlus/sync_products_status', [
-            'status' => 'processing',
+        Logs::writeLog(Main::$module_slug . '/sync_products_status', [
+            'status' => 'prolong',
             'completed_percent' => 0,
         ]);
 
@@ -158,12 +158,14 @@ class Product extends \woo_bookkeeping\App\Core\Product
      */
     public static function productProlongSync(): array
     {
-        $sync_products = Logs::readLog('dkPlus/sync_products');
-        $sync_products_status = Logs::readLog('dkPlus/sync_products_status');
+        $sync_products_status = Logs::readLog(Main::$module_slug . '/sync_products_status');
+        if ($sync_products_status['status'] !== 'prolong') return false;
+        $sync_products = Logs::readLog(Main::$module_slug . '/sync_products');
 
         //Bring products to woo import format
         if (!empty($sync_products['existing_products'])) {
             $products = self::compareProducts($sync_products['products'], $sync_products['existing_products']);
+            unset($sync_products['existing_products']);
             $sync_products_status['start_count_products'] = count($products);
             $sync_products_status['status'] = 'prolong';
             $sync_products_status['completed_percent'] = 0;
@@ -178,8 +180,8 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
         $sync_products['products'] = $products;
 
-        Logs::writeLog('dkPlus/sync_products', $sync_products);
-        Logs::writeLog('dkPlus/sync_products_status', $sync_products_status);
+        Logs::writeLog(Main::$module_slug . '/sync_products', $sync_products);
+        Logs::writeLog(Main::$module_slug . '/sync_products_status', $sync_products_status);
 
         return $sync_products_status;
     }
@@ -196,9 +198,8 @@ class Product extends \woo_bookkeeping\App\Core\Product
             $products = API::productFetchAll();
             $import_products_status['start_count_products'] = count($products);
         } else {
-            $import_products = Logs::readLog('dkPlus/import_products');
-            $import_products_status = Logs::readLog('dkPlus/import_products_status');
-            if ($import_products_status['status'] !== 'prolong') return false;
+            $import_products = Logs::readLog(Main::$module_slug . '/import_products');
+            $import_products_status = Logs::readLog(Main::$module_slug . '/import_products_status');
             $products = $import_products['products'];
             $needed_fields = $import_products['needed_fields'];
         }
@@ -234,16 +235,16 @@ class Product extends \woo_bookkeeping\App\Core\Product
         $import_products_status['status'] = $import_products_status['count_products'] > 0 ? 'prolong' : 'success';
         $import_products_status['completed_percent'] = calc_percent($import_products_status['start_count_products'], $import_products_status['count_products']);
 
-        Logs::writeLog('dkPlus/import_products', $import_products);
-        Logs::writeLog('dkPlus/import_products_status', $import_products_status);
+        Logs::writeLog(Main::$module_slug . '/import_products', $import_products);
+        Logs::writeLog(Main::$module_slug . '/import_products_status', $import_products_status);
 
         return $import_products_status;
     }
 
     public static function productsImportProlong(): array
     {
-        $import_products = Logs::readLog('dkPlus/import_products');
-        $import_products_status = Logs::readLog('dkPlus/import_products_status');
+        $import_products = Logs::readLog(Main::$module_slug . '/import_products');
+        $import_products_status = Logs::readLog(Main::$module_slug . '/import_products_status');
 
         $products = self::productsAdd($import_products['needed_fields'], $import_products['products']);
 
@@ -254,17 +255,28 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
         $import_products['products'] = $products;
 
-        Logs::writeLog('dkPlus/import_products', $import_products);
-        Logs::writeLog('dkPlus/import_products_status', $import_products_status);
+        Logs::writeLog(Main::$module_slug . '/import_products', $import_products);
+        Logs::writeLog(Main::$module_slug . '/import_products_status', $import_products_status);
 
         return $import_products_status;
     }
 
     public static function getStatus(): array
     {
-        $sync_products_status = Logs::readLog('dkPlus/sync_products_status');
-        $import_products_status = Logs::readLog('dkPlus/import_products_status');
+        $sync_products_status = Logs::readLog(Main::$module_slug . '/sync_products_status');
+        $import_products_status = Logs::readLog(Main::$module_slug . '/import_products_status');
 
+        if (isset($sync_products_status['notified'])) $sync_products_status = false;
+        if (isset($import_products_status['notified'])) $import_products_status = false;
+
+        if (isset($sync_products_status['status']) && $sync_products_status['status'] === 'success') {
+            $sync_products_status['notified'] = 1;
+            Logs::writeLog(Main::$module_slug . '/sync_products_status', $sync_products_status);
+        }
+        if (isset($import_products_status['status']) && $import_products_status['status'] === 'success') {
+            $import_products_status['notified'] = 1;
+            Logs::writeLog(Main::$module_slug . '/import_products_status', $import_products_status);
+        }
         return [
             Main::$module_slug . '_sync' => $sync_products_status,
             Main::$module_slug . '_import' => $import_products_status,
