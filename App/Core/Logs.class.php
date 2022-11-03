@@ -8,7 +8,14 @@ class Logs
     public static function writeLog(string $file_name, array $log)
     {
         $content = !empty($log) ? serialize($log) : '';
-        return file_put_contents(PLUGIN_TEMP . $file_name . '.log', $content);
+
+        $full_path = PLUGIN_TEMP . $file_name . '.log';
+
+        // Make sure that the containing directory exists.
+        if (!is_dir(dirname($full_path))) {
+            mkdir(dirname($full_path), 0755, true);
+        }
+        return file_put_contents($full_path, $content);
     }
 
     public static function readLog(string $file_name)

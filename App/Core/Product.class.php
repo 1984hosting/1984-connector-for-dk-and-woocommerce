@@ -31,7 +31,7 @@ abstract class Product extends Woo_Query
 
         $functions = array_combine(static::dataFormatSet($needed_fields), $needed_fields);
 
-        call_user_func([$wc_product, 'set_name'], $product['sku']);
+        call_user_func([$wc_product, 'set_name'], $product['name']);
         call_user_func([$wc_product, 'set_sku'], $product['sku']);
 
         foreach ($functions as $key => $value) {
