@@ -54,7 +54,7 @@ class Main
             'main',
         ];
 
-        if (isset($_GET['page']) && $_GET['page'] === 'woo_bookkeeping') {
+        if (isset($_GET['page']) && $_GET['page'] === PLUGIN_SLUG) {
             self::$scripts[] = 'woocoo_sync';
         }
 
