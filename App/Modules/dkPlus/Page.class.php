@@ -75,14 +75,14 @@ class Page extends \woo_bookkeeping\App\Core\Page
         unset($settings[Main::$module_slug]['schedule']['name']);
 
         $task_name = 'woocoo_update_' . Main::$module_slug;
-        $regular_task_name = 'woocoo_check_' . Main::$module_slug;
+        //$regular_task_name = 'woocoo_check_' . Main::$module_slug;
 
         /** Remove old events */
         wp_unschedule_hook($task_name);
-        wp_unschedule_hook($regular_task_name);
+        //wp_unschedule_hook($regular_task_name);
 
         /** Add events */
-        wp_schedule_event(time(), 'every_minute', $regular_task_name);
+        //wp_schedule_event(time(), 'every_minute', $regular_task_name);
         if (isset($data['woocoo_schedule']) && $data['woocoo_schedule'] !== 'disabled' && $settings[Main::$module_slug]['token']) {
             $settings[Main::$module_slug]['schedule']['name'] = $data['woocoo_schedule'];
 
@@ -96,7 +96,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
             'message' => 'Settings saved successfully',
         ] : [
             'status' => 'error',
-            'message' => 'Settings is not saved',
+            'message' => 'You haven\'t made a change',
         ];
     }
 
@@ -165,6 +165,11 @@ class Page extends \woo_bookkeeping\App\Core\Page
             $response = Product::getStatus();
 
             AJAX::response($response);
+        });
+        new Ajax(Main::$module_slug . '_logs_clear', function () {
+            $response = Logs::removeLog('dkPlus/logs');
+
+            AJAX::response(['status' => $response]);
         });
     }
 }

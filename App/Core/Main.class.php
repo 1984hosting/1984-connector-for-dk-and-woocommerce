@@ -61,9 +61,7 @@ class Main
         $main = new Main();
         $main->LoadModules();
         $main->registerActions();
-        CronSchedule::registerActions();
-
-
+        Main::cronLoader();
     }
 
     private function LoadModules()
@@ -72,10 +70,16 @@ class Main
         new Page();
     }
 
+    public static function cronLoader()
+    {
+        CronSchedule::registerActions();
+        dkPlus::cronActions();
+    }
+
     public function EnqueueScripts(): void
     {
         /** For UI page settings */
-        wp_enqueue_script("jquery-ui-tabs");
+        wp_enqueue_script('jquery-ui-tabs');
 
         if (!empty(self::$styles)) {
             foreach (self::$styles as $style) {

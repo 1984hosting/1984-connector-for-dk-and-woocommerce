@@ -52,10 +52,10 @@ class Events extends CronSchedule
     public static function register_cron_events()
     {
         /** Updating and preparing products for synchronization */
-        add_action('woocoo_update_' . Main::$module_slug, [self::class, 'sync']);
+        add_action('woocoo_update_dkPlus', [self::class, 'sync']);
 
         /** Performing synchronization */
-        add_action('woocoo_check_' . Main::$module_slug, [Product::class, 'productProlongSync']);
+        add_action('woocoo_regular_events', [Product::class, 'productProlongSync']);
     }
 
     public static function sync()

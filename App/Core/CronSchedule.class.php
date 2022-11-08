@@ -43,7 +43,6 @@ abstract class CronSchedule
     public static function registerActions()
     {
         add_filter('cron_schedules', [self::class, 'woocoo_intervals']);
-
     }
 
     /**

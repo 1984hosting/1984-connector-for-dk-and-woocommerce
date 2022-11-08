@@ -8,14 +8,15 @@ class Logs
     public static function writeLog(string $file_name, array $log)
     {
         $content = !empty($log) ? serialize($log) : '';
+        return file_put_contents(PLUGIN_TEMP . $file_name . '.log', $content);
+    }
 
-        $full_path = PLUGIN_TEMP . $file_name . '.log';
+    public static function appendLog(string $file_name, string $content)
+    {
+        $log_name = PLUGIN_TEMP . $file_name . '.log';
+        $content = date('d.m.Y H:i:s') . ' - ' . __($content, PLUGIN_SLUG) . PHP_EOL . file_get_contents($log_name);
 
-        // Make sure that the containing directory exists.
-        if (!is_dir(dirname($full_path))) {
-            mkdir(dirname($full_path), 0755, true);
-        }
-        return file_put_contents($full_path, $content);
+        return file_put_contents($log_name, $content);
     }
 
     public static function readLog(string $file_name)
@@ -29,6 +30,26 @@ class Logs
         return false;
     }
 
+    public static function readLogs(string $file_name)
+    {
+        $log_path = PLUGIN_TEMP . $file_name . '.log';
+
+        if (file_exists($log_path)) {
+            return file_get_contents($log_path);
+        }
+
+        return 'no have logs';
+    }
+
+    public static function removeLog($file_path): bool
+    {
+        if (file_exists(PLUGIN_TEMP . $file_path . '.log')) {
+            unlink(PLUGIN_TEMP . $file_path . '.log');
+        }
+
+        return true;
+    }
+
     public static function removeLogs(): bool
     {
         if (file_exists(PLUGIN_TEMP)) {
@@ -36,7 +57,9 @@ class Logs
         }
 
         mkdir(PLUGIN_TEMP);
-        mkdir(PLUGIN_TEMP . '/dkPlus/');
+        foreach (WOOCOO_MODULES as $dir_name) {
+            mkdir(PLUGIN_TEMP . '/' . $dir_name . '/');
+        }
 
         // Generate .htaccess file`
         $htaccess_file = path_join(PLUGIN_TEMP, '.htaccess');

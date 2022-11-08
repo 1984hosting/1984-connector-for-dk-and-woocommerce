@@ -202,19 +202,21 @@
                 setProgressbar(import_progress_tag, response.completed_percent)
                 switch (response.status) {
                     case 'prolong':
+                        alert(response.message)
                         productsImportProlong(button)
                         break
                     case 'success':
                         button.prop('disabled', 0)
                         button_prolong.remove()
-                        alert(response.message)
-                        unsetProgressbar(import_progress_tag)
+                        //alert(response.message)
+                        //unsetProgressbar(import_progress_tag)
                         break
                     case 'empty':
                     default:
                         alert(response.message ?? 'not valid response status')
                         button.prop('disabled', 0)
                         button_prolong.prop('disabled', 0)
+                        updateProgress()
                         unsetProgressbar(import_progress_tag)
                 }
             }
@@ -233,7 +235,7 @@
             data: {
                 'action': 'dkPlus_import_refresh',
             },
-            beforeSend: function() {
+            beforeSend: function () {
                 button.prop('disabled', 1)
                 button_prolong.prop('disabled', 1)
             },
@@ -257,6 +259,27 @@
             }
         })
     })
+    $('#dkPlus_logs_clear').on('click', function (e) {
+        e.preventDefault()
+
+        let button = $(this),
+            action = $(this).data('action')
+
+        $.ajax({
+            url: ajax.url,
+            type: 'POST',
+            data: {
+                'action': action,
+            },
+            beforeSend: function() {
+                button.prop('disabled', 1)
+            },
+            success: function () {
+                button.prop('disabled', 0)
+                updateProgress()
+            }
+        })
+    })
 
 
     function productsImportProlong(button) {
@@ -277,7 +300,8 @@
                         break
                     case 'success':
                         button.prop('disabled', 0)
-                        alert(response.message)
+                        //alert(response.message)
+                        updateProgress()
                         break
                     default:
                         alert('not valid response status')
@@ -327,16 +351,20 @@ function updateProgress() {
             if (data.length === 0 || !isJson(data)) return false
             let response = $.parseJSON(data)
 
-            $.each(response,function(index,value) {
+            $.each(response, function (index, value) {
                 //response tag - class form class name
-                if (value !== false) {
+                if (value === false) return
+
+                if (typeof value !== 'string') {
                     let tag = '.' + index + ' .woo_progress'
 
                     setProgressbar(tag, value.completed_percent)
                     if (value.completed_percent == 100) {
-                        alert(response.message)
+                        alert(value.message)
                         unsetProgressbar(tag)
                     }
+                } else {
+                    $('.' + index).html(value)
                 }
             })
         }

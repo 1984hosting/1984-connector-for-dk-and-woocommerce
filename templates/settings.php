@@ -55,7 +55,7 @@ $syncParams = [
 
             <div class="tabs_content">
                 <div id="account-settings">
-                    <form method="post" action="<?php echo 'options.php'; ?>" class="dkPlus_save_account">
+                    <form method="post" action="<?php echo 'options.php'; ?>" class="dkPlus_save_account container_form">
 
                         <div id="universal-message-container">
                             <h2><?php echo __('Account settings', PLUGIN_SLUG); ?></h2>
@@ -108,7 +108,7 @@ $syncParams = [
                 </div>
 
                 <div id="dkPlus_service">
-                    <form method="post" action="" class="dkPlus_sync">
+                    <form method="post" action="" class="dkPlus_sync container_form">
                         <div id="universal-message-container">
                             <h2><?php echo esc_html(__('Automatic product synchronization', PLUGIN_SLUG)); ?></h2>
 
@@ -175,7 +175,7 @@ $syncParams = [
                         </div>
                     </form>
 
-                    <form method="post" action="" class="dkPlus_import">
+                    <form method="post" action="" class="mt-50 dkPlus_import container_form">
                         <div id="universal-message-container">
                             <h2><?php echo esc_html(__('Import products from dkPlus', PLUGIN_SLUG)); ?></h2>
                             <div class="options">
@@ -230,6 +230,15 @@ $syncParams = [
                         </div>
                         <input type="hidden" name="action" value="dkPlus_import">
                     </form>
+
+                    <div class="container_form mt-50" style="padding: 15px 20px 30px;">
+                        <h2><?php echo esc_html(__('Logs', PLUGIN_SLUG)); ?></h2>
+                        <code class="log_list dkPlus_logs"><?php echo htmlspecialchars(\woo_bookkeeping\App\Core\Logs::readLogs('/dkPlus/logs')); ?></code>
+                        <p><input type="submit" name="dkPlus_logs_clear" id="dkPlus_logs_clear"
+                                  class="button button-danger"
+                                  value="<?php echo __('Clear log', PLUGIN_SLUG); ?>"
+                                  data-action="dkPlus_logs_clear"></p>
+                    </div>
                 </div>
             </div>
         </div>

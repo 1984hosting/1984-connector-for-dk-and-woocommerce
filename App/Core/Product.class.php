@@ -31,7 +31,7 @@ abstract class Product extends Woo_Query
 
         $functions = array_combine(static::dataFormatSet($needed_fields), $needed_fields);
 
-        call_user_func([$wc_product, 'set_name'], $product['name']);
+        call_user_func([$wc_product, 'set_name'], $product['sku']);
         call_user_func([$wc_product, 'set_sku'], $product['sku']);
 
         foreach ($functions as $key => $value) {
@@ -51,7 +51,7 @@ abstract class Product extends Woo_Query
      */
     public static function productUpdate(array $needed_fields, $product_id, $product): bool
     {
-        if (empty($product)) return true;
+        if (empty($product) || empty($product_id)) return true;
 
         $wc_product = new \WC_Product($product_id);
 

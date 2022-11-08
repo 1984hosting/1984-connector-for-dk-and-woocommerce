@@ -32,6 +32,10 @@ class Main extends \woo_bookkeeping\App\Core\Main
     {
         new Page();
         Product::registerActions();
+    }
+
+    public static function cronActions()
+    {
         Events::register_cron_events();
     }
 
