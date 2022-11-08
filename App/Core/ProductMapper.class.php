@@ -2,12 +2,17 @@
 
 namespace woo_bookkeeping\App\Core;
 
+/**
+ * This class is extended by `ProductMap`s in modules, such as
+ * `App/Modules/dkPlus/ProductMap.class.php`.
+ */
 abstract class ProductMapper
 {
+    // Populated by subclass inheriting from this one.
     const Map = [];
 
     /**
-     * Converting fields to common format
+     * Converts field names in remote JSON data to local WooCommerce field names.
      * @param array $fields
      * @return array
      */
