@@ -7,10 +7,11 @@
  * Version: 0.1
  */
 
-//declare(strict_types=1);
+declare(strict_types=1);
 
 use woo_bookkeeping\App\Core\Logs;
 use woo_bookkeeping\App\Core\Main;
+
 
 defined('ABSPATH') || exit;
 

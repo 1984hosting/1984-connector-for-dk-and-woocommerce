@@ -271,7 +271,7 @@
             data: {
                 'action': action,
             },
-            beforeSend: function() {
+            beforeSend: function () {
                 button.prop('disabled', 1)
             },
             success: function () {

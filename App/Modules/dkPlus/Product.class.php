@@ -299,7 +299,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
         return [
             Main::$module_slug . '_sync' => $sync_products_status,
             Main::$module_slug . '_import' => $import_products_status,
-            Main::$module_slug . '_logs' => htmlspecialchars(Logs::readLogs('/dkPlus/logs')),
+            Main::$module_slug . '_logs' => Logs::readLogs('/dkPlus/logs'),
         ];
     }
 
