@@ -29,7 +29,7 @@ class Logs
         self::directoryExists($log_path);
 
         if (file_exists($log_path)) {
-            $content .= file_get_contents($log_path);
+            $content .= PHP_EOL . file_get_contents($log_path);
         }
 
         return file_put_contents($log_path, $content) !== false;

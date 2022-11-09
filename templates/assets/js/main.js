@@ -54,7 +54,10 @@
             success: function (data) {
                 if (!isJson(data)) return false
                 var response = $.parseJSON(data)
-                propButtons(form_buttons, 'disabled', 0)
+                if (response.status === 'error') {
+                    propButtons(form_buttons, 'disabled', 0)
+                }
+                //propButtons(form_buttons, 'disabled', 0)
                 updateProgress()
                 alert(response.message)
             }
@@ -65,7 +68,7 @@
     /**
      * Manual start of synchronization
      */
-    $('.dkPlus_sync').submit(function (e) {
+    /*$('.dkPlus_sync').submit(function (e) {
         e.preventDefault()
 
         var form = $(this),
@@ -87,17 +90,17 @@
                 if (!isJson(data)) return false
                 var response = $.parseJSON(data)
 
-                setProgressbar(sync_progress_tag, response.completed_percent)
+                //setProgressbar(sync_progress_tag, response.completed_percent)
                 switch (response.status) {
                     case 'prolong':
-                        productssyncProlong(button)
+                        updateProgress()
                         break
-                    case 'success':
+                    /!*case 'success':
                         button.prop('disabled', 0)
                         button_prolong.remove()
                         alert(response.message)
                         unsetProgressbar(sync_progress_tag)
-                        break
+                        break*!/
                     case 'empty':
                     default:
                         alert(response.message ?? 'not valid response status')
@@ -107,7 +110,7 @@
                 }
             }
         })
-    })
+    })*/
 
     /**
      * Sync dk single product page
@@ -199,7 +202,7 @@
                 if (!isJson(data)) return false
                 var response = $.parseJSON(data)
 
-                setProgressbar(import_progress_tag, response.completed_percent)
+                //setProgressbar(import_progress_tag, response.completed_percent)
                 switch (response.status) {
                     case 'prolong':
                         alert(response.message)
@@ -208,6 +211,7 @@
                     case 'success':
                         button.prop('disabled', 0)
                         button_prolong.remove()
+                        updateProgress()
                         //alert(response.message)
                         //unsetProgressbar(import_progress_tag)
                         break
@@ -216,7 +220,6 @@
                         alert(response.message ?? 'not valid response status')
                         button.prop('disabled', 0)
                         button_prolong.prop('disabled', 0)
-                        updateProgress()
                         unsetProgressbar(import_progress_tag)
                 }
             }
@@ -243,7 +246,7 @@
                 if (!isJson(data)) return false
                 var response = $.parseJSON(data)
 
-                setProgressbar('.dkPlus_import_progress', response.completed_percent)
+                //setProgressbar('.dkPlus_import_progress', response.completed_percent)
                 switch (response.status) {
                     case 'prolong':
                         productsImportProlong(button)
@@ -251,6 +254,7 @@
                     case 'success':
                         button.prop('disabled', 0)
                         button_prolong.remove()
+                        updateProgress()
                         alert(response.message)
                         break
                     default:
@@ -293,7 +297,8 @@
                 if (!isJson(data)) return false
                 var response = $.parseJSON(data)
 
-                setProgressbar('.dkPlus_import_progress', response.completed_percent)
+                //setProgressbar('.dkPlus_import_progress', response.completed_percent)
+                updateProgress()
                 switch (response.status) {
                     case 'prolong':
                         productsImportProlong(button)
@@ -301,7 +306,6 @@
                     case 'success':
                         button.prop('disabled', 0)
                         //alert(response.message)
-                        updateProgress()
                         break
                     default:
                         alert('not valid response status')
@@ -310,11 +314,6 @@
         })
     }
 
-    function propButtons(buttons, name, value) {
-        buttons.each(function () {
-            $(this).prop(name, value)
-        })
-    }
 })(jQuery)
 
 var $ = jQuery
@@ -353,14 +352,18 @@ function updateProgress() {
 
             $.each(response, function (index, value) {
                 //response tag - class form class name
-                if (value === false) return
+                if (value === false || value.length === 0) {
+                    console.log('a: ', index, value, value.length)
+                    return true
+                }
 
                 if (typeof value !== 'string') {
-                    if (!value.length) return
                     let tag = '.' + index + ' .woo_progress'
 
                     setProgressbar(tag, value.completed_percent)
                     if (value.completed_percent == 100) {
+                        form_buttons = $('.' + index).closest('form').find('input[type="button"]'),
+                        propButtons(form_buttons, 'disabled', 0)
                         alert(value.message)
                         unsetProgressbar(tag)
                     }
@@ -369,6 +372,11 @@ function updateProgress() {
                 }
             })
         }
+    })
+}
+function propButtons(buttons, name, value) {
+    buttons.each(function () {
+        $(this).prop(name, value)
     })
 }
 
