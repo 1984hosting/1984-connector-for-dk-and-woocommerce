@@ -356,6 +356,7 @@ function updateProgress() {
                 if (value === false) return
 
                 if (typeof value !== 'string') {
+                    if (!value.length) return
                     let tag = '.' + index + ' .woo_progress'
 
                     setProgressbar(tag, value.completed_percent)
