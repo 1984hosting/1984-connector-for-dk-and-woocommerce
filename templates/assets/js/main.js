@@ -54,7 +54,7 @@
             success: function (data) {
                 if (!isJson(data)) return false
                 var response = $.parseJSON(data)
-                if (response.status === 'error') {
+                if (response.status === 'error' || response.status === 'success') {
                     propButtons(form_buttons, 'disabled', 0)
                 }
                 //propButtons(form_buttons, 'disabled', 0)
@@ -64,7 +64,7 @@
         })
     })
 
-    let sync_progress_tag = '.dkPlus_import_progress'
+    //let sync_progress_tag = '.dkPlus_import_progress'
     /**
      * Manual start of synchronization
      */
@@ -352,12 +352,15 @@ function updateProgress() {
 
             $.each(response, function (index, value) {
                 //response tag - class form class name
-                if (value === false || value.length === 0) {
-                    console.log('a: ', index, value, value.length)
+                if (value === false) {
                     return true
                 }
 
                 if (typeof value !== 'string') {
+                    if (value.length === 0) {
+                        unsetProgressbar(tag)
+                        return true
+                    }
                     let tag = '.' + index + ' .woo_progress'
 
                     setProgressbar(tag, value.completed_percent)
@@ -368,6 +371,9 @@ function updateProgress() {
                         unsetProgressbar(tag)
                     }
                 } else {
+                    if (value.length === 0) {
+                        return true
+                    }
                     $('.' + index).html(value)
                 }
             })
@@ -384,7 +390,6 @@ function isJson(str) {
     try {
         JSON.parse(str);
     } catch (e) {
-        console.log('bad response from server')
         return false;
     }
     return true;
