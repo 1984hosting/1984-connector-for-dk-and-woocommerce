@@ -207,8 +207,8 @@ class Product extends \woo_bookkeeping\App\Core\Product
         } else {
             $import_products = Logs::readLog(Main::$module_slug . '/import_products');
             $import_products_status = Logs::readLog(Main::$module_slug . '/import_products_status');
-            $products = $import_products['products'];
-            $needed_fields = $import_products['needed_fields'];
+            $products = $import_products['products'] ?? [];
+            $needed_fields = $import_products['needed_fields'] ?? [];
         }
 
         $existing_products = self::getAllProductsSKU();
