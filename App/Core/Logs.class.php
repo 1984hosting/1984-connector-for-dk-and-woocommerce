@@ -14,7 +14,11 @@ class Logs
     public static function appendLog(string $file_name, string $content)
     {
         $log_name = PLUGIN_TEMP . $file_name . '.log';
-        $content = date('d.m.Y H:i:s') . ' - ' . __($content, PLUGIN_SLUG) . PHP_EOL . file_get_contents($log_name);
+        $content = date('d.m.Y H:i:s') . ' - ' . __($content, PLUGIN_SLUG);
+
+        if (file_exists($log_name)) {
+            $content .= file_get_contents($log_name);
+        }
 
         return file_put_contents($log_name, $content);
     }
