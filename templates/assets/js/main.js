@@ -357,11 +357,11 @@ function updateProgress() {
                 }
 
                 if (typeof value !== 'string') {
+                    let tag = '.' + index + ' .woo_progress'
                     if (value.length === 0) {
                         unsetProgressbar(tag)
                         return true
                     }
-                    let tag = '.' + index + ' .woo_progress'
 
                     setProgressbar(tag, value.completed_percent)
                     if (value.completed_percent == 100) {
