@@ -5,55 +5,94 @@ namespace woo_bookkeeping\App\Core;
 
 class Logs
 {
-    public static function writeLog(string $file_name, array $log)
-    {
-        $content = !empty($log) ? serialize($log) : '';
-        return file_put_contents(PLUGIN_TEMP . $file_name . '.log', $content);
-    }
-
-    public static function appendLog(string $file_name, string $content)
-    {
-        $log_name = PLUGIN_TEMP . $file_name . '.log';
-        $content = date('d.m.Y H:i:s') . ' - ' . __($content, PLUGIN_SLUG);
-
-        if (file_exists($log_name)) {
-            $content .= file_get_contents($log_name);
-        }
-
-        return file_put_contents($log_name, $content);
-    }
-
-    public static function readLog(string $file_name)
+    public static function writeLog(string $file_name, array $content)
     {
         $log_path = PLUGIN_TEMP . $file_name . '.log';
+        $content = !empty($content) ? serialize($content) : '';
+
+        self::directoryExists($log_path);
+
+        return file_put_contents($log_path, $content);
+    }
+
+    /**
+     * Logging of import and synchronization processes
+     * @param string $file_name
+     * @param string $content
+     * @return bool
+     */
+    public static function appendLog(string $file_name, string $content): bool
+    {
+        $log_path = PLUGIN_TEMP . $file_name . '.log';
+        $content = date('d.m.Y H:i:s') . ' - ' . __($content, PLUGIN_SLUG);
+
+        self::directoryExists($log_path);
+
+        if (file_exists($log_path)) {
+            $content .= file_get_contents($log_path);
+        }
+
+        return file_put_contents($log_path, $content) !== false;
+    }
+
+    /**
+     * Reading a special array with a log
+     * @param string $file_name
+     * @return array
+     */
+    public static function readLog(string $file_name): array
+    {
+        $log_path = PLUGIN_TEMP . $file_name . '.log';
+
+        self::directoryExists($log_path);
 
         if (file_exists($log_path)) {
             return unserialize(file_get_contents($log_path));
         }
 
-        return false;
+        return [];
     }
 
-    public static function readLogs(string $file_name)
+    /**
+     * Read file to return as text
+     * @param string $file_name
+     * @return string
+     */
+    public static function readLogs(string $file_name): string
     {
         $log_path = PLUGIN_TEMP . $file_name . '.log';
 
+        self::directoryExists($log_path);
+
         if (file_exists($log_path)) {
-            return file_get_contents($log_path);
+            return htmlspecialchars(file_get_contents($log_path));
         }
 
-        return 'no have logs';
+        return __('no have logs', PLUGIN_SLUG);
     }
 
-    public static function removeLog($file_path): bool
+    /**
+     * Delete one log file
+     * @param string $file_name
+     * @return bool
+     */
+    public static function removeLog(string $file_name): bool
     {
-        if (file_exists(PLUGIN_TEMP . $file_path . '.log')) {
-            unlink(PLUGIN_TEMP . $file_path . '.log');
+        $log_path = PLUGIN_TEMP . $file_name . '.log';
+
+        self::directoryExists($log_path);
+
+        if (file_exists($log_path)) {
+            unlink($log_path);
         }
 
         return true;
     }
 
+    /**
+     * Removing all temporary logs
+     * @return bool
+     */
     public static function removeLogs(): bool
     {
         if (file_exists(PLUGIN_TEMP)) {
@@ -62,7 +101,7 @@ class Logs
 
         mkdir(PLUGIN_TEMP);
         foreach (WOOCOO_MODULES as $dir_name) {
-            mkdir(PLUGIN_TEMP . '/' . $dir_name . '/');
+            mkdir(PLUGIN_TEMP . '/' . $dir_name . '/', 0755, true);
         }
 
         // Generate .htaccess file`
@@ -77,13 +116,31 @@ class Logs
         return true;
     }
 
-
+    /**
+     * Recursive deletion catalogs and files
+     * @param $dir
+     * @return bool
+     */
     private static function delTree($dir)
     {
         $files = array_diff(scandir($dir), ['.', '..']);
+
         foreach ($files as $file) {
-            is_dir($dir . $file) ? self::delTree($dir . $file . '/') : unlink($dir . $file);
+            $file_path = $dir . $file;
+            is_dir($file_path) ? self::delTree($file_path . '/') : unlink($file_path);
         }
+
         return rmdir($dir);
+    }
+
+    /**
+     * Checking if a directory exists
+     * @param $full_path
+     */
+    private static function directoryExists($full_path)
+    {
+        if (!is_dir(dirname($full_path))) {
+            mkdir(dirname($full_path), 0755, true);
+        }
     }
 }

@@ -233,7 +233,7 @@ $syncParams = [
 
                     <div class="container_form mt-50" style="padding: 15px 20px 30px;">
                         <h2><?php echo esc_html(__('Logs', PLUGIN_SLUG)); ?></h2>
-                        <code class="log_list dkPlus_logs"><?php echo htmlspecialchars(\woo_bookkeeping\App\Core\Logs::readLogs('/dkPlus/logs')); ?></code>
+                        <code class="log_list dkPlus_logs"><?php echo woo_bookkeeping\App\Core\Logs::readLogs('/dkPlus/logs'); ?></code>
                         <p><input type="submit" name="dkPlus_logs_clear" id="dkPlus_logs_clear"
                                   class="button button-danger"
                                   value="<?php echo __('Clear log', PLUGIN_SLUG); ?>"
