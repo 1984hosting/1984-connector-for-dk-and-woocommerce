@@ -2,8 +2,6 @@
 
 namespace woo_bookkeeping\App\Modules\dkPlus;
 
-//use woo_bookkeeping\App\Core\Product;
-//use woo_bookkeeping\App\Core\Woo_Query;
 use woo_bookkeeping\App\Core\WP_Notice;
 
 class Main extends \woo_bookkeeping\App\Core\Main
@@ -25,29 +23,20 @@ class Main extends \woo_bookkeeping\App\Core\Main
         }
 
         $this->getToken();
-        $this->LoadModules();
-    }
 
-    private function LoadModules()
-    {
+        /** Load Modules */
         new Page();
-        Product::registerActions();
-    }
-
-    public static function cronActions()
-    {
-        Events::register_cron_events();
+        new Events();
+        new Product();
     }
 
     public static function getModuleSlug(): ?string
     {
         static $basename = null;
         if (NULL === $basename) {
-
             $basename = basename(dirname(__FILE__));
         }
 
         return $basename;
     }
 }
-

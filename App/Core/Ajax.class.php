@@ -39,7 +39,7 @@ class Ajax
 
     private function registerActions()
     {
-        if ($this->is_admin) {//todo: wp is admin??
+        if ($this->is_admin) {
             add_action('admin_action_' . $this->action, [$this, 'doCallback']);
         } else {
             add_action('wp_ajax_' . $this->action, [$this, 'doCallback']);

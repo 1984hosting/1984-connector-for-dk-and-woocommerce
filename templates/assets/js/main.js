@@ -19,12 +19,22 @@
                 button.prop('disabled', 1)
             },
             success: function (data) {
-                if (!isJson(data)) return false
-                var response = $.parseJSON(data)
-                button.prop('disabled', 0)
-                $('.woo_progress').hide()
+                unsetProgressbar('.woo_progress')
 
-                alert(response.message)
+                $.ajax({
+                    url: ajax.url,
+                    type: 'POST',
+                    data: {
+                        'action': 'woo_get_token'
+                    },
+                    success: function (data) {
+                        if (!isJson(data)) return false
+                        var response = $.parseJSON(data)
+                        button.prop('disabled', 0)
+                        alert(response.message)
+                        window.location.reload()
+                    }
+                })
             }
         })
     })
@@ -50,11 +60,14 @@
             contentType: false,
             beforeSend: function () {
                 propButtons(form_buttons, 'disabled', 1)
+                if (form_data.get('action') === 'dkPlus_sync') {
+                    manual_start = true
+                }
             },
             success: function (data) {
                 if (!isJson(data)) return false
                 var response = $.parseJSON(data)
-                if (response.status === 'error' || response.status === 'success') {
+                if (response.status === 'error' || response.status === 'success' || response.status === 'empty') {
                     propButtons(form_buttons, 'disabled', 0)
                 }
                 //propButtons(form_buttons, 'disabled', 0)
@@ -63,54 +76,6 @@
             }
         })
     })
-
-    //let sync_progress_tag = '.dkPlus_import_progress'
-    /**
-     * Manual start of synchronization
-     */
-    /*$('.dkPlus_sync').submit(function (e) {
-        e.preventDefault()
-
-        var form = $(this),
-            button = $(this).find('input[type="submit"]'),
-            button_prolong = form.find('input[name="dkPlus_sync_prolong"]')
-
-        $.ajax({
-            url: ajax.url,
-            type: 'POST',
-            data: new FormData(this),
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-                button.prop('disabled', 1)
-                button_prolong.prop('disabled', 1)
-                setProgressbar(sync_progress_tag, 0)
-            },
-            success: function (data) {
-                if (!isJson(data)) return false
-                var response = $.parseJSON(data)
-
-                //setProgressbar(sync_progress_tag, response.completed_percent)
-                switch (response.status) {
-                    case 'prolong':
-                        updateProgress()
-                        break
-                    /!*case 'success':
-                        button.prop('disabled', 0)
-                        button_prolong.remove()
-                        alert(response.message)
-                        unsetProgressbar(sync_progress_tag)
-                        break*!/
-                    case 'empty':
-                    default:
-                        alert(response.message ?? 'not valid response status')
-                        button.prop('disabled', 0)
-                        button_prolong.prop('disabled', 0)
-                        unsetProgressbar(sync_progress_tag)
-                }
-            }
-        })
-    })*/
 
     /**
      * Sync dk single product page
@@ -197,6 +162,7 @@
                 button.prop('disabled', 1)
                 button_prolong.prop('disabled', 1)
                 setProgressbar(import_progress_tag, 0)
+                manual_start = true
             },
             success: function (data) {
                 if (!isJson(data)) return false
@@ -318,6 +284,7 @@
 
 var $ = jQuery
 
+let manual_start = false
 /**
  * Setting progress bar
  * @param tag response from backend DOM tag
@@ -340,6 +307,7 @@ function unsetProgressbar(tag) {
 }
 
 function updateProgress() {
+    console.log(manual_start)
     $.ajax({
         url: ajax.url,
         type: 'POST',
@@ -367,7 +335,10 @@ function updateProgress() {
                     if (value.completed_percent == 100) {
                         form_buttons = $('.' + index).closest('form').find('input[type="button"]'),
                         propButtons(form_buttons, 'disabled', 0)
-                        alert(value.message)
+                        if (manual_start) {
+                            manual_start = false
+                            alert(value.message)
+                        }
                         unsetProgressbar(tag)
                     }
                 } else {

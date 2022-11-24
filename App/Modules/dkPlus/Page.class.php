@@ -67,19 +67,13 @@ class Page extends \woo_bookkeeping\App\Core\Page
     public static function saveOptions()
     {
         $settings = Main::getInstance();
-
         $data = $_POST;
-
         $settings[Main::$module_slug]['schedule']['params'] = $data['sync_params'];
-
-        unset($settings[Main::$module_slug]['schedule']['name']);
-
         $task_name = 'woocoo_update_' . Main::$module_slug;
-        //$regular_task_name = 'woocoo_check_' . Main::$module_slug;
+        unset($settings[Main::$module_slug]['schedule']['name']);
 
         /** Remove old events */
         wp_unschedule_hook($task_name);
-        //wp_unschedule_hook($regular_task_name);
 
         /** Add events */
         //wp_schedule_event(time(), 'every_minute', $regular_task_name);
@@ -91,12 +85,9 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
         $update_otion = update_option(PLUGIN_SLUG, $settings, 'no');
 
-        return $update_otion ? [
+        return [
             'status' => 'success',
             'message' => 'Settings saved successfully',
-        ] : [
-            'status' => 'error',
-            'message' => 'You haven\'t made a change',
         ];
     }
 
@@ -113,7 +104,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
     /**
      * Register required actions
      */
-    protected function registerActions()
+    private function registerActions()
     {
         add_filter('woocommerce_product_data_tabs', [$this, 'product_tab_create'], 10, 1);
         add_action('woocommerce_product_data_panels', [$this, 'product_tab_content']);

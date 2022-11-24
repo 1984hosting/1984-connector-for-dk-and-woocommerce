@@ -59,7 +59,8 @@ class Page
      */
     public static function saveDataAccount()
     {
-        $settings = Main::getInstance();
+        //$settings = Main::getInstance();
+        $settings = get_option(PLUGIN_SLUG);
 
         foreach ($_POST[PLUGIN_SLUG] as $key => $account_data) {
             if (empty($settings[$key])) {
@@ -74,10 +75,11 @@ class Page
         }
         update_option(PLUGIN_SLUG, $settings, 'no');
 
+        Main::LoadModules();
         return true;
     }
 
-    protected function registerActions()
+    private function registerActions()
     {
         add_action('admin_menu', [$this, 'addAdminMenu'], 25);
 
@@ -85,6 +87,13 @@ class Page
             self::saveDataAccount();
             Logs::removeLogs();
 
+            AJAX::response([
+                'status' => 1,
+                'message' => 'Account data success updated',
+            ]);
+        });
+
+        new \woo_bookkeeping\App\Core\Ajax('woo_get_token', function () {
             AJAX::response([
                 'status' => 1,
                 'message' => 'Account data success updated',

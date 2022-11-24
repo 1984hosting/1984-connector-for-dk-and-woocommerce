@@ -2,6 +2,7 @@
 
 namespace woo_bookkeeping\App\Modules\dkPlus;
 
+use woo_bookkeeping\App\Core\Logs;
 use woo_bookkeeping\App\Core\Main as Core;
 use woo_bookkeeping\App\Core\WP_Exceptions;
 use woo_bookkeeping\App\Core\WP_Notice;
@@ -14,7 +15,6 @@ trait API
 
     public static function getToken()
     {
-
         static $token = null;
 
         if (NULL === $token) {
@@ -39,10 +39,12 @@ trait API
         if (empty(self::$token)) {
             if (!isset($_GET['page']) || $_GET['page'] !== PLUGIN_SLUG) return;
 
+            Logs::appendLog(Main::$module_slug . '/logs', 'Error: Please, check the correctness of the login and password.');
             new WP_Notice('error', 'Error: Please, check the correctness of the login and password.');
             return;
         }
 
+        Logs::appendLog(Main::$module_slug . '/logs', 'Token successfully received');
 
         $new_settings[self::getModuleSlug()]['token'] = self::$token;
         update_option(PLUGIN_SLUG, $new_settings, 'no');
@@ -71,7 +73,7 @@ trait API
 
             self::$token = $result['Token'];
         } catch (WP_Exceptions $e) {
-            //echo $e->getMessage();
+            Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
         }
     }
 
@@ -89,7 +91,7 @@ trait API
                 throw WP_Exceptions::invalidProduct();
             }
         } catch (WP_Exceptions $e) {
-            echo $e->getMessage();
+            Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
         }
 
         return true;
@@ -111,7 +113,7 @@ trait API
 
             $result = static::productMap($product);
         } catch (WP_Exceptions $e) {
-            echo $e->getMessage();
+            Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
         }
 
         return $result;
@@ -137,7 +139,7 @@ trait API
                 }
             }
         } catch (WP_Exceptions $e) {
-            echo $e->getMessage();
+            Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
         }
 
         return $result;
@@ -178,7 +180,7 @@ trait API
 
             $body = wp_remote_retrieve_body($request);
         } catch (WP_Exceptions $e) {
-            //echo $e->getMessage();
+            Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
         }
 
         return !empty($body) ? json_decode($body, true) : true;

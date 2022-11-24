@@ -211,20 +211,8 @@ progress[value]::-webkit-progress-value:after {
     background-color: white;
     border-radius: 100%;
 }
-progress[value]::-moz-progress-bar {
-    background-image:
-            -moz-linear-gradient( 135deg,
-            transparent,
-            transparent 33%,
-            rgba(0,0,0,.1) 33%,
-            rgba(0,0,0,.1) 66%,
-            transparent 66%),
-            -moz-linear-gradient( top,
-            rgba(255, 255, 255, .25),
-            rgba(0,0,0,.2)),
-            -moz-linear-gradient( left, #09c, #f44);
-    background-size: 35px 20px, 100% 100%, 100% 100%;
-    border-radius:3px;
+progress[value]::-webkit-progress-bar{
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Ym94PSIwIDAgMTQ0MCAzMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQogIDxkZWZzPg0KICAgIDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQogICAgICAud2F2ZSB7DQogICAgICAgIGFuaW1hdGlvbjogd2F2ZSA4cyBsaW5lYXIgaW5maW5pdGU7DQogICAgICB9DQoNCiAgICAgIC53YXZlMSB7DQogICAgICAgIGFuaW1hdGlvbjogd2F2ZTEgMTBzIGxpbmVhciBpbmZpbml0ZTsNCiAgICAgIH0NCg0KICAgICAgLndhdmUyIHsNCiAgICAgICAgYW5pbWF0aW9uOiB3YXZlMiAxMnMgbGluZWFyIGluZmluaXRlOw0KICAgICAgfQ0KDQogICAgICBAa2V5ZnJhbWVzIHdhdmUgew0KICAgICAgICAwJSB7DQogICAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVYKDAlKTsNCiAgICAgICAgfQ0KDQogICAgICAgIDEwMCUgew0KICAgICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWCgxMDAlKTsNCiAgICAgICAgfQ0KICAgICAgfQ0KDQogICAgICBAa2V5ZnJhbWVzIHdhdmUxIHsNCiAgICAgICAgMCUgew0KICAgICAgICAgIHRyYW5zZm9ybTogc2NhbGVZKDEuMikgdHJhbnNsYXRlWCgwJSk7DQogICAgICAgIH0NCg0KICAgICAgICAxMDAlIHsNCiAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlWSgxLjIpIHRyYW5zbGF0ZVgoMTAwJSk7DQogICAgICAgIH0NCiAgICAgIH0NCg0KICAgICAgQGtleWZyYW1lcyB3YXZlMiB7DQogICAgICAgIDAlIHsNCiAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlWSguOCkgdHJhbnNsYXRlWCgwJSk7DQogICAgICAgIH0NCg0KICAgICAgICAxMDAlIHsNCiAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlWSguOCkgdHJhbnNsYXRlWCgxMDAlKTsNCiAgICAgICAgfQ0KICAgICAgfQ0KICAgIDwvc3R5bGU+DQogICAgPHBhdGggaWQ9J3NpbmVXYXZlJyBmaWxsPSIjMDA5OWZmIiBmaWxsLW9wYWNpdHk9IjAuMiIgZD0iTTAsMTYwIEMzMjAsMzAwLDQyMCwzMDAsNzQwLDE2MCBDMTA2MCwyMCwxMTIwLDIwLDE0NDAsMTYwIFYwIEgwIiAvPg0KICA8L2RlZnM+DQogIDx1c2UgY2xhc3M9IndhdmUiIGhyZWY9IiNzaW5lV2F2ZSIgLz4NCiAgPHVzZSBjbGFzcz0id2F2ZSIgeD0iLTEwMCUiIGhyZWY9IiNzaW5lV2F2ZSIgLz4NCiAgPHVzZSBjbGFzcz0id2F2ZTEiIGhyZWY9IiNzaW5lV2F2ZSIgLz4NCiAgPHVzZSBjbGFzcz0id2F2ZTEiIHg9Ii0xMDAlIiBocmVmPSIjc2luZVdhdmUiIC8+DQogIDx1c2UgY2xhc3M9IndhdmUyIiBocmVmPSIjc2luZVdhdmUiIC8+DQogIDx1c2UgY2xhc3M9IndhdmUyIiB4PSItMTAwJSIgaHJlZj0iI3NpbmVXYXZlIiAvPg0KPC9zdmc+");
 }
 .progress-bar {
     background-color: whiteSmoke;

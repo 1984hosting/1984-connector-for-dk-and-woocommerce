@@ -31,5 +31,4 @@ class ProductMap extends ProductMapper
             'callback' => [ProductMapper::class, 'setBoolTrue'],
         ],
     ];
-
 }

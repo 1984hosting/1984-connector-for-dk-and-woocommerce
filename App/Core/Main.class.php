@@ -2,8 +2,6 @@
 
 namespace woo_bookkeeping\App\Core;
 
-use woo_bookkeeping\App\Modules\dkPlus\Main as dkPlus;
-
 class Main
 {
     public static array $settings = [];
@@ -58,25 +56,18 @@ class Main
             self::$scripts[] = 'woocoo_sync';
         }
 
-        $main = new Main();
-        $main->LoadModules();
-        $main->registerActions();
-        Main::cronLoader();
-    }
-
-    private function LoadModules()
-    {
-        new dkPlus(self::getInstance());
         new Page();
+        new CronSchedule();
+        self::registerActions();
+        self::LoadModules();
     }
 
-    public static function cronLoader()
+    public static function LoadModules()
     {
-        CronSchedule::registerActions();
-        dkPlus::cronActions();
+        new \woo_bookkeeping\App\Modules\dkPlus\Main(self::getInstance());
     }
 
-    public function EnqueueScripts(): void
+    public static function EnqueueScripts(): void
     {
         /** For UI page settings */
         wp_enqueue_script('jquery-ui-tabs');
@@ -106,9 +97,9 @@ class Main
         ]); //use ajax.url from requests
     }
 
-    protected function registerActions()
+    private static function registerActions()
     {
-        add_action('admin_enqueue_scripts', [$this, 'EnqueueScripts'], 99);
+        add_action('admin_enqueue_scripts', [self::class, 'EnqueueScripts'], 99);
     }
 
     protected function __construct()

@@ -157,6 +157,4 @@ abstract class Product extends Woo_Query
 
         return $product_data;
     }
-
-
 }

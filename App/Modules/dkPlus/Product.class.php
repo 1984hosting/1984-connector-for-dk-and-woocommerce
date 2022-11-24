@@ -4,12 +4,16 @@ namespace woo_bookkeeping\App\Modules\dkPlus;
 
 use woo_bookkeeping\App\Core\Woo_Query;
 use woo_bookkeeping\App\Core\Logs;
-use woo_bookkeeping\App\Core\Ajax;
 
 class Product extends \woo_bookkeeping\App\Core\Product
 {
     private static int $import_slice = 35; //how many products to import per iteration (more php execution limit more number)
     private static int $sync_slice = 35; //how many products to sync per iteration (more php execution limit more number)
+
+    public function __construct()
+    {
+        $this->registerActions();
+    }
 
     /**
      * Performing a sync for a single product
@@ -110,7 +114,6 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
     /**
      * Synchronization request from the admin panel (sync all products)
-     * @param array $needed_fields - Required fields for synchronization
      * @return array|false[]
      */
     public static function productSyncAll(): array
@@ -118,8 +121,15 @@ class Product extends \woo_bookkeeping\App\Core\Product
         Logs::appendLog(Main::$module_slug . '/logs', 'Start product sync');
 
         $needed_fields = $_POST['sync_params'] ?? Main::getInstance()[Main::$module_slug]['schedule']['params'];
-        $existing_products = Woo_Query::getProducts('product_id, sku, tax_class');
+        if (empty($needed_fields)) {
+            Logs::appendLog(Main::$module_slug . '/logs', 'Please select at least one property to sync');
+            return [
+                'status' => 'empty',
+                'message' => 'Please select at least one property to sync',
+            ];
+        }
 
+        $existing_products = Woo_Query::getProducts('product_id, sku, tax_class');
         if (empty($existing_products)) {
             Logs::appendLog(Main::$module_slug . '/logs', 'Missing products for sync');
             return [
@@ -129,7 +139,6 @@ class Product extends \woo_bookkeeping\App\Core\Product
         }
 
         $dkProducts = API::productFetchAll();
-
         if (empty($dkProducts)) {
             Logs::appendLog(Main::$module_slug . '/logs', 'Missing products for sync');
             return [
@@ -144,7 +153,6 @@ class Product extends \woo_bookkeeping\App\Core\Product
                 'existing_products' => $existing_products,
             ]
         );
-
         Logs::writeLog(Main::$module_slug . '/sync_products_status', [
             'status' => 'prolong',
             'completed_percent' => 0,
@@ -154,6 +162,17 @@ class Product extends \woo_bookkeeping\App\Core\Product
             'status' => 'prolong',
             'message' => 'Synchronization in progress ...'
         ];
+    }
+
+    public static function productSyncAllSchedule(): void
+    {
+        $sync_products_status = Logs::readLog(Main::$module_slug . '/sync_products_status');
+
+        if (!isset($sync_products_status['status']) || $sync_products_status['status'] === 'success') {
+            Product::productSyncAll();
+        } else {
+            Logs::appendLog(Main::$module_slug . '/logs', 'New sync start failed (Previous sync not completed)');
+        }
     }
 
     /**
@@ -200,7 +219,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
      */
     public static function productsImport(): array
     {
-        if (isset($_POST['sync_params'])) {
+        if (!empty($_POST['sync_params'])) {
             $needed_fields = $_POST['sync_params'];
             $products = API::productFetchAll();
             $import_products_status['start_count_products'] = count($products);
@@ -210,9 +229,13 @@ class Product extends \woo_bookkeeping\App\Core\Product
             $products = $import_products['products'] ?? [];
             $needed_fields = $import_products['needed_fields'] ?? [];
         }
-
-        $existing_products = self::getAllProductsSKU();
-
+        if (empty($needed_fields)) {
+            Logs::appendLog(Main::$module_slug . '/logs', 'Please select import properties');
+            return [
+                'status' => 'empty',
+                'message' => 'Please select import properties',
+            ];
+        }
         if (empty($products)) {
             Logs::appendLog(Main::$module_slug . '/logs', 'No data to import, please try again later');
             return [
@@ -221,6 +244,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
             ];
         }
 
+        $existing_products = self::getAllProductsSKU();
         $products = self::filterProducts($products, $existing_products);
 
         if (empty($products)) {
@@ -427,15 +451,34 @@ class Product extends \woo_bookkeeping\App\Core\Product
             $qty = $product['stock_quantity'] - 1;
 
             self::productSendQty($product['sku'], $qty);
-
-            return true;
         }
+
+        return true;
     }
 
 
-    public static function change_order_status($order_id, $old_status, $new_status)
+    public static function order_edit_status($id, $new_status)
     {
+        $order = wc_get_order($id);
+        $items = $order->get_items();
 
+        foreach ($items as $item) {
+            $product = $item->get_product();
+            $dk_product = API::productFetchOne($product->sku);
+
+            self::productUpdate(['stock_quantity'], $product->id, $dk_product);
+        }
+    }
+
+    public static function order_changed_status($order_id, $old_status, $new_status)
+        //public static function change_order_status($qty, $order, $item)
+    {
+        echo '<pre>';
+        $order = wc_get_order($order_id);
+        var_dump($order);
+        echo '</pre>';
+        die();
+//print_r(wc_get_order($order_id));die();
         /*$order = wc_get_order($order_id);
 
         //$order_total = $order->get_formatted_order_total();
@@ -444,12 +487,15 @@ class Product extends \woo_bookkeeping\App\Core\Product
         die($order_total);*/
     }
 
-    public static function registerActions()
+
+    private function registerActions()
     {
         add_filter('woocommerce_add_to_cart_validation', [self::class, 'add_to_cart_validation'], 10, 5);
         add_action('woocommerce_before_checkout_process', [self::class, 'before_checkout_process']);
-        add_action('woocommerce_order_status_changed', [self::class, 'change_order_status'], 10, 3);
+        //add_action('woocommerce_order_status_changed', [self::class, 'order_changed_status'], 10, 3);
+        //add_action('woocommerce_order_edit_status', [self::class, 'order_edit_status'], 111, 2);
+
+        //add_action('woocommerce_order_item_quantity', [self::class, 'change_order_status'], 10, 3);
         //add_action( 'woocommerce_checkout_process', 'woocommerce_checkout_process_action' );
     }
-
 }

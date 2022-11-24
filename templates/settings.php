@@ -4,7 +4,6 @@ $dkPlus = !empty($main['dkPlus']) ? $main['dkPlus'] : false;
 $dkPlus_schedule = !empty($dkPlus['schedule']) ? $dkPlus['schedule'] : false;
 $import_status = woo_bookkeeping\App\Modules\dkPlus\Page::incompleteImport();
 $sync_status = woo_bookkeeping\App\Modules\dkPlus\Page::incompleteSync();
-
 $syncParams = [
     [
         'type' => 'checkbox',
@@ -50,7 +49,7 @@ $syncParams = [
         <div class="woocoo_tabs">
             <ul class="tabs_list">
                 <li><a href="#account-settings"><?php echo __('Account settings', PLUGIN_SLUG); ?></a></li>
-                <li><a href="#dkPlus_service"><?php echo __('dkPlus', PLUGIN_SLUG); ?></a></li>
+                <li><a <?php if (!empty($dkPlus['token'])): ?>href="#dkPlus_service"<?php else: ?> title="Please, check the correctness of the login and password." style="opacity:0.3;cursor:no-drop"<?php endif; ?>><?php echo __('dkPlus', PLUGIN_SLUG); ?></a></li>
             </ul>
 
             <div class="tabs_content">
@@ -106,8 +105,8 @@ $syncParams = [
                         <input type="hidden" name="action" value="woo_save_account">
                     </form>
                 </div>
-
-                <div id="dkPlus_service">
+                <?php if (!empty($dkPlus['token'])): ?>
+                    <div id="dkPlus_service">
                     <form method="post" action="" class="dkPlus_sync container_form">
                         <div id="universal-message-container">
                             <h2><?php echo esc_html(__('Automatic product synchronization', PLUGIN_SLUG)); ?></h2>
@@ -142,7 +141,15 @@ $syncParams = [
                                         <label for="crontrol_schedule"><?php echo __('Recurrence', PLUGIN_SLUG); ?></label>
                                     </div>
                                     <div class="td">
-                                        <?php $variations = woo_bookkeeping\App\Modules\dkPlus\Events::getVariations(); ?>
+                                        <?php
+                                        $variations = (new woo_bookkeeping\App\Core\CronSchedule())->WooCooIntervals();
+                                        $variations = array_merge([
+                                            'disabled' => [
+                                                'interval' => 0,
+                                                'display' => 'Non-repeating',
+                                            ]
+                                        ], $variations);
+                                        ?>
                                         <select class="postform" name="woocoo_schedule" id="woocoo_schedule" required>
                                             <?php foreach ($variations as $key => $variation): ?>
                                                 <option value="<?php echo $key; ?>" <?php if (isset($dkPlus_schedule['name']) && $dkPlus_schedule['name'] === $key) echo 'selected'; ?>>
@@ -159,7 +166,8 @@ $syncParams = [
                                        id="dkPlus_save"
                                        class="button button-primary"
                                        value="<?php echo __('Save', PLUGIN_SLUG); ?>"
-                                        data-action="dkPlus_save">
+                                        data-action="dkPlus_save"
+                                    <?php if (isset($sync_status['completed_percent']) && $sync_status['completed_percent'] < 100) echo 'disabled'; ?>>
                                 <input type="button"
                                        name="dkPlus_sync"
                                        id="dkPlus_sync"
@@ -240,11 +248,12 @@ $syncParams = [
                                   data-action="dkPlus_logs_clear"></p>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
 
     </div><!-- .wrap -->
-<?php if ($dkPlus): ?>
+<?php if (!empty($dkPlus['token'])): ?>
     <script>
         jQuery(document).ready(function () {
             jQuery('.woocoo_tabs').tabs({active: 1})

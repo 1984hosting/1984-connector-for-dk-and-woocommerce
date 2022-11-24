@@ -2,55 +2,18 @@
 
 namespace woo_bookkeeping\App\Core;
 
-abstract class CronSchedule
+class CronSchedule
 {
-    /**
-     * Running cron tasks
-     * format: associative array
-     * 'name' => [
-     * 'interval' => 'inseconds',
-     * 'display' => 'display title',
-     * ],
-     */
-    const Variations = [];
 
-    /**
-     * Get all variations
-     * @return array all variations
-     */
-    public static function getVariations(): array
+    public function __construct()
     {
-        return static::Variations;
+        $this->registerActions();
     }
 
     /**
-     * Get variation by key
-     * @param $key variation key
-     * @return false|mixed variation
+     * Custom cron intervals
      */
-    public static function getVariation($key)
-    {
-        if (isset(static::Variations[$key])) {
-            return static::Variations[$key];
-        }
-
-        return false;
-    }
-
-    /**
-     * Register cron interval
-     */
-    public static function registerActions()
-    {
-        add_filter('cron_schedules', [self::class, 'woocoo_intervals']);
-    }
-
-    /**
-     * List all cron intervals
-     * @param $schedules
-     * @return mixed
-     */
-    public static function woocoo_intervals($schedules)
+    public function WooCooIntervals(array $schedules = [])
     {
         $schedules['every_minute'] = [
             'interval' => 60,
@@ -86,5 +49,13 @@ abstract class CronSchedule
         ];
 
         return $schedules;
+    }
+
+    /**
+     * Register cron interval
+     */
+    private function registerActions()
+    {
+        add_filter('cron_schedules', [$this, 'WooCooIntervals']);
     }
 }

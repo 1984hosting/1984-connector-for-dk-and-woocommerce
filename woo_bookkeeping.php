@@ -9,10 +9,6 @@
 
 declare(strict_types=1);
 
-use woo_bookkeeping\App\Core\Logs;
-use woo_bookkeeping\App\Core\Main;
-
-
 defined('ABSPATH') || exit;
 
 /**
@@ -47,7 +43,7 @@ function woo_bookkeeping_load()
     }
 
     /** Load plugin core */
-    Main::LoadCore();
+    woo_bookkeeping\App\Core\Main::LoadCore();
 
     return true;
 }
@@ -83,7 +79,13 @@ function woocoo_deactivation()
         wp_clear_scheduled_hook('woocoo_update_' . $suffix);
     }
 
-    Logs::removeLogs();
+    $settings = woo_bookkeeping\App\Core\Main::getInstance();
+    foreach ($settings as &$setting) {
+        unset($setting['schedule']);
+    }
+    update_option(PLUGIN_SLUG, $settings, 'no');
+
+    woo_bookkeeping\App\Core\Logs::removeLogs();
 }
 
 /**
@@ -100,6 +102,8 @@ add_action('woocoo_worker', 'woocoo_regular');
 
 function woocoo_regular()
 {
+    new woo_bookkeeping\App\Core\CronSchedule();
+    //woo_bookkeeping\App\Core\Main::LoadCore();
     do_action('woocoo_regular_events');
 }
 
