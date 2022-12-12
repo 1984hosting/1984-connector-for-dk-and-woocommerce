@@ -11,15 +11,13 @@ While our need is specifically for DK at the moment, we envision support all of 
 
 ## About this README.md
 
-This README.md currently serves as a description of what's needed. It will be replaced with a proper README.md once the project is underway.
-
-Until it is replaced, it should contain all information relevant to developers and project managers.
+This README.md currently serves as a description of what's needed.
 
 Note that this git repository will eventually become public, so any and all history will also be made public at some point.
 
 ## Existing Products
 
-Several solutions exist already, but what they all have in common is to be sold as services. Ours will differ from them by being open-source and freely available to our customers as indeed anyone else. None of the following companies seem to openly share the code to their products, so they are not necessarily useful for investigation, but are mentioned here for context.
+Several solutions exist already, but what they all have in common is to be sold as services. Ours will differ from them, by being open-source and freely available to our customers as indeed anyone else. None of the following companies seem to openly share the code to their products, so they are not necessarily useful for investigation, but are mentioned here for context.
 
 * [Allra átta](https://www.8.is/netverslun/)
 * [Netheimur](https://www.netheimur.is/lausnirnar/dkwoo/)
@@ -50,12 +48,18 @@ The project is managed by [Helgi](mailto:helgi@1984.is) on behalf of [1984 Hosti
 
 - [ ] Inventory accounting connected to WooCommerce.
 - [ ] Set inventory status when item is placed in cart.
-- [ ] Mark product as purchesed on payment.
+- [ ] Mark product as purchased on payment.
 - [ ] Create and send invoice.
 
 ### Product synchronization
 
-Products are synchronized between Woocommerce and DK by product ID (SKU). Information about the product is entered into the site, but the quantity and whether an item is in stock, is determined on DK's side. (See [issue #1](https://github.com/1984hosting/woocoo/issues/1).)
+Products are generally managed on DK's side, and those changes are reflected in WooCommerce.
+
+Certain changes are also possible on WooCommerce's side that are not optional in DK, like the product's image, but **changes in WooCommerce are not sent back** to DK.
+
+The common identity between both system is the SKU (product ID).
+
+It is possible that in the future, we will create options to update DK through WooCommerce, but at least not for now.
 
 ### Pricing
 
@@ -63,13 +67,18 @@ Products are synchronized between Woocommerce and DK by product ID (SKU). Inform
 
 ### Cart behavior
 
-* Product quantity can be cached for a configurable amount of minutes, to reduce hits to back-end system (DK). The default cache is 0 minutes, which means it's disabled. Product quantity is still always checked when a) a user views a product and b) when the user adds that item to the cart. In listings from then on, cache is used.
+* Product quantity can be cached for a configurable amount of minutes, to reduce hits to back-end system (DK). The default cache is 0 minutes, which means it's disabled. Product quantity is still always checked when:
 
-* Products are reserved when they are placed in a cart. After a configurable amount of minutes (default 20), the cart is emptied and the item returned into stock.
+  * User views a product
+  * User adds that item to the cart.
+
+  In product listings, however, cache is used unless it is expired or disabled.
+
+* Products are reserved when they are placed in a cart. After a configurable amount of minutes without any action from the user (default 20), the cart is emptied and the item returned into stock.
 
 ### Payment and invoicing
 
-* Invoices are sent once the user has completed the purchase, including payment.
+* Invoices are sent once the user has completed the entire purchase, including its payment.
 
 # Technical Notes
 
@@ -81,7 +90,7 @@ Documentation can be found at [`https://apidoc.dkplus.is/`](https://apidoc.dkplu
 
 ### API versions
 
-The current difference between API versions 1 and 2 is only that in version 2, there are advanced options that doesn't exist in version 1.
+The current difference between API versions 1 and 2 is only that in version 2, there are advanced options that don't exist in version 1.
 
 We will not concern ourselves with version 2 until we run into a reason to.
 
@@ -95,11 +104,13 @@ The API is provided in OpenAPI format. A client library may be automatically gen
 
 ### WebHooks
 
-WebHooks provide a way for DK to notify an external program of a change that occurs. This can be used instead of constantly pulling new information with a scheduled task runner.
+Web hooks provide a way for DK to notify an external program of a change that occurs. This can be used instead of constantly pulling new information with a scheduled task runner.
 
 In other words, we can both have WooCommerce speak with DK, and DK speak with WooCommerce.
 
 This is described further in the API documentation available via Swagger.
+
+We have no particular reason to implement web hooks except in cases where they make development easier. While there is nothing wrong with using them, we are currently assuming that the entire process is based on WooCommerce pulling from DK.
 
 ### Tokens and authentication
 
@@ -119,4 +130,6 @@ This is described further in the API documentation available via Swagger.
 
 ## Running process
 
-A running process (crontab) may be necessary for cleaning stale data, such as items still in a cart of a user that has left the website without completing the purchase.
+A running process (crontab) may be necessary for cleaning stale data, such as items still in a cart of a user that has left the website without completing the purchase. If built-in provisions in WordPress can achieve the same effect, that would be preferable.
+
+We currently need an experienced opinion on this.
