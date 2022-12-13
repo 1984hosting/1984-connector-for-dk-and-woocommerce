@@ -1,6 +1,6 @@
 # Introduction
 
-We need a WordPress/WooCommerce plugin that can communicate with bookkeeping software known as [DK](https://dk.is/), and others in the future.
+Woocoo is a WordPress/WooCommerce plugin that can communicate with bookkeeping software known as [DK](https://dk.is/), and others in the future.
 
 While our need is specifically for DK at the moment, we envision support all of the following in the future:
 
@@ -53,32 +53,30 @@ The project is managed by [Helgi](mailto:helgi@1984.is) on behalf of [1984 Hosti
 
 ### Product synchronization
 
-Products are generally managed on DK's side, and those changes are reflected in WooCommerce.
+Products are mostly managed in DK but may be changed in WooCommerce. Changes in WooCommerce are **not** sent back to DK.
 
-Certain changes are also possible on WooCommerce's side that are not optional in DK, like the product's image, but **changes in WooCommerce are not sent back** to DK.
+For a product to be synchronized, it should be marked in such a way in DK. This option in Icelandic is called "Birta í vefverslun" and Google Translate translates it as "Publish in online store".
 
-The common identity between both system is the SKU (product ID).
+Note that there is some discrepancy between field names between systems, particularly with descriptive fields like "name" and "description".
 
-It is possible that in the future, we will create options to update DK through WooCommerce, but at least not for now.
+Field synchronization by field:
 
-### Pricing
+- SKU (product ID): The common identity between both systems, used to identify what products to add and update.
+- Name/Description: Transferred from DK to WooCommerce when product is added, but **not updated** after that, because users may want different descriptors in WooCommerce than in DK.
+- Inventory/Price: Always updated from DK to WooCommerce.
 
-* Only one price field is supported per product, at least in the first version. Back-end systems such as DK may support multiple prices, for discounts or special deals but only the main price is used.
+### Pricing and taxes
+
+* Only one price field is supported per product, at least in the first version of Woocoo. DK supports multiple prices, for discounts or special deals but only the main price is used by us for now.
+* Prices in WooCommerce should be the price as it appears **with [VAT](https://en.wikipedia.org/wiki/Value-added_tax)** in DK. This means that we do not need to worry about taxes for now.
 
 ### Cart behavior
 
-* Product quantity can be cached for a configurable amount of minutes, to reduce hits to back-end system (DK). The default cache is 0 minutes, which means it's disabled. Product quantity is still always checked when:
-
-  * User views a product
-  * User adds that item to the cart.
-
-  In product listings, however, cache is used unless it is expired or disabled.
-
-* Products are reserved when they are placed in a cart. After a configurable amount of minutes without any action from the user (default 20), the cart is emptied and the item returned into stock.
+We need further information and discussion on how Woocoo should behave with regard to the cart. Specifically, we need to understand how WooCommerce handles the reserving of product items while they are in the cart but before the purchase if complete. This impacts how Woocoo will handle its communication with DK.
 
 ### Payment and invoicing
 
-* Invoices are sent once the user has completed the entire purchase, including its payment.
+Woocoo uses the DK API to create and send an invoice in DK. This happens when the purchase of an item is complete, including the payment.
 
 # Technical Notes
 
@@ -132,4 +130,4 @@ This is described further in the API documentation available via Swagger.
 
 A running process (crontab) may be necessary for cleaning stale data, such as items still in a cart of a user that has left the website without completing the purchase. If built-in provisions in WordPress can achieve the same effect, that would be preferable.
 
-We currently need an experienced opinion on this.
+We need how this is typically implemented in WordPress plugins.
