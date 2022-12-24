@@ -19,7 +19,7 @@ class ProductMap extends ProductMapper
         'RecordModified' => [
             'field' => 'date_modified',
         ],
-        'UnitPrice1' => [
+        'UnitPrice1WithTax' => [
             'field' => 'regular_price',
             'callback' => [ProductMapper::class, 'toFloat'],
         ],
