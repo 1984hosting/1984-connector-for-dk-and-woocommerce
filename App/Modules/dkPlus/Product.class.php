@@ -244,8 +244,18 @@ class Product extends \woo_bookkeeping\App\Core\Product
             ];
         }
 
+        // Import from dkPlus: Products existing in WooCommerce should be updated when imported. #28
+        $wooproducts = Woo_Query::getProducts('product_id,sku');
+        $updateproducts = [];
+        foreach ($products as $product) {
+            $product_prop = self::searchProductArray($product['sku'], $wooproducts);
+            if (!empty($product_prop)) {
+                $updateproducts[] = array_merge($product_prop, $product);
+            }
+        }
+
         $existing_products = self::getAllProductsSKU();
-        $products = self::filterProducts($products, $existing_products);
+        $products = array_merge($updateproducts, self::filterProducts($products, $existing_products));
 
         if (empty($products)) {
             Logs::appendLog(Main::$module_slug . '/logs', 'New products for import not found');
@@ -399,7 +409,12 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
         for ($i = $count; $i > 0; $i--) {
             $product = array_shift($dkProducts);
-            self::productAdd($needed_fields, $product);
+            // update product if it has id and exist #28
+            if (isset($product['product_id'])) {
+                self::productUpdate($needed_fields, $product['product_id'], $product);
+            } else {
+                self::productAdd($needed_fields, $product);
+            }
         }
 
         return $dkProducts;

@@ -20,7 +20,7 @@ abstract class Product extends Woo_Query
     {
         $found_key = array_search($product_sku, array_column($products, 'sku'));
 
-        if (!$found_key) return [];
+        if ($found_key === false) return [];
 
         return $products[$found_key];
     }
