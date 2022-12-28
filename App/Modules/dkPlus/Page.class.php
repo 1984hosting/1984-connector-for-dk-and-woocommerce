@@ -41,7 +41,6 @@ class Page extends \woo_bookkeeping\App\Core\Page
         include_once PLUGIN_TPL_DIR . '/dkPlus/product-tab.php';
     }
 
-
     public function create_meta_box()
     {
         add_meta_box(
@@ -52,6 +51,27 @@ class Page extends \woo_bookkeeping\App\Core\Page
             'side', //position (normal, side, advanced)
             'high' //priority (default, low, high, core)
         );
+
+    }
+
+    /**
+     * Save sync options for the product
+     */
+    public function process_product_object( $product )
+    {
+
+        $keys = array(
+            'name',
+            'description',
+            'regular_price',
+            'stock_quantity',
+            'manage_stock',
+        );
+
+        // Saving the sync options for the product, that were set in "dkPlus synchronization" product tab #30
+        foreach ($keys as $key) {
+            update_post_meta( $product->get_id(), '_woocoo_' . $key, !empty($_POST[$key])?? '' );
+        }
 
     }
 
@@ -109,6 +129,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
         add_filter('woocommerce_product_data_tabs', [$this, 'product_tab_create'], 10, 1);
         add_action('woocommerce_product_data_panels', [$this, 'product_tab_content']);
         add_action('add_meta_boxes', [$this, 'create_meta_box']);
+        add_action( 'woocommerce_admin_process_product_object', [$this, 'process_product_object'], 10, 1 );
 
         /** Ajax actions */
         new Ajax(Main::$module_slug . '_save', function () {
