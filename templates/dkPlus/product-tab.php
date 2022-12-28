@@ -1,7 +1,9 @@
 <div id="product_tab_content" class="panel woocommerce_options_panel product_sync_form">
     <div id="universal-message-container" class="wc-metaboxes-wrapper">
         <h2><?php echo esc_html(__('Product synchronization', PLUGIN_SLUG)); ?></h2>
-        <?php $syncParams = [
+        <?php
+
+            $syncParams = [
             [
                 'type' => 'checkbox', //require
                 'label' => __('Product name', PLUGIN_SLUG), //require
@@ -37,7 +39,16 @@
                 'name' => 'product_id',
                 'value' => get_the_ID(),
             ],
-        ]; ?>
+        ];
+
+        // Loading the sync options for the product, that were set in "dkPlus synchronization" product tab #30
+        foreach ($syncParams as $key => $param) {
+            if ($syncParams[$key]['type'] == 'checkbox') {
+                $syncParams[$key]['checked'] = get_post_meta(get_the_ID(), '_woocoo_' . $syncParams[$key]['name'], true)? true: false;
+            }
+        }
+
+            ?>
 
         <div class="options">
             <label><?php echo __('Select options to sync', PLUGIN_SLUG); ?></label>

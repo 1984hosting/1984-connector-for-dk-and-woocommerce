@@ -411,7 +411,14 @@ class Product extends \woo_bookkeeping\App\Core\Product
             $product = array_shift($dkProducts);
             // update product if it has id and exist #28
             if (isset($product['product_id'])) {
-                self::productUpdate($needed_fields, $product['product_id'], $product);
+                // Product field should be updated, if it was set in "dkPlus synchronization" product tab #30
+                $updated_fields = [];
+                foreach ($needed_fields as $key) {
+                    if (get_post_meta($product['product_id'], '_woocoo_' . $key, true)) {
+                        $updated_fields[] = $key;
+                    }
+                }
+                self::productUpdate($updated_fields, $product['product_id'], $product);
             } else {
                 self::productAdd($needed_fields, $product);
             }
