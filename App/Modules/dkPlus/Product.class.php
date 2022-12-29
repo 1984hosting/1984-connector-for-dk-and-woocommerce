@@ -475,13 +475,15 @@ class Product extends \woo_bookkeeping\App\Core\Product
     {
         foreach (WC()->cart->get_cart() as $cart_item) {
             $product_id = $cart_item['product_id'];
+            $quantity = $cart_item['quantity'];
 
             $product = self::productSyncOne([
                 'regular_price',
                 'stock_quantity',
             ], $product_id);
 
-            $qty = $product['stock_quantity'] - 1;
+            // Item quantity in DK should be reduced by same amount as ordered. #31
+            $qty = $product['stock_quantity'] - $quantity;
 
             self::productSendQty($product['sku'], $qty);
         }
