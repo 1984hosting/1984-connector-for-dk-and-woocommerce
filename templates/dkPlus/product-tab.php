@@ -1,6 +1,8 @@
 <div id="product_tab_content" class="panel woocommerce_options_panel product_sync_form">
     <div id="universal-message-container" class="wc-metaboxes-wrapper">
-        <h2><?php echo esc_html(__('Product synchronization', PLUGIN_SLUG)); ?></h2>
+        <h2><?php use woo_bookkeeping\App\Modules\dkPlus\Main;
+
+            echo esc_html(__('Product synchronization', PLUGIN_SLUG)); ?></h2>
         <?php
 
             $syncParams = [
@@ -41,10 +43,19 @@
             ],
         ];
 
+        $settings = Main::getInstance();
+        $params = $settings[Main::$module_slug]['schedule']['params'];
+
         // Loading the sync options for the product, that were set in "dkPlus synchronization" product tab #30
         foreach ($syncParams as $key => $param) {
             if ($syncParams[$key]['type'] == 'checkbox') {
-                $syncParams[$key]['checked'] = get_post_meta(get_the_ID(), '_woocoo_' . $syncParams[$key]['name'], true)? true: false;
+                $value = get_post_meta(get_the_ID(), '_woocoo_' . $syncParams[$key]['name'], true);
+                if ($value) {
+                    $syncParams[$key]['checked'] = ($value === 'on') ? true: false;
+                } else {
+                    // Loading the sync options for the product, that were set in "Woo Bookkeeping/dkPlus" settings tab #30
+                    $syncParams[$key]['checked'] = (array_search($syncParams[$key]['name'], $params) !== false) ? true: false;
+                }
             }
         }
 
