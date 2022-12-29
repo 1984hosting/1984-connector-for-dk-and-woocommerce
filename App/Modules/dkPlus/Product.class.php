@@ -405,6 +405,9 @@ class Product extends \woo_bookkeeping\App\Core\Product
         $count = self::$import_slice;
         $count_products = count($dkProducts);
 
+        $settings = Main::getInstance();
+        $params = $settings[Main::$module_slug]['schedule']['params'];
+
         if ($count > $count_products) $count = $count_products;
 
         for ($i = $count; $i > 0; $i--) {
@@ -414,8 +417,16 @@ class Product extends \woo_bookkeeping\App\Core\Product
                 // Product field should be updated, if it was set in "dkPlus synchronization" product tab #30
                 $updated_fields = [];
                 foreach ($needed_fields as $key) {
-                    if (get_post_meta($product['product_id'], '_woocoo_' . $key, true)) {
-                        $updated_fields[] = $key;
+                    $value = get_post_meta($product['product_id'], '_woocoo_' . $key, true);
+                    if ($value) {
+                        if ($value === 'on') {
+                            $updated_fields[] = $key;
+                        }
+                    } else {
+                        // Product field should be updated, if it was set in "Woo Bookkeeping/dkPlus" settings tab #30
+                        if (array_search($key, $params) !== false) {
+                            $updated_fields[] = $key;
+                        }
                     }
                 }
                 self::productUpdate($updated_fields, $product['product_id'], $product);

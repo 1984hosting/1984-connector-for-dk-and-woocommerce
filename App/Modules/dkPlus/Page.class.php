@@ -70,7 +70,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
         // Saving the sync options for the product, that were set in "dkPlus synchronization" product tab #30
         foreach ($keys as $key) {
-            update_post_meta( $product->get_id(), '_woocoo_' . $key, !empty($_POST[$key])?? '' );
+            update_post_meta( $product->get_id(), '_woocoo_' . $key, ($_POST[$key] === 'on')?$_POST[$key]:'off' );
         }
 
     }
