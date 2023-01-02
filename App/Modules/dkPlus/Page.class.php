@@ -75,6 +75,78 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
     }
 
+    /**
+     * Create invoice when purchase is complete. #23
+     */
+    public function payment_complete( $order_id ){
+        $order = wc_get_order( $order_id );
+        $user = $order->get_user();
+        if( $user ){
+            $customer = API::customerSearch($user->user_nicename);
+            if (!$customer) {
+                $salesperson = API::salesPersonFetchOne('webshop');
+                if (!$salesperson) {
+                    $employee = API::generalEmployeeFetchOne('woocoo');
+                    if (!$employee) {
+                        $data = [
+                            "Number" => 'woocoo',
+                            "Name" => get_bloginfo('name')
+                        ];
+                        $employee = API::generalEmployeeCreate($data);
+                    }
+                    $data = [
+                        "Number" => "webshop",
+                        "Employee" => "woocoo",
+                        "NameOnSalesOrders" => "webshop",
+                        "Warehouse" => "bg1"
+                    ];
+                    $salesperson = API::salesPersonCreate($data);
+                }
+                $data = [
+                    "Number" => $user->ID,
+                    "Name" => $user->display_name,
+                    "Alias" => $user->user_nicename,
+                    "Address1" => $order->get_billing_address_1(),
+                    "Email" => $user->user_email,
+                    "Salesperson" => "webshop"
+                ];
+                $customer = API::customerCreate($data);
+            } else {
+                $customer = array_shift($customer);
+            }
+
+            $lines = [];
+            $order_items    = $order->get_items();
+            foreach ( $order_items as $order_item ) {
+                $product = $order_item->get_product();
+                $lines[] = [
+                    "ItemCode" => $product->get_sku(),
+                    "Text" => $order_item->get_name(),
+                    "Quantity" => $order_item->get_quantity(),
+                    "IncludingVAT" => true,
+                    "Price" => $product->get_price(),
+                ];
+            }
+
+            $data = [
+                "Date" =>  date('c', strtotime(' -1 month')), // issue - An accounting period is closed or a Month is closed according to an accounting period
+                "Customer" => [
+                    "Number" => $customer["Number"],
+                    "Name" => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
+                    "ZipCode" => $order->get_billing_postcode(),
+                    "Country" => $order->get_billing_country(),
+                    "Address1" => $order->get_billing_city() . ', ' . $order->get_billing_address_1()
+                ],
+                "Lines" => $lines
+            ];
+
+            $invoice = API::salesCreateInvoice($data);
+            if ($invoice) {
+                Logs::appendLog(Main::$module_slug . '/logs', 'Invoice #'. $invoice['Number'] .' is successfully added');
+            }
+        }
+    }
+
     public function meta_box_content($post)
     {
         //print_r($post);
@@ -130,6 +202,8 @@ class Page extends \woo_bookkeeping\App\Core\Page
         add_action('woocommerce_product_data_panels', [$this, 'product_tab_content']);
         add_action('add_meta_boxes', [$this, 'create_meta_box']);
         add_action( 'woocommerce_admin_process_product_object', [$this, 'process_product_object'], 10, 1 );
+        // Create invoice when purchase is complete. #23
+        add_action( 'woocommerce_payment_complete', [$this, 'payment_complete'], 10, 1  );
 
         /** Ajax actions */
         new Ajax(Main::$module_slug . '_save', function () {
