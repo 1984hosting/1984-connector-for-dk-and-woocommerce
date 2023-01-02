@@ -12,6 +12,22 @@ class WP_Exceptions extends \Exception
     {
         return new static('Product not found');
     }
+    public static function invalidEmployee()
+    {
+        return new static('Employee not found');
+    }
+    public static function invalidCustomer()
+    {
+        return new static('Customer not found');
+    }
+    public static function invalidSalesPerson()
+    {
+        return new static('Salesperson not found');
+    }
+    public static function invalidInvoice()
+    {
+        return new static('Invoice not found');
+    }
     public static function invalidResponse($code)
     {
         return new static('Invalid response, error: ' . $code);
