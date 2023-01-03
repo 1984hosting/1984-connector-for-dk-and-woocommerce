@@ -129,7 +129,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
             }
 
             $data = [
-                "Date" =>  date('c', strtotime(' -1 month')), // issue - An accounting period is closed or a Month is closed according to an accounting period
+                "Date" => get_date_from_gmt( $order->get_date_paid()->date('c'), "c" ),
                 "Customer" => [
                     "Number" => $customer["Number"],
                     "Name" => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
