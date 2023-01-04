@@ -110,11 +110,13 @@ class Page extends \woo_bookkeeping\App\Core\Page
                     "Email" => $user->user_email,
                     "Salesperson" => "webshop"
                 ];
-                $customer = API::customerCreate($data);
-            } else {
-                $customer = array_shift($customer);
+                $response = API::customerCreate($data);
+                if ($response) {
+                    $customer = API::customerSearch($user->user_nicename);
+                }
             }
 
+            $customer = array_shift($customer);
             $lines = [];
             $order_items    = $order->get_items();
             foreach ( $order_items as $order_item ) {

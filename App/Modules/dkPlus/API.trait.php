@@ -188,18 +188,17 @@ trait API
      * Create a new customer
      *
      * @param array $data
-     * @return array|bool
+     * @return bool
      */
-    public static function customerCreate(array $data): array
+    public static function customerCreate(array $data): bool
     {
         try {
             $customer = static::request('/customer', static::setHeaders('POST', $data));
-            if (empty($customer) || is_bool($customer)) {
+            if (empty($customer)) {
                 throw WP_Exceptions::invalidCustomer();
             }
         } catch (WP_Exceptions $e) {
             Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
-            $customer = [];
         }
         return $customer;
     }
