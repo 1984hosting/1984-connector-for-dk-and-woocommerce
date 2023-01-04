@@ -202,6 +202,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
         add_action('woocommerce_product_data_panels', [$this, 'product_tab_content']);
         add_action('add_meta_boxes', [$this, 'create_meta_box']);
         add_action( 'woocommerce_admin_process_product_object', [$this, 'process_product_object'], 10, 1 );
+
         // Create invoice when purchase is complete. #23
         add_action( 'woocommerce_payment_complete', [$this, 'payment_complete'], 10, 1  );
 
