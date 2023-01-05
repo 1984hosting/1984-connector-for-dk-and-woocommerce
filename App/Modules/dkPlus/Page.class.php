@@ -124,7 +124,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
                     "Text" => $order_item->get_name(),
                     "Quantity" => $order_item->get_quantity(),
                     "IncludingVAT" => true,
-                    "Price" => $product->get_price(),
+                    "Price" => wc_get_price_excluding_tax($product),
                 ];
             }
 
@@ -136,6 +136,13 @@ class Page extends \woo_bookkeeping\App\Core\Page
                     "ZipCode" => $order->get_billing_postcode(),
                     "Country" => $order->get_billing_country(),
                     "Address1" => $order->get_billing_city() . ', ' . $order->get_billing_address_1()
+                ],
+                "Payments" => [
+                    [
+                        "ID" => 14,
+                        "Name" => "Mastercard",
+                        "Amount" => $order->get_total()
+                    ]
                 ],
                 "Lines" => $lines
             ];
