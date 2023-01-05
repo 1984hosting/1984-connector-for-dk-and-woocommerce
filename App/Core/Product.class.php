@@ -61,6 +61,14 @@ abstract class Product extends Woo_Query
             call_user_func([$wc_product, $key], $product[$value]);
         }
 
+        if (isset($product['tax'])) {
+            if (($product['tax'] > 0)) {
+                $wc_product->set_tax_status( 'taxable' );
+            } else {
+                $wc_product->set_tax_status( 'none' );
+            }
+        }
+
         $wc_product->save();
 
         return true;
