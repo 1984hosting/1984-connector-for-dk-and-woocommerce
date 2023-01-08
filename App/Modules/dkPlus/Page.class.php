@@ -111,10 +111,9 @@ class Page extends \woo_bookkeeping\App\Core\Page
                     "Salesperson" => "webshop"
                 ];
                 $customer = Main::customerCreate($data);
-            } else {
-                $customer = array_shift($customer);
             }
 
+            $customer = array_shift($customer);
             $lines = [];
             $order_items    = $order->get_items();
             foreach ( $order_items as $order_item ) {
