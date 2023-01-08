@@ -82,17 +82,17 @@ class Page extends \woo_bookkeeping\App\Core\Page
         $order = wc_get_order( $order_id );
         $user = $order->get_user();
         if( $user ){
-            $customer = API::customerSearch($user->user_nicename);
+            $customer = Main::customerSearch($user->user_nicename);
             if (!$customer) {
-                $salesperson = API::salesPersonFetchOne('webshop');
+                $salesperson = Main::salesPersonFetchOne('webshop');
                 if (!$salesperson) {
-                    $employee = API::generalEmployeeFetchOne('woocoo');
+                    $employee = Main::generalEmployeeFetchOne('woocoo');
                     if (!$employee) {
                         $data = [
                             "Number" => 'woocoo',
                             "Name" => get_bloginfo('name')
                         ];
-                        $employee = API::generalEmployeeCreate($data);
+                        $employee = Main::generalEmployeeCreate($data);
                     }
                     $data = [
                         "Number" => "webshop",
@@ -100,7 +100,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
                         "NameOnSalesOrders" => "webshop",
                         "Warehouse" => "bg1"
                     ];
-                    $salesperson = API::salesPersonCreate($data);
+                    $salesperson = Main::salesPersonCreate($data);
                 }
                 $data = [
                     "Number" => $user->ID,
@@ -110,7 +110,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
                     "Email" => $user->user_email,
                     "Salesperson" => "webshop"
                 ];
-                $customer = API::customerCreate($data);
+                $customer = Main::customerCreate($data);
             } else {
                 $customer = array_shift($customer);
             }
@@ -147,7 +147,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
                 "Lines" => $lines
             ];
 
-            $invoice = API::salesCreateInvoice($data);
+            $invoice = Main::salesCreateInvoice($data);
             if ($invoice) {
                 Logs::appendLog(Main::$module_slug . '/logs', 'Invoice #'. $invoice['Number'] .' is successfully added');
             }

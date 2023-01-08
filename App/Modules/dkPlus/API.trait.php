@@ -9,8 +9,8 @@ use woo_bookkeeping\App\Core\WP_Notice;
 
 trait API
 {
-    private static $token = '';
-    private static string $api_url = 'https://api.dkplus.is/api/v1';
+    public static $token = '';
+    public static string $api_url = 'https://api.dkplus.is/api/v1';
 
 
     public static function getToken()
@@ -65,7 +65,7 @@ trait API
         ];
 
         try {
-            $result = static::request($method, $args);
+            $result = Main::request($method, $args);
 
             if (empty($result['Token'])) {
                 throw WP_Exceptions::invalidAccount();
@@ -85,7 +85,7 @@ trait API
     public static function productUpdateDK(string $product_sku, $args): bool
     {
         try {
-            $product = static::request('/Product/' . $product_sku, static::setHeaders('PUT', $args));
+            $product = Main::request('/Product/' . $product_sku, Main::setHeaders('PUT', $args));
 
             if (empty($product)) {
                 throw WP_Exceptions::invalidProduct();
@@ -105,13 +105,13 @@ trait API
     public static function productFetchOne(string $product_sku): array
     {
         try {
-            $product = static::request('/Product/' . $product_sku, static::setHeaders());
+            $product = Main::request('/Product/' . $product_sku, Main::setHeaders());
 
             if (empty($product) || is_bool($product)) {
                 throw WP_Exceptions::invalidProduct();
             }
 
-            $result = static::productMap($product);
+            $result = Main::productMap($product);
         } catch (WP_Exceptions $e) {
             Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
         }
@@ -126,7 +126,7 @@ trait API
     public static function productFetchAll(): array
     {
         try {
-            $products = static::request('/Product', static::setHeaders());
+            $products = Main::request('/Product', Main::setHeaders());
 
             if (empty($products)) {
                 throw WP_Exceptions::invalidProduct();
@@ -135,7 +135,7 @@ trait API
             $result = [];
             if (is_array($products)) {
                 foreach ($products as $product) {
-                    $result[] = static::productMap($product);
+                    $result[] = Main::productMap($product);
                 }
             }
         } catch (WP_Exceptions $e) {
@@ -154,7 +154,7 @@ trait API
     public static function generalEmployeeCreate(array $data): array
     {
         try {
-            $employee = static::request('/general/employee', static::setHeaders('POST', $data));
+            $employee = Main::request('/general/employee', Main::setHeaders('POST', $data));
             if (empty($employee) || is_bool($employee)) {
                 throw WP_Exceptions::invalidEmployee();
             }
@@ -173,7 +173,7 @@ trait API
     public static function generalEmployeeFetchOne(string $employee_number): array
     {
         try {
-            $employee = static::request('/general/employee/' . $employee_number, static::setHeaders());
+            $employee = Main::request('/general/employee/' . $employee_number, Main::setHeaders());
             if (empty($employee) || is_bool($employee)) {
                 throw WP_Exceptions::invalidEmployee();
             }
@@ -193,7 +193,7 @@ trait API
     public static function customerCreate(array $data): array
     {
         try {
-            $customer = static::request('/customer', static::setHeaders('POST', $data));
+            $customer = Main::request('/customer', Main::setHeaders('POST', $data));
             if (empty($customer) || is_bool($customer)) {
                 throw WP_Exceptions::invalidCustomer();
             }
@@ -214,7 +214,7 @@ trait API
     public static function customerUpdate(string $customer_number, $args): array
     {
         try {
-            $customer = static::request('/customer/' . $customer_number, static::setHeaders('PUT', $args));
+            $customer = Main::request('/customer/' . $customer_number, Main::setHeaders('PUT', $args));
             if (empty($customer) || is_bool($customer)) {
                 throw WP_Exceptions::invalidCustomer();
             }
@@ -233,7 +233,7 @@ trait API
     public static function customerFetchOne(string $customer_number): array
     {
         try {
-            $customer = static::request('/customer/' . $customer_number, static::setHeaders());
+            $customer = Main::request('/customer/' . $customer_number, Main::setHeaders());
             if (empty($customer) || is_bool($customer)) {
                 throw WP_Exceptions::invalidCustomer();
             }
@@ -252,7 +252,7 @@ trait API
     public static function customerFetchAll(bool $attached_objects = true): array
     {
         try {
-            $customers = static::request('/customer', static::setHeaders());
+            $customers = Main::request('/customer', Main::setHeaders());
 
             if (empty($customers)) {
                 throw WP_Exceptions::invalidCustomer();
@@ -272,7 +272,7 @@ trait API
     public static function customerSearch(string $searchstring): array
     {
         try {
-            $customer = static::request('/customer/search/' . $searchstring, static::setHeaders());
+            $customer = Main::request('/customer/search/' . $searchstring, Main::setHeaders());
             if (empty($customer) || is_bool($customer)) {
                 throw WP_Exceptions::invalidCustomer();
             }
@@ -292,7 +292,7 @@ trait API
     public static function salesPersonCreate(array $data): array
     {
         try {
-            $salesperson = static::request('/sales/person', static::setHeaders('POST', $data));
+            $salesperson = Main::request('/sales/person', Main::setHeaders('POST', $data));
             if (empty($salesperson) || is_bool($salesperson)) {
                 throw WP_Exceptions::invalidSalesPerson();
             }
@@ -313,7 +313,7 @@ trait API
     public static function salesPersonUpdate(string $salesperson_number, $args): array
     {
         try {
-            $salesperson = static::request('/sales/person/' . $salesperson_number, static::setHeaders('PUT', $args));
+            $salesperson = Main::request('/sales/person/' . $salesperson_number, Main::setHeaders('PUT', $args));
             if (empty($salesperson) || is_bool($salesperson)) {
                 throw WP_Exceptions::invalidSalesPerson();
             }
@@ -332,7 +332,7 @@ trait API
     public static function salesPersonFetchOne(string $salesperson_number): array
     {
         try {
-            $salesperson = static::request('/sales/person/' . $salesperson_number, static::setHeaders());
+            $salesperson = Main::request('/sales/person/' . $salesperson_number, Main::setHeaders());
             if (empty($salesperson) || is_bool($salesperson)) {
                 throw WP_Exceptions::invalidSalesPerson();
             }
@@ -353,7 +353,7 @@ trait API
     public static function salesPersonFetchAll(int $page = 1, int $count = 100): array
     {
         try {
-            $salespersons = static::request('/sales/person/page/' . $page . '/' . $count, static::setHeaders());
+            $salespersons = Main::request('/sales/person/page/' . $page . '/' . $count, Main::setHeaders());
             if (empty($salespersons)) {
                 throw WP_Exceptions::invalidSalesPerson();
             }
@@ -372,7 +372,7 @@ trait API
     public static function salesCreateInvoice($data): array
     {
         try {
-            $invoice = static::request('/sales/invoice', static::setHeaders('POST', $data));
+            $invoice = Main::request('/sales/invoice', Main::setHeaders('POST', $data));
             if (empty($invoice) || is_bool($invoice)) {
                 throw WP_Exceptions::invalidInvoice();
             }
@@ -392,7 +392,7 @@ trait API
     public static function salesInvoiceFetchOne(string $invoice_number): array
     {
         try {
-            $invoice = static::request('/sales/invoice/' . $invoice_number, static::setHeaders());
+            $invoice = Main::request('/sales/invoice/' . $invoice_number, Main::setHeaders());
             if (empty($invoice) || is_bool($invoice)) {
                 throw WP_Exceptions::invalidInvoice();
             }
@@ -411,12 +411,12 @@ trait API
         return ProductMap::ProductMap($product);
     }
 
-    private static function setHeaders($method = 'GET', $body = [])
+    public static function setHeaders($method = 'GET', $body = [])
     {
         return [
             'body' => $body,
             'headers' => [
-                'Authorization' => 'Bearer ' . static::getToken(),
+                'Authorization' => 'Bearer ' . Main::getToken(),
                 'Content-type' => 'application/x-www-form-urlencoded',
             ],
             'method' => $method,
@@ -424,11 +424,11 @@ trait API
         ];
     }
 
-    private static function request(string $method, array $args)
+    public static function request(string $method, array $args)
     {
         try {
             $args['timeout'] = 300;
-            $request = wp_remote_request(static::$api_url . $method, $args);
+            $request = wp_remote_request(Main::$api_url . $method, $args);
             $response_code = wp_remote_retrieve_response_code($request);
 
             if ($response_code != 200) {
