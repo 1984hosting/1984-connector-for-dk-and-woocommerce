@@ -371,7 +371,7 @@ trait API
     public static function salesCreateInvoice($data): array
     {
         try {
-            $invoice = Main::request('/sales/invoice', Main::setHeaders('POST', $data));
+          $invoice = Main::request('/sales/invoice', Main::setHeaders('POST', $data));
             if (empty($invoice) || is_bool($invoice)) {
                 throw WP_Exceptions::invalidInvoice();
             }
