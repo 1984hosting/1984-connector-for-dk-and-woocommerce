@@ -111,8 +111,6 @@ class Page extends \woo_bookkeeping\App\Core\Page
                     "Salesperson" => "webshop"
                 ];
                 $customer = Main::customerCreate($data);
-            } else {
-                $customer = array_shift($customer);
             }
 
             $customer = array_shift($customer);
