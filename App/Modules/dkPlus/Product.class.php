@@ -35,7 +35,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
             foreach ($product_children as $child_id) {
                 $product_sku = Woo_Query::getProduct('sku', $child_id)['sku'];
                 $variation = self::variationGet($needed_fields, $child_id);
-                API::productUpdateDK($product_sku, $variation);
+                Main::productUpdateDK($product_sku, $variation);
             }
             //variations sync is completed, return true
             return true;
@@ -48,7 +48,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
         $product = self::productGet($needed_fields, $product_id);
 
-        return API::productUpdateDK($product_sku, $product);
+        return Main::productUpdateDK($product_sku, $product);
     }
 
     /**
@@ -88,7 +88,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
         if (empty($product_sku)) return [];
 
-        $product = API::productFetchOne($product_sku);
+        $product = Main::productFetchOne($product_sku);
 
         self::productUpdate($needed_fields, $product_id, $product);
 
@@ -107,7 +107,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
         if (empty($product['sku'])) return false;
 
-        $product_dk = API::productFetchOne($product['sku']);
+        $product_dk = Main::productFetchOne($product['sku']);
 
         return self::variationUpdate($needed_fields, $product['product_id'], $product_dk);
     }
@@ -138,7 +138,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
             ];
         }
 
-        $dkProducts = API::productFetchAll();
+        $dkProducts = Main::productFetchAll();
         if (empty($dkProducts)) {
             Logs::appendLog(Main::$module_slug . '/logs', 'Missing products for sync');
             return [
@@ -221,7 +221,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
     {
         if (!empty($_POST['sync_params'])) {
             $needed_fields = $_POST['sync_params'];
-            $products = API::productFetchAll();
+            $products = Main::productFetchAll();
             $import_products_status['start_count_products'] = count($products);
         } else {
             $import_products = Logs::readLog(Main::$module_slug . '/import_products');
@@ -391,7 +391,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
     {
         $product['UnitQuantity'] = $qty;
 
-        return API::productUpdateDK($product_sku, $product);
+        return Main::productUpdateDK($product_sku, $product);
     }
 
     /**
@@ -520,7 +520,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
         foreach ($items as $item) {
             $product = $item->get_product();
-            $dk_product = API::productFetchOne($product->sku);
+            $dk_product = Main::productFetchOne($product->sku);
 
             self::productUpdate(['stock_quantity'], $product->id, $dk_product);
         }
