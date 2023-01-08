@@ -473,6 +473,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
     public static function before_checkout_process()
     {
+
         foreach (WC()->cart->get_cart() as $cart_item) {
             $product_id = $cart_item['product_id'];
             $quantity = $cart_item['quantity'];
@@ -491,6 +492,26 @@ class Product extends \woo_bookkeeping\App\Core\Product
         return true;
     }
 
+    public static function product_set_stock($product)
+    {
+        if ($product) {
+            $cart = WC()->cart->get_cart();
+            if($key = WC()->cart->find_product_in_cart( WC()->cart->generate_cart_id( $product->get_id() ) ) ) {
+                $cart_item = $cart[$key];
+                $product_id = $cart_item['product_id'];
+                $quantity = $cart_item['quantity'];
+                $product = self::productSyncOne([
+                    'regular_price',
+                    'stock_quantity',
+                ], $product_id);
+
+                // Item quantity in DK should be reduced by same amount as ordered. #31
+                $qty = $product['stock_quantity'] - $quantity;
+                self::productSendQty($product['sku'], $qty);
+            }
+        }
+        return true;
+    }
 
     public static function order_edit_status($id, $new_status)
     {
@@ -513,7 +534,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
         var_dump($order);
         echo '</pre>';
         die();
-//print_r(wc_get_order($order_id));die();
+        //print_r(wc_get_order($order_id));die();
         /*$order = wc_get_order($order_id);
 
         //$order_total = $order->get_formatted_order_total();
@@ -526,7 +547,11 @@ class Product extends \woo_bookkeeping\App\Core\Product
     private function registerActions()
     {
         add_filter('woocommerce_add_to_cart_validation', [self::class, 'add_to_cart_validation'], 10, 5);
-        add_action('woocommerce_before_checkout_process', [self::class, 'before_checkout_process']);
+
+        // WooCommerce: An invalid phone number during checkout reduces product stock, when it shouldn't. #32
+        // add_action('woocommerce_before_checkout_process', [self::class, 'before_checkout_process']);
+        add_action( 'woocommerce_product_set_stock', [self::class, 'product_set_stock'] );
+
         //add_action('woocommerce_order_status_changed', [self::class, 'order_changed_status'], 10, 3);
         //add_action('woocommerce_order_edit_status', [self::class, 'order_edit_status'], 111, 2);
 

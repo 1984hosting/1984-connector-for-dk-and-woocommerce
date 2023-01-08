@@ -188,9 +188,9 @@ trait API
      * Create a new customer
      *
      * @param array $data
-     * @return array|bool
+     * @return bool
      */
-    public static function customerCreate(array $data): array
+    public static function customerCreate(array $data): bool
     {
         try {
             $customer = Main::request('/customer', Main::setHeaders('POST', $data));
@@ -199,7 +199,6 @@ trait API
             }
         } catch (WP_Exceptions $e) {
             Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
-            $customer = [];
         }
         return $customer;
     }
