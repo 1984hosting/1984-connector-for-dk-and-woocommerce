@@ -129,25 +129,33 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
             $data = [
                 "Date" => get_date_from_gmt( $order->get_date_paid()->date('c'), "c" ),
+                "Reference" => 'Order #' . $order_id,
+                "Text1" => $order->get_customer_note(),
                 "Customer" => [
                     "Number" => $customer["Number"],
                     "Name" => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
                     "ZipCode" => $order->get_billing_postcode(),
                     "Country" => $order->get_billing_country(),
-                    "Address1" => $order->get_billing_city() . ', ' . $order->get_billing_address_1()
-                ],
-                "Payments" => [
-                    [
-                        "ID" => 14,
-                        "Name" => "Mastercard",
-                        "Amount" => $order->get_total()
-                    ]
+                    "Address1" => $order->get_billing_city() . ', ' . $order->get_billing_address_1(),
+                    "Address2" => $order->get_billing_address_2()
                 ],
                 "Lines" => $lines
             ];
 
+            if (isset($_POST['ship_to_different_address'])) {
+                $data["Receiver"] = [
+                                        "Name" => $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name(),
+                                        "Address1" => $order->get_shipping_address_1(),
+                                        "Address2" => $order->get_shipping_address_2(),
+                                        "ZipCode" => $order->get_shipping_postcode(),
+                                        "City" => $order->get_shipping_city(),
+                                    ];
+            }
+
             $invoice = Main::salesCreateInvoice($data);
             if ($invoice) {
+                // Add the note
+                $order->add_order_note( 'Invoice #'. $invoice['Number'] .' is successfully added' );
                 Logs::appendLog(Main::$module_slug . '/logs', 'Invoice #'. $invoice['Number'] .' is successfully added');
             }
         }

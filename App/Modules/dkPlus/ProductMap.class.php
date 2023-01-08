@@ -24,7 +24,7 @@ class ProductMap extends ProductMapper
             'field' => 'tax',
             'callback' => [ProductMapper::class, 'toFloat'],
         ],
-	//(#29 - Import price with VAT - add comments)
+	    //(#29 - Import price with VAT - add comments)
         'UnitPrice1WithTax' => [
             'field' => 'regular_price',
             'callback' => [ProductMapper::class, 'toFloat'],
