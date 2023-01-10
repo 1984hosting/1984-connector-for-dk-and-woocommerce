@@ -42,6 +42,12 @@ function woo_bookkeeping_load()
         return new woo_bookkeeping\App\Core\WP_Notice('error', 'Woo Bookkeeping is enabled but has no effect. Requires WooCommerce to work.');
     }
 
+    include_once WC_ABSPATH . 'packages/action-scheduler/action-scheduler.php';
+    if ( false === as_next_scheduled_action( 'woocoo_worker' ) ) {
+        //create event - every_minute
+        as_schedule_recurring_action( time(), 60, 'woocoo_worker', array(), PLUGIN_SLUG );
+    }
+
     /** Load plugin core */
     woo_bookkeeping\App\Core\Main::LoadCore();
 
@@ -58,11 +64,7 @@ register_activation_hook(__FILE__, 'woocoo_activation');
 
 function woocoo_activation()
 {
-    //delete just in case
-    wp_clear_scheduled_hook('woocoo_worker');
 
-    //create cron event
-    wp_schedule_event(time(), 'every_minute', 'woocoo_worker');
 }
 
 /**
@@ -72,12 +74,7 @@ register_deactivation_hook(__FILE__, 'woocoo_deactivation');
 
 function woocoo_deactivation()
 {
-    wp_clear_scheduled_hook('woocoo_worker');
-
-    //Remove modules cron tasks
-    foreach (WOOCOO_MODULES as $suffix) {
-        wp_clear_scheduled_hook('woocoo_update_' . $suffix);
-    }
+    as_unschedule_all_actions('', [], PLUGIN_SLUG);
 
     $settings = woo_bookkeeping\App\Core\Main::getInstance();
     foreach ($settings as &$setting) {

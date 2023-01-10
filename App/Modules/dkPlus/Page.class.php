@@ -179,14 +179,17 @@ class Page extends \woo_bookkeeping\App\Core\Page
         unset($settings[Main::$module_slug]['schedule']['name']);
 
         /** Remove old events */
-        wp_unschedule_hook($task_name);
+        as_unschedule_all_actions($task_name);
 
         /** Add events */
-        //wp_schedule_event(time(), 'every_minute', $regular_task_name);
         if (isset($data['woocoo_schedule']) && $data['woocoo_schedule'] !== 'disabled' && $settings[Main::$module_slug]['token']) {
+            $schedules = wp_get_schedules();
+            $interval = 60;
+            if (isset($schedules[$data['woocoo_schedule']])) {
+                $interval = $schedules[$data['woocoo_schedule']]['interval'];
+            }
             $settings[Main::$module_slug]['schedule']['name'] = $data['woocoo_schedule'];
-
-            wp_schedule_event(time(), $data['woocoo_schedule'], $task_name);
+            as_schedule_recurring_action( time(), $interval, $task_name, array(), PLUGIN_SLUG  );
         }
 
         $update_otion = update_option(PLUGIN_SLUG, $settings, 'no');
