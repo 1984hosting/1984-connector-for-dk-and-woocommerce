@@ -142,6 +142,17 @@ class Page extends \woo_bookkeeping\App\Core\Page
                 "Lines" => $lines
             ];
 
+            $payment_gateway = WC()->payment_gateways->payment_gateways()[$order->get_payment_method()];
+            $dkPlus_type = $payment_gateway->settings['dkPlus_type'];
+            if ($dkPlus_type) {
+                $data["Payments"] = [
+                    [
+                        "ID" => $dkPlus_type,
+                        "Amount" => $order->get_total()
+                    ]
+                ];
+            }
+
             if (isset($_POST['ship_to_different_address'])) {
                 $data["Receiver"] = [
                                         "Name" => $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name(),
@@ -210,6 +221,27 @@ class Page extends \woo_bookkeeping\App\Core\Page
         return Logs::readLog('dkPlus/sync_products_status');
     }
 
+    public function form_fields( $form_fields ){
+
+        $paymentTypesOptions = [];
+        $paymentTypesOptions[] = "None";
+        $paymentTypes = Main::salesPaymentType();
+        foreach($paymentTypes as $paymentType) {
+            $paymentTypesOptions[$paymentType['PaymentId']] = $paymentType['Name'];
+        }
+
+        $form_fields['dkPlus_type'] = array(
+            'title'       => __( 'DKPLUS Payment Type', 'woocommerce' ),
+            'type'        => 'select',
+            'description' => __( 'Choose which type of DKPLUS Payment to set.', 'woocommerce' ),
+            'default'     => 'html',
+            'class'       => 'dkplus_payment_type wc-enhanced-select',
+            'options'     => $paymentTypesOptions,
+            'desc_tip'    => true,
+        );
+        return $form_fields;
+    }
+
     /**
      * Register required actions
      */
@@ -219,6 +251,11 @@ class Page extends \woo_bookkeeping\App\Core\Page
         add_action('woocommerce_product_data_panels', [$this, 'product_tab_content']);
         add_action('add_meta_boxes', [$this, 'create_meta_box']);
         add_action( 'woocommerce_admin_process_product_object', [$this, 'process_product_object'], 10, 1 );
+
+        $gateways = WC()->payment_gateways->payment_gateways();
+        foreach($gateways as $key => $gateway) {
+            add_filter( 'woocommerce_settings_api_form_fields_' . $key, [$this, 'form_fields']);
+        }
 
         // Create invoice when purchase is complete. #23
         add_action( 'woocommerce_payment_complete', [$this, 'payment_complete'], 10, 1  );

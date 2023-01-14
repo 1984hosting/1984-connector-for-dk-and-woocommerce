@@ -402,6 +402,24 @@ trait API
     }
 
     /**
+     * Get Payment Type
+     *
+     * @return array
+     */
+    public static function salesPaymentType(): array
+    {
+        try {
+            $paymenttypes = Main::request('/sales/payment/type/', Main::setHeaders());
+            if (empty($paymenttypes)) {
+                throw WP_Exceptions::invalidPaymentTypes();
+            }
+        } catch (WP_Exceptions $e) {
+            Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
+        }
+        return $paymenttypes;
+    }
+
+    /**
      * getting one a product with dkplus API
      * @return array
      */

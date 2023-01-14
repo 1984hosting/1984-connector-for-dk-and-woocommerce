@@ -28,6 +28,10 @@ class WP_Exceptions extends \Exception
     {
         return new static('Invoice not found');
     }
+    public static function invalidPaymentTypes()
+    {
+        return new static('Payment Types not found');
+    }
     public static function invalidResponse($code)
     {
         return new static('Invalid response, error: ' . $code);
