@@ -495,19 +495,21 @@ class Product extends \woo_bookkeeping\App\Core\Product
     public static function product_set_stock($product)
     {
         if ($product) {
-            $cart = WC()->cart->get_cart();
-            if($key = WC()->cart->find_product_in_cart( WC()->cart->generate_cart_id( $product->get_id() ) ) ) {
-                $cart_item = $cart[$key];
-                $product_id = $cart_item['product_id'];
-                $quantity = $cart_item['quantity'];
-                $product = self::productSyncOne([
-                    'regular_price',
-                    'stock_quantity',
-                ], $product_id);
+            if (WC()->cart) {
+                $cart = WC()->cart->get_cart();
+                if($key = WC()->cart->find_product_in_cart( WC()->cart->generate_cart_id( $product->get_id() ) ) ) {
+                    $cart_item = $cart[$key];
+                    $product_id = $cart_item['product_id'];
+                    $quantity = $cart_item['quantity'];
+                    $product = self::productSyncOne([
+                        'regular_price',
+                        'stock_quantity',
+                    ], $product_id);
 
-                // Item quantity in DK should be reduced by same amount as ordered. #31
-                $qty = $product['stock_quantity'] - $quantity;
-                self::productSendQty($product['sku'], $qty);
+                    // Item quantity in DK should be reduced by same amount as ordered. #31
+                    $qty = $product['stock_quantity'] - $quantity;
+                    self::productSendQty($product['sku'], $qty);
+                }
             }
         }
         return true;
