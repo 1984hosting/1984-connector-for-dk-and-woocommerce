@@ -129,15 +129,17 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
             $data = [
                 "Date" => get_date_from_gmt( $order->get_date_paid()->date('c'), "c" ),
-                "Reference" => 'Order #' . $order_id,
+                "Reference" => 'Order#' . $order_id,
                 "Text1" => $order->get_customer_note(),
                 "Customer" => [
                     "Number" => $customer["Number"],
                     "Name" => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
+                    "Email" => $order->get_billing_email(),
+                    "Phone" => $order->get_billing_phone(),
                     "ZipCode" => $order->get_billing_postcode(),
                     "Country" => $order->get_billing_country(),
                     "Address1" => $order->get_billing_city() . ', ' . $order->get_billing_address_1(),
-                    "Address2" => $order->get_billing_address_2()
+                    "Address2" => $order->get_billing_address_2(),
                 ],
                 "Lines" => $lines
             ];

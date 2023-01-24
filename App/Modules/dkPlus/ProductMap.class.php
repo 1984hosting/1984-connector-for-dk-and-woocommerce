@@ -36,5 +36,9 @@ class ProductMap extends ProductMapper
             'field' => 'manage_stock',
             'callback' => [ProductMapper::class, 'setBoolTrue'],
         ],
+        // DK variations
+        'Alternative' => [
+            'field' => 'children',
+        ],
     ];
 }

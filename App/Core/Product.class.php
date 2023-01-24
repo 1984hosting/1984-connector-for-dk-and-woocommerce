@@ -12,6 +12,7 @@ abstract class Product extends Woo_Query
 
     /**
      * Search for a product in the resulting array (from remote services) of all products
+     *
      * @param string $product_sku Product sku
      * @param array $products The resulting array products
      * @return array Product data
@@ -25,9 +26,104 @@ abstract class Product extends Woo_Query
         return $products[$found_key];
     }
 
-    public static function productAdd(array $needed_fields, $product): int
+    /**
+     * Search for variable product in the resulting array (from remote services) of all products
+     *
+     * @param string $product_sku Product sku
+     * @param array $products The resulting array products
+     * @return array Product data
+     */
+    public static function searchProductVariation(string $product_sku, array $products): array
     {
-        $wc_product = new \WC_Product();
+        foreach ($products as $product) {
+            if (!empty($product['children'])) {
+                $found_key = array_search($product_sku, array_column($product['children'], 'ItemCode'));
+                if ($found_key === false) break;
+                return $product;
+            }
+        }
+        return [];
+    }
+
+    /**
+     * Create an Attribute For Variable Product
+     *
+     * @param $product
+     * @param $variations
+     * @return void
+     */
+    public static function createAttribute( $product, $variations ) {
+        $attribute = new \WC_Product_Attribute();
+        $attribute->set_name( 'Alternative' );
+        $attribute->set_visible( true );
+        $attribute->set_variation( true );
+        $options = [];
+        foreach($variations as $variation) {
+            $options[] = $variation["ItemCode"];
+        }
+        $attribute->set_options($options);
+        $product->set_attributes( array($attribute) );
+        $product->save();
+
+    }
+
+    /**
+     * Create a Variation For Variable Product
+     *
+     * @param $product
+     * @param $product_variation
+     * @return void
+     * @throws \WC_Data_Exception
+     */
+    public static function createVariation( $product, $product_variation ) {
+
+        $variation = new \WC_Product_Variation();
+        $variation->set_parent_id( $product->get_id() );
+        $variation->set_name( $product_variation['name'] );
+        $variation->set_sku( $product_variation['sku'] );
+        $variation->set_description( $product_variation['description'] );
+        $variation->set_stock_quantity( $product_variation['stock_quantity'] );
+        $variation->set_manage_stock( $product_variation['manage_stock'] );
+        $variation->set_regular_price( $product_variation['regular_price'] );
+
+        if (isset($product_variation['tax'])) {
+            if (($product_variation['tax'] > 0)) {
+                $variation->set_tax_status( 'taxable' );
+            } else {
+                $variation->set_tax_status( 'none' );
+            }
+        }
+        $variation->set_attributes( array( 'alternative' => $product_variation['sku'] ) );
+        $variation->save();
+
+    }
+
+    /**
+     * Add a Product
+     *
+     * @param array $needed_fields
+     * @param $product
+     * @param $import_products
+     * @return int
+     * @throws \WC_Data_Exception
+     */
+    public static function productAdd(array $needed_fields, $product, $import_products): int
+    {
+
+        if (empty($product['children'])) {
+            if(self::searchProductVariation($product['sku'], $import_products)) {
+                return 0;
+            }
+            $wc_product = new \WC_Product();
+        } else {
+            $wc_product = new \WC_Product_Variable();
+            self::createAttribute( $wc_product, $product['children'] );
+            foreach ($product['children'] as $child) {
+                if($product_variation = self::searchProductArray($child["ItemCode"], $import_products)) {
+                    self::createVariation($wc_product, $product_variation);
+                }
+            }
+        }
 
         $functions = array_combine(static::dataFormatSet($needed_fields), $needed_fields);
 
@@ -38,16 +134,17 @@ abstract class Product extends Woo_Query
             call_user_func([$wc_product, $key], $product[$value]);
         }
 
-
         return $wc_product->save();
     }
 
     /**
      * Product update in woocommerce
+     *
      * @param array $needed_fields
      * @param $product_id
      * @param $product
      * @return bool
+     * @throws \WC_Data_Exception
      */
     public static function productUpdate(array $needed_fields, $product_id, $product): bool
     {
@@ -76,10 +173,10 @@ abstract class Product extends Woo_Query
 
     /**
      * Get product data from woocommerce
+     *
      * @param array $needed_fields
      * @param $product_id
-     * @param $product
-     * @return bool
+     * @return array
      */
     public static function productGet(array $needed_fields, $product_id): array
     {
