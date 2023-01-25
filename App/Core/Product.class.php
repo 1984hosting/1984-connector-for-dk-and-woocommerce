@@ -150,7 +150,10 @@ abstract class Product extends Woo_Query
     {
         if (empty($product) || empty($product_id)) return true;
 
-        $wc_product = new \WC_Product($product_id);
+        $wc_product = wc_get_product($product_id);
+        if(!$wc_product){
+            return false;
+        }
 
         $functions = array_combine(static::dataFormatSet($needed_fields), $needed_fields);
 
