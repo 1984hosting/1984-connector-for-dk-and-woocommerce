@@ -122,9 +122,25 @@ class Page extends \woo_bookkeeping\App\Core\Page
                     "ItemCode" => $product->get_sku(),
                     "Text" => $order_item->get_name(),
                     "Quantity" => $order_item->get_quantity(),
-                    "IncludingVAT" => true,
+                    "IncludingVAT" => $product->is_taxable(),
                     "Price" => wc_get_price_excluding_tax($product),
                 ];
+            }
+
+            foreach( $order->get_items( 'shipping' ) as $item_id => $item ){
+                $shipping_method_title       = $item->get_method_title();
+                $shipping_method_id          = $item->get_method_id(); // The method ID
+                $shipping_method_instance_id = $item->get_instance_id(); // The instance ID
+                $shipping_method_total       = $item->get_total();
+                $dkPlus_product = get_option('woocommerce_'.$shipping_method_id.'_'.$shipping_method_instance_id.'_settings')['dkPlus_product'];
+                if ($dkPlus_product) {
+                    $lines[] = [
+                        "ItemCode" => $dkPlus_product,
+                        "Text" => $shipping_method_title,
+                        "Quantity" => 1,
+                        "Price" => $shipping_method_total,
+                    ];
+                }
             }
 
             $data = [
@@ -223,7 +239,7 @@ class Page extends \woo_bookkeeping\App\Core\Page
         return Logs::readLog('dkPlus/sync_products_status');
     }
 
-    public function form_fields( $form_fields ){
+    public function payment_form_fields( $form_fields ){
 
         $paymentTypesOptions = [];
         $paymentTypesOptions[] = "None";
@@ -233,12 +249,33 @@ class Page extends \woo_bookkeeping\App\Core\Page
         }
 
         $form_fields['dkPlus_type'] = array(
-            'title'       => __( 'DKPLUS Payment Type', 'woocommerce' ),
+            'title'       => __( 'DkPlus Payment Type', 'woocommerce' ),
             'type'        => 'select',
             'description' => __( 'Choose which type of DKPLUS Payment to set.', 'woocommerce' ),
             'default'     => 'html',
             'class'       => 'dkplus_payment_type wc-enhanced-select',
             'options'     => $paymentTypesOptions,
+            'desc_tip'    => true,
+        );
+        return $form_fields;
+    }
+
+    public function shipping_form_fields( $form_fields ){
+
+        $shippingCostOptions = [];
+        $shippingCostOptions[] = "None";
+        $dkProducts = Main::productFetchAll();
+        foreach($dkProducts as $dkProduct) {
+            $shippingCostOptions[$dkProduct['sku']] = $dkProduct['name'];
+        }
+
+        $form_fields['dkPlus_product'] = array(
+            'title'       => __( 'DkPlus Shipping Cost Product', 'woocommerce' ),
+            'type'        => 'select',
+            'description' => __( 'Choose which DkPlus Product to set as Shipping Cost.', 'woocommerce' ),
+            'default'     => 'html',
+            'class'       => 'dkplus_shippingcost_option wc-enhanced-select',
+            'options'     => $shippingCostOptions,
             'desc_tip'    => true,
         );
         return $form_fields;
@@ -256,7 +293,12 @@ class Page extends \woo_bookkeeping\App\Core\Page
 
         $gateways = WC()->payment_gateways->payment_gateways();
         foreach($gateways as $key => $gateway) {
-            add_filter( 'woocommerce_settings_api_form_fields_' . $key, [$this, 'form_fields']);
+            add_filter( 'woocommerce_settings_api_form_fields_' . $key, [$this, 'payment_form_fields']);
+        }
+
+        $shipping_methods = WC()->shipping->get_shipping_methods();
+        foreach($shipping_methods as $key => $method) {
+            add_filter( 'woocommerce_shipping_instance_form_fields_' . $key, [$this, 'shipping_form_fields']);
         }
 
         // Create invoice when purchase is complete. #23
