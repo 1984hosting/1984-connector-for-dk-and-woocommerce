@@ -478,6 +478,12 @@ class Product extends \woo_bookkeeping\App\Core\Product
 
         foreach (WC()->cart->get_cart() as $cart_item) {
             $product_id = $cart_item['product_id'];
+            $variation_id = $cart_item['variation_id'];
+            if ($variation_id) {
+                $product_with_stock = wc_get_product($variation_id);
+            } else {
+                $product_with_stock = wc_get_product($product_id);
+            }
             $quantity = $cart_item['quantity'];
 
             $product = self::productSyncOne([
@@ -486,46 +492,11 @@ class Product extends \woo_bookkeeping\App\Core\Product
             ], $product_id);
 
             // Item quantity in DK should be reduced by same amount as ordered. #31
-            $qty = $product['stock_quantity'] - $quantity;
+            $qty = $product_with_stock->get_stock_quantity() - $quantity;
+            self::productSendQty($product_with_stock->get_sku(), $qty);
 
-            self::productSendQty($product['sku'], $qty);
         }
 
-        return true;
-    }
-
-    public static function product_set_stock($product_with_stock)
-    {
-        if ($product_with_stock) {
-            if (WC()->cart) {
-                $cart = WC()->cart->get_cart();
-                if($product_with_stock->is_type( 'variation' )) {
-                    $product_id = $product_with_stock->get_parent_id();
-                    $variation_id = $product_with_stock->get_id();
-                    $attributes = $product_with_stock->get_attributes();
-                    $variation = array();
-                    foreach ($attributes as $key => $attribute) {
-                        $variation['attribute_' . sanitize_title( $key )] = $attribute;
-                    }
-                } else {
-                    $product_id = $product_with_stock->get_id();
-                    $variation_id = 0;
-                    $variation = array();
-                }
-                if($key = WC()->cart->find_product_in_cart( WC()->cart->generate_cart_id( $product_id, $variation_id, $variation ) ) ) {
-                    $cart_item = $cart[$key];
-                    $quantity = $cart_item['quantity'];
-                    $product = self::productSyncOne([
-                        'regular_price',
-                        'stock_quantity',
-                    ], $cart_item['product_id']);
-
-                    // Item quantity in DK should be reduced by same amount as ordered. #31
-                    $qty = $product_with_stock->get_stock_quantity() - $quantity;
-                    self::productSendQty($product_with_stock->get_sku(), $qty);
-                }
-            }
-        }
         return true;
     }
 
@@ -565,10 +536,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
         add_filter('woocommerce_add_to_cart_validation', [self::class, 'add_to_cart_validation'], 10, 5);
 
         // WooCommerce: An invalid phone number during checkout reduces product stock, when it shouldn't. #32
-        // add_action('woocommerce_before_checkout_process', [self::class, 'before_checkout_process']);
-
-        add_action( 'woocommerce_variation_set_stock', [self::class, 'product_set_stock'] );
-        add_action( 'woocommerce_product_set_stock', [self::class, 'product_set_stock'] );
+        add_action('woocommerce_before_checkout_process', [self::class, 'before_checkout_process']);
 
         //add_action('woocommerce_order_status_changed', [self::class, 'order_changed_status'], 10, 3);
         //add_action('woocommerce_order_edit_status', [self::class, 'order_edit_status'], 111, 2);
