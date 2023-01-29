@@ -135,7 +135,10 @@ trait API
             $result = [];
             if (is_array($products)) {
                 foreach ($products as $product) {
-                    $result[] = Main::productMap($product);
+                    // ignore deleted products
+                    if (empty($product['Deleted'])) {
+                        $result[] = Main::productMap($product);
+                    }
                 }
             }
         } catch (WP_Exceptions $e) {
