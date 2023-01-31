@@ -4,6 +4,7 @@ namespace woo_bookkeeping\App\Modules\dkPlus;
 
 use woo_bookkeeping\App\Core\Woo_Query;
 use woo_bookkeeping\App\Core\Logs;
+use woo_bookkeeping\App\Core\WP_Notice;
 
 class Product extends \woo_bookkeeping\App\Core\Product
 {
@@ -530,6 +531,16 @@ class Product extends \woo_bookkeeping\App\Core\Product
         die($order_total);*/
     }
 
+    public static function admin_notices(){
+        $admin_notice = Logs::readLog(Main::$module_slug . '/admin_notice');
+        if (!empty($admin_notice['message'])) {
+            echo '<div class="woocoo-notice  notice notice-'. $admin_notice['status'] .' is-dismissible">
+                  <span class="dashicons dashicons-buddicons-activity"></span>
+                  <p>'. $admin_notice['message'] .'</p>
+             </div>';
+            Logs::writeLog(Main::$module_slug . '/admin_notice', []);
+        }
+    }
 
     private function registerActions()
     {
@@ -538,10 +549,14 @@ class Product extends \woo_bookkeeping\App\Core\Product
         // WooCommerce: An invalid phone number during checkout reduces product stock, when it shouldn't. #32
         add_action('woocommerce_before_checkout_process', [self::class, 'before_checkout_process']);
 
+        add_action('admin_notices', [self::class, 'admin_notices']);
+
+
         //add_action('woocommerce_order_status_changed', [self::class, 'order_changed_status'], 10, 3);
         //add_action('woocommerce_order_edit_status', [self::class, 'order_edit_status'], 111, 2);
 
         //add_action('woocommerce_order_item_quantity', [self::class, 'change_order_status'], 10, 3);
         //add_action( 'woocommerce_checkout_process', 'woocommerce_checkout_process_action' );
+
     }
 }

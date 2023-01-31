@@ -31,7 +31,9 @@
                         if (!isJson(data)) return false
                         var response = $.parseJSON(data)
                         button.prop('disabled', 0)
-                        alert(response.message)
+                        // alert(response.message)
+                        displayAdminNotice(response.status, response.message)
+
                         window.location.reload()
                     }
                 })
@@ -72,7 +74,8 @@
                 }
                 //propButtons(form_buttons, 'disabled', 0)
                 updateProgress()
-                alert(response.message)
+                // alert(response.message)
+                displayAdminNotice(response.status, response.message)
             }
         })
     })
@@ -131,7 +134,8 @@
                 var response = $.parseJSON(data)
 
                 propButtons(buttons, 'disabled', 0)
-                alert(response.message)
+                // alert(response.message)
+                displayAdminNotice(response.status, response.message) //
 
                 if (button.data('action') === 'dkPlus_sync_product_one') {
                     window.location.href = window.location.href + '&message=1'
@@ -171,7 +175,8 @@
                 //setProgressbar(import_progress_tag, response.completed_percent)
                 switch (response.status) {
                     case 'prolong':
-                        alert(response.message)
+                        // alert(response.message)
+                        displayAdminNotice(response.status, response.message)
                         productsImportProlong(button)
                         break
                     case 'success':
@@ -221,7 +226,8 @@
                         button.prop('disabled', 0)
                         button_prolong.remove()
                         updateProgress()
-                        alert(response.message)
+                        // alert(response.message)
+                        displayAdminNotice(response.status, response.message)
                         break
                     default:
                         alert('not valid response status')
@@ -280,6 +286,7 @@
         })
     }
 
+
 })(jQuery)
 
 var $ = jQuery
@@ -337,7 +344,8 @@ function updateProgress() {
                         propButtons(form_buttons, 'disabled', 0)
                         if (manual_start) {
                             manual_start = false
-                            alert(value.message)
+                            // alert(value.message)
+                            displayAdminNotice(value.status, value.message)
                         }
                         unsetProgressbar(tag)
                     }
@@ -364,4 +372,27 @@ function isJson(str) {
         return false;
     }
     return true;
+}
+
+function displayAdminNotice(classMessage, textMessage) {
+
+    // remove existing woocoo notices
+    jQuery(".woocoo-notice.is-dismissible").remove();
+
+    var id = 'notice-' + Date.now();
+    jQuery('.wrap > .wp-header-end').after(`<div id="` + id + `" class="notice-` + classMessage + ` woocoo-notice notice is-dismissible">
+                                            <span class="dashicons dashicons-buddicons-activity"></span>
+                                            <p>` + textMessage + `</p>
+                                            <button class="notice-dismiss" type="button">
+                                                <span class="screen-reader-text">Dismiss this notice.</span>
+                                            </button>
+                                        </div>`);
+    jQuery("#" + id + " .notice-dismiss").click(function(event) {
+        event.preventDefault();
+        jQuery("#" + id).fadeTo(100, 0, function() {
+            jQuery("#" + id).slideUp(100, function() {
+                jQuery("#" + id).remove();
+            });
+        });
+    });
 }

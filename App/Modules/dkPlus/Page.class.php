@@ -318,6 +318,11 @@ class Page extends \woo_bookkeeping\App\Core\Page
         new Ajax(Main::$module_slug . '_sync_product_one', function () {
             Product::productSyncOne();
 
+            Logs::writeLog(Main::$module_slug . '/admin_notice', [
+                'status' => 'success',
+                'message' => 'The product has been successfully synced, the page will be refreshed now',
+            ]);
+
             AJAX::response([
                 'status' => 'success',
                 'message' => 'The product has been successfully synced, the page will be refreshed now',

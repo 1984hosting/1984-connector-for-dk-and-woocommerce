@@ -169,6 +169,14 @@ abstract class Product extends Woo_Query
             }
         }
 
+        if (isset($product['visibility'])) {
+            if (($product['visibility'] > 0)) {
+                $wc_product->set_catalog_visibility('visible');
+            } else {
+                $wc_product->set_catalog_visibility('hidden');
+            }
+        }
+
         $wc_product->save();
 
         return true;

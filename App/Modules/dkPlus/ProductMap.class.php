@@ -40,5 +40,9 @@ class ProductMap extends ProductMapper
         'Alternative' => [
             'field' => 'children',
         ],
+        // DK Show In Webshop
+        'ShowItemInWebShop' => [
+            'field' => 'visibility',
+        ]
     ];
 }

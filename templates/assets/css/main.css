@@ -246,3 +246,15 @@ p[data-value]:after {
             rgba(0,0,0,.2)),
             -webkit-linear-gradient( left, #09c, #f44);
 }
+
+.woocoo-notice {
+    display: flex;
+    align-items: center;
+}
+
+.woocoo-notice .dashicons {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    margin-right: 10px;
+}

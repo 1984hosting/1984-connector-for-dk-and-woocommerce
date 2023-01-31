@@ -46,6 +46,7 @@ $syncParams = [
 ?>
     <div class="wrap">
         <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+        <hr class="wp-header-end">
         <div class="woocoo_tabs">
             <ul class="tabs_list">
                 <li><a href="#account-settings"><?php echo __('Account settings', PLUGIN_SLUG); ?></a></li>

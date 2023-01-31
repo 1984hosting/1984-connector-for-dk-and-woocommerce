@@ -19,6 +19,6 @@ class WP_Notice
 
     public function createHTML(): void
     {
-        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($this->class), esc_html(__($this->message, PLUGIN_SLUG)));
+        printf('<div class="%1$s notice is-dismissible"><p>%2$s</p></div>', esc_attr($this->class), esc_html(__($this->message, PLUGIN_SLUG)));
     }
 }
