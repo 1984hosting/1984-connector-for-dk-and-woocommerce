@@ -1,9 +1,9 @@
 <?php
-$main = woo_bookkeeping\App\Core\Main::getInstance();
+$main = woocoo\App\Core\Main::getInstance();
 $dkPlus = !empty($main['dkPlus']) ? $main['dkPlus'] : false;
 $dkPlus_schedule = !empty($dkPlus['schedule']) ? $dkPlus['schedule'] : false;
-$import_status = woo_bookkeeping\App\Modules\dkPlus\Page::incompleteImport();
-$sync_status = woo_bookkeeping\App\Modules\dkPlus\Page::incompleteSync();
+$import_status = woocoo\App\Modules\dkPlus\Page::incompleteImport();
+$sync_status = woocoo\App\Modules\dkPlus\Page::incompleteSync();
 $syncParams = [
     [
         'type' => 'checkbox',
@@ -143,7 +143,7 @@ $syncParams = [
                                     </div>
                                     <div class="td">
                                         <?php
-                                        $variations = (new woo_bookkeeping\App\Core\CronSchedule())->WooCooIntervals();
+                                        $variations = (new woocoo\App\Core\CronSchedule())->WooCooIntervals();
                                         $variations = array_merge([
                                             'disabled' => [
                                                 'interval' => 0,
@@ -242,7 +242,7 @@ $syncParams = [
 
                     <div class="container_form mt-50" style="padding: 15px 20px 30px;">
                         <h2><?php echo esc_html(__('Logs', PLUGIN_SLUG)); ?></h2>
-                        <code class="log_list dkPlus_logs"><?php echo woo_bookkeeping\App\Core\Logs::readLogs('/dkPlus/logs'); ?></code>
+                        <code class="log_list dkPlus_logs"><?php echo woocoo\App\Core\Logs::readLogs('/dkPlus/logs'); ?></code>
                         <p><input type="submit" name="dkPlus_logs_clear" id="dkPlus_logs_clear"
                                   class="button button-danger"
                                   value="<?php echo __('Clear log', PLUGIN_SLUG); ?>"

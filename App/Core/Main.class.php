@@ -1,6 +1,6 @@
 <?php
 
-namespace woo_bookkeeping\App\Core;
+namespace woocoo\App\Core;
 
 class Main
 {
@@ -64,7 +64,7 @@ class Main
 
     public static function LoadModules()
     {
-        new \woo_bookkeeping\App\Modules\dkPlus\Main(self::getInstance());
+        new \woocoo\App\Modules\dkPlus\Main(self::getInstance());
     }
 
     public static function EnqueueScripts(): void

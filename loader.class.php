@@ -1,6 +1,6 @@
 <?php
 
-namespace woo_bookkeeping;
+namespace woocoo;
 
 class loader
 {
@@ -57,7 +57,7 @@ class loader
 
         if (self::loadFile($filename)) {
             $fullName = $this->prefix . $classname;
-            if (is_subclass_of($fullName, 'woo_bookkeeping\__init')) {
+            if (is_subclass_of($fullName, 'woocoo\__init')) {
                 $fullName::__init();
             }
             return true;

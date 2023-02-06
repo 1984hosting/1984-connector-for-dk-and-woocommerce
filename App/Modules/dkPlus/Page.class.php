@@ -1,11 +1,11 @@
 <?php
 
-namespace woo_bookkeeping\App\Modules\dkPlus;
+namespace woocoo\App\Modules\dkPlus;
 
-use woo_bookkeeping\App\Core\Ajax;
-use woo_bookkeeping\App\Core\Logs;
+use woocoo\App\Core\Ajax;
+use woocoo\App\Core\Logs;
 
-class Page extends \woo_bookkeeping\App\Core\Page
+class Page extends \woocoo\App\Core\Page
 {
     function __construct()
     {

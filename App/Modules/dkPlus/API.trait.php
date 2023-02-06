@@ -1,11 +1,11 @@
 <?php
 
-namespace woo_bookkeeping\App\Modules\dkPlus;
+namespace woocoo\App\Modules\dkPlus;
 
-use woo_bookkeeping\App\Core\Logs;
-use woo_bookkeeping\App\Core\Main as Core;
-use woo_bookkeeping\App\Core\WP_Exceptions;
-use woo_bookkeeping\App\Core\WP_Notice;
+use woocoo\App\Core\Logs;
+use woocoo\App\Core\Main as Core;
+use woocoo\App\Core\WP_Exceptions;
+use woocoo\App\Core\WP_Notice;
 
 trait API
 {

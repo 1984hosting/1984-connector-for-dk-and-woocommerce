@@ -1,12 +1,12 @@
 <?php
 
-namespace woo_bookkeeping\App\Modules\dkPlus;
+namespace woocoo\App\Modules\dkPlus;
 
-use woo_bookkeeping\App\Core\Woo_Query;
-use woo_bookkeeping\App\Core\Logs;
-use woo_bookkeeping\App\Core\WP_Notice;
+use woocoo\App\Core\Woo_Query;
+use woocoo\App\Core\Logs;
+use woocoo\App\Core\WP_Notice;
 
-class Product extends \woo_bookkeeping\App\Core\Product
+class Product extends \woocoo\App\Core\Product
 {
     private static int $import_slice = 35; //how many products to import per iteration (more php execution limit more number)
     private static int $sync_slice = 35; //how many products to sync per iteration (more php execution limit more number)
@@ -39,7 +39,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
                 Main::productUpdateDK($product_sku, $variation);
             }
             //variations sync is completed, return true
-            return true;
+            // return true;
         }
 
         if (!$product_sku) {
@@ -84,7 +84,7 @@ class Product extends \woo_bookkeeping\App\Core\Product
                 self::variationSync($needed_fields, $child_id);
             }
             //variations sync is completed, return true
-            return [];
+            // return [];
         }
 
         if (empty($product_sku)) return [];

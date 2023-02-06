@@ -1,6 +1,6 @@
 <div id="product_tab_content" class="panel woocommerce_options_panel product_sync_form">
     <div id="universal-message-container" class="wc-metaboxes-wrapper">
-        <h2><?php use woo_bookkeeping\App\Modules\dkPlus\Main;
+        <h2><?php use woocoo\App\Modules\dkPlus\Main;
 
             echo esc_html(__('Product synchronization', PLUGIN_SLUG)); ?></h2>
         <?php

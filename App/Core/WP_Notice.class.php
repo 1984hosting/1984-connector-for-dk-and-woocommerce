@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace woo_bookkeeping\App\Core;
+namespace woocoo\App\Core;
 
 class WP_Notice
 {

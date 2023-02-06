@@ -1,6 +1,6 @@
 <?php
 
-namespace woo_bookkeeping\App\Core;
+namespace woocoo\App\Core;
 
 class Ajax
 {

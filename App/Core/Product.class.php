@@ -1,8 +1,8 @@
 <?php
 
-namespace woo_bookkeeping\App\Core;
+namespace woocoo\App\Core;
 
-use woo_bookkeeping\App\Modules\dkPlus\ProductMap;
+use woocoo\App\Modules\dkPlus\ProductMap;
 
 abstract class Product extends Woo_Query
 {

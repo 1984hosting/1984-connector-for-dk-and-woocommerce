@@ -1,10 +1,10 @@
 <?php
 
-namespace woo_bookkeeping\App\Modules\dkPlus;
+namespace woocoo\App\Modules\dkPlus;
 
-use woo_bookkeeping\App\Core\WP_Notice;
+use woocoo\App\Core\WP_Notice;
 
-class Main extends \woo_bookkeeping\App\Core\Main
+class Main extends \woocoo\App\Core\Main
 {
     use API;
 

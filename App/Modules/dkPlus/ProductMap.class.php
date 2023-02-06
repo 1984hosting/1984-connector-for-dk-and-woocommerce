@@ -1,8 +1,8 @@
 <?php
 
-namespace woo_bookkeeping\App\Modules\dkPlus;
+namespace woocoo\App\Modules\dkPlus;
 
-use woo_bookkeeping\App\Core\ProductMapper;
+use woocoo\App\Core\ProductMapper;
 
 class ProductMap extends ProductMapper
 {

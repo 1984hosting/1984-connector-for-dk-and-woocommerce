@@ -1,8 +1,8 @@
 <?php
 
-namespace woo_bookkeeping\App\Modules\dkPlus;
+namespace woocoo\App\Modules\dkPlus;
 
-use woo_bookkeeping\App\Core\CronSchedule;
+use woocoo\App\Core\CronSchedule;
 
 class Events extends CronSchedule
 {

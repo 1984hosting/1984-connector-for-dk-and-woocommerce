@@ -1,6 +1,6 @@
 <?php
 
-namespace woo_bookkeeping\App\Core;
+namespace woocoo\App\Core;
 
 class Page
 {
@@ -83,7 +83,7 @@ class Page
     {
         add_action('admin_menu', [$this, 'addAdminMenu'], 25);
 
-        new \woo_bookkeeping\App\Core\Ajax('woo_save_account', function () {
+        new \woocoo\App\Core\Ajax('woo_save_account', function () {
             self::saveDataAccount();
             Logs::removeLogs();
 
@@ -93,7 +93,7 @@ class Page
             ]);
         });
 
-        new \woo_bookkeeping\App\Core\Ajax('woo_get_token', function () {
+        new \woocoo\App\Core\Ajax('woo_get_token', function () {
             AJAX::response([
                 'status' => 1,
                 'message' => 'Account data success updated',
