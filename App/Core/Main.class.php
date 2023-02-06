@@ -97,9 +97,15 @@ class Main
         ]); //use ajax.url from requests
     }
 
+    public static function loadTextDomain() {
+        load_plugin_textdomain( PLUGIN_SLUG, false, PLUGIN_SLUG . '/languages' );
+    }
+
     private static function registerActions()
     {
         add_action('admin_enqueue_scripts', [self::class, 'EnqueueScripts'], 99);
+        add_action( 'admin_init', [self::class, 'loadTextDomain'], 99 );
+
     }
 
     protected function __construct()
