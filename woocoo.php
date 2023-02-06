@@ -6,6 +6,7 @@
  * Author: It-Hive
  * Version: git 0.1
  * Text Domain: woocoo
+ * Domain Path: /languages/
  */
 
 declare(strict_types=1);

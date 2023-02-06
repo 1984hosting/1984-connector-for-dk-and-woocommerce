@@ -14,7 +14,7 @@
                 'checked' => true,
             ], [
                 'type' => 'checkbox',
-                'label' => 'Description',
+                'label' => __('Description', PLUGIN_SLUG),
                 'id' => 'set_description',
                 'name' => 'description',
                 'checked' => true,
