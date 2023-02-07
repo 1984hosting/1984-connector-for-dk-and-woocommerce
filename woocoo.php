@@ -4,10 +4,13 @@
  * Plugin URI: https://1984.hosting/
  * Description: Plugin for WooCommerce that helps you sync DK bookkeeping
  * Author: It-Hive
- * Version: git 0.1
+ * Version: 0.1.0.0
  * Text Domain: woocoo
  * Domain Path: /languages/
+ * GitHub Plugin URI: 1984hosting/woocoo
+ * GitHub Plugin URI: https://github.com/1984hosting/woocoo
  */
+
 
 declare(strict_types=1);
 
