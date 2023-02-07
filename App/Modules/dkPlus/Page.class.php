@@ -225,7 +225,7 @@ class Page extends \woocoo\App\Core\Page
 
         return [
             'status' => 'success',
-            'message' => 'Settings saved successfully',
+            'message' => __('Settings saved successfully', PLUGIN_SLUG),
         ];
     }
 
@@ -320,12 +320,12 @@ class Page extends \woocoo\App\Core\Page
 
             Logs::writeLog(Main::$module_slug . '/admin_notice', [
                 'status' => 'success',
-                'message' => 'The product has been successfully synced, the page will be refreshed now',
+                'message' => __('The product has been successfully synced, the page will be refreshed now', PLUGIN_SLUG),
             ]);
 
             AJAX::response([
                 'status' => 'success',
-                'message' => 'The product has been successfully synced, the page will be refreshed now',
+                'message' => __('The product has been successfully synced, the page will be refreshed now', PLUGIN_SLUG),
             ]);
         });
         new Ajax(Main::$module_slug . '_send_to', function () {
@@ -333,7 +333,7 @@ class Page extends \woocoo\App\Core\Page
 
             AJAX::response([
                 'status' => 'success',
-                'message' => 'The product data successfully sent to dkPlus',
+                'message' => __('The product data successfully sent to dkPlus', PLUGIN_SLUG),
             ]);
         });
         new Ajax(Main::$module_slug . '_import', function () {

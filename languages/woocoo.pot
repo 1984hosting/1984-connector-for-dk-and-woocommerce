@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCoo git 0.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocoo-alex\n"
-"POT-Creation-Date: 2023-02-06 20:41:33+00:00\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocoo\n"
+"POT-Creation-Date: 2023-02-07 09:50:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,8 +48,16 @@ msgstr ""
 msgid "no have logs"
 msgstr ""
 
+#: App/Core/Page.class.php:92 App/Core/Page.class.php:99
+msgid "Account data success updated"
+msgstr ""
+
 #: App/Modules/dkPlus/Page.class.php:28
 msgid "dkPlus synchronization"
+msgstr ""
+
+#: App/Modules/dkPlus/Page.class.php:228
+msgid "Settings saved successfully"
 msgstr ""
 
 #: App/Modules/dkPlus/Page.class.php:252
@@ -66,6 +74,82 @@ msgstr ""
 
 #: App/Modules/dkPlus/Page.class.php:275
 msgid "Choose which DkPlus Product to set as Shipping Cost."
+msgstr ""
+
+#: App/Modules/dkPlus/Page.class.php:323 App/Modules/dkPlus/Page.class.php:328
+msgid ""
+"The product has been successfully synced, the page will be refreshed now"
+msgstr ""
+
+#: App/Modules/dkPlus/Page.class.php:336
+msgid "The product data successfully sent to dkPlus"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:129
+msgid "Please select at least one property to sync"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:138
+msgid "Missing products for sync, please add products"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:147
+msgid "no products for sync on DK side"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:164
+msgid "Synchronization in progress ..."
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:175
+msgid "New sync start failed (Previous sync not completed)"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:195
+#: App/Modules/dkPlus/Product.class.php:201
+msgid "Synchronization in progress, please do not close the tab"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:201
+msgid "Sync products is successfully completed"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:210
+msgid "Sync products is successfully completed (%d product's)"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:234
+#: App/Modules/dkPlus/Product.class.php:237
+msgid "Please select import properties"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:241
+#: App/Modules/dkPlus/Product.class.php:244
+msgid "No data to import, please try again later"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:262
+#: App/Modules/dkPlus/Product.class.php:265
+msgid "New products for import not found"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:278
+#: App/Modules/dkPlus/Product.class.php:304
+msgid "Import in progress, please do not close the tab"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:278
+#: App/Modules/dkPlus/Product.class.php:304
+msgid "Import products is successfully completed"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:286
+#: App/Modules/dkPlus/Product.class.php:312
+msgid "Import products is successfully completed (%d products)"
+msgstr ""
+
+#: App/Modules/dkPlus/Product.class.php:288
+msgid "Product import started (%d products)"
 msgstr ""
 
 #: templates/dkPlus/product-meta_content.php:2
@@ -85,6 +169,10 @@ msgstr ""
 msgid "Product name"
 msgstr ""
 
+#: templates/dkPlus/product-tab.php:17 templates/settings.php:16
+msgid "Description"
+msgstr ""
+
 #: templates/dkPlus/product-tab.php:23 templates/settings.php:22
 msgid "Price"
 msgstr ""
@@ -99,10 +187,6 @@ msgstr ""
 
 #: templates/dkPlus/product-tab.php:65 templates/settings.php:117
 msgid "Select options to sync"
-msgstr ""
-
-#: templates/settings.php:16
-msgid "Description"
 msgstr ""
 
 #: templates/settings.php:40
@@ -177,10 +261,9 @@ msgstr ""
 msgid "Clear log"
 msgstr ""
 
-#: woocoo.php:19
-msgid "WooCoo"
-msgstr ""
+#. #-#-#-#-#  woocoo.pot (WooCoo git 0.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
+#: woocoo.php:20
 msgid "WooCoo"
 msgstr ""
 

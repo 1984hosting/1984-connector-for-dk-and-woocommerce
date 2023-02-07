@@ -8,134 +8,211 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-02-06 21:06+0000\n"
+"PO-Revision-Date: 2023-02-07 10:10+0000\n"
 "Last-Translator: Alexander Yachmenev\n"
-"Language-Team: Icelandic\n"
+"Language-Team: Íslenska\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.6.3; wp-6.1.1"
 
-#: App/Core/CronSchedule.class.php:20
-msgid "Every minute"
-msgstr "Á hverri mínútu"
-
-#: App/Core/CronSchedule.class.php:24
-msgid "Every 5 minutes"
-msgstr "Á 5 mínútna fresti"
-
-#: App/Core/CronSchedule.class.php:28
-msgid "Hourly"
-msgstr "Á klukkutíma fresti"
-
-#: App/Core/CronSchedule.class.php:32
-msgid "Twice a day"
-msgstr "Tvisvar á dag"
-
-#: App/Core/CronSchedule.class.php:36
-msgid "Daily"
-msgstr "Daglega"
-
-#: App/Core/CronSchedule.class.php:40
-msgid "Weekly"
-msgstr "Vikulega"
-
-#: App/Core/CronSchedule.class.php:44
-msgid "Every 15 Days"
-msgstr "Á 15 daga fresti"
-
-#: App/Core/CronSchedule.class.php:48
-msgid "Monthly"
-msgstr "Mánaðarlega"
-
-#: App/Core/Logs.class.php:72
-msgid "no have logs"
-msgstr "ekki hafa logs"
-
-#: App/Modules/dkPlus/Page.class.php:28
-msgid "dkPlus synchronization"
-msgstr "dkPlus samstillingu"
-
-#: App/Modules/dkPlus/Page.class.php:252
-msgid "DkPlus Payment Type"
-msgstr "DkPlus greiðslutegund"
-
-#: App/Modules/dkPlus/Page.class.php:254
-msgid "Choose which type of DKPLUS Payment to set."
-msgstr "Veldu hvaða tegund af DKPLUS greiðslu á að stilla."
-
-#: App/Modules/dkPlus/Page.class.php:273
-msgid "DkPlus Shipping Cost Product"
-msgstr "DkPlus sendingarkostnaður vara"
-
-#: App/Modules/dkPlus/Page.class.php:275
-msgid "Choose which DkPlus Product to set as Shipping Cost."
-msgstr "Veldu hvaða DkPlus vöru á að stilla sem sendingarkostnað."
-
-#: templates/dkPlus/product-meta_content.php:2
-msgid "Product sync"
-msgstr "Samstilling vöru"
-
-#: templates/dkPlus/product-meta_content.php:3
-#: templates/dkPlus/product-tab.php:79
-msgid "Send to dkPlus"
-msgstr "Sendu til dkPlus"
-
-#: templates/dkPlus/product-tab.php:5 templates/dkPlus/product-tab.php:78
-msgid "Product synchronization"
-msgstr "Samstilling vöru"
-
-#: templates/dkPlus/product-tab.php:11 templates/settings.php:10
-msgid "Product name"
-msgstr "Vöru Nafn"
-
-#: templates/dkPlus/product-tab.php:23 templates/settings.php:22
-msgid "Price"
-msgstr "Verð"
-
-#: templates/dkPlus/product-tab.php:29 templates/settings.php:28
-msgid "Quantity"
-msgstr "Magn"
-
-#: templates/dkPlus/product-tab.php:35 templates/settings.php:34
-msgid "Enable stock (if disabled)"
-msgstr "Virkja lager (ef óvirkt)"
-
-#: templates/dkPlus/product-tab.php:65 templates/settings.php:117
-msgid "Select options to sync"
-msgstr "Veldu valkosti til að samstilla"
-
-#: templates/settings.php:16
-msgid "Description"
-msgstr "Lýsing"
-
-#: templates/settings.php:40
-msgid "Data modified"
-msgstr "Gögnum breytt"
+#: App/Core/Page.class.php:92 App/Core/Page.class.php:99
+msgid "Account data success updated"
+msgstr ""
 
 #: templates/settings.php:52 templates/settings.php:61
 msgid "Account settings"
 msgstr "Reikningsstillingar"
 
+#: templates/settings.php:113
+msgid "Automatic product synchronization"
+msgstr "Sjálfvirk vörusamstilling"
+
+#: App/Modules/dkPlus/Page.class.php:275
+msgid "Choose which DkPlus Product to set as Shipping Cost."
+msgstr "Veldu hvaða DkPlus vöru á að stilla sem sendingarkostnað."
+
+#: App/Modules/dkPlus/Page.class.php:254
+msgid "Choose which type of DKPLUS Payment to set."
+msgstr "Veldu hvaða tegund af DKPLUS greiðslu á að stilla."
+
+#: templates/settings.php:248
+msgid "Clear log"
+msgstr "Hreinsa log"
+
+#: App/Core/CronSchedule.class.php:36
+msgid "Daily"
+msgstr "Daglega"
+
+#: templates/settings.php:40
+msgid "Data modified"
+msgstr "Gögnum breytt"
+
+#: templates/dkPlus/product-tab.php:17 templates/settings.php:16
+msgid "Description"
+msgstr "Lýsing"
+
 #: templates/settings.php:53
 msgid "dkPlus"
 msgstr "dkPlus"
 
-#: templates/settings.php:65
-msgid "Please enter your account details"
-msgstr "Vinsamlegast sláðu inn reikningsupplýsingarnar þínar"
+#: App/Modules/dkPlus/Page.class.php:252
+msgid "DkPlus Payment Type"
+msgstr "DkPlus greiðslutegund"
+
+#: App/Modules/dkPlus/Page.class.php:273
+msgid "DkPlus Shipping Cost Product"
+msgstr "DkPlus sendingarkostnaður vara"
+
+#: App/Modules/dkPlus/Page.class.php:28
+msgid "dkPlus synchronization"
+msgstr "dkPlus samstillingu"
+
+#: templates/dkPlus/product-tab.php:35 templates/settings.php:34
+msgid "Enable stock (if disabled)"
+msgstr "Virkja lager (ef óvirkt)"
+
+#: App/Core/CronSchedule.class.php:44
+msgid "Every 15 Days"
+msgstr "Á 15 daga fresti"
+
+#: App/Core/CronSchedule.class.php:24
+msgid "Every 5 minutes"
+msgstr "Á 5 mínútna fresti"
+
+#: App/Core/CronSchedule.class.php:20
+msgid "Every minute"
+msgstr "Á hverri mínútu"
+
+#: App/Core/CronSchedule.class.php:28
+msgid "Hourly"
+msgstr "Á klukkutíma fresti"
+
+#. Plugin URI of the plugin/theme
+msgid "https://1984.hosting/"
+msgstr ""
+
+#: templates/settings.php:230
+msgid "Import"
+msgstr "Flytja inn"
+
+#: App/Modules/dkPlus/Product.class.php:278
+#: App/Modules/dkPlus/Product.class.php:304
+msgid "Import in progress, please do not close the tab"
+msgstr "Innflutningur í gangi, vinsamlegast ekki loka flipanum"
+
+#: templates/settings.php:189
+msgid "Import products from dkPlus"
+msgstr "Flytja inn vörur frá dkPlus"
+
+#: App/Modules/dkPlus/Product.class.php:278
+#: App/Modules/dkPlus/Product.class.php:304
+msgid "Import products is successfully completed"
+msgstr "Innflutningi á vörum er lokið"
+
+#: App/Modules/dkPlus/Product.class.php:286
+#: App/Modules/dkPlus/Product.class.php:312
+msgid "Import products is successfully completed (%d products)"
+msgstr "Innflutningi á vörum er lokið (%d vörur)"
+
+#. Author of the plugin/theme
+msgid "It-Hive"
+msgstr ""
 
 #: templates/settings.php:74 templates/settings.php:81
 msgid "Login"
 msgstr "Skrá inn"
 
+#: templates/settings.php:244
+msgid "Logs"
+msgstr "Logs"
+
+#: templates/settings.php:176
+msgid "Manual start sync"
+msgstr "Handvirk ræsing samstilling"
+
+#: App/Modules/dkPlus/Product.class.php:138
+msgid "Missing products for sync, please add products"
+msgstr "Vörur vantar fyrir samstillingu, vinsamlegast bættu við vörum"
+
+#: App/Core/CronSchedule.class.php:48
+msgid "Monthly"
+msgstr "Mánaðarlega"
+
+#: App/Modules/dkPlus/Product.class.php:262
+#: App/Modules/dkPlus/Product.class.php:265
+msgid "New products for import not found"
+msgstr "Nýjar vörur til innflutnings fundust ekki"
+
+#: App/Modules/dkPlus/Product.class.php:175
+msgid "New sync start failed (Previous sync not completed)"
+msgstr "Byrjun nýrrar samstillingar mistókst (fyrri samstillingu ekki lokið)"
+
+#: App/Modules/dkPlus/Product.class.php:241
+#: App/Modules/dkPlus/Product.class.php:244
+msgid "No data to import, please try again later"
+msgstr "Engin gögn til að flytja inn, vinsamlegast reyndu aftur síðar"
+
+#: App/Core/Logs.class.php:72
+msgid "no have logs"
+msgstr "ekki hafa logs"
+
+#: App/Modules/dkPlus/Product.class.php:147
+msgid "no products for sync on DK side"
+msgstr "engar vörur til samstillingar á DK hlið"
+
 #: templates/settings.php:87 templates/settings.php:94
 msgid "Password"
 msgstr "Lykilorð"
 
-#: templates/settings.php:113
-msgid "Automatic product synchronization"
-msgstr "Sjálfvirk vörusamstilling"
+#: templates/settings.php:65
+msgid "Please enter your account details"
+msgstr "Vinsamlegast sláðu inn reikningsupplýsingarnar þínar"
+
+#: App/Modules/dkPlus/Product.class.php:129
+msgid "Please select at least one property to sync"
+msgstr "Vinsamlegast veldu að minnsta kosti eina eign til að samstilla"
+
+#: App/Modules/dkPlus/Product.class.php:234
+#: App/Modules/dkPlus/Product.class.php:237
+msgid "Please select import properties"
+msgstr "Vinsamlegast veldu innflutningseiginleika"
+
+#. Description of the plugin/theme
+msgid "Plugin for WooCommerce that helps you sync DK bookkeeping"
+msgstr "Viðbót fyrir WooCommerce sem hjálpar þér að samstilla DK bókhald"
+
+#: templates/dkPlus/product-tab.php:23 templates/settings.php:22
+msgid "Price"
+msgstr "Verð"
+
+#: App/Modules/dkPlus/Product.class.php:288
+msgid "Product import started (%d products)"
+msgstr "Vöruinnflutningur hafinn (%d vörur)"
+
+#: templates/dkPlus/product-tab.php:11 templates/settings.php:10
+msgid "Product name"
+msgstr "Vöru Nafn"
+
+#: templates/dkPlus/product-meta_content.php:2
+msgid "Product sync"
+msgstr "Samstilling vöru"
+
+#: templates/dkPlus/product-tab.php:5 templates/dkPlus/product-tab.php:78
+msgid "Product synchronization"
+msgstr "Samstilling vöru"
+
+#: templates/settings.php:181 templates/settings.php:235
+msgid "Progress"
+msgstr "Framfarir"
+
+#: templates/settings.php:221
+msgid "Prolong import"
+msgstr "Lengja innflutning"
+
+#: templates/dkPlus/product-tab.php:29 templates/settings.php:28
+msgid "Quantity"
+msgstr "Magn"
 
 #: templates/settings.php:142
 msgid "Recurrence"
@@ -145,54 +222,63 @@ msgstr "Endurkoma"
 msgid "Save"
 msgstr "Vista"
 
-#: templates/settings.php:176
-msgid "Manual start sync"
-msgstr "Handvirk ræsing samstilling"
-
-#: templates/settings.php:181 templates/settings.php:235
-msgid "Progress"
-msgstr "Framfarir"
-
-#: templates/settings.php:189
-msgid "Import products from dkPlus"
-msgstr "Flytja inn vörur frá dkPlus"
-
 #: templates/settings.php:192
 msgid "Select options to import new products"
 msgstr "Veldu valkosti til að flytja inn nýjar vörur"
 
-#: templates/settings.php:221
-msgid "Prolong import"
-msgstr "Lengja innflutning"
+#: templates/dkPlus/product-tab.php:65 templates/settings.php:117
+msgid "Select options to sync"
+msgstr "Veldu valkosti til að samstilla"
+
+#: templates/dkPlus/product-meta_content.php:3
+#: templates/dkPlus/product-tab.php:79
+msgid "Send to dkPlus"
+msgstr "Sendu til dkPlus"
+
+#: App/Modules/dkPlus/Page.class.php:228
+msgid "Settings saved successfully"
+msgstr "Stillingar vistaðar"
 
 #: templates/settings.php:225
 msgid "Start a new import"
 msgstr "Byrjaðu nýjan innflutning"
 
-#: templates/settings.php:230
-msgid "Import"
-msgstr "Flytja inn"
+#: App/Modules/dkPlus/Product.class.php:201
+msgid "Sync products is successfully completed"
+msgstr "Samstillingu vara er lokið"
 
-#: templates/settings.php:244
-msgid "Logs"
-msgstr "Logs"
+#: App/Modules/dkPlus/Product.class.php:210
+msgid "Sync products is successfully completed (%d product's)"
+msgstr "Samstillingarvörum er lokið (%d vara)"
 
-#: templates/settings.php:248
-msgid "Clear log"
-msgstr "Hreinsa log"
+#: App/Modules/dkPlus/Product.class.php:164
+msgid "Synchronization in progress ..."
+msgstr "Samstilling í gangi..."
 
-#: woocoo.php:19
+#: App/Modules/dkPlus/Product.class.php:195
+#: App/Modules/dkPlus/Product.class.php:201
+msgid "Synchronization in progress, please do not close the tab"
+msgstr "Samstilling í gangi, vinsamlegast ekki loka flipanum"
+
+#: App/Modules/dkPlus/Page.class.php:336
+msgid "The product data successfully sent to dkPlus"
+msgstr "Vörugögnin voru send til dkPlus"
+
+#: App/Modules/dkPlus/Page.class.php:323 App/Modules/dkPlus/Page.class.php:328
+msgid ""
+"The product has been successfully synced, the page will be refreshed now"
+msgstr "Varan hefur verið samstillt, síðan verður endurnýjuð núna"
+
+#: App/Core/CronSchedule.class.php:32
+msgid "Twice a day"
+msgstr "Tvisvar á dag"
+
+#: App/Core/CronSchedule.class.php:40
+msgid "Weekly"
+msgstr "Vikulega"
+
+#. #-#-#-#-#  woocoo.pot (WooCoo git 0.1)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: woocoo.php:20
 msgid "WooCoo"
 msgstr "WooCoo"
-
-#. Plugin URI of the plugin/theme
-msgid "https://1984.hosting/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Plugin for WooCommerce that helps you sync DK bookkeeping"
-msgstr "Viðbót fyrir WooCommerce sem hjálpar þér að samstilla DK bókhald"
-
-#. Author of the plugin/theme
-msgid "It-Hive"
-msgstr ""

@@ -126,7 +126,7 @@ class Product extends \woocoo\App\Core\Product
             Logs::appendLog(Main::$module_slug . '/logs', 'Please select at least one property to sync');
             return [
                 'status' => 'empty',
-                'message' => 'Please select at least one property to sync',
+                'message' => __('Please select at least one property to sync', PLUGIN_SLUG),
             ];
         }
 
@@ -135,7 +135,7 @@ class Product extends \woocoo\App\Core\Product
             Logs::appendLog(Main::$module_slug . '/logs', 'Missing products for sync');
             return [
                 'status' => 'empty',
-                'message' => 'Missing products for sync, please add products',
+                'message' => __('Missing products for sync, please add products', PLUGIN_SLUG),
             ];
         }
 
@@ -144,7 +144,7 @@ class Product extends \woocoo\App\Core\Product
             Logs::appendLog(Main::$module_slug . '/logs', 'Missing products for sync');
             return [
                 'status' => 'empty',
-                'message' => 'no products for sync on DK side',
+                'message' => __('no products for sync on DK side', PLUGIN_SLUG),
             ];
         }
 
@@ -161,7 +161,7 @@ class Product extends \woocoo\App\Core\Product
 
         return [
             'status' => 'prolong',
-            'message' => 'Synchronization in progress ...'
+            'message' => __('Synchronization in progress ...', PLUGIN_SLUG)
         ];
     }
 
@@ -172,7 +172,7 @@ class Product extends \woocoo\App\Core\Product
         if (!isset($sync_products_status['status']) || $sync_products_status['status'] === 'success') {
             Product::productSyncAll();
         } else {
-            Logs::appendLog(Main::$module_slug . '/logs', 'New sync start failed (Previous sync not completed)');
+            Logs::appendLog(Main::$module_slug . '/logs', __('New sync start failed (Previous sync not completed)', PLUGIN_SLUG));
         }
     }
 
@@ -192,13 +192,13 @@ class Product extends \woocoo\App\Core\Product
             $sync_products_status['start_count_products'] = count($products);
             $sync_products_status['status'] = 'prolong';
             $sync_products_status['completed_percent'] = 0;
-            $sync_products_status['message'] = 'Synchronization in progress, please do not close the tab';
+            $sync_products_status['message'] = __('Synchronization in progress, please do not close the tab', PLUGIN_SLUG);
         } else {
             $products = self::productsSync($sync_products['needed_fields'], $sync_products['products']);
             $sync_products_status['count_products'] = count($products);
             $sync_products_status['status'] = $sync_products_status['count_products'] > 0 ? 'prolong' : 'success';
             $sync_products_status['completed_percent'] = calc_percent($sync_products_status['start_count_products'], $sync_products_status['count_products']);
-            $sync_products_status['message'] = $sync_products_status['count_products'] > 0 ? 'Synchronization in progress, please do not close the tab' : 'Sync products is successfully completed';
+            $sync_products_status['message'] = $sync_products_status['count_products'] > 0 ? __('Synchronization in progress, please do not close the tab', PLUGIN_SLUG) : __('Sync products is successfully completed', PLUGIN_SLUG);
         }
 
         $sync_products['products'] = $products;
@@ -207,7 +207,7 @@ class Product extends \woocoo\App\Core\Product
         Logs::writeLog(Main::$module_slug . '/sync_products_status', $sync_products_status);
 
         if ($sync_products_status['status'] === 'success') {
-            Logs::appendLog(Main::$module_slug . '/logs', 'Sync products is successfully completed (' . $sync_products_status['start_count_products'] . ' product\'s)');
+            Logs::appendLog(Main::$module_slug . '/logs', sprintf(__('Sync products is successfully completed (%d product\'s)', PLUGIN_SLUG), $sync_products_status['start_count_products']));
         }
 
         return $sync_products_status;
@@ -231,17 +231,17 @@ class Product extends \woocoo\App\Core\Product
             $needed_fields = $import_products['needed_fields'] ?? [];
         }
         if (empty($needed_fields)) {
-            Logs::appendLog(Main::$module_slug . '/logs', 'Please select import properties');
+            Logs::appendLog(Main::$module_slug . '/logs', __('Please select import properties', PLUGIN_SLUG));
             return [
                 'status' => 'empty',
-                'message' => 'Please select import properties',
+                'message' => __('Please select import properties', PLUGIN_SLUG),
             ];
         }
         if (empty($products)) {
-            Logs::appendLog(Main::$module_slug . '/logs', 'No data to import, please try again later');
+            Logs::appendLog(Main::$module_slug . '/logs', __('No data to import, please try again later', PLUGIN_SLUG));
             return [
                 'status' => 'empty',
-                'message' => 'No data to import, please try again later',
+                'message' => __('No data to import, please try again later', PLUGIN_SLUG),
             ];
         }
 
@@ -259,10 +259,10 @@ class Product extends \woocoo\App\Core\Product
         $products = array_merge($updateproducts, self::filterProducts($products, $existing_products));
 
         if (empty($products)) {
-            Logs::appendLog(Main::$module_slug . '/logs', 'New products for import not found');
+            Logs::appendLog(Main::$module_slug . '/logs', __('New products for import not found', PLUGIN_SLUG));
             return [
                 'status' => 'empty',
-                'message' => 'New products for import not found',
+                'message' => __('New products for import not found', PLUGIN_SLUG),
             ];
         }
 
@@ -275,7 +275,7 @@ class Product extends \woocoo\App\Core\Product
         $import_products['existing_products'] = $existing_products;
 
         $import_products_status['count_products'] = count($products);
-        $import_products_status['message'] = $import_products_status['count_products'] > 0 ? 'Import in progress, please do not close the tab' : 'Import products is successfully completed';
+        $import_products_status['message'] = $import_products_status['count_products'] > 0 ? __('Import in progress, please do not close the tab', PLUGIN_SLUG) : __('Import products is successfully completed', PLUGIN_SLUG);
         $import_products_status['status'] = $import_products_status['count_products'] > 0 ? 'prolong' : 'success';
         $import_products_status['completed_percent'] = calc_percent($import_products_status['start_count_products'], $import_products_status['count_products']);
 
@@ -283,9 +283,9 @@ class Product extends \woocoo\App\Core\Product
         Logs::writeLog(Main::$module_slug . '/import_products_status', $import_products_status);
 
         if ($import_products_status['status'] === 'success') {
-            Logs::appendLog(Main::$module_slug . '/logs', 'Import products is successfully completed (' . $import_products_status['start_count_products'] . ' products)');
+            Logs::appendLog(Main::$module_slug . '/logs', sprintf(__('Import products is successfully completed (%d products)', PLUGIN_SLUG), $import_products_status['start_count_products']));
         } else {
-            Logs::appendLog(Main::$module_slug . '/logs', 'Product import started (' . $import_products_status['start_count_products'] . ' products)');
+            Logs::appendLog(Main::$module_slug . '/logs', sprintf(__('Product import started (%d products)', PLUGIN_SLUG), $import_products_status['start_count_products']));
         }
 
         return $import_products_status;
@@ -301,7 +301,7 @@ class Product extends \woocoo\App\Core\Product
         $import_products_status['count_products'] = count($products);
         $import_products_status['status'] = $import_products_status['count_products'] > 0 ? 'prolong' : 'success';
         $import_products_status['completed_percent'] = calc_percent($import_products_status['start_count_products'], $import_products_status['count_products']);
-        $import_products_status['message'] = $import_products_status['count_products'] > 0 ? 'Import in progress, please do not close the tab' : 'Import products is successfully completed';
+        $import_products_status['message'] = $import_products_status['count_products'] > 0 ? __('Import in progress, please do not close the tab', PLUGIN_SLUG) : __('Import products is successfully completed', PLUGIN_SLUG);
 
         $import_products['products'] = $products;
 
@@ -309,7 +309,7 @@ class Product extends \woocoo\App\Core\Product
         Logs::writeLog(Main::$module_slug . '/import_products_status', $import_products_status);
 
         if ($import_products_status['status'] === 'success') {
-            Logs::appendLog(Main::$module_slug . '/logs', 'Import products is successfully completed (' . $import_products_status['start_count_products'] . ' products)');
+            Logs::appendLog(Main::$module_slug . '/logs', sprintf(__('Import products is successfully completed (%d products)', PLUGIN_SLUG),$import_products_status['start_count_products']));
         }
 
         return $import_products_status;

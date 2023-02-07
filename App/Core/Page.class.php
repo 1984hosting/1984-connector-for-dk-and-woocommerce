@@ -89,14 +89,14 @@ class Page
 
             AJAX::response([
                 'status' => 1,
-                'message' => 'Account data success updated',
+                'message' => __('Account data success updated', PLUGIN_SLUG),
             ]);
         });
 
         new \woocoo\App\Core\Ajax('woo_get_token', function () {
             AJAX::response([
                 'status' => 1,
-                'message' => 'Account data success updated',
+                'message' => __('Account data success updated', PLUGIN_SLUG),
             ]);
         });
     }
