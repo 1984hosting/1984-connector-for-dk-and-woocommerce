@@ -2,13 +2,12 @@
 /**
  * Plugin Name: WooCoo
  * Plugin URI: https://1984.hosting/
- * Description: Plugin for WooCommerce that helps you sync DK bookkeeping
+ * Description: Woocoo is a WordPress/WooCommerce plugin that can communicate with bookkeeping software known as DK
  * Author: It-Hive
- * Version: 0.1.0.1
+ * Version: 0.1
  * Text Domain: woocoo
- * Domain Path: /languages/
- * GitHub Plugin URI: 1984hosting/woocoo
- * GitHub Plugin URI: https://github.com/1984hosting/woocoo
+ * Domain Path: /languages
+ * Update URI: https://github.com/1984hosting/woocoo
  */
 
 
@@ -55,6 +54,18 @@ function woocoo_load()
 
     /** Load plugin core */
     woocoo\App\Core\Main::LoadCore();
+
+    $main = woocoo\App\Core\Main::getInstance();
+    $dkPlus = !empty($main['dkPlus']) ? $main['dkPlus'] : false;
+
+    if ($dkPlus && (string) $dkPlus['licence_key'] !== '') {
+        require_once 'updater.class.php';
+
+        $updater = new woocoo\updater(__FILE__);
+        $updater->authorize($dkPlus['licence_key']);
+        $updater->initialize();
+
+    }
 
     return true;
 }

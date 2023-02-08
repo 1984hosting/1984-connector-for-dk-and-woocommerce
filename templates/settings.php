@@ -95,6 +95,19 @@ $syncParams = [
                                         >
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <label for="dkPlus_licence_key"><?php echo __('Licence Key', PLUGIN_SLUG); ?></label>
+                                    </th>
+                                    <td>
+                                        <input type="text"
+                                               id="dkPlus_licence_key"
+                                               name="<?php echo PLUGIN_SLUG . '[dkPlus][licence_key]'; ?>"
+                                               value="<?php echo !empty($dkPlus['licence_key']) ? $dkPlus['licence_key'] : ''; ?>"
+                                               placeholder="<?php echo __('Licence Key', PLUGIN_SLUG); ?>"
+                                        >
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                             <?php
