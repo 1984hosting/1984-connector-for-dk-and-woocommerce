@@ -85,10 +85,6 @@ class updater {
                 if (is_array($response)) {
                     $response = current($response);
                 }
-
-                if ($this->authorize_token) {
-                    $response['zipball_url'] = add_query_arg('access_token', $this->authorize_token, $response['zipball_url']);
-                }
                 $this->github_response = $response;
             } else {
                 throw new InvalidArgumentException('Invalid GitHub repository URL: "' . $repositoryUrl . '"');
