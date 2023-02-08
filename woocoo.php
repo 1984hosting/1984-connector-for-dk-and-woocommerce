@@ -4,7 +4,7 @@
  * Plugin URI: https://1984.hosting/
  * Description: Woocoo is a WordPress/WooCommerce plugin that can communicate with bookkeeping software known as DK
  * Author: It-Hive
- * Version: 0.1
+ * Version: 0.0.1
  * Text Domain: woocoo
  * Domain Path: /languages
  * Update URI: https://github.com/1984hosting/woocoo
@@ -55,6 +55,7 @@ function woocoo_load()
     /** Load plugin core */
     woocoo\App\Core\Main::LoadCore();
 
+
     $main = woocoo\App\Core\Main::getInstance();
     $dkPlus = !empty($main['dkPlus']) ? $main['dkPlus'] : false;
 
@@ -66,6 +67,22 @@ function woocoo_load()
         $updater->initialize();
 
     }
+
+
+/*
+    require 'plugin-update-checker/plugin-update-checker.php';
+    $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+        'https://github.com/1984hosting/woocoo',
+        __FILE__,
+        'woocoo'
+    );
+
+    //Set the branch that contains the stable release.
+    $myUpdateChecker->setBranch('Issue-37');
+
+    //Optional: If you're using a private repository, specify the access token like this:
+    $myUpdateChecker->setAuthentication('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');
+*/
 
     return true;
 }

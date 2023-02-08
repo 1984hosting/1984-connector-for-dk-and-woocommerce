@@ -6,8 +6,11 @@ class updater {
     private $plugin;
     private $basename;
     private $active;
+    private $username;
+    private $repository;
     private $authorize_token;
     private $github_response;
+    private $downloadFilterAdded = false;
 
     public function __construct($file) {
         $this->file = $file;
@@ -23,13 +26,49 @@ class updater {
 
     public function authorize($token) {
         $this->authorize_token = $token;
+        add_filter('upgrader_pre_download', [$this, 'addHttpRequestFilter'], 10, 1);
+    }
+
+    public function isAuthenticationEnabled() {
+        return !empty($this->authorize_token);
+    }
+
+    public function addHttpRequestFilter($result) {
+        if ( !$this->downloadFilterAdded && $this->isAuthenticationEnabled() ) {
+            add_filter('http_request_args', [$this, 'setUpdateDownloadHeaders'], 10, 2);
+            add_action('requests-requests.before_redirect', [$this, 'removeAuthHeaderFromRedirects'], 10, 4);
+            $this->downloadFilterAdded = true;
+        }
+        return $result;
+    }
+
+    public function setUpdateDownloadHeaders($requestArgs, $url = '') {
+        //Use Basic authentication, but only if the download is from our repository.
+        if ( $this->isAuthenticationEnabled() ) {
+            $requestArgs['headers']['Authorization'] = $this->getAuthorizationHeader();
+        }
+        return $requestArgs;
+    }
+
+    protected function getAuthorizationHeader() {
+        return 'Basic ' . base64_encode($this->username . ':' . $this->authorize_token);
+    }
+
+    public function removeAuthHeaderFromRedirects(&$location, &$headers) {
+        //Remove the header.
+        if ( isset($headers['Authorization']) ) {
+            unset($headers['Authorization']);
+        }
     }
 
     private function get_repository_info() {
         if (is_null($this->github_response)) {
-            $parts = parse_url($this->plugin['UpdateURI']);
-            if (isset($parts['path'])) {
-                $request_uri = sprintf('https://api.github.com/repos%s/releases', $parts['path']);
+            $repositoryUrl = $this->plugin['UpdateURI'];
+            $path = parse_url($repositoryUrl, PHP_URL_PATH);
+            if ( preg_match('@^/?(?P<username>[^/]+?)/(?P<repository>[^/#?&]+?)/?$@', $path, $matches) ) {
+                $this->username = $matches['username'];
+                $this->repository = $matches['repository'];
+                $request_uri = sprintf('https://api.github.com/repos%s/releases', $path);
                 $args = [
                     'sslverify' => false,
                     'timeout'     => 0,
@@ -51,6 +90,8 @@ class updater {
                     $response['zipball_url'] = add_query_arg('access_token', $this->authorize_token, $response['zipball_url']);
                 }
                 $this->github_response = $response;
+            } else {
+                throw new InvalidArgumentException('Invalid GitHub repository URL: "' . $repositoryUrl . '"');
             }
         }
     }
