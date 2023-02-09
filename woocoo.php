@@ -4,7 +4,7 @@
  * Plugin URI: https://1984.hosting/
  * Description: Woocoo is a WordPress/WooCommerce plugin that can communicate with bookkeeping software known as DK
  * Author: It-Hive
- * Version: 0.0.1
+ * Version: 0.2
  * Text Domain: woocoo
  * Domain Path: /languages
  * Update URI: https://github.com/1984hosting/woocoo

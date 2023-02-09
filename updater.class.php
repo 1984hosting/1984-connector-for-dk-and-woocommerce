@@ -94,8 +94,13 @@ class updater {
 
     public function initialize() {
         add_filter('pre_set_site_transient_update_plugins', [$this, 'modify_transient'], 10, 1);
+        add_filter( 'plugin_icon', [ $this, 'plugin_icon' ] );
         add_filter('plugins_api', [$this, 'plugin_popup'], 10, 3);
         add_filter('upgrader_post_install', [$this, 'after_install'], 10, 3);
+    }
+
+    public function plugin_icon() {
+        return PLUGIN_URL . '/templates/assets/images/icon.svg';
     }
 
     public function modify_transient($transient) {
@@ -111,6 +116,9 @@ class updater {
 
                     $plugin = [
                         'url' => $this->plugin['PluginURI'],
+                        'icons' => [
+                            'svg' => PLUGIN_URL . 'templates/assets/images/icon.svg',
+                        ],
                         'slug' => $slug,
                         'package' => $new_files,
                         'new_version' => $this->github_response['tag_name']
@@ -145,6 +153,13 @@ class updater {
                     'sections' => [
                         'Description' => $this->plugin['Description'],
                         'Updates' => $this->github_response['body'],
+                    ],
+                    'icons' => [
+                        'svg' => PLUGIN_URL . 'templates/assets/images/icon.svg',
+                    ],
+                    'banners' => [
+                        'low' => PLUGIN_URL . 'templates/assets/images/banner-772x250.jpg',
+                        'high' => PLUGIN_URL . 'templates/assets/images/banner-1544x500.jpg'
                     ],
                     'download_link' => $this->github_response['zipball_url']
                 ];
