@@ -1,4 +1,10 @@
 <?php
+/**
+ * Handles Class Load.
+ *
+ * @package  WooCoo\loader
+ * @version  0.1
+ */
 
 namespace woocoo;
 
