@@ -188,7 +188,8 @@
                         break
                     case 'empty':
                     default:
-                        alert(response.message ?? 'not valid response status')
+                        // alert(response.message ?? 'not valid response status')
+                        displayAdminNotice(response.status, response.message ?? 'not valid response status')
                         button.prop('disabled', 0)
                         button_prolong.prop('disabled', 0)
                         unsetProgressbar(import_progress_tag)

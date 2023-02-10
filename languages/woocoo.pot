@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WooCoo package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCoo git 0.1\n"
+"Project-Id-Version: WooCoo 0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocoo\n"
-"POT-Creation-Date: 2023-02-07 09:50:26+00:00\n"
+"POT-Creation-Date: 2023-02-10 20:35:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -152,6 +152,10 @@ msgstr ""
 msgid "Product import started (%d products)"
 msgstr ""
 
+#: includes/updater.class.php:397
+msgid "No Updates"
+msgstr ""
+
 #: templates/dkPlus/product-meta_content.php:2
 msgid "Product sync"
 msgstr ""
@@ -185,7 +189,7 @@ msgstr ""
 msgid "Enable stock (if disabled)"
 msgstr ""
 
-#: templates/dkPlus/product-tab.php:65 templates/settings.php:117
+#: templates/dkPlus/product-tab.php:65 templates/settings.php:130
 msgid "Select options to sync"
 msgstr ""
 
@@ -213,57 +217,61 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: templates/settings.php:113
+#: templates/settings.php:100 templates/settings.php:107
+msgid "Licence Key"
+msgstr ""
+
+#: templates/settings.php:126
 msgid "Automatic product synchronization"
 msgstr ""
 
-#: templates/settings.php:142
+#: templates/settings.php:155
 msgid "Recurrence"
 msgstr ""
 
-#: templates/settings.php:169
+#: templates/settings.php:182
 msgid "Save"
 msgstr ""
 
-#: templates/settings.php:176
+#: templates/settings.php:189
 msgid "Manual start sync"
 msgstr ""
 
-#: templates/settings.php:181 templates/settings.php:235
+#: templates/settings.php:194 templates/settings.php:248
 msgid "Progress"
 msgstr ""
 
-#: templates/settings.php:189
+#: templates/settings.php:202
 msgid "Import products from dkPlus"
 msgstr ""
 
-#: templates/settings.php:192
+#: templates/settings.php:205
 msgid "Select options to import new products"
 msgstr ""
 
-#: templates/settings.php:221
+#: templates/settings.php:234
 msgid "Prolong import"
 msgstr ""
 
-#: templates/settings.php:225
+#: templates/settings.php:238
 msgid "Start a new import"
 msgstr ""
 
-#: templates/settings.php:230
+#: templates/settings.php:243
 msgid "Import"
 msgstr ""
 
-#: templates/settings.php:244
+#: templates/settings.php:257
 msgid "Logs"
 msgstr ""
 
-#: templates/settings.php:248
+#: templates/settings.php:261
 msgid "Clear log"
 msgstr ""
 
-#. #-#-#-#-#  woocoo.pot (WooCoo git 0.1)  #-#-#-#-#
+#. #-#-#-#-#  woocoo.pot (WooCoo 0.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: woocoo.php:20
+#: woocoo.php:22
 msgid "WooCoo"
 msgstr ""
 
@@ -272,7 +280,9 @@ msgid "https://1984.hosting/"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Plugin for WooCommerce that helps you sync DK bookkeeping"
+msgid ""
+"Woocoo is a WordPress/WooCommerce plugin that can communicate with "
+"bookkeeping software known as DK"
 msgstr ""
 
 #. Author of the plugin/theme

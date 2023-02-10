@@ -8,9 +8,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-02-07 10:10+0000\n"
+"PO-Revision-Date: 2023-02-10 20:38+0000\n"
 "Last-Translator: Alexander Yachmenev\n"
-"Language-Team: Íslenska\n"
+"Language-Team: Icelandic\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Account settings"
 msgstr "Reikningsstillingar"
 
-#: templates/settings.php:113
+#: templates/settings.php:126
 msgid "Automatic product synchronization"
 msgstr "Sjálfvirk vörusamstilling"
 
@@ -36,7 +36,7 @@ msgstr "Veldu hvaða DkPlus vöru á að stilla sem sendingarkostnað."
 msgid "Choose which type of DKPLUS Payment to set."
 msgstr "Veldu hvaða tegund af DKPLUS greiðslu á að stilla."
 
-#: templates/settings.php:248
+#: templates/settings.php:261
 msgid "Clear log"
 msgstr "Hreinsa log"
 
@@ -92,7 +92,7 @@ msgstr "Á klukkutíma fresti"
 msgid "https://1984.hosting/"
 msgstr ""
 
-#: templates/settings.php:230
+#: templates/settings.php:243
 msgid "Import"
 msgstr "Flytja inn"
 
@@ -101,7 +101,7 @@ msgstr "Flytja inn"
 msgid "Import in progress, please do not close the tab"
 msgstr "Innflutningur í gangi, vinsamlegast ekki loka flipanum"
 
-#: templates/settings.php:189
+#: templates/settings.php:202
 msgid "Import products from dkPlus"
 msgstr "Flytja inn vörur frá dkPlus"
 
@@ -119,15 +119,19 @@ msgstr "Innflutningi á vörum er lokið (%d vörur)"
 msgid "It-Hive"
 msgstr ""
 
+#: templates/settings.php:100 templates/settings.php:107
+msgid "Licence Key"
+msgstr "Leyfislykill"
+
 #: templates/settings.php:74 templates/settings.php:81
 msgid "Login"
 msgstr "Skrá inn"
 
-#: templates/settings.php:244
+#: templates/settings.php:257
 msgid "Logs"
 msgstr "Logs"
 
-#: templates/settings.php:176
+#: templates/settings.php:189
 msgid "Manual start sync"
 msgstr "Handvirk ræsing samstilling"
 
@@ -161,6 +165,10 @@ msgstr "ekki hafa logs"
 msgid "no products for sync on DK side"
 msgstr "engar vörur til samstillingar á DK hlið"
 
+#: includes/updater.class.php:397
+msgid "No Updates"
+msgstr "Engar uppfærslur"
+
 #: templates/settings.php:87 templates/settings.php:94
 msgid "Password"
 msgstr "Lykilorð"
@@ -177,10 +185,6 @@ msgstr "Vinsamlegast veldu að minnsta kosti eina eign til að samstilla"
 #: App/Modules/dkPlus/Product.class.php:237
 msgid "Please select import properties"
 msgstr "Vinsamlegast veldu innflutningseiginleika"
-
-#. Description of the plugin/theme
-msgid "Plugin for WooCommerce that helps you sync DK bookkeeping"
-msgstr "Viðbót fyrir WooCommerce sem hjálpar þér að samstilla DK bókhald"
 
 #: templates/dkPlus/product-tab.php:23 templates/settings.php:22
 msgid "Price"
@@ -202,11 +206,11 @@ msgstr "Samstilling vöru"
 msgid "Product synchronization"
 msgstr "Samstilling vöru"
 
-#: templates/settings.php:181 templates/settings.php:235
+#: templates/settings.php:194 templates/settings.php:248
 msgid "Progress"
 msgstr "Framfarir"
 
-#: templates/settings.php:221
+#: templates/settings.php:234
 msgid "Prolong import"
 msgstr "Lengja innflutning"
 
@@ -214,19 +218,19 @@ msgstr "Lengja innflutning"
 msgid "Quantity"
 msgstr "Magn"
 
-#: templates/settings.php:142
+#: templates/settings.php:155
 msgid "Recurrence"
 msgstr "Endurkoma"
 
-#: templates/settings.php:169
+#: templates/settings.php:182
 msgid "Save"
 msgstr "Vista"
 
-#: templates/settings.php:192
+#: templates/settings.php:205
 msgid "Select options to import new products"
 msgstr "Veldu valkosti til að flytja inn nýjar vörur"
 
-#: templates/dkPlus/product-tab.php:65 templates/settings.php:117
+#: templates/dkPlus/product-tab.php:65 templates/settings.php:130
 msgid "Select options to sync"
 msgstr "Veldu valkosti til að samstilla"
 
@@ -239,7 +243,7 @@ msgstr "Sendu til dkPlus"
 msgid "Settings saved successfully"
 msgstr "Stillingar vistaðar"
 
-#: templates/settings.php:225
+#: templates/settings.php:238
 msgid "Start a new import"
 msgstr "Byrjaðu nýjan innflutning"
 
@@ -277,8 +281,16 @@ msgstr "Tvisvar á dag"
 msgid "Weekly"
 msgstr "Vikulega"
 
-#. #-#-#-#-#  woocoo.pot (WooCoo git 0.1)  #-#-#-#-#
+#. #-#-#-#-#  woocoo.pot (WooCoo 0.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: woocoo.php:20
+#: woocoo.php:22
 msgid "WooCoo"
 msgstr "WooCoo"
+
+#. Description of the plugin/theme
+msgid ""
+"Woocoo is a WordPress/WooCommerce plugin that can communicate with "
+"bookkeeping software known as DK"
+msgstr ""
+"Woocoo er WordPress/WooCommerce viðbót sem getur átt samskipti við "
+"bókhaldshugbúnað þekktur sem DK"
