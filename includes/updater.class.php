@@ -95,6 +95,36 @@ class updater {
         }
     }
 
+    private function get_repository_clones_count() {
+        $repositoryUrl = $this->plugin['UpdateURI'];
+        $path = parse_url($repositoryUrl, PHP_URL_PATH);
+        if ( preg_match('@^/?(?P<username>[^/]+?)/(?P<repository>[^/#?&]+?)/?$@', $path, $matches) ) {
+            $this->username = $matches['username'];
+            $this->repository = $matches['repository'];
+            $request_uri = sprintf('https://api.github.com/repos%s/traffic/clones', $path);
+            $args = [
+                'sslverify' => false,
+                'timeout'     => 0,
+                'redirection' => 10,
+                'httpversion' => '1.0',
+                'headers'     => array(
+                    'Authorization' => 'token ' . $this->authorize_token,
+                    'User-Agent' => 'woocoo/updater/0.1'
+                ),
+            ];
+            $response = wp_remote_get($request_uri, $args);
+            if ($response) {
+                $response = json_decode(wp_remote_retrieve_body($response), true);
+                if (isset($response['count'])) {
+                    return $response['count'];
+                }
+            }
+        } else {
+            throw new InvalidArgumentException('Invalid GitHub repository URL: "' . $repositoryUrl . '"');
+        }
+        return false;
+    }
+
     private function get_readme_info() {
         $repositoryUrl = $this->plugin['UpdateURI'];
         $path = parse_url($repositoryUrl, PHP_URL_PATH);
@@ -114,7 +144,10 @@ class updater {
             ];
             $response = wp_remote_get($request_uri, $args);
             if ($response) {
-                return wp_remote_retrieve_body($response);
+                $body = wp_remote_retrieve_body($response);
+                require_once PLUGIN_PATH . 'includes/Parsedown/Parsedown.php';
+                $Parsedown = new \Parsedown();
+                return $Parsedown->text($body);
             }
         } else {
             throw new InvalidArgumentException('Invalid GitHub repository URL: "' . $repositoryUrl . '"');
@@ -185,6 +218,7 @@ class updater {
                     'author' => $this->plugin['AuthorName'],
                     'author_profile' => $this->plugin['AuthorURI'],
                     'last_updated' => $this->github_response['published_at'],
+                    'active_installs'  => $this->get_repository_clones_count(),
                     'homepage' => $this->plugin['PluginURI'],
                     'short_description' => substr( strip_tags( trim( $this->plugin['Description'] ) ), 0, 175 ) . '...',
                     'sections' => [

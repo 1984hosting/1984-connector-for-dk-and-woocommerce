@@ -60,29 +60,14 @@ function woocoo_load()
     $dkPlus = !empty($main['dkPlus']) ? $main['dkPlus'] : false;
 
     if ($dkPlus && (string) $dkPlus['licence_key'] !== '') {
-        require_once 'updater.class.php';
+
+        require_once 'includes/updater.class.php';
 
         $updater = new woocoo\updater(__FILE__);
         $updater->authorize($dkPlus['licence_key']);
         $updater->initialize();
 
     }
-
-
-/*
-    require 'plugin-update-checker/plugin-update-checker.php';
-    $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-        'https://github.com/1984hosting/woocoo',
-        __FILE__,
-        'woocoo'
-    );
-
-    //Set the branch that contains the stable release.
-    $myUpdateChecker->setBranch('Issue-37');
-
-    //Optional: If you're using a private repository, specify the access token like this:
-    $myUpdateChecker->setAuthentication('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');
-*/
 
     return true;
 }
