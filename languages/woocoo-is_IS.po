@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-02-10 20:38+0000\n"
+"PO-Revision-Date: 2023-02-11 12:24+0000\n"
 "Last-Translator: Alexander Yachmenev\n"
 "Language-Team: Icelandic\n"
 "Language: is_IS\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: App/Core/Page.class.php:92 App/Core/Page.class.php:99
 msgid "Account data success updated"
-msgstr ""
+msgstr "Árangur reikningsgagna uppfærður"
 
 #: templates/settings.php:52 templates/settings.php:61
 msgid "Account settings"
@@ -165,7 +165,7 @@ msgstr "ekki hafa logs"
 msgid "no products for sync on DK side"
 msgstr "engar vörur til samstillingar á DK hlið"
 
-#: includes/updater.class.php:397
+#: includes/updater.class.php:393
 msgid "No Updates"
 msgstr "Engar uppfærslur"
 
@@ -280,6 +280,12 @@ msgstr "Tvisvar á dag"
 #: App/Core/CronSchedule.class.php:40
 msgid "Weekly"
 msgstr "Vikulega"
+
+#: woocoo.php:46
+msgid ""
+"Woo Bookkeeping is enabled but has no effect. Requires WooCommerce to work."
+msgstr ""
+"Woo bókhald er virkt en hefur engin áhrif. Krefst WooCommerce til að virka."
 
 #. #-#-#-#-#  woocoo.pot (WooCoo 0.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
