@@ -43,7 +43,7 @@ function woocoo_load()
      * Check is activated woocommerce plugin
      */
     if (!class_exists('woocommerce')) {
-        return new woocoo\App\Core\WP_Notice('error', 'Woo Bookkeeping is enabled but has no effect. Requires WooCommerce to work.');
+        return new woocoo\App\Core\WP_Notice('error', __('Woo Bookkeeping is enabled but has no effect. Requires WooCommerce to work.', PLUGIN_SLUG));
     }
 
     include_once WC_ABSPATH . 'packages/action-scheduler/action-scheduler.php';

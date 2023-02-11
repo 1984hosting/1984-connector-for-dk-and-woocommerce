@@ -313,7 +313,7 @@ class updater {
      * @return void
      */
     public function initialize() {
-        add_filter('site_transient_update_plugins', [$this, 'update_site_transient'], 15, 1);
+        add_filter('pre_set_site_transient_update_plugins', [$this, 'update_site_transient'], 15, 1);
         add_filter('plugins_api', [$this, 'plugins_api'], 99, 3);
         add_filter('upgrader_post_install', [$this, 'after_install'], 10, 3);
     }
@@ -330,32 +330,28 @@ class updater {
             $transient = new \stdClass();
         }
 
-        if (property_exists($transient, 'checked')) {
-            if ($checked = $transient->checked) {
-                $this->get_repository_info();
+        $this->get_repository_info();
 
-                $slug = current(explode('/', $this->basename));
-                $new_files = $this->github_response['zipball_url'];
+        $slug = current(explode('/', $this->basename));
+        $new_files = $this->github_response['zipball_url'];
 
-                $plugin = [
-                    'url' => $this->plugin['PluginURI'],
-                    'icons' => [
-                        'svg' => PLUGIN_URL . 'templates/assets/images/icon.svg',
-                    ],
-                    'slug' => $slug,
-                    'package' => $new_files,
-                    'new_version' => $this->github_response['tag_name']
-                ];
+        $plugin = [
+            'url' => $this->plugin['PluginURI'],
+            'icons' => [
+                'svg' => PLUGIN_URL . 'templates/assets/images/icon.svg',
+            ],
+            'slug' => $slug,
+            'package' => $new_files,
+            'new_version' => $this->github_response['tag_name']
+        ];
 
-                $out_of_date = version_compare($this->github_response['tag_name'], $checked[$this->basename], 'gt');
-                if ($out_of_date) {
-                    $transient->response[$this->basename] = (object) $plugin;
-                } else {
-                    // Add repo without update to $transient->no_update for 'View details' link.
-                    if ( ! isset( $transient->no_update[ $this->basename ] ) ) {
-                        $transient->no_update[ $this->basename ] = (object) $plugin;
-                    }
-                }
+        $out_of_date = version_compare($this->github_response['tag_name'], $this->plugin['Version'], 'gt');
+        if ($out_of_date) {
+            $transient->response[$this->basename] = (object) $plugin;
+        } else {
+            // Add repo without update to $transient->no_update for 'View details' link.
+            if ( ! isset( $transient->no_update[ $this->basename ] ) ) {
+                $transient->no_update[ $this->basename ] = (object) $plugin;
             }
         }
 
