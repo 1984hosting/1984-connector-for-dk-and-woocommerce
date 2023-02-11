@@ -389,8 +389,8 @@ class updater {
                     'homepage' => $this->plugin['PluginURI'],
                     'short_description' => substr( strip_tags( trim( $this->plugin['Description'] ) ), 0, 175 ) . '...',
                     'sections' => [
-                        'Description' => ($readme)?:$this->plugin['Description'],
-                        'Updates' => $this->github_response['body']?:__('No Updates', PLUGIN_SLUG),
+                        'description' => ($readme)?:$this->plugin['Description'],
+                        'changelog' => $this->github_response['body']?:__('No Updates', PLUGIN_SLUG),
                     ],
                     'icons' => [
                         'svg' => PLUGIN_URL . 'templates/assets/images/icon.svg',
