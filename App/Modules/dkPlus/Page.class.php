@@ -103,17 +103,20 @@ class Page extends \woocoo\App\Core\Page
                     $salesperson = Main::salesPersonCreate($data);
                 }
                 $data = [
-                    "Number" => $user->ID,
+                    "Number" => 'web' . $user->ID,
                     "Name" => $user->display_name,
                     "Alias" => $user->user_nicename,
                     "Address1" => $order->get_billing_address_1(),
                     "Email" => $user->user_email,
                     "Salesperson" => "webshop"
                 ];
-                $customer = Main::customerCreate($data);
+                if (Main::customerCreate($data)) {
+                    $customer = Main::customerFetchOne('web' . $user->ID);
+                }
+            } else {
+                $customer = array_shift($customer);
             }
 
-            $customer = array_shift($customer);
             $lines = [];
             $order_items    = $order->get_items();
             foreach ( $order_items as $order_item ) {
