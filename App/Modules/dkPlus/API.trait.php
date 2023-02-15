@@ -418,6 +418,7 @@ trait API
             }
         } catch (WP_Exceptions $e) {
             Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
+            $paymenttypes = [];
         }
         return $paymenttypes;
     }
