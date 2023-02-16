@@ -99,6 +99,16 @@ class updater {
         $this->plugin = get_plugin_data($this->file);
         $this->basename = plugin_basename($this->file);
         $this->active = is_plugin_active($this->basename);
+
+        if ($this->plugin) {
+            $repositoryUrl = $this->plugin['UpdateURI'];
+            $path = parse_url($repositoryUrl, PHP_URL_PATH);
+            if ( preg_match('@^/?(?P<username>[^/]+?)/(?P<repository>[^/#?&]+?)/?$@', $path, $matches) ) {
+                $this->username = $matches['username'];
+                $this->repository = $matches['repository'];
+            }
+        }
+
     }
 
     /**
