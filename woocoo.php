@@ -59,6 +59,7 @@ function woocoo_load()
     $dkPlus = !empty($main['dkPlus']) ? $main['dkPlus'] : false;
 
     // Implement GitHub Updater mechanism. #37
+
     if ($dkPlus && (string) $dkPlus['licence_key'] !== '') {
 
         require_once 'includes/updater.class.php';
