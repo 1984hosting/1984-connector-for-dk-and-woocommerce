@@ -1,18 +1,33 @@
 <?php
+/**
+ * The file that defines the API trait
+ *
+ * A trait definition that includes attributes and functions of the dk Plus API allows you to connect to
+ * a wide range of information from the dkERP system and utilize the speed of
+ * our JSON/Rest service and pull information fast and easily. Alternativly if you need more features you can connect
+ *  to the dkSoap Webservice.
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Modules/dkPlus
+ */
 
 namespace woocoo\App\Modules\dkPlus;
 
-use JetBrains\PhpStorm\ArrayShape;
 use woocoo\App\Core\Logs;
 use woocoo\App\Core\Main as Core;
 use woocoo\App\Core\WP_Exceptions;
 use woocoo\App\Core\WP_Notice;
 
+/**
+ * Trait API
+ */
 trait API
 {
     public static $token = '';
-    public static string $api_url = 'https://api.dkplus.is/api/v1';
 
+    public static string $api_url = 'https://api.dkplus.is/api/v1';
 
     public static function getToken()
     {
@@ -80,6 +95,7 @@ trait API
 
     /**
      * Send data to dkPlus
+     *
      * @param string $product_sku
      * @param $args
      * @return bool
@@ -100,7 +116,8 @@ trait API
     }
 
     /**
-     * getting a product with a dkplus API
+     * Getting a product with a dkplus API
+     *
      * @param string $product_sku
      * @return array|bool Product data
      */
@@ -122,7 +139,8 @@ trait API
     }
 
     /**
-     * getting all products with dkplus API
+     * Getting all products with dkplus API
+     *
      * @return array|bool Products
      */
     public static function productFetchAll(): array|bool

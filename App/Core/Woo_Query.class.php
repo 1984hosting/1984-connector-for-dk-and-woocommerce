@@ -1,7 +1,20 @@
 <?php
+/**
+ * The file that defines the Woo_Query class
+ *
+ * A class definition that includes attributes and functions of the Woo_Query class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Core
+ */
 
 namespace woocoo\App\Core;
 
+/**
+ * Class Woo_Query
+ */
 class Woo_Query
 {
 
@@ -51,9 +64,9 @@ class Woo_Query
     {
     }
 
-
     /**
      * Get all products from woocommerce
+     *
      * @param string $fields
      * @return array
      */
@@ -66,6 +79,7 @@ class Woo_Query
 
     /**
      * Product search in woocommerce
+     *
      * @param string $fields
      * @param int $product_id
      * @return array
@@ -77,13 +91,23 @@ class Woo_Query
         return self::getInstance()->get_results('SELECT ' . $fields . ' FROM `' . self::getInstance()->prefix . $table . '` WHERE `product_id` = ' . $product_id . ' LIMIT 1', ARRAY_A)[0];
     }
 
-
+    /**
+     * Get All Products SKU
+     *
+     * @return array|false
+     */
     public static function getAllProductsSKU()
     {
         $results = self::getInstance()->get_results('SELECT meta_value FROM `' . self::getInstance()->prefix . 'postmeta` WHERE `meta_key` = "_sku"', ARRAY_A);
         return !empty($results) ? array_column($results, 'meta_value') : false;
     }
 
+    /**
+     * Get Children
+     *
+     * @param $product_id
+     * @return array|false
+     */
     public static function getChildren($product_id)
     {
         $product = wc_get_product($product_id);
@@ -95,6 +119,8 @@ class Woo_Query
     }
 
     /**
+     * Create
+     *
      * @param string $table
      * @param array $data
      * @return bool|int
@@ -105,6 +131,8 @@ class Woo_Query
     }
 
     /**
+     * Update
+     *
      * @param array $fields
      * @param string $table
      * @param array $where
@@ -116,6 +144,8 @@ class Woo_Query
     }
 
     /**
+     * Delete
+     *
      * @param array $table
      * @param array $where
      * @return bool|int

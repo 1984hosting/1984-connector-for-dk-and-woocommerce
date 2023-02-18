@@ -1,7 +1,20 @@
 <?php
+/**
+ * The file that defines the Main class
+ *
+ * A class definition that includes attributes and functions of the Main class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Core
+ */
 
 namespace woocoo\App\Core;
 
+/**
+ * Class Main
+ */
 class Main
 {
     public static array $settings = [];
@@ -42,7 +55,11 @@ class Main
         return $settings;
     }
 
-
+    /**
+     * Load Core
+     *
+     * @return void
+     */
     public static function LoadCore()
     {
         self::$styles = [
@@ -62,11 +79,21 @@ class Main
         self::LoadModules();
     }
 
+    /**
+     * Load Modules
+     *
+     * @return void
+     */
     public static function LoadModules()
     {
         new \woocoo\App\Modules\dkPlus\Main(self::getInstance());
     }
 
+    /**
+     * Enqueue Scripts
+     *
+     * @return void
+     */
     public static function EnqueueScripts(): void
     {
         /** For UI page settings */
@@ -74,7 +101,8 @@ class Main
 
         if (!empty(self::$styles)) {
             foreach (self::$styles as $style) {
-                wp_enqueue_style(PLUGIN_SLUG . '_' . $style, PLUGIN_URL . 'templates/assets/css/' . $style . '.css', [], time());
+                wp_enqueue_style(PLUGIN_SLUG . '_' . $style,
+                    PLUGIN_URL . 'templates/assets/css/' . $style . '.css', [], time());
             }
         }
 
@@ -97,10 +125,20 @@ class Main
         ]); //use ajax.url from requests
     }
 
+    /**
+     * Load Text Domain
+     *
+     * @return void
+     */
     public static function loadTextDomain() {
         load_plugin_textdomain( PLUGIN_SLUG, false, PLUGIN_SLUG . '/languages' );
     }
 
+    /**
+     * Register Actions
+     *
+     * @return void
+     */
     private static function registerActions()
     {
         add_action('admin_enqueue_scripts', [self::class, 'EnqueueScripts'], 99);

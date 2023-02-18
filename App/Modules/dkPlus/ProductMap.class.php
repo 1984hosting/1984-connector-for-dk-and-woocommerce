@@ -1,9 +1,22 @@
 <?php
+/**
+ * The file that defines the ProductMap class
+ *
+ * A class definition that includes attributes and functions of the ProductMap class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Modules/dkPlus
+ */
 
 namespace woocoo\App\Modules\dkPlus;
 
 use woocoo\App\Core\ProductMapper;
 
+/**
+ * Class ProductMap
+ */
 class ProductMap extends ProductMapper
 {
     const Map = [

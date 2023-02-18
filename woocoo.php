@@ -10,7 +10,6 @@
  * Update URI: https://github.com/1984hosting/woocoo
  */
 
-
 declare(strict_types=1);
 
 defined('ABSPATH') || exit;
@@ -73,7 +72,6 @@ function woocoo_load()
     return true;
 }
 
-//add_action('plugins_loaded', 'woocoo_load');
 add_action('init', 'woocoo_load');
 
 /**
@@ -119,7 +117,6 @@ add_action('woocoo_worker', 'woocoo_regular');
 function woocoo_regular()
 {
     new woocoo\App\Core\CronSchedule();
-    //woocoo\App\Core\Main::LoadCore();
     do_action('woocoo_regular_events');
 }
 

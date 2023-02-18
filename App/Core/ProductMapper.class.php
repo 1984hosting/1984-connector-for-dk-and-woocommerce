@@ -1,4 +1,14 @@
 <?php
+/**
+ * The file that defines the ProductMapper class
+ *
+ * A class definition that includes attributes and functions of the ProductMapper class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Core
+ */
 
 namespace woocoo\App\Core;
 
@@ -13,6 +23,7 @@ abstract class ProductMapper
 
     /**
      * Converts field names in remote JSON data to local WooCommerce field names.
+     *
      * @param array $fields
      * @return array
      */
@@ -28,6 +39,7 @@ abstract class ProductMapper
 
     /**
      * Converting fields to common format
+     *
      * @param array $fields
      * @return array
      */
@@ -43,11 +55,22 @@ abstract class ProductMapper
         return $fields;
     }
 
+    /**
+     * Set Bool True
+     *
+     * @return bool
+     */
     public static function setBoolTrue(): bool
     {
         return true;
     }
 
+    /**
+     * Convert to Float
+     *
+     * @param $price
+     * @return float
+     */
     public static function toFloat($price): float
     {
         return number_format((float)$price, 2, '.', '');

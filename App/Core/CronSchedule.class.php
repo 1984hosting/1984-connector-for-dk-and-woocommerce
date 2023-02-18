@@ -1,7 +1,20 @@
 <?php
+/**
+ * The file that defines the CronSchedule class
+ *
+ * A class definition that includes attributes and functions of the CronSchedule class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Core
+ */
 
 namespace woocoo\App\Core;
 
+/**
+ * Class CronSchedule
+ */
 class CronSchedule
 {
 
@@ -12,6 +25,9 @@ class CronSchedule
 
     /**
      * Custom cron intervals
+     *
+     * @param array $schedules
+     * @return array
      */
     public function WooCooIntervals(array $schedules = [])
     {
@@ -53,6 +69,8 @@ class CronSchedule
 
     /**
      * Register cron interval
+     *
+     * @return void
      */
     private function registerActions()
     {

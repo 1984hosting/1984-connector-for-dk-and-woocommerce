@@ -1,10 +1,29 @@
 <?php
+/**
+ * The file that defines the Logs class
+ *
+ * A class definition that includes attributes and functions of the Logs class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Core
+ */
 
 namespace woocoo\App\Core;
 
-
+/**
+ * Class Logs
+ */
 class Logs
 {
+    /**
+     * Write Log
+     *
+     * @param string $file_name
+     * @param array $content
+     * @return false|int
+     */
     public static function writeLog(string $file_name, array $content)
     {
         $log_path = PLUGIN_TEMP . $file_name . '.log';
@@ -17,6 +36,7 @@ class Logs
 
     /**
      * Logging of import and synchronization processes
+     *
      * @param string $file_name
      * @param string $content
      * @return bool
@@ -37,6 +57,7 @@ class Logs
 
     /**
      * Reading a special array with a log
+     *
      * @param string $file_name
      * @return array
      */
@@ -56,6 +77,7 @@ class Logs
 
     /**
      * Read file to return as text
+     *
      * @param string $file_name
      * @return string
      */
@@ -74,6 +96,7 @@ class Logs
 
     /**
      * Delete one log file
+     *
      * @param string $file_name
      * @return bool
      */
@@ -92,6 +115,7 @@ class Logs
 
     /**
      * Removing all temporary logs
+     *
      * @return bool
      */
     public static function removeLogs(): bool
@@ -119,6 +143,7 @@ class Logs
 
     /**
      * Recursive deletion catalogs and files
+     *
      * @param $dir
      * @return bool
      */
@@ -136,6 +161,7 @@ class Logs
 
     /**
      * Checking if a directory exists
+     *
      * @param $full_path
      */
     private static function directoryExists($full_path)

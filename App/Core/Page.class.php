@@ -1,7 +1,20 @@
 <?php
+/**
+ * The file that defines the Page class
+ *
+ * A class definition that includes attributes and functions of the Page class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Core
+ */
 
 namespace woocoo\App\Core;
 
+/**
+ * Class Page
+ */
 class Page
 {
     /**
@@ -19,6 +32,11 @@ class Page
         $this->registerActions();
     }
 
+    /**
+     * Add Content Plugin
+     *
+     * @return void
+     */
     public function addContentPlugin()
     {
         add_action(PLUGIN_SLUG . '_content', function () {
@@ -26,6 +44,11 @@ class Page
         }, 10);
     }
 
+    /**
+     * Add Admin Menu
+     *
+     * @return void
+     */
     public function addAdminMenu()
     {
         add_menu_page(
@@ -39,6 +62,11 @@ class Page
         );
     }
 
+    /**
+     * Create Plugin Page
+     *
+     * @return void
+     */
     public function createPluginPage()
     {
         $actions = [
@@ -56,6 +84,8 @@ class Page
 
     /**
      * Saving Options and Installing a Cron Job
+     *
+     * @return bool
      */
     public static function saveDataAccount()
     {
@@ -79,6 +109,11 @@ class Page
         return true;
     }
 
+    /**
+     * Register Actions
+     *
+     * @return void
+     */
     private function registerActions()
     {
         add_action('admin_menu', [$this, 'addAdminMenu'], 25);
