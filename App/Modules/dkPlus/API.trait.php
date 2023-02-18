@@ -2,6 +2,7 @@
 
 namespace woocoo\App\Modules\dkPlus;
 
+use JetBrains\PhpStorm\ArrayShape;
 use woocoo\App\Core\Logs;
 use woocoo\App\Core\Main as Core;
 use woocoo\App\Core\WP_Exceptions;
@@ -80,7 +81,8 @@ trait API
     /**
      * Send data to dkPlus
      * @param string $product_sku
-     * @return array
+     * @param $args
+     * @return bool
      */
     public static function productUpdateDK(string $product_sku, $args): bool
     {
@@ -100,9 +102,9 @@ trait API
     /**
      * getting a product with a dkplus API
      * @param string $product_sku
-     * @return array Product data
+     * @return array|bool Product data
      */
-    public static function productFetchOne(string $product_sku): array
+    public static function productFetchOne(string $product_sku): array|bool
     {
         try {
             $product = Main::request('/Product/' . $product_sku, Main::setHeaders());
@@ -121,9 +123,9 @@ trait API
 
     /**
      * getting all products with dkplus API
-     * @return array Products
+     * @return array|bool Products
      */
-    public static function productFetchAll(): array
+    public static function productFetchAll(): array|bool
     {
         try {
             $products = Main::request('/Product', Main::setHeaders());
@@ -154,7 +156,7 @@ trait API
      * @param array $data
      * @return array|bool
      */
-    public static function generalEmployeeCreate(array $data): array
+    public static function generalEmployeeCreate(array $data): array|bool
     {
         try {
             $employee = Main::request('/general/employee', Main::setHeaders('POST', $data));
@@ -173,7 +175,7 @@ trait API
      * @param string $employee_number
      * @return array|bool
      */
-    public static function generalEmployeeFetchOne(string $employee_number): array
+    public static function generalEmployeeFetchOne(string $employee_number): array|bool
     {
         try {
             $employee = Main::request('/general/employee/' . $employee_number, Main::setHeaders());
@@ -182,7 +184,6 @@ trait API
             }
         } catch (WP_Exceptions $e) {
             Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
-            $employee = [];
         }
         return $employee;
     }
@@ -213,7 +214,7 @@ trait API
      * @param $args
      * @return array|bool
      */
-    public static function customerUpdate(string $customer_number, $args): array
+    public static function customerUpdate(string $customer_number, $args): array|bool
     {
         try {
             $customer = Main::request('/customer/' . $customer_number, Main::setHeaders('PUT', $args));
@@ -232,7 +233,7 @@ trait API
      * @param string $customer_number
      * @return array|bool
      */
-    public static function customerFetchOne(string $customer_number): array
+    public static function customerFetchOne(string $customer_number): array|bool
     {
         try {
             $customer = Main::request('/customer/' . $customer_number, Main::setHeaders());
@@ -271,7 +272,7 @@ trait API
      * @param string $search
      * @return array|bool
      */
-    public static function customerSearch(string $searchstring): array
+    public static function customerSearch(string $searchstring): array|bool
     {
         try {
             $customer = Main::request('/customer/search/' . $searchstring, Main::setHeaders());
@@ -280,7 +281,6 @@ trait API
             }
         } catch (WP_Exceptions $e) {
             Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
-            $customer = []; //
         }
         return $customer;
     }
@@ -291,7 +291,7 @@ trait API
      * @param array $data
      * @return array|bool
      */
-    public static function salesPersonCreate(array $data): array
+    public static function salesPersonCreate(array $data): array|bool
     {
         try {
             $salesperson = Main::request('/sales/person', Main::setHeaders('POST', $data));
@@ -300,7 +300,6 @@ trait API
             }
         } catch (WP_Exceptions $e) {
             Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
-            $salesperson = [];
         }
         return $salesperson;
     }
@@ -312,7 +311,7 @@ trait API
      * @param $args
      * @return array|bool
      */
-    public static function salesPersonUpdate(string $salesperson_number, $args): array
+    public static function salesPersonUpdate(string $salesperson_number, $args): array|bool
     {
         try {
             $salesperson = Main::request('/sales/person/' . $salesperson_number, Main::setHeaders('PUT', $args));
@@ -331,7 +330,7 @@ trait API
      * @param string $salesperson_number
      * @return array|bool
      */
-    public static function salesPersonFetchOne(string $salesperson_number): array
+    public static function salesPersonFetchOne(string $salesperson_number): array|bool
     {
         try {
             $salesperson = Main::request('/sales/person/' . $salesperson_number, Main::setHeaders());
@@ -340,7 +339,6 @@ trait API
             }
         } catch (WP_Exceptions $e) {
             Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
-            $salesperson = [];
         }
         return $salesperson;
     }
@@ -371,7 +369,7 @@ trait API
      * @param $data
      * @return array|bool
      */
-    public static function salesCreateInvoice($data): array
+    public static function salesCreateInvoice($data): array|bool
     {
         try {
           $invoice = Main::request('/sales/invoice', Main::setHeaders('POST', $data));
@@ -380,7 +378,6 @@ trait API
             }
         } catch (WP_Exceptions $e) {
             Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
-            $invoice = [];
         }
         return $invoice;
     }
@@ -391,7 +388,7 @@ trait API
      * @param string $invoice_number
      * @return array|bool
      */
-    public static function salesInvoiceFetchOne(string $invoice_number): array
+    public static function salesInvoiceFetchOne(string $invoice_number): array|bool
     {
         try {
             $invoice = Main::request('/sales/invoice/' . $invoice_number, Main::setHeaders());
@@ -407,9 +404,9 @@ trait API
     /**
      * Get Payment Type
      *
-     * @return array
+     * @return array|bool
      */
-    public static function salesPaymentType(): array
+    public static function salesPaymentType(): array|bool
     {
         try {
             $paymenttypes = Main::request('/sales/payment/type/', Main::setHeaders());
@@ -418,13 +415,13 @@ trait API
             }
         } catch (WP_Exceptions $e) {
             Logs::appendLog(Main::$module_slug . '/logs', $e->getMessage());
-            $paymenttypes = [];
         }
         return $paymenttypes;
     }
 
     /**
      * getting one a product with dkplus API
+     *
      * @return array
      */
     public static function productMap($product)
@@ -432,7 +429,14 @@ trait API
         return ProductMap::ProductMap($product);
     }
 
-    public static function setHeaders($method = 'GET', $body = [])
+    /**
+     * Set Headers
+     *
+     * @param $method
+     * @param $body
+     * @return array
+     */
+    public static function setHeaders($method = 'GET', $body = []): array
     {
         return [
             'body' => $body,
@@ -445,7 +449,14 @@ trait API
         ];
     }
 
-    public static function request(string $method, array $args)
+    /**
+     * request
+     *
+     * @param string $method
+     * @param array $args
+     * @return bool|mixed|null
+     */
+    public static function request(string $method, array $args): mixed
     {
         try {
             $args['timeout'] = 300;
