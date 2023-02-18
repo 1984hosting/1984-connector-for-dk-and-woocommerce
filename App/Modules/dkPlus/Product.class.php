@@ -1,14 +1,27 @@
 <?php
+/**
+ * The file that defines the Product class
+ *
+ * A class definition that includes attributes and functions of the Product class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Modules/dkPlus
+ */
 
 namespace woocoo\App\Modules\dkPlus;
 
 use woocoo\App\Core\Woo_Query;
 use woocoo\App\Core\Logs;
-use woocoo\App\Core\WP_Notice;
 
+/**
+ * Class Product
+ */
 class Product extends \woocoo\App\Core\Product
 {
     private static int $import_slice = 35; //how many products to import per iteration (more php execution limit more number)
+
     private static int $sync_slice = 35; //how many products to sync per iteration (more php execution limit more number)
 
     public function __construct()
@@ -18,6 +31,7 @@ class Product extends \woocoo\App\Core\Product
 
     /**
      * Performing a sync for a single product
+     *
      * @return bool
      */
     public static function productSend(): bool
@@ -54,9 +68,11 @@ class Product extends \woocoo\App\Core\Product
 
     /**
      * Performing a sync for a single product
+     *
      * @param array $needed_fields needed fields for sync
      * @param int $product_id
      * @return array product data
+     * @throws \WC_Data_Exception
      */
     public static function productSyncOne(array $needed_fields = [], int $product_id = 0): array
     {
@@ -98,6 +114,7 @@ class Product extends \woocoo\App\Core\Product
 
     /**
      * Performing a sync for product variation
+     *
      * @param array $needed_fields needed fields for sync
      * @param int $variation_id
      * @return bool
@@ -115,7 +132,8 @@ class Product extends \woocoo\App\Core\Product
 
     /**
      * Synchronization request from the admin panel (sync all products)
-     * @return array|false[]
+     *
+     * @return array
      */
     public static function productSyncAll(): array
     {
@@ -165,6 +183,11 @@ class Product extends \woocoo\App\Core\Product
         ];
     }
 
+    /**
+     * All Products Sync Schedule
+     *
+     * @return void
+     */
     public static function productSyncAllSchedule(): void
     {
         $sync_products_status = Logs::readLog(Main::$module_slug . '/sync_products_status');
@@ -178,6 +201,7 @@ class Product extends \woocoo\App\Core\Product
 
     /**
      * Synchronization in progress
+     *
      * @return array
      */
     public static function productProlongSync(): array
@@ -215,8 +239,8 @@ class Product extends \woocoo\App\Core\Product
 
     /**
      * Import products from dk
-     * @param array $needed_fields - Required fields for synchronization
-     * @return bool
+     *
+     * @return array
      */
     public static function productsImport(): array
     {
@@ -291,6 +315,11 @@ class Product extends \woocoo\App\Core\Product
         return $import_products_status;
     }
 
+    /**
+     * Products Import Prolong
+     *
+     * @return array
+     */
     public static function productsImportProlong(): array
     {
         $import_products = Logs::readLog(Main::$module_slug . '/import_products');
@@ -315,6 +344,11 @@ class Product extends \woocoo\App\Core\Product
         return $import_products_status;
     }
 
+    /**
+     * Get Status
+     *
+     * @return array
+     */
     public static function getStatus(): array
     {
         $sync_products_status = Logs::readLog(Main::$module_slug . '/sync_products_status');
@@ -340,6 +374,7 @@ class Product extends \woocoo\App\Core\Product
 
     /**
      * Search for new products in the array
+     *
      * @param $dkProducts - products array from dkPlus
      * @param $existing_sku - array of sku local products
      * @return array
@@ -362,6 +397,7 @@ class Product extends \woocoo\App\Core\Product
 
     /**
      * Bring the product into the format for importing voo
+     *
      * @param $dkProducts
      * @param $existing_products
      * @return array
@@ -384,6 +420,7 @@ class Product extends \woocoo\App\Core\Product
 
     /**
      * Updating the number of units in stock
+     *
      * @param $product_sku - product sku
      * @param $qty - new qty
      * @return bool
@@ -396,10 +433,12 @@ class Product extends \woocoo\App\Core\Product
     }
 
     /**
-     * @param $count - how many products to import from array
+     * Add Products
+     *
      * @param $needed_fields - needed fields to import
      * @param $dkProducts - array products from DK
      * @return array - products without imported products
+     * @throws \WC_Data_Exception
      */
     public static function productsAdd($needed_fields, $dkProducts): array
     {
@@ -441,6 +480,14 @@ class Product extends \woocoo\App\Core\Product
         return $dkProducts;
     }
 
+    /**
+     * Sync Products
+     *
+     * @param $needed_fields
+     * @param $dkProducts
+     * @return array
+     * @throws \WC_Data_Exception
+     */
     public static function productsSync($needed_fields, $dkProducts): array
     {
         $count = self::$sync_slice;
@@ -463,7 +510,15 @@ class Product extends \woocoo\App\Core\Product
         return $dkProducts;
     }
 
-
+    /**
+     * Add to cart validation
+     *
+     * @param $passed
+     * @param $product_id
+     * @param $quantity
+     * @return mixed
+     * @throws \WC_Data_Exception
+     */
     public static function add_to_cart_validation($passed, $product_id, $quantity)
     {
         self::productSyncOne([
@@ -474,9 +529,14 @@ class Product extends \woocoo\App\Core\Product
         return $passed;
     }
 
+    /**
+     * Before checkout process
+     *
+     * @return bool
+     * @throws \WC_Data_Exception
+     */
     public static function before_checkout_process()
     {
-
         foreach (WC()->cart->get_cart() as $cart_item) {
             $product_id = $cart_item['product_id'];
             $variation_id = $cart_item['variation_id'];
@@ -495,12 +555,18 @@ class Product extends \woocoo\App\Core\Product
             // Item quantity in DK should be reduced by same amount as ordered. #31
             $qty = $product_with_stock->get_stock_quantity() - $quantity;
             self::productSendQty($product_with_stock->get_sku(), $qty);
-
         }
-
         return true;
     }
 
+    /**
+     * Order edit status
+     *
+     * @param $id
+     * @param $new_status
+     * @return void
+     * @throws \WC_Data_Exception
+     */
     public static function order_edit_status($id, $new_status)
     {
         $order = wc_get_order($id);
@@ -514,8 +580,15 @@ class Product extends \woocoo\App\Core\Product
         }
     }
 
+    /**
+     * Order changed status
+     *
+     * @param $order_id
+     * @param $old_status
+     * @param $new_status
+     * @return void
+     */
     public static function order_changed_status($order_id, $old_status, $new_status)
-        //public static function change_order_status($qty, $order, $item)
     {
         echo '<pre>';
         $order = wc_get_order($order_id);
@@ -531,6 +604,11 @@ class Product extends \woocoo\App\Core\Product
         die($order_total);*/
     }
 
+    /**
+     * Admin notices
+     *
+     * @return void
+     */
     public static function admin_notices(){
         $admin_notice = Logs::readLog(Main::$module_slug . '/admin_notice');
         if (!empty($admin_notice['message'])) {
@@ -542,6 +620,11 @@ class Product extends \woocoo\App\Core\Product
         }
     }
 
+    /**
+     * Register Actions
+     *
+     * @return void
+     */
     private function registerActions()
     {
         add_filter('woocommerce_add_to_cart_validation', [self::class, 'add_to_cart_validation'], 10, 5);
@@ -550,7 +633,6 @@ class Product extends \woocoo\App\Core\Product
         add_action('woocommerce_before_checkout_process', [self::class, 'before_checkout_process']);
 
         add_action('admin_notices', [self::class, 'admin_notices']);
-
 
         //add_action('woocommerce_order_status_changed', [self::class, 'order_changed_status'], 10, 3);
         //add_action('woocommerce_order_edit_status', [self::class, 'order_edit_status'], 111, 2);

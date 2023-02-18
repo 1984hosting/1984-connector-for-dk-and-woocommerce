@@ -1,13 +1,20 @@
 <?php
 /**
- * Handles Class Load.
+ * The file that defines the loader class
  *
- * @package  WooCoo\loader
- * @version  0.1
+ * A class definition that includes attributes and functions of the loader class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo
  */
 
 namespace woocoo;
 
+/**
+ * Class loader
+ */
 class loader
 {
 
@@ -30,6 +37,12 @@ class loader
         ]);
     }
 
+    /**
+     * Load File
+     *
+     * @param $file
+     * @return bool
+     */
     public static function loadFile($file): bool
     {
         $file = DIRECTORY_SEPARATOR == '\\' ? $file : str_replace('\\', DIRECTORY_SEPARATOR, $file);
@@ -42,6 +55,12 @@ class loader
         return false;
     }
 
+    /**
+     * Loader
+     *
+     * @param $item
+     * @return void
+     */
     public function loader($item)
     {
         if ($this->prefix) {
@@ -57,6 +76,12 @@ class loader
         $this->loadClass($item) || $this->loadInterface($item) || $this->loadTrait($item) || var_dump($item);
     }
 
+    /**
+     * Load class
+     *
+     * @param $classname
+     * @return bool
+     */
     public function loadClass($classname): bool
     {
         $filename = $this->folder . DIRECTORY_SEPARATOR . $classname . '.class.php';
@@ -72,12 +97,24 @@ class loader
         return false;
     }
 
+    /**
+     * Load Interface
+     *
+     * @param $interface
+     * @return bool
+     */
     public function loadInterface($interface): bool
     {
         $filename = $this->folder . DIRECTORY_SEPARATOR . $interface . '.interface.php';
         return self::loadFile($filename);
     }
 
+    /**
+     * Load Trait
+     *
+     * @param $trait
+     * @return bool
+     */
     public function loadTrait($trait): bool
     {
         $filename = $this->folder . DIRECTORY_SEPARATOR . $trait . '.trait.php';

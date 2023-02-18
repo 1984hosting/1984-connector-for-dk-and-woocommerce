@@ -1,14 +1,37 @@
 <?php
+/**
+ * The file that defines the Ajax class
+ *
+ * A class definition that includes attributes and functions of the Ajax class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Core
+ */
 
 namespace woocoo\App\Core;
 
+/**
+ * Class Ajax
+ */
 class Ajax
 {
     private $callback;
+
     private bool $is_admin;
+
     private string $action;
+
     public array $params;
 
+    /**
+     * Construct
+     *
+     * @param string $action
+     * @param callable $callback
+     * @param bool $is_admin
+     */
     public function __construct(string $action, callable $callback, bool $is_admin = true)
     {
         if (!$action || !is_callable($callback)) {
@@ -22,6 +45,11 @@ class Ajax
         $this->registerActions();
     }
 
+    /**
+     * Do callback
+     *
+     * @return void
+     */
     public function doCallback()
     {
         $this->params = $_POST;
@@ -29,6 +57,12 @@ class Ajax
         call_user_func($this->callback, $this->params);
     }
 
+    /**
+     * Response
+     *
+     * @param array $args
+     * @return void
+     */
     public static function response(array $args)
     {
         if (isset($args['message'])) {
@@ -37,6 +71,11 @@ class Ajax
         echo json_encode($args);
     }
 
+    /**
+     * Register Actions
+     *
+     * @return void
+     */
     private function registerActions()
     {
         if ($this->is_admin) {

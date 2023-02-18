@@ -1,12 +1,26 @@
 <?php
+/**
+ * The file that defines the Page class
+ *
+ * A class definition that includes attributes and functions of the Page class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Modules/dkPlus
+ */
 
 namespace woocoo\App\Modules\dkPlus;
 
 use woocoo\App\Core\Ajax;
 use woocoo\App\Core\Logs;
 
+/**
+ * Class Page
+ */
 class Page extends \woocoo\App\Core\Page
 {
+
     function __construct()
     {
         $settings = Main::getInstance();
@@ -21,6 +35,9 @@ class Page extends \woocoo\App\Core\Page
 
     /**
      * Add a custom product data tab
+     *
+     * @param $default_tabs
+     * @return mixed
      */
     public function product_tab_create($default_tabs)
     {
@@ -35,12 +52,19 @@ class Page extends \woocoo\App\Core\Page
 
     /**
      * Adds a sync tab for the product
+     *
+     * @return void
      */
     public function product_tab_content()
     {
         include_once PLUGIN_TPL_DIR . '/dkPlus/product-tab.php';
     }
 
+    /**
+     * Create a meta box
+     *
+     * @return void
+     */
     public function create_meta_box()
     {
         add_meta_box(
@@ -56,6 +80,9 @@ class Page extends \woocoo\App\Core\Page
 
     /**
      * Save sync options for the product
+     *
+     * @param $product
+     * @return void
      */
     public function process_product_object( $product )
     {
@@ -70,13 +97,17 @@ class Page extends \woocoo\App\Core\Page
 
         // Saving the sync options for the product, that were set in "dkPlus synchronization" product tab #30
         foreach ($keys as $key) {
-            update_post_meta( $product->get_id(), '_woocoo_' . $key, ($_POST[$key] === 'on')?$_POST[$key]:'off' );
+            update_post_meta( $product->get_id(), '_woocoo_' . $key,
+                ($_POST[$key] === 'on')?$_POST[$key]:'off' );
         }
 
     }
 
     /**
      * Create invoice when purchase is complete. #23
+     *
+     * @param $order_id
+     * @return void
      */
     public function payment_complete( $order_id ){
         $order = wc_get_order( $order_id );
@@ -135,7 +166,8 @@ class Page extends \woocoo\App\Core\Page
                 $shipping_method_id          = $item->get_method_id(); // The method ID
                 $shipping_method_instance_id = $item->get_instance_id(); // The instance ID
                 $shipping_method_total       = $item->get_total();
-                $dkPlus_product = get_option('woocommerce_'.$shipping_method_id.'_'.$shipping_method_instance_id.'_settings')['dkPlus_product'];
+                $dkPlus_product = get_option('woocommerce_'. $shipping_method_id .'_'.
+                    $shipping_method_instance_id.'_settings')['dkPlus_product'];
                 if ($dkPlus_product) {
                     $lines[] = [
                         "ItemCode" => $dkPlus_product,
@@ -176,7 +208,8 @@ class Page extends \woocoo\App\Core\Page
 
             if (isset($_POST['ship_to_different_address'])) {
                 $data["Receiver"] = [
-                                        "Name" => $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name(),
+                                        "Name" => $order->get_shipping_first_name() . ' ' .
+                                            $order->get_shipping_last_name(),
                                         "Address1" => $order->get_shipping_address_1(),
                                         "Address2" => $order->get_shipping_address_2(),
                                         "ZipCode" => $order->get_shipping_postcode(),
@@ -188,19 +221,27 @@ class Page extends \woocoo\App\Core\Page
             if ($invoice) {
                 // Add the note
                 $order->add_order_note( 'Invoice #'. $invoice['Number'] .' is successfully added' );
-                Logs::appendLog(Main::$module_slug . '/logs', 'Invoice #'. $invoice['Number'] .' is successfully added');
+                Logs::appendLog(Main::$module_slug . '/logs',
+                    'Invoice #'. $invoice['Number'] .' is successfully added');
             }
         }
     }
 
+    /**
+     * callback content function
+     *
+     * @param $post
+     * @return void
+     */
     public function meta_box_content($post)
     {
-        //print_r($post);
         include_once PLUGIN_TPL_DIR . '/dkPlus/product-meta_content.php';
     }
 
     /**
      * Saving Options and Installing a Cron Job
+     *
+     * @return array
      */
     public static function saveOptions()
     {
@@ -214,7 +255,8 @@ class Page extends \woocoo\App\Core\Page
         as_unschedule_all_actions($task_name);
 
         /** Add events */
-        if (isset($data['woocoo_schedule']) && $data['woocoo_schedule'] !== 'disabled' && $settings[Main::$module_slug]['token']) {
+        if (isset($data['woocoo_schedule']) && $data['woocoo_schedule'] !== 'disabled'
+            && $settings[Main::$module_slug]['token']) {
             $schedules = wp_get_schedules();
             $interval = 60;
             if (isset($schedules[$data['woocoo_schedule']])) {
@@ -232,16 +274,32 @@ class Page extends \woocoo\App\Core\Page
         ];
     }
 
+    /**
+     * Log Incomplete Import
+     *
+     * @return array
+     */
     public static function incompleteImport()
     {
         return Logs::readLog('dkPlus/import_products_status');
     }
 
+    /**
+     * Log Incomplete Sync
+     *
+     * @return array
+     */
     public static function incompleteSync()
     {
         return Logs::readLog('dkPlus/sync_products_status');
     }
 
+    /**
+     * Add custom fields to a payment form
+     *
+     * @param $form_fields
+     * @return mixed
+     */
     public function payment_form_fields( $form_fields ){
 
         $paymentTypesOptions = [];
@@ -263,6 +321,12 @@ class Page extends \woocoo\App\Core\Page
         return $form_fields;
     }
 
+    /**
+     * Add custom fields to a shipping form
+     *
+     * @param $form_fields
+     * @return mixed
+     */
     public function shipping_form_fields( $form_fields ){
 
         $shippingCostOptions = [];
@@ -286,6 +350,8 @@ class Page extends \woocoo\App\Core\Page
 
     /**
      * Register required actions
+     *
+     * @return void
      */
     private function registerActions()
     {

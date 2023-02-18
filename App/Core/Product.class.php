@@ -1,9 +1,22 @@
 <?php
+/**
+ * The file that defines the Product class
+ *
+ * A class definition that includes attributes and functions of the Product class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/App/Core
+ */
 
 namespace woocoo\App\Core;
 
 use woocoo\App\Modules\dkPlus\ProductMap;
 
+/**
+ * Class Product
+ */
 abstract class Product extends Woo_Query
 {
     //abstract protected static function productSyncOne(array $needed_fields, $product_id);
@@ -209,6 +222,7 @@ abstract class Product extends Woo_Query
 
     /**
      * Variation update in woocommerce
+     *
      * @param array $needed_fields
      * @param $variation_id
      * @param $product
@@ -233,6 +247,7 @@ abstract class Product extends Woo_Query
 
     /**
      * Get variation from woocommerce product
+     *
      * @param array $needed_fields
      * @param $variation_id
      * @param $product
@@ -256,6 +271,12 @@ abstract class Product extends Woo_Query
         return $product;
     }
 
+    /**
+     * Set Data Format
+     *
+     * @param array $product_data
+     * @return array
+     */
     public static function dataFormatSet(array $product_data): array
     {
         foreach ($product_data as &$value) {
@@ -265,6 +286,12 @@ abstract class Product extends Woo_Query
         return $product_data;
     }
 
+    /**
+     * Get Data Format
+     *
+     * @param array $product_data
+     * @return array
+     */
     public static function dataFormatGet(array $product_data): array
     {
         foreach ($product_data as &$value) {

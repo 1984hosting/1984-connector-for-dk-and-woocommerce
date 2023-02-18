@@ -1,9 +1,13 @@
 <?php
 /**
- * Handles GitHub Update.
+ * The file that defines the updater class
  *
- * @package  WooCoo\updater
- * @version  0.1
+ * A class definition that includes attributes and functions of the updater class
+ *
+ * @since      0.1
+ *
+ * @package    WooCoo
+ * @subpackage WooCoo/includes
  */
 
 namespace woocoo;
