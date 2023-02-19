@@ -55,7 +55,8 @@ trait API
         if (empty(self::$token)) {
             if (!isset($_GET['page']) || $_GET['page'] !== PLUGIN_SLUG) return;
 
-            Logs::appendLog(Main::$module_slug . '/logs', 'Error: Please, check the correctness of the login and password.');
+            Logs::appendLog(Main::$module_slug . '/logs',
+                'Error: Please, check the correctness of the login and password.');
             new WP_Notice('error', 'Error: Please, check the correctness of the login and password.');
             return;
         }
@@ -71,7 +72,8 @@ trait API
         $method = '/token';
         $args = [
             'headers' => [
-                'Authorization' => 'Basic ' . base64_encode($data[self::getModuleSlug()]['login'] . ':' . $data[self::getModuleSlug()]['password']),
+                'Authorization' => 'Basic ' . base64_encode($data[self::getModuleSlug()]['login'] . ':' .
+                        $data[self::getModuleSlug()]['password']),
                 'Content-type' => 'application/x-www-form-urlencoded',
             ],
             'body' => [
@@ -332,7 +334,8 @@ trait API
     public static function salesPersonUpdate(string $salesperson_number, $args): array|bool
     {
         try {
-            $salesperson = Main::request('/sales/person/' . $salesperson_number, Main::setHeaders('PUT', $args));
+            $salesperson = Main::request('/sales/person/' . $salesperson_number,
+                Main::setHeaders('PUT', $args));
             if (empty($salesperson) || is_bool($salesperson)) {
                 throw WP_Exceptions::invalidSalesPerson();
             }
