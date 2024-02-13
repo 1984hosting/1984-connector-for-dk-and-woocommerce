@@ -1,3 +1,4 @@
 {
+	"intelephense.environment.documentRoot": "woocoo.php",
     "phpcs.standard": "WordPress"
 }
