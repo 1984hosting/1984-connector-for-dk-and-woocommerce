@@ -58,4 +58,15 @@
 	<!-- Disallow "sloppy" equals operators -->
 	<rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators">
 	</rule>
+
+	<!--
+	Exclude the vendor direcotry because of course
+	-->
+	<exclude-pattern>./vendor/*</exclude-pattern>
+
+	<!--
+	As we are rebuilding and moving functionality from the ./App directory and
+	over to ./src, we will simply ignore the code in there for the time being.
+	-->
+	<exclude-pattern>./App/*</exclude-pattern>
 </ruleset>
