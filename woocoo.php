@@ -29,6 +29,14 @@ if (!defined('PLUGIN_TPL_DIR')) {
 }
 
 /**
+ * Run the PSR-4 autoloader
+ *
+ * This will replace any other loading mechanism in the codebase once it has
+ * been refactored.
+ */
+require './vendor/autoload.php';
+
+/**
  * Load plugin
  */
 require_once 'loader.class.php';

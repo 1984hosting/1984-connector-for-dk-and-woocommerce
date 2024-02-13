@@ -2,12 +2,17 @@
     "name": "1984/woocoo",
     "type": "wordpress-plugin",
     "require-dev": {
-        "wp-coding-standards/wpcs": "^3.0"
+        "wp-coding-standards/wpcs": "^3.0",
+        "slevomat/coding-standard": "^8.14"
     },
-    "require": {},
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "NineteenEightyFour\\": "src/"
         }
     }
 }
