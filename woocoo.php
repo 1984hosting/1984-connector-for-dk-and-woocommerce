@@ -34,7 +34,7 @@ if (!defined('PLUGIN_TPL_DIR')) {
  * This will replace any other loading mechanism in the codebase once it has
  * been refactored.
  */
-require './vendor/autoload.php';
+require plugin_dir_path( __FILE__ ) . './vendor/autoload.php';
 
 /**
  * Load plugin
