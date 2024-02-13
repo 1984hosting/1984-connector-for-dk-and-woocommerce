@@ -3,7 +3,8 @@
     "type": "wordpress-plugin",
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.0",
-        "slevomat/coding-standard": "^8.14"
+        "slevomat/coding-standard": "^8.14",
+        "phpcompatibility/php-compatibility": "^9.3"
     },
     "config": {
         "allow-plugins": {

@@ -4,8 +4,12 @@
 
 	<config
 		name="installed_paths"
-		value="../../slevomat/coding-standard,../../wp-coding-standards/wpcs,../../phpcsstandards/phpcsutils,../../phpcsstandards/phpcsextra"
+		value="../../slevomat/coding-standard,../../wp-coding-standards/wpcs,../../phpcsstandards/phpcsutils,../../phpcsstandards/phpcsextra,../../phpcompatibility/php-compatibility/"
 	/>
+
+	<rule ref="PHPCompatibility">
+	</rule>
+	<config name="testVersion" value="8.2-"/>
 
 	<!-- Use WordPress as the basis of our ruleset -->
 	<rule ref="WordPress">
@@ -21,6 +25,17 @@
 		single class.
 		-->
 		<exclude name="Squiz.Commenting.FileComment.Missing" />
+
+		<!--
+		Disable file comment checks as the only file comment is the one in the
+		root file, used for WordPress specific metadata.
+		-->
+		<exclude name="Squiz.Commenting.FileComment" />
+	</rule>
+
+	<!-- Disable everything from the phpcsextra package -->
+	<rule ref="Universal">
+		<exclude name="Universal"></exclude>
 	</rule>
 
 	<!-- Enforce strict type decleration at top of all PHP files -->
