@@ -33,6 +33,24 @@
 		<exclude name="Squiz.Commenting.FileComment" />
 	</rule>
 
+	<!--
+	Excluding commenting rules from tests, as we are using TestDox instead
+	-->
+	<rule ref="Squiz.Commenting.ClassComment.Missing">
+		<exclude-pattern>./tests/*</exclude-pattern>
+	</rule>
+	<rule ref="Squiz.Commenting.FunctionComment.Missing">
+		<exclude-pattern>./tests/*</exclude-pattern>
+	</rule>
+
+	<!--
+	As we are using the tests/Supress* files for a hack, we can safely define
+	multiple classes in there
+	-->
+	<rule ref="Generic.Files.OneObjectStructurePerFile.MultipleFound">
+		<exclude-pattern>./tests/Supress*</exclude-pattern>
+	</rule>
+
 	<!-- Disable everything from the phpcsextra package -->
 	<rule ref="Universal">
 		<exclude name="Universal"></exclude>
