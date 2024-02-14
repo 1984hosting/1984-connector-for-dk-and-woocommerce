@@ -2,6 +2,9 @@
 
 declare(strict_types = 1);
 
+namespace NineteenEightyFour\NinteenEightyWoo\Tests;
+
+use NineteenEightyFour\NinteenEightyWoo\Foo;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
 
@@ -9,7 +12,7 @@ use PHPUnit\Framework\Attributes\TestDox;
 final class FooTest extends TestCase {
 	#[TestDox( 'echoes out a hello message' )]
 	public function testTrue(): void {
-		NineteenEightyFour\NinteenEightyWoo\Foo::say_hello();
+		Foo::say_hello();
 		$this->expectOutputString( 'Hello!' );
 	}
 }
