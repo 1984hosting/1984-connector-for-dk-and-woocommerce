@@ -1,0 +1,25 @@
+services:
+  dockpress:
+    image: dockpress
+    volumes:
+      - ./dockpress-secrets:/secrets
+      - /tmp:/var/www/html/wp-content/uploads/
+      - .:/var/www/html/wp-content/plugins/woocoo/
+    ports:
+      - 80:80
+    environment:
+      - WP_PLUGIN_ACTIVATE=woocoo
+  mariadb:
+    image: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MARIADB_DATABASE=wordpress
+      - MARIADB_USER=wordpress
+      - MARIADB_PASSWORD=password
+      - MARIADB_ROOT_PASSWORD=password
+  memcached:
+    image: memcached
+    ports:
+      - 11211:11211
