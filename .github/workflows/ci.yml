@@ -49,4 +49,4 @@ jobs:
     - name: PHPCS
       run: ./vendor/bin/phpcs ./src/
     - name: PHPUnit
-      run: bin/install-wp-tests.sh test root password 127.0.0.1 6.4 && ./vendor/bin/phpunit --testdox --coverage-text --coverage-filter=src
+      run: ./vendor/bin/phpunit --testdox --coverage-text --coverage-filter=src
