@@ -11,11 +11,13 @@ jobs:
           MARIADB_USER: test
           MARIADB_PASSWORD: password
           MARIADB_ROOT_PASSWORD: password
+          MARIADB_DATABASE : wp-test
         options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=10s --health-timeout=5s --health-retries=10
     strategy:
       matrix:
         php-versions: ['8.2', '8.3', '8.4']
     env:
+      DB_NAME: 'wp-test'
       DB_HOST: '127.0.0.1'
       DB_USER: root
       DB_PASSWORD: password
