@@ -48,7 +48,7 @@ jobs:
         coverage: xdebug
         tools: phpcs, phpunit
     - name: Install dependencies
-      run: composer install
+      run: composer install --no-cache
     - name: Figure out the PSR-4 autoload situation
       run: composer dump-autoload -o --strict-psr
     - name: PHPCS
