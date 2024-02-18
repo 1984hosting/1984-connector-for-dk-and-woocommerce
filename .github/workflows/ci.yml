@@ -16,6 +16,7 @@ jobs:
       matrix:
         php-versions: ['8.2', '8.3', '8.4']
     env:
+      DB_HOST: mariadb
       XDEBUG_MODE: coverage
       extensions: bcmath
       key: cache-v1
