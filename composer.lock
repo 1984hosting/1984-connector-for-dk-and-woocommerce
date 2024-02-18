@@ -12,13 +12,13 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:aldavigdis/wp-tests-strapon.git",
-                "reference": "b056739439a276017d1f481cc2fb855947321cbe"
+                "url": "https://github.com/aldavigdis/wp-tests-strapon.git",
+                "reference": "55f7a8594114194d9581d96d37ccb7206e805478"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aldavigdis/wp-tests-strapon/zipball/b056739439a276017d1f481cc2fb855947321cbe",
-                "reference": "b056739439a276017d1f481cc2fb855947321cbe",
+                "url": "https://api.github.com/repos/aldavigdis/wp-tests-strapon/zipball/55f7a8594114194d9581d96d37ccb7206e805478",
+                "reference": "55f7a8594114194d9581d96d37ccb7206e805478",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +63,7 @@
                 "source": "https://github.com/aldavigdis/wp-tests-strapon/tree/main",
                 "issues": "https://github.com/aldavigdis/wp-tests-strapon/issues"
             },
-            "time": "2024-02-18T14:28:29+00:00"
+            "time": "2024-02-18T17:49:18+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
