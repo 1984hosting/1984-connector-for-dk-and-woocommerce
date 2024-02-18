@@ -23,7 +23,7 @@ jobs:
       DB_PASSWORD: password
       XDEBUG_MODE: coverage
       extensions: bcmath
-      key: cache-v1
+      key: cache-v1.1
     steps:
     - name: Checkout
       uses: actions/checkout@v3
