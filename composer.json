@@ -7,8 +7,15 @@
         "phpcompatibility/php-compatibility": "^9.3",
         "phpunit/phpunit": "^10.0",
         "psy/psysh": "^0.12.0",
-        "yoast/phpunit-polyfills": "^2.0"
+        "yoast/phpunit-polyfills": "^2.0",
+        "aldavigdis/wp-tests-strapon": "dev-main"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/aldavigdis/wp-tests-strapon.git"
+        }
+    ],
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
@@ -18,5 +25,6 @@
         "psr-4": {
             "NineteenEightyFour\\NinteenEightyWoo\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

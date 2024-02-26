@@ -11,14 +11,20 @@ jobs:
           MARIADB_USER: test
           MARIADB_PASSWORD: password
           MARIADB_ROOT_PASSWORD: password
+          MARIADB_DATABASE : wp-test
         options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=10s --health-timeout=5s --health-retries=10
     strategy:
       matrix:
         php-versions: ['8.2', '8.3', '8.4']
+        wp-versions: ['master', '6.4.3', '6.3.3', '6.2.4', '6.1.5']
     env:
+      DB_NAME: 'wp-test'
+      DB_HOST: '127.0.0.1'
+      DB_USER: root
+      DB_PASSWORD: password
       XDEBUG_MODE: coverage
       extensions: bcmath
-      key: cache-v1
+      key: cache-v1.1
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -43,10 +49,12 @@ jobs:
         coverage: xdebug
         tools: phpcs, phpunit
     - name: Install dependencies
-      run: composer install
+      run: composer install --no-cache
     - name: Figure out the PSR-4 autoload situation
       run: composer dump-autoload -o --strict-psr
     - name: PHPCS
       run: ./vendor/bin/phpcs ./src/
     - name: PHPUnit
-      run: bin/install-wp-tests.sh test root password 127.0.0.1 6.4 && ./vendor/bin/phpunit --testdox --coverage-text --coverage-filter=src
+      env:
+        WP_VERSION: ${{ matrix.wp-versions }}
+      run: ./vendor/bin/phpunit --testdox --coverage-text --coverage-filter=src

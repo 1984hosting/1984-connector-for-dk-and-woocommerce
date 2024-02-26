@@ -3,8 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd"
     cacheResult="false"
-    bootstrap="tests/bootstrap.php"
+    bootstrap="vendor/aldavigdis/wp-tests-strapon/bootstrap.php"
 >
+	<php>
+		<env name="WP_VERSION" value="6.2.1" />
+	</php>
   <testsuites>
     <testsuite name="Project Test Suite">
       <directory>tests</directory>
