@@ -28,13 +28,7 @@ if (!defined('PLUGIN_TPL_DIR')) {
     define('PLUGIN_TPL_DIR', PLUGIN_PATH . 'templates');
 }
 
-/**
- * Run the PSR-4 autoloader
- *
- * This will replace any other loading mechanism in the codebase once it has
- * been refactored.
- */
-require plugin_dir_path( __FILE__ ) . './vendor/autoload.php';
+require_once 'NinteenEightyWoo.php';
 
 /**
  * Load plugin
