@@ -31,6 +31,12 @@
 		root file, used for WordPress specific metadata.
 		-->
 		<exclude name="Squiz.Commenting.FileComment" />
+
+		<!--
+		Disables a check for JS being loaded from the footer. It is a silly idea
+		and heresy.
+		-->
+		<exclude name="WordPress.WP.EnqueuedResourceParameters.NotInFooter" />
 	</rule>
 
 	<!--
