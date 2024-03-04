@@ -100,7 +100,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								required
 							/>
 							<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
-							<p class="validity invalid"><?php esc_html_e( 'This is a required ', 'NineteenEightyWoo' ); ?></p>
+							<p class="validity invalid"><?php esc_html_e( 'This is a required field', 'NineteenEightyWoo' ); ?></p>
 						</td>
 					</tr>
 					<?php endforeach ?>
