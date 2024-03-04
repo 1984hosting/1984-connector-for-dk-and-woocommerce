@@ -30,7 +30,7 @@ class NinteenEightyWoo {
 			paymentMethods.push(
 				{
 					woo_id: wooId,
-					dk_id: parseInt(paymentIds[i]),
+					dk_id: paymentIds[i],
 					dk_name: paymentNames[i].trim()
 				}
 			);
