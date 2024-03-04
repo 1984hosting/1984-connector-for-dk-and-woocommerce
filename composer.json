@@ -8,17 +8,30 @@
         "phpunit/phpunit": "^10.0",
         "psy/psysh": "^0.12.0",
         "yoast/phpunit-polyfills": "^2.0",
-        "aldavigdis/wp-tests-strapon": "dev-main"
+        "aldavigdis/wp-tests-strapon": "dev-main",
+        "woocommerce/woocommerce": "8.6.1"
     },
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/aldavigdis/wp-tests-strapon.git"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "woocommerce/woocommerce",
+                "version": "8.6.1",
+                "dist": {
+                    "url": "https://github.com/woocommerce/woocommerce/releases/download/8.6.1/woocommerce.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "config": {
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/installers": false
         }
     },
     "autoload": {

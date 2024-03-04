@@ -1,4 +1,8 @@
 {
-	"intelephense.environment.documentRoot": "woocoo.php",
+	"intelephense.environment.documentRoot": "NinteenEightyWoo.php",
+    "intelephense.environment.includePaths": [
+        "/home/aldavigdis/woocoo/vendor/php-stubs/wordpress-stubs",
+        "/home/aldavigdis/woocoo/vendor/woocommerce/woocommerce",
+    ],
     "phpcs.standard": "WordPress"
 }
