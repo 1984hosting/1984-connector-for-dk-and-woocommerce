@@ -40,6 +40,13 @@
 	</rule>
 
 	<!--
+	Not escaping outputted strings should be allowed in tests, because why not.
+	-->
+	<rule ref="WordPress.Security.EscapeOutput.OutputNotEscaped">
+		<exclude-pattern>./tests/**</exclude-pattern>
+	</rule>
+
+	<!--
 	Excluding commenting rules from tests, as we are using TestDox instead
 	-->
 	<rule ref="Squiz.Commenting.ClassComment.Missing">
