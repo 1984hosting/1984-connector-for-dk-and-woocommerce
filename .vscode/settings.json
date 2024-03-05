@@ -3,6 +3,9 @@
     "intelephense.environment.includePaths": [
         "/home/aldavigdis/woocoo/vendor/php-stubs/wordpress-stubs",
         "/home/aldavigdis/woocoo/vendor/woocommerce/woocommerce",
+        "/tmp/wp-tests-strapon/wordpress-develop-trunk/"
     ],
-    "phpcs.standard": "WordPress"
+    "phpcs.standard": "WordPress",
+    "coverage-gutters.showLineCoverage": true,
+    "coverage-gutters.coverageBaseDir": "test-reports"
 }
