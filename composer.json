@@ -31,7 +31,8 @@
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "composer/installers": false
+            "composer/installers": false,
+            "typisttech/imposter-plugin": true
         }
     },
     "autoload": {
@@ -41,6 +42,12 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "opis/json-schema": "^2.0@dev"
+        "opis/json-schema": "^2.0@dev",
+        "typisttech/imposter-plugin": "^0.6.0@dev"
+    },
+    "extra": {
+        "imposter": {
+            "namespace": "NineteenEightyFour\\NinteenEightyWoo"
+        }
     }
 }

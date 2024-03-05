@@ -7,7 +7,7 @@ namespace NineteenEightyFour\NinteenEightyWoo\Rest;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
-use Opis\JsonSchema\Validator;
+use NineteenEightyFour\NinteenEightyWoo\Opis\JsonSchema\Validator;
 
 /**
  * The REST API Settings endpoint class
