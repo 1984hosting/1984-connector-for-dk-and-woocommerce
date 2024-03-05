@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78a719f99a72d465c1a23d0c75c35dc6",
+    "content-hash": "73407e9c2e5745ce82eecafe42a75ea0",
     "packages": [
         {
             "name": "opis/json-schema",
@@ -3549,6 +3549,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "opis/json-schema": 20,
+        "typisttech/imposter-plugin": 20,
         "aldavigdis/wp-tests-strapon": 20
     },
     "prefer-stable": false,

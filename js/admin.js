@@ -1,12 +1,12 @@
-class NinteenEightyWoo {
+class NineteenEightyWoo {
 	static settingsForm() {
-		return document.querySelector('#ninteen-eighty-woo-settings-form');
+		return document.querySelector('#nineteen-eighty-woo-settings-form');
 	}
 	static settingsLoader() {
-		return document.querySelector('#ninteen-eighty-woo-settings-loader');
+		return document.querySelector('#nineteen-eighty-woo-settings-loader');
 	}
 	static settingsSubmit() {
-		return document.querySelector('#ninteen-eighty-woo-settings-submit');
+		return document.querySelector('#nineteen-eighty-woo-settings-submit');
 	}
 	static rowElements() {
 		return document.querySelectorAll(
@@ -25,7 +25,7 @@ class NinteenEightyWoo {
 		let paymentMethods = [];
 
 		for (let i = 0; i < paymentIds.length; i++) {
-			let wooId = NinteenEightyWoo.rowElements()[i].dataset.gatewayId;
+			let wooId = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
 			let dkId  = parseInt(paymentIds[i]);
 
 			if (isNaN(dkId)) {
@@ -48,14 +48,14 @@ class NinteenEightyWoo {
 
 		console.log(formDataObject);
 
-		NinteenEightyWoo.settingsLoader().classList.remove('hidden');
-		NinteenEightyWoo.settingsSubmit().disabled = true;
-		NinteenEightyWoo.postSettingsData(formDataObject);
+		NineteenEightyWoo.settingsLoader().classList.remove('hidden');
+		NineteenEightyWoo.settingsSubmit().disabled = true;
+		NineteenEightyWoo.postSettingsData(formDataObject);
 	}
 
 	static async postSettingsData(formDataObject) {
 		const response = await fetch(
-			wpApiSettings.root + 'NinteenEightyWoo/v1/settings',
+			wpApiSettings.root + 'NineteenEightyWoo/v1/settings',
 			{
 				method: 'POST',
 				headers: {
@@ -67,8 +67,8 @@ class NinteenEightyWoo {
 		);
 
 		if (response.ok) {
-			NinteenEightyWoo.settingsLoader().classList.add('hidden');
-			NinteenEightyWoo.settingsSubmit().disabled = false;
+			NineteenEightyWoo.settingsLoader().classList.add('hidden');
+			NineteenEightyWoo.settingsSubmit().disabled = false;
 		}
 	}
 }
@@ -77,12 +77,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (document.body) {
 		if (
 			document.body.classList.contains(
-				'woocommerce_page_NinteenEightyWoo'
+				'woocommerce_page_NineteenEightyWoo'
 			)
 		) {
-			NinteenEightyWoo.settingsForm().addEventListener(
+			NineteenEightyWoo.settingsForm().addEventListener(
 				'submit',
-				NinteenEightyWoo.onSettingsFormSubmit
+				NineteenEightyWoo.onSettingsFormSubmit
 			);
 		}
 	}

@@ -1,26 +1,26 @@
-body.woocommerce_page_NinteenEightyWoo .wrap {
+body.woocommerce_page_NineteenEightyWoo .wrap {
 	width: calc(100%);
 	max-width: 60rem;
 	min-height: 100%;
 	margin: 0 auto;
 }
 
-#ninteen-eighty-woo-wrap {
+#nineteen-eighty-woo-wrap {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: calc(100vh - 100px);
 }
 
-#ninteen-eighty-woo-wrap .form-table {
+#nineteen-eighty-woo-wrap .form-table {
 	display: table;
 }
 
-#ninteen-eighty-woo-wrap #api-key-form-table th {
+#nineteen-eighty-woo-wrap #api-key-form-table th {
 	width: 5em;
 }
 
-#ninteen-eighty-woo-wrap table .with-padding {
+#nineteen-eighty-woo-wrap table .with-padding {
 	padding: 20px 10px 20px 10px;
 }
 
@@ -38,7 +38,7 @@ body.woocommerce_page_NinteenEightyWoo .wrap {
 	margin-bottom: 0.3em;
 }
 
-#ninteen-eighty-woo-wrap #api-key-form-table td {
+#nineteen-eighty-woo-wrap #api-key-form-table td {
 	max-width: calc(100vw - 10px - 8rem);
 	width: calc(60rem - 10px - 5em - 4rem);
 }
@@ -47,7 +47,7 @@ body.woocommerce_page_NinteenEightyWoo .wrap {
 	width: 100%;
 }
 
-#ninteen-eighty-woo-wrap .section {
+#nineteen-eighty-woo-wrap .section {
 	width: calc(100% - 6rem);
 	background-color: #fff;
 	padding: 1rem 2rem;
@@ -57,7 +57,7 @@ body.woocommerce_page_NinteenEightyWoo .wrap {
 	border-radius: 5px;
 }
 
-#ninteen-eighty-woo-wrap h1 {
+#nineteen-eighty-woo-wrap h1 {
 	margin-bottom: 0.2em;
 	margin-top: 1em;
 	font-size: 3rem;
@@ -65,15 +65,19 @@ body.woocommerce_page_NinteenEightyWoo .wrap {
 	line-height: 1em;
 }
 
-#ninteen-eighty-woo-wrap .submit-container {
+#nineteen-eighty-woo-wrap .submit-container {
 	width: calc(100% - 2rem);
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	justify-content: flex-end;
+}°
+
+#nineteen-eighty-woo-settings-error {
+	font-weight: 600;
 }
 
-#ninteen-eighty-woo-wrap .loader {
+#nineteen-eighty-woo-wrap .loader {
 	margin-right: 1rem;
 }
 
@@ -107,10 +111,10 @@ body.woocommerce_page_NinteenEightyWoo .wrap {
 }
 
 @media screen and (max-width: 782px) {
-	#ninteen-eighty-woo-wrap h1 {
+	#nineteen-eighty-woo-wrap h1 {
 		margin-left: 21px;
 	}
-	#ninteen-eighty-woo-wrap #api-key-form-table td {
+	#nineteen-eighty-woo-wrap #api-key-form-table td {
 		max-width: calc(100vw - 10px - 6rem);
 	}
 	#payment-gateway-id-map-table tr th:first-child {

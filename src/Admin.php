@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NinteenEightyWoo;
+namespace NineteenEightyFour\NineteenEightyWoo;
 
 /**
- * The NinteenEightyWoo Admin class
+ * The NineteenEightyWoo Admin class
  *
  * Handles the wp-admin related functionality for the plugin; loads views,
  * enqueues scripts and stylesheets etc.
@@ -31,10 +31,10 @@ class Admin {
 	public static function add_menu_page(): void {
 		add_submenu_page(
 			'woocommerce',
-			__( '1984 dkPlus Connection', 'NinteenEightyWoo' ),
-			__( 'dkPlus Connection', 'NinteenEightyWoo' ),
+			__( '1984 dkPlus Connection', 'NineteenEightyWoo' ),
+			__( 'dkPlus Connection', 'NineteenEightyWoo' ),
 			'manage_options',
-			'NinteenEightyWoo',
+			'NineteenEightyWoo',
 			array( __CLASS__, 'render_admin_page' )
 		);
 	}
@@ -53,13 +53,13 @@ class Admin {
 	 */
 	public static function enqueue_styles_and_scripts(): void {
 		wp_enqueue_style(
-			handle: 'ninteen-eighty-woo',
+			handle: 'nineteen-eighty-woo',
 			src: plugins_url( 'style/admin.css', __DIR__ ),
 			ver: '0.1'
 		);
 
 		wp_enqueue_script(
-			handle: 'ninteen-eighty-woo',
+			handle: 'nineteen-eighty-woo',
 			src: plugins_url( 'js/admin.js', __DIR__ ),
 			deps: array( 'wp-api', 'wp-data' ),
 			ver: '0.1'

@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NinteenEightyWoo\Tests;
+namespace NineteenEightyFour\NineteenEightyWoo\Tests;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
-use NineteenEightyFour\NinteenEightyWoo\Rest\Settings;
+use NineteenEightyFour\NineteenEightyWoo\Rest\Settings;
 use WP_REST_Request;
 use WP_UnitTest_Factory_For_User;
 use WP_User;
@@ -70,11 +70,11 @@ final class RestSettingstest extends TestCase {
 		wp_delete_user( $this->admin_user );
 	}
 
-	#[TestDox( 'creates the NinteenEightyWoo/v1 namespace in the WP REST API' )]
+	#[TestDox( 'creates the NineteenEightyWoo/v1 namespace in the WP REST API' )]
 	public function testNamespaceExsists(): void {
 		$request  = new WP_REST_Request(
 			'GET',
-			'/NinteenEightyWoo/v1'
+			'/NineteenEightyWoo/v1'
 		);
 		$response = rest_do_request( $request );
 
@@ -86,7 +86,7 @@ final class RestSettingstest extends TestCase {
 		// We're assuming an external request here, so we're not using a nonce value.
 		$request  = new WP_REST_Request(
 			'POST',
-			'/NinteenEightyWoo/v1/settings'
+			'/NineteenEightyWoo/v1/settings'
 		);
 		$response = rest_do_request( $request );
 
@@ -100,7 +100,7 @@ final class RestSettingstest extends TestCase {
 		wp_set_current_user( $this->admin_user_id );
 		$request = new WP_REST_Request(
 			'POST',
-			'/NinteenEightyWoo/v1/settings'
+			'/NineteenEightyWoo/v1/settings'
 		);
 
 		$request->add_header( 'X-WP-Nonce', wp_create_nonce( 'wp_rest' ) );
@@ -116,7 +116,7 @@ final class RestSettingstest extends TestCase {
 		wp_set_current_user( $this->admin_user_id );
 		$string_request = new WP_REST_Request(
 			'POST',
-			'/NinteenEightyWoo/v1/settings'
+			'/NineteenEightyWoo/v1/settings'
 		);
 
 		$string_request->add_header(
@@ -129,7 +129,7 @@ final class RestSettingstest extends TestCase {
 
 		$object_request = new WP_REST_Request(
 			'POST',
-			'/NinteenEightyWoo/v1/settings'
+			'/NineteenEightyWoo/v1/settings'
 		);
 		$object_request->add_header(
 			'X-WP-Nonce',
@@ -145,7 +145,7 @@ final class RestSettingstest extends TestCase {
 
 		$api_key_unset_request = new WP_REST_Request(
 			'POST',
-			'/NinteenEightyWoo/v1/settings'
+			'/NineteenEightyWoo/v1/settings'
 		);
 		$api_key_unset_request->add_header(
 			'X-WP-Nonce',

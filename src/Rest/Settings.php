@@ -2,17 +2,17 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NinteenEightyWoo\Rest;
+namespace NineteenEightyFour\NineteenEightyWoo\Rest;
 
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
-use NineteenEightyFour\NinteenEightyWoo\Opis\JsonSchema\Validator;
+use NineteenEightyFour\NineteenEightyWoo\Opis\JsonSchema\Validator;
 
 /**
  * The REST API Settings endpoint class
  *
- * Handles the `NinteenEightyWoo/v1/settings/` REST endpoint.
+ * Handles the `NineteenEightyWoo/v1/settings/` REST endpoint.
  */
 class Settings {
 	const JSON_SCHEMA = <<<'JSON'
@@ -41,7 +41,7 @@ class Settings {
 	/**
 	 * The Constructor for the Settings REST endpoint
 	 *
-	 * Registers the NinteenEightyWoo/v1/settings/ endpoint, that receives
+	 * Registers the NineteenEightyWoo/v1/settings/ endpoint, that receives
 	 * requests from the admin interface.
 	 */
 	public function __construct() {
@@ -55,7 +55,7 @@ class Settings {
 	 */
 	public static function register_route(): bool {
 		return register_rest_route(
-			'NinteenEightyWoo/v1',
+			'NineteenEightyWoo/v1',
 			'/settings/',
 			array(
 				'methods'             => 'POST',

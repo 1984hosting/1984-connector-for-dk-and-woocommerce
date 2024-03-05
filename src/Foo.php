@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NinteenEightyWoo;
+namespace NineteenEightyFour\NineteenEightyWoo;
 
 /**
  * The Foo class
@@ -14,6 +14,6 @@ class Foo {
 	 * Say hello
 	 */
 	public static function say_hello(): void {
-		esc_html_e( 'Hello!', 'NinteenEightyWoo' );
+		esc_html_e( 'Hello!', 'NineteenEightyWoo' );
 	}
 }

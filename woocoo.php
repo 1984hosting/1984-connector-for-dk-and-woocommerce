@@ -28,7 +28,7 @@ if (!defined('PLUGIN_TPL_DIR')) {
     define('PLUGIN_TPL_DIR', PLUGIN_PATH . 'templates');
 }
 
-require_once 'NinteenEightyWoo.php';
+require_once 'NineteenEightyWoo.php';
 
 /**
  * Load plugin

@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NinteenEightyWoo\Tests;
+namespace NineteenEightyFour\NineteenEightyWoo\Tests;
 
-use NineteenEightyFour\NinteenEightyWoo\Foo;
+use NineteenEightyFour\NineteenEightyWoo\Foo;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
 

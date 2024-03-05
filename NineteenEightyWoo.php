@@ -8,6 +8,6 @@
  */
 require plugin_dir_path( __FILE__ ) . './vendor/autoload.php';
 
-$new_admin = new NineteenEightyFour\NinteenEightyWoo\Admin();
+$new_admin = new NineteenEightyFour\NineteenEightyWoo\Admin();
 
-$new_rest_settings = new NineteenEightyFour\NinteenEightyWoo\Rest\Settings();
+$new_rest_settings = new NineteenEightyFour\NineteenEightyWoo\Rest\Settings();
