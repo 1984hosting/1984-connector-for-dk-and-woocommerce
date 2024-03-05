@@ -7,6 +7,7 @@ namespace NineteenEightyFour\NinteenEightyWoo\Rest;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
+use Opis\JsonSchema\Validator;
 
 /**
  * The REST API Settings endpoint class
@@ -14,6 +15,29 @@ use WP_REST_Response;
  * Handles the `NinteenEightyWoo/v1/settings/` REST endpoint.
  */
 class Settings {
+	const JSON_SCHEMA = <<<'JSON'
+	{
+		"$schema": "http://json-schema.org/draft-07/schema#",
+		"type": "object",
+		"properties": {
+			"api_key": { "type": "string" },
+			"payment_methods": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"woo_id": { "type": "string" },
+						"dk_id": { "type": "number" },
+						"dk_name": { "type": "string" }
+					},
+					"required": ["woo_id", "dk_id", "dk_name" ]
+				}
+			}
+		},
+		"required": ["api_key", "payment_methods" ]
+	}
+	JSON;
+
 	/**
 	 * The Constructor for the Settings REST endpoint
 	 *
@@ -52,10 +76,10 @@ class Settings {
 		$rest_body = $request->get_body();
 		$rest_json = json_decode( $rest_body );
 
-		if (
-			false === is_object( $rest_json ) ||
-			( false === self::validate_post_schema( $rest_json ) )
-		) {
+		$validator  = new Validator();
+		$validation = $validator->validate( $rest_json, self::JSON_SCHEMA );
+
+		if ( true === $validation->hasError() ) {
 			return new WP_Error(
 				'bad_request',
 				'Bad Request',

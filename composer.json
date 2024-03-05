@@ -39,5 +39,8 @@
             "NineteenEightyFour\\NinteenEightyWoo\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require": {
+        "opis/json-schema": "^2.0@dev"
+    }
 }
