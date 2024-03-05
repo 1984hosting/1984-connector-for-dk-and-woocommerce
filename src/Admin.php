@@ -35,7 +35,7 @@ class Admin {
 			__( 'dkPlus Connection', 'NinteenEightyWoo' ),
 			'manage_options',
 			'NinteenEightyWoo',
-			array( get_called_class(), 'render_admin_page' )
+			array( __CLASS__, 'render_admin_page' )
 		);
 	}
 

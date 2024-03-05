@@ -34,8 +34,8 @@ class Settings {
 			'/settings/',
 			array(
 				'methods'             => 'POST',
-				'callback'            => array( get_called_class(), 'rest_api_callback' ),
-				'permission_callback' => array( get_called_class(), 'permission_check' ),
+				'callback'            => array( __CLASS__, 'rest_api_callback' ),
+				'permission_callback' => array( __CLASS__, 'permission_check' ),
 			)
 		);
 	}
