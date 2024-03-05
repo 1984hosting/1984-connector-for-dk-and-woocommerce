@@ -54,13 +54,13 @@ class Admin {
 	public static function enqueue_styles_and_scripts(): void {
 		wp_enqueue_style(
 			handle: 'ninteen-eighty-woo',
-			src: plugins_url( 'style/ninteen-eighty-woo.css', __DIR__ ),
+			src: plugins_url( 'style/admin.css', __DIR__ ),
 			ver: '0.1'
 		);
 
 		wp_enqueue_script(
 			handle: 'ninteen-eighty-woo',
-			src: plugins_url( 'js/ninteen-eighty-woo.js', __DIR__ ),
+			src: plugins_url( 'js/admin.js', __DIR__ ),
 			deps: array( 'wp-api', 'wp-data' ),
 			ver: '0.1'
 		);

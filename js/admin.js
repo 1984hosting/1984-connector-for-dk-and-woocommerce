@@ -26,11 +26,16 @@ class NinteenEightyWoo {
 
 		for (let i = 0; i < paymentIds.length; i++) {
 			let wooId = NinteenEightyWoo.rowElements()[i].dataset.gatewayId;
+			let dkId  = parseInt(paymentIds[i]);
+
+			if (isNaN(dkId)) {
+				dkId = 0;
+			}
 
 			paymentMethods.push(
 				{
 					woo_id: wooId,
-					dk_id: paymentIds[i],
+					dk_id: dkId,
 					dk_name: paymentNames[i].trim()
 				}
 			);
