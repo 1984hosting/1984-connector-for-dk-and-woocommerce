@@ -37,8 +37,8 @@ class NinteenEightyWoo {
 		}
 
 		const formDataObject = {
-			apiKey: apiKey,
-			paymentMethods: paymentMethods
+			api_key: apiKey,
+			payment_methods: paymentMethods
 		}
 
 		console.log(formDataObject);
