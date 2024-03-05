@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NinteenEightyWoo\Rest;
 
+use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -47,9 +48,20 @@ class Settings {
 	 */
 	public static function rest_api_callback(
 		WP_REST_Request $request
-	): WP_REST_Response {
+	): WP_REST_Response|WP_Error {
 		$rest_body = $request->get_body();
 		$rest_json = json_decode( $rest_body );
+
+		if (
+			false === is_object( $rest_json ) ||
+			( false === self::validate_post_schema( $rest_json ) )
+		) {
+			return new WP_Error(
+				'bad_request',
+				'Bad Request',
+				array( 'status' => '400' ),
+			);
+		}
 
 		update_option( '1984_woo_dk_api_key', $rest_json->api_key );
 
@@ -69,5 +81,35 @@ class Settings {
 	 */
 	public static function permission_check(): bool {
 		return current_user_can( 'manage_options' );
+	}
+
+	/**
+	 * Validate the POST JSON data
+	 *
+	 * @param object $json_body The JSON-decoded body of the settings POST
+	 *                          request.
+	 */
+	public static function validate_post_schema( object $json_body ): bool {
+		if ( false === property_exists( $json_body, 'api_key' ) ) {
+			return false;
+		}
+
+		if ( false === is_string( $json_body->api_key ) ) {
+			return false;
+		}
+
+		foreach ( $json_body->payment_methods as $p ) {
+			if ( false === is_string( $p->woo_id ) ) {
+				return false;
+			}
+			if ( false === is_int( $p->dk_id ) ) {
+				return false;
+			}
+			if ( false === is_string( $p->dk_name ) ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
