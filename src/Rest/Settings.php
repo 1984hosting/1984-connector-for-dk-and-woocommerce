@@ -80,10 +80,10 @@ class Settings {
 		$rest_body = $request->get_body();
 		$rest_json = json_decode( $rest_body );
 
-		if (
-			false === is_object( $rest_json ) ||
-			( false === self::validate_post_schema( $rest_json ) )
-		) {
+		$validator  = new Validator();
+		$validation = $validator->validate( $rest_json, self::JSON_SCHEMA );
+
+		if ( true === $validation->hasError() ) {
 			return new WP_Error(
 				'bad_request',
 				'Bad Request',
