@@ -48,9 +48,17 @@ class Settings {
 	public static function rest_api_callback(
 		WP_REST_Request $request
 	): WP_REST_Response {
-		return new WP_REST_Response(
-			array( 'status' => 200 )
+		$rest_body = $request->get_body();
+		$rest_json = json_decode( $rest_body );
+
+		update_option( '1984_woo_dk_api_key', $rest_json->api_key );
+
+		update_option(
+			'1984_woo_dk_payment_methods',
+			$rest_json->payment_methods
 		);
+
+		return new WP_REST_Response( array( 'status' => 200 ) );
 	}
 
 	/**
