@@ -7,6 +7,11 @@ namespace NineteenEightyFour\NinteenEightyWoo\Rest;
 use WP_REST_Request;
 use WP_REST_Response;
 
+/**
+ * The REST API Settings endpoint class
+ *
+ * Handles the `NinteenEightyWoo/v1/settings/` REST endpoint.
+ */
 class Settings {
 	/**
 	 * The Constructor for the Settings REST endpoint

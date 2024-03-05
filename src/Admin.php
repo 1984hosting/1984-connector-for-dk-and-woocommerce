@@ -4,6 +4,12 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NinteenEightyWoo;
 
+/**
+ * The NinteenEightyWoo Admin class
+ *
+ * Handles the wp-admin related functionality for the plugin; loads views,
+ * enqueues scripts and stylesheets etc.
+ */
 class Admin {
 	/**
 	 * Constructor for the Admin interface class
