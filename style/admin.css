@@ -90,10 +90,15 @@ body.woocommerce_page_NineteenEightyWoo .wrap {
 	align-items: center;
 	flex-wrap: wrap;
 	justify-content: flex-end;
-}°
+}
 
-#nineteen-eighty-woo-settings-error {
-	font-weight: 600;
+#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error {
+	flex: 1;
+	margin-right: 5em;
+}
+
+#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error p {
+	font-size: 1.17em;
 }
 
 #nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error {
