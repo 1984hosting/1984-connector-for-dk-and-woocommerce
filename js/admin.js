@@ -2,6 +2,9 @@ class NineteenEightyWoo {
 	static settingsForm() {
 		return document.querySelector('#nineteen-eighty-woo-settings-form');
 	}
+	static settingsErrorIndicator() {
+		return document.querySelector('#nineteen-eighty-woo-settings-error');
+	}
 	static settingsLoader() {
 		return document.querySelector('#nineteen-eighty-woo-settings-loader');
 	}
@@ -16,6 +19,17 @@ class NineteenEightyWoo {
 
 	static onSettingsFormSubmit(event) {
 		event.preventDefault();
+
+		NineteenEightyWoo.settingsLoader().classList.remove('hidden');
+		NineteenEightyWoo.settingsSubmit().disabled = true;
+
+		if ( false == NineteenEightyWoo.settingsForm().checkValidity() ) {
+			NineteenEightyWoo.settingsErrorIndicator().classList.remove('hidden');
+			NineteenEightyWoo.settingsLoader().classList.add('hidden');
+			NineteenEightyWoo.settingsSubmit().disabled = false;
+			return false;
+		}
+		NineteenEightyWoo.settingsErrorIndicator().classList.add('hidden');
 
 		const formData = new FormData(event.target);
 
@@ -46,10 +60,6 @@ class NineteenEightyWoo {
 			payment_methods: paymentMethods
 		}
 
-		console.log(formDataObject);
-
-		NineteenEightyWoo.settingsLoader().classList.remove('hidden');
-		NineteenEightyWoo.settingsSubmit().disabled = true;
 		NineteenEightyWoo.postSettingsData(formDataObject);
 	}
 

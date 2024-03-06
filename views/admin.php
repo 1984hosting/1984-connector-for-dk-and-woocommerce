@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-$payment_gateways = new WC_Payment_Gateways();
+$wc_payment_gateways = new WC_Payment_Gateways();
 
 ?>
 <div
 	class="wrap nineteen-eighty-woo-wrap"
 	id="nineteen-eighty-woo-wrap"
 >
-	<form id="nineteen-eighty-woo-settings-form" class="type-form">
+	<form id="nineteen-eighty-woo-settings-form" class="type-form" novalidate>
 		<h1 class="wp-heading-inline">
 			<?php esc_html_e( '1984 dkPlus Connection', 'NineteenEightyWoo' ); ?>
 		</h1>
@@ -29,8 +29,14 @@ $payment_gateways = new WC_Payment_Gateways();
 								class="regular-text api-key-input"
 								name="api_key"
 								type="text"
-								value="<?php echo esc_attr( get_option( '1984_woo_api_key' ) ); ?>"
+								value="<?php echo esc_attr( get_option( '1984_woo_dk_api_key' ) ); ?>"
+								pattern="(a|b|c|d|e|f|[0-9]|-)+"
+								required
 							/>
+
+							<p class="validity valid">Valid<span class="dashicons dashicons-yes"></span></p>
+							<p class="validity invalid">This is a required field</p>
+
 							<p class="description">
 								<?php
 								esc_html_e(
@@ -50,7 +56,7 @@ $payment_gateways = new WC_Payment_Gateways();
 			<p><?php esc_html_e( 'Please enter the Payment Method ID and Name for each payment gateway as it appears in DK:', 'NineteenEightyWoo' ); ?></p>
 			<table id="payment-gateway-id-map-table" class="form-table">
 				<tbody>
-					<?php foreach ( $payment_gateways->payment_gateways as $p ) : ?>
+					<?php foreach ( $wc_payment_gateways->payment_gateways as $p ) : ?>
 					<tr data-gateway-id="<?php echo esc_attr( $p->id ); ?>">
 						<th span="row" class="column-title column-primary">
 							<span class="payment-gateway-title"><?php echo esc_html( $p->title ); ?></span>
@@ -73,7 +79,13 @@ $payment_gateways = new WC_Payment_Gateways();
 								class="regular-text payment-id"
 								name="payment_id"
 								type="text"
+								value="<?php echo esc_attr( get_option( '1984_woo_dk_payment_method_' . $p->id )->dk_id ); ?>"
+								inputmode="numeric"
+								pattern="[0-9]+"
+								required
 							/>
+							<p class="validity valid">Valid<span class="dashicons dashicons-yes"></span></p>
+							<p class="validity invalid">Needs to be numeric</p>
 						</td>
 						<td>
 							<label for="payment_name_input_<?php echo esc_attr( $p->id ); ?>">
@@ -83,9 +95,12 @@ $payment_gateways = new WC_Payment_Gateways();
 								id="payment_name_input_<?php echo esc_attr( $p->id ); ?>"
 								class="regular-text payment-name"
 								name="payment_name"
-								value="<?php echo esc_attr( get_option( '1984_woo_payment_name_' . $p->id, $p->title ) ); ?>"
+								value="<?php echo esc_attr( get_option( '1984_woo_dk_payment_method_' . $p->id )->dk_name ); ?>"
 								type="text"
+								required
 							/>
+							<p class="validity valid">Valid<span class="dashicons dashicons-yes"></span></p>
+							<p class="validity invalid">This is a required field</p>
 						</td>
 					</tr>
 					<?php endforeach ?>
@@ -105,6 +120,11 @@ $payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<div class="submit-container">
+			<div id="nineteen-eighty-woo-settings-error" class="hidden" aria-live="polite">
+				<p>
+					<strong>Error:</strong> Something bad happened and it's all your fault! Please check if all the information was entered correctly and try again.
+				</p>
+			</div>
 			<img
 				id="nineteen-eighty-woo-settings-loader"
 				class="loader hidden"

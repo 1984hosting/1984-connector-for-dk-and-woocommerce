@@ -29,13 +29,32 @@ body.woocommerce_page_NineteenEightyWoo .wrap {
 }
 
 #payment-gateway-id-map-table .payment-id {
-	width: 5em;
+	width: 10em;
 }
 
 #payment-gateway-id-map-table label {
 	display: block;
 	padding-top: 0.3em;
 	margin-bottom: 0.3em;
+}
+
+#nineteen-eighty-woo-settings-form input:invalid {
+	border-color: #900;
+}
+
+#nineteen-eighty-woo-settings-form .validity {
+	display: none;
+	font-weight: 600;
+}
+
+#nineteen-eighty-woo-settings-form input:valid ~ .valid {
+	display: block;
+	color: #060;
+}
+
+#nineteen-eighty-woo-settings-form input:invalid ~ .invalid {
+	display: block;
+	color: #900;
 }
 
 #nineteen-eighty-woo-wrap #api-key-form-table td {
@@ -71,10 +90,15 @@ body.woocommerce_page_NineteenEightyWoo .wrap {
 	align-items: center;
 	flex-wrap: wrap;
 	justify-content: flex-end;
-}°
+}
 
-#nineteen-eighty-woo-settings-error {
-	font-weight: 600;
+#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error {
+	flex: 1;
+	margin-right: 5em;
+}
+
+#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error p {
+	font-size: 1.17em;
 }
 
 #nineteen-eighty-woo-wrap .loader {
@@ -119,6 +143,9 @@ body.woocommerce_page_NineteenEightyWoo .wrap {
 	}
 	#payment-gateway-id-map-table tr th:first-child {
 		width: 100%;
+	}
+	#payment-gateway-id-map-table td.method-id {
+		width: auto;
 	}
 	.payment-gateway-title {
 		display: block;
