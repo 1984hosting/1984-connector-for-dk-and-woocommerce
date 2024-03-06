@@ -19,10 +19,14 @@ class Admin {
 	public function __construct() {
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu_page' ) );
 
-		add_action(
-			'admin_init',
-			array( __CLASS__, 'enqueue_styles_and_scripts' )
-		);
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ( isset( $_GET['page'] ) ) && ( 'NineteenEightyWoo' === $_GET['page'] ) ) {
+			add_action(
+				'admin_init',
+				array( __CLASS__, 'enqueue_styles_and_scripts' )
+			);
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
