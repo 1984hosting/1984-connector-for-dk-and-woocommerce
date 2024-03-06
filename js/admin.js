@@ -6,7 +6,7 @@ class NineteenEightyWoo {
 		return document.querySelector( '#nineteen-eighty-woo-settings-error' );
 	}
 	static settingsErrorIndicator() {
-		return document.querySelector('#nineteen-eighty-woo-settings-error');
+		return document.querySelector( '#nineteen-eighty-woo-settings-error' );
 	}
 	static settingsLoader() {
 		return document.querySelector( '#nineteen-eighty-woo-settings-loader' );
