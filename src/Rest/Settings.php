@@ -87,12 +87,17 @@ class Settings {
 			);
 		}
 
-		update_option( '1984_woo_dk_api_key', $rest_json->api_key );
-
 		update_option(
-			'1984_woo_dk_payment_methods',
-			$rest_json->payment_methods
+			'1984_woo_dk_api_key',
+			$rest_json->api_key
 		);
+
+		foreach ( $rest_json->payment_methods as $p ) {
+			update_option(
+				'1984_woo_dk_payment_method_' . $p->woo_id,
+				$p
+			);
+		}
 
 		return new WP_REST_Response( array( 'status' => 200 ) );
 	}
@@ -105,35 +110,5 @@ class Settings {
 	 */
 	public static function permission_check(): bool {
 		return current_user_can( 'manage_options' );
-	}
-
-	/**
-	 * Validate the POST JSON data
-	 *
-	 * @param object $json_body The JSON-decoded body of the settings POST
-	 *                          request.
-	 */
-	public static function validate_post_schema( object $json_body ): bool {
-		if ( false === property_exists( $json_body, 'api_key' ) ) {
-			return false;
-		}
-
-		if ( false === is_string( $json_body->api_key ) ) {
-			return false;
-		}
-
-		foreach ( $json_body->payment_methods as $p ) {
-			if ( false === is_string( $p->woo_id ) ) {
-				return false;
-			}
-			if ( false === is_int( $p->dk_id ) ) {
-				return false;
-			}
-			if ( false === is_string( $p->dk_name ) ) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 }
