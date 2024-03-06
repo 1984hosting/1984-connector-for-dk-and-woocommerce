@@ -53,7 +53,7 @@ jobs:
     - name: Figure out the PSR-4 autoload situation
       run: composer dump-autoload -o --strict-psr
     - name: PHPCS
-      run: ./vendor/bin/phpcs ./src/
+      run: ./vendor/bin/phpcs ./src/ ./js/ ./style/
     - name: PHPUnit
       env:
         WP_VERSION: ${{ matrix.wp-versions }}
