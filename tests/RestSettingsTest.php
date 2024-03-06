@@ -12,6 +12,7 @@ use WP_UnitTest_Factory_For_User;
 use WP_User;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertIsString;
 
 #[TestDox( 'The Rest Settings JSON API endpoint class' )]
 final class RestSettingstest extends TestCase {
@@ -107,8 +108,12 @@ final class RestSettingstest extends TestCase {
 		$request->set_body( wp_json_encode( self::VALID_POST_BODY ) );
 
 		$response = rest_do_request( $request );
-
 		assertEquals( 200, $response->status );
+
+		$api_key_option = get_option( '1984_woo_dk_api_key' );
+		$payment_option = get_option( '1984_woo_dk_payment_method_bacs' );
+		assertIsString( $api_key_option );
+		assertEquals( 'bacs', $payment_option->woo_id );
 	}
 
 	#[TestDox( 'rejects an authenticated request when the POST body is invalid' )]
