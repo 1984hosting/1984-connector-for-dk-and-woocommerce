@@ -100,6 +100,13 @@ class Settings {
 			);
 		}
 
+		foreach ( $rest_json->payment_methods as $p ) {
+			update_option(
+				'1984_woo_dk_payment_method_' . $p->woo_id,
+				$p
+			);
+		}
+
 		return new WP_REST_Response( array( 'status' => 200 ) );
 	}
 
