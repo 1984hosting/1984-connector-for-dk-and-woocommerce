@@ -1,15 +1,15 @@
 class NineteenEightyWoo {
 	static settingsForm() {
-		return document.querySelector('#nineteen-eighty-woo-settings-form');
+		return document.querySelector( '#nineteen-eighty-woo-settings-form' );
 	}
 	static settingsErrorIndicator() {
-		return document.querySelector('#nineteen-eighty-woo-settings-error');
+		return document.querySelector( '#nineteen-eighty-woo-settings-error' );
 	}
 	static settingsLoader() {
-		return document.querySelector('#nineteen-eighty-woo-settings-loader');
+		return document.querySelector( '#nineteen-eighty-woo-settings-loader' );
 	}
 	static settingsSubmit() {
-		return document.querySelector('#nineteen-eighty-woo-settings-submit');
+		return document.querySelector( '#nineteen-eighty-woo-settings-submit' );
 	}
 	static rowElements() {
 		return document.querySelectorAll(
@@ -20,29 +20,29 @@ class NineteenEightyWoo {
 	static onSettingsFormSubmit(event) {
 		event.preventDefault();
 
-		NineteenEightyWoo.settingsLoader().classList.remove('hidden');
+		NineteenEightyWoo.settingsLoader().classList.remove( 'hidden' );
 		NineteenEightyWoo.settingsSubmit().disabled = true;
 
 		if ( false == NineteenEightyWoo.settingsForm().checkValidity() ) {
-			NineteenEightyWoo.settingsErrorIndicator().classList.remove('hidden');
-			NineteenEightyWoo.settingsLoader().classList.add('hidden');
+			NineteenEightyWoo.settingsErrorIndicator().classList.remove( 'hidden' );
+			NineteenEightyWoo.settingsLoader().classList.add( 'hidden' );
 			NineteenEightyWoo.settingsSubmit().disabled = false;
 			return false;
 		}
-		NineteenEightyWoo.settingsErrorIndicator().classList.add('hidden');
+		NineteenEightyWoo.settingsErrorIndicator().classList.add( 'hidden' );
 
-		const formData = new FormData(event.target);
+		const formData = new FormData( event.target );
 
-		let apiKey         = formData.get('api_key').trim();
-		let paymentIds     = formData.getAll('payment_id');
-		let paymentNames   = formData.getAll('payment_name');
+		let apiKey         = formData.get( 'api_key' ).trim();
+		let paymentIds     = formData.getAll( 'payment_id' );
+		let paymentNames   = formData.getAll( 'payment_name' );
 		let paymentMethods = [];
 
 		for (let i = 0; i < paymentIds.length; i++) {
 			let wooId = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
-			let dkId  = parseInt(paymentIds[i]);
+			let dkId  = parseInt( paymentIds[i] );
 
-			if (isNaN(dkId)) {
+			if (isNaN( dkId )) {
 				dkId = 0;
 			}
 
@@ -60,7 +60,7 @@ class NineteenEightyWoo {
 			payment_methods: paymentMethods
 		}
 
-		NineteenEightyWoo.postSettingsData(formDataObject);
+		NineteenEightyWoo.postSettingsData( formDataObject );
 	}
 
 	static async postSettingsData(formDataObject) {
@@ -72,28 +72,31 @@ class NineteenEightyWoo {
 					'Content-Type': 'application/json;charset=UTF-8',
 					'X-WP-Nonce': wpApiSettings.nonce,
 				},
-				body: JSON.stringify(formDataObject),
+				body: JSON.stringify( formDataObject ),
 			}
 		);
 
 		if (response.ok) {
-			NineteenEightyWoo.settingsLoader().classList.add('hidden');
+			NineteenEightyWoo.settingsLoader().classList.add( 'hidden' );
 			NineteenEightyWoo.settingsSubmit().disabled = false;
 		}
 	}
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-	if (document.body) {
-		if (
+window.addEventListener(
+	'DOMContentLoaded',
+	() => {
+		if (document.body) {
+			if (
 			document.body.classList.contains(
-				'woocommerce_page_NineteenEightyWoo'
+			'woocommerce_page_NineteenEightyWoo'
 			)
-		) {
-			NineteenEightyWoo.settingsForm().addEventListener(
-				'submit',
-				NineteenEightyWoo.onSettingsFormSubmit
-			);
+			) {
+				NineteenEightyWoo.settingsForm().addEventListener(
+					'submit',
+					NineteenEightyWoo.onSettingsFormSubmit
+				);
+			}
 		}
 	}
-});
+);
