@@ -65,6 +65,7 @@ class NineteenEightyWoo {
 	}
 
 	static async postSettingsData(formDataObject) {
+
 		const response = await fetch(
 			wpApiSettings.root + 'NineteenEightyWoo/v1/settings',
 			{
@@ -77,9 +78,11 @@ class NineteenEightyWoo {
 			}
 		);
 
-		if (response.ok) {
-			NineteenEightyWoo.settingsLoader().classList.add( 'hidden' );
-			NineteenEightyWoo.settingsSubmit().disabled = false;
+		NineteenEightyWoo.settingsLoader().classList.add( 'hidden' );
+		NineteenEightyWoo.settingsSubmit().disabled = false;
+
+		if ( ! response.ok ) {
+			NineteenEightyWoo.settingsErrorIndicator().classList.remove( 'hidden' );
 		}
 	}
 }
