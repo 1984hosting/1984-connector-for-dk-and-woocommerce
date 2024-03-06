@@ -34,8 +34,8 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								required
 							/>
 
-							<p class="validity valid">Valid<span class="dashicons dashicons-yes"></span></p>
-							<p class="validity invalid">This is a required field</p>
+							<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
+							<p class="validity invalid"><?php esc_html_e( 'This is a required field', 'NineteenEightyWoo' ); ?></p>
 
 							<p class="description">
 								<?php
@@ -84,8 +84,8 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								pattern="[0-9]+"
 								required
 							/>
-							<p class="validity valid">Valid<span class="dashicons dashicons-yes"></span></p>
-							<p class="validity invalid">Needs to be numeric</p>
+							<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
+							<p class="validity invalid"><?php esc_html_e( 'Needs to be numeric', 'NineteenEightyWoo' ); ?></p>
 						</td>
 						<td>
 							<label for="payment_name_input_<?php echo esc_attr( $p->id ); ?>">
@@ -99,8 +99,8 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								type="text"
 								required
 							/>
-							<p class="validity valid">Valid<span class="dashicons dashicons-yes"></span></p>
-							<p class="validity invalid">This is a required field</p>
+							<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
+							<p class="validity invalid"><?php esc_html_e( 'This is a required ', 'NineteenEightyWoo' ); ?></p>
 						</td>
 					</tr>
 					<?php endforeach ?>
@@ -122,7 +122,14 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		<div class="submit-container">
 			<div id="nineteen-eighty-woo-settings-error" class="hidden" aria-live="polite">
 				<p>
-					<strong>Error:</strong> Something bad happened and it's all your fault! Please check if all the information was entered correctly and try again.
+					<?php
+					echo sprintf(
+						// Translators: The %1$s and %2$s indicate an opening and closing <strong> tag.
+						esc_html( __( '%1$sError:%2$s Please check if all the information was entered correctly and try again.', 'NineteenEightyWoo' ) ),
+						'<strong>',
+						'</strong>'
+					);
+					?>
 				</p>
 			</div>
 			<img
