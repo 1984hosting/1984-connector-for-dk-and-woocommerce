@@ -37,8 +37,9 @@ class NineteenEightyWoo {
 		let paymentIds     = formData.getAll( 'payment_id' );
 		let paymentNames   = formData.getAll( 'payment_name' );
 		let paymentMethods = [];
+		let paymentsLength = paymentIds.length;
 
-		for (let i = 0; i < paymentIds.length; i++) {
+		for (let i = 0; i < paymentsLength; i++) {
 			let wooId = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
 			let dkId  = parseInt( paymentIds[i] );
 
@@ -88,9 +89,9 @@ window.addEventListener(
 	() => {
 		if (document.body) {
 			if (
-			document.body.classList.contains(
-			'woocommerce_page_NineteenEightyWoo'
-			)
+				document.body.classList.contains(
+					'woocommerce_page_NineteenEightyWoo'
+				)
 			) {
 				NineteenEightyWoo.settingsForm().addEventListener(
 					'submit',
