@@ -22,13 +22,14 @@ class WooMetaboxes {
 
 		add_action(
 			'woocommerce_product_options_sku',
-			array( __CLASS__, 'render_product_options_sku_partial' )
+			array( $this, 'render_product_options_sku_partial' )
 		);
 
 		add_action(
 			'save_post_product',
-			array( __CLASS__, 'save_product_meta' ),
-			10
+			array( $this, 'save_product_meta' ),
+			10,
+			1
 		);
 	}
 
@@ -49,12 +50,24 @@ class WooMetaboxes {
 		require __DIR__ . '/../views/product_options_sku_partial.php';
 	}
 
-	public static function save_product_meta( $id ): void {
-		self::save_price_sync_meta( $id );
-		self::save_stock_sync_meta( $id );
+	/**
+	 * Save the NineteenEightyWoo related meta tags for a product using superglobals
+	 *
+	 * Fired during the `save_post_product` hook.
+	 *
+	 * @param int $id The post ID for the product.
+	 */
+	public function save_product_meta( int $id ): void {
+		$this->save_price_sync_meta( $id );
+		$this->save_stock_sync_meta( $id );
 	}
 
-	public static function save_price_sync_meta( $id ) {
+	/**
+	 * Save the 1984_woo_dk_price_sync post meta from superglobals
+	 *
+	 * @param int $id The post ID for the product.
+	 */
+	public function save_price_sync_meta( int $id ): void {
 		if ( false === isset( $_POST['set_1984_woo_dk_price_sync_nonce'] ) ) {
 			return;
 		}
@@ -76,7 +89,12 @@ class WooMetaboxes {
 		}
 	}
 
-	public static function save_stock_sync_meta( $id ) {
+	/**
+	 * Save the 1984_woo_dk_stock_sync post meta from superglobal
+	 *
+	 * @param int $id The post ID for the product.
+	 */
+	public function save_stock_sync_meta( int $id ): void {
 		if ( false === isset( $_POST['set_1984_woo_dk_stock_sync_nonce'] ) ) {
 			return;
 		}
