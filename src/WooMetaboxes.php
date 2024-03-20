@@ -4,6 +4,9 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo;
 
+use WP_Post;
+use WC_Product;
+
 /**
  * The WooMetaboxes class
  *
@@ -29,7 +32,7 @@ class WooMetaboxes {
 			'save_post_product',
 			array( $this, 'save_product_meta' ),
 			10,
-			1
+			3
 		);
 	}
 
@@ -44,9 +47,6 @@ class WooMetaboxes {
 	 * Render the SKU metabox partial
 	 */
 	public static function render_product_options_sku_partial(): void {
-		global $product_object;
-		$product_object->set_manage_stock( true );
-
 		require __DIR__ . '/../views/product_options_sku_partial.php';
 	}
 
@@ -55,11 +55,15 @@ class WooMetaboxes {
 	 *
 	 * Fired during the `save_post_product` hook.
 	 *
-	 * @param int $id The post ID for the product.
+	 * @param int     $id The post ID for the product.
+	 * @param WP_Post $post The post object (unused).
+	 * @param bool    $update Wether the action is an update.
 	 */
-	public function save_product_meta( int $id ): void {
-		$this->save_price_sync_meta( $id );
-		$this->save_stock_sync_meta( $id );
+	public function save_product_meta( int $id, WP_Post $post, bool $update ): void {
+		if ( true === $update ) {
+			$this->save_price_sync_meta( $id );
+			$this->save_stock_sync_meta( $id );
+		}
 	}
 
 	/**

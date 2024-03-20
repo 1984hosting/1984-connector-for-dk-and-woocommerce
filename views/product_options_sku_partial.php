@@ -20,7 +20,10 @@ declare(strict_types = 1);
 	);
 	?>
 	<p class="form-field">
-		The <abbr title="Stock Keeping Unit">SKU</abbr> needs to be set and must equal the <strong>Item Code</strong> in DK for any 1984 DK Sync functionality to work.
-		<strong>Stock management</strong> needs to be enabled for Inventory Sync to work as well.
+		The <abbr title="Stock Keeping Unit">SKU</abbr> needs to be set and must
+		equal the <strong>Item Code</strong> in DK for any 1984 DK Sync
+		functionality to work.<br />
+		<strong>Stock management</strong> needs to be enabled for Inventory Sync
+		to work as well.
 	</p>
 </div>
