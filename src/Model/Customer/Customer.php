@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Customer;
+namespace NineteenEightyFour\NineteenEightyWoo\Model\Customer;
 
 use JsonSerializable;
 use Model\Customer\CustomerCondition;

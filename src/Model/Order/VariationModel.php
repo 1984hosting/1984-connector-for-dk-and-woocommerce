@@ -1,5 +1,5 @@
 <?php
-namespace Model\Order;
+namespace NineteenEightyFour\NineteenEightyWoo\Model\Order;
 
 use JsonSerializable;
 use stdClass;

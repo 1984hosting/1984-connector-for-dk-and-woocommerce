@@ -1,5 +1,5 @@
 <?php
-namespace Model\Invoice;
+namespace NineteenEightyFour\NineteenEightyWoo\Model\Invoice;
 
 use JsonSerializable;
 use Model\Order\OrderLine;

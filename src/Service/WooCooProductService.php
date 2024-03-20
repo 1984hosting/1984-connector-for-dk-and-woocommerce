@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace NineteenEightyFour\NineteenEightyWoo\Service;
 
 use Model\Product\Product;
 use Service\Exception\WooCooServiceException;

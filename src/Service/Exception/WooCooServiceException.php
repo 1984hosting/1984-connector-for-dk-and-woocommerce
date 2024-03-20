@@ -1,6 +1,6 @@
 <?php
 
-namespace Service\Exception;
+namespace NineteenEightyFour\NineteenEightyWoo\Service\Exception;
 
 /**
  * Exception class for WooCooService.

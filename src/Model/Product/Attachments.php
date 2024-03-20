@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Product;
+namespace NineteenEightyFour\NineteenEightyWoo\Model\Product;
 
 class Attachments implements \JsonSerializable {
   protected int $ID;

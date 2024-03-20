@@ -1,5 +1,5 @@
 <?php
-namespace Model\Product;
+namespace NineteenEightyFour\NineteenEightyWoo\Model\Product;
 
 use JsonSerializable;
 class Product implements JsonSerializable {

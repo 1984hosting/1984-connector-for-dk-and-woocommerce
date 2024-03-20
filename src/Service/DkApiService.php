@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace NineteenEightyFour\NineteenEightyWoo\Service;
 
 /**
  * Communications between DK API and classes that implement WooCommerce or other

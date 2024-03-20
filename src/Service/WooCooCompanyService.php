@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace NineteenEightyFour\NineteenEightyWoo\Service;
 
 use Service\Exception\WooCooServiceException;
 use stdClass;

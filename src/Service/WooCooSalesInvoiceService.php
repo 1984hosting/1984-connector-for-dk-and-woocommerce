@@ -1,5 +1,5 @@
 <?php
-namespace Service;
+namespace NineteenEightyFour\NineteenEightyWoo\Service;
 
 use Mail\MailInfo;
 use Model\Customer\Customer;

@@ -1,5 +1,5 @@
 <?php
-namespace Service;
+namespace NineteenEightyFour\NineteenEightyWoo\Service;
 
 use Model\Customer\Customer;
 use Model\Customer\CustomerGroup;
