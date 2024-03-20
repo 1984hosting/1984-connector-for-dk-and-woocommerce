@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NineteenEightyFour\NineteenEightyWoo\Service\Exception;
 
 /**
@@ -8,9 +10,8 @@ namespace NineteenEightyFour\NineteenEightyWoo\Service\Exception;
  * Wraps all of them into one Exception class for easier handling.
  */
 class WooCooServiceException extends \Exception {
-  public function message() : string
-  {
-    return "There was an error within the communications to DK-API. The error was : " .
-      $this->getMessage() . " The error code was " . $this->getCode();
-  }
+	public function message(): string {
+		return 'There was an error within the communications to DK-API. The error was : ' .
+		$this->getMessage() . ' The error code was ' . $this->getCode();
+	}
 }
