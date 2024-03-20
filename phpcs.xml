@@ -100,6 +100,10 @@
 	<rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators">
 	</rule>
 
+	<rule ref="WordPress.NamingConventions.ValidVariableName">
+		<exclude-pattern>./src/Model/**</exclude-pattern>
+	</rule>
+
 	<!--
 	Exclude the vendor direcotry because of course
 	-->
