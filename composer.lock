@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2c3188a796d5afa371c167d6a34a79d",
+    "content-hash": "bd8dfa034bc15069c99f0cc7e3bef725",
     "packages": [
         {
             "name": "opis/json-schema",
@@ -368,26 +368,26 @@
     "packages-dev": [
         {
             "name": "aldavigdis/wp-tests-strapon",
-            "version": "0.1.3",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aldavigdis/wp-tests-strapon.git",
-                "reference": "2bd0b89a99ba943a0c358165e9b09ce0c57786b2"
+                "reference": "69d63e4d9d8570379af8e67d0b888f1cc6a440a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aldavigdis/wp-tests-strapon/zipball/2bd0b89a99ba943a0c358165e9b09ce0c57786b2",
-                "reference": "2bd0b89a99ba943a0c358165e9b09ce0c57786b2",
+                "url": "https://api.github.com/repos/aldavigdis/wp-tests-strapon/zipball/69d63e4d9d8570379af8e67d0b888f1cc6a440a5",
+                "reference": "69d63e4d9d8570379af8e67d0b888f1cc6a440a5",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^2.6",
-                "phpunit/phpunit": "^10.0",
                 "simoneast/simple-ansi-colors": "^1.0",
                 "yoast/phpunit-polyfills": "^2.0"
             },
             "require-dev": {
                 "composer/composer": "^2.7",
+                "phpunit/phpunit": "^10.0",
                 "psy/psysh": "^0.12.0",
                 "squizlabs/php_codesniffer": "^3.8",
                 "wp-coding-standards/wpcs": "^3.0"
@@ -420,9 +420,9 @@
             ],
             "support": {
                 "issues": "https://github.com/aldavigdis/wp-tests-strapon/issues",
-                "source": "https://github.com/aldavigdis/wp-tests-strapon/tree/v0.1.3"
+                "source": "https://github.com/aldavigdis/wp-tests-strapon/tree/v0.1.4"
             },
-            "time": "2024-03-20T19:40:38+00:00"
+            "time": "2024-03-20T21:50:46+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
