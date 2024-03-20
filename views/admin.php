@@ -11,7 +11,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 >
 	<form id="nineteen-eighty-woo-settings-form" class="type-form" novalidate>
 		<h1 class="wp-heading-inline">
-			<?php esc_html_e( '1984 dkPlus Connection', 'NineteenEightyWoo' ); ?>
+			<?php esc_html_e( '1984 DK Connection', 'NineteenEightyWoo' ); ?>
 		</h1>
 		<section class="section">
 			<h2><?php esc_html_e( 'Authentication', 'NineteenEightyWoo' ); ?></h2>
@@ -100,7 +100,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								required
 							/>
 							<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
-							<p class="validity invalid"><?php esc_html_e( 'This is a required ', 'NineteenEightyWoo' ); ?></p>
+							<p class="validity invalid"><?php esc_html_e( 'This is a required field', 'NineteenEightyWoo' ); ?></p>
 						</td>
 					</tr>
 					<?php endforeach ?>
@@ -152,7 +152,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		<p>
 			<?php
 			esc_html_e(
-				'The 1984 dkPlus Connection Plugin for WooCommerce is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
+				'The 1984 DK Connection Plugin for WooCommerce is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
 				'NineteenEightyWoo'
 			);
 			?>

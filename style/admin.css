@@ -101,6 +101,15 @@ body.woocommerce_page_NineteenEightyWoo .wrap {
 	font-size: 1.17em;
 }
 
+#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error {
+	flex: 1;
+	margin-right: 5em;
+}
+
+#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error p {
+	font-size: 1.17em;
+}
+
 #nineteen-eighty-woo-wrap .loader {
 	margin-right: 1rem;
 }

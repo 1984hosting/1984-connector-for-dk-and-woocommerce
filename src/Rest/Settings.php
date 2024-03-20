@@ -80,7 +80,25 @@ class Settings {
 		$rest_body = $request->get_body();
 		$rest_json = json_decode( $rest_body );
 
+		$validator  = new Validator();
+		$validation = $validator->validate( $rest_json, self::JSON_SCHEMA );
+
+		if ( true === $validation->hasError() ) {
+			return new WP_Error(
+				'bad_request',
+				'Bad Request',
+				array( 'status' => '400' ),
+			);
+		}
+
 		update_option( '1984_woo_dk_api_key', $rest_json->api_key );
+
+		foreach ( $rest_json->payment_methods as $p ) {
+			update_option(
+				'1984_woo_dk_payment_method_' . $p->woo_id,
+				$p
+			);
+		}
 
 		foreach ( $rest_json->payment_methods as $p ) {
 			update_option(
