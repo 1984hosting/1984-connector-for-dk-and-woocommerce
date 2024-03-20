@@ -1,5 +1,5 @@
 <?php
-namespace NineteenEightyFour\NineteenEightyWoo\Mail;
+namespace NineteenEightyFour\NineteenEightyWoo\Model\Mail;
 use JsonSerializable;
 use stdClass;
 
