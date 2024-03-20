@@ -360,7 +360,7 @@ class DkApiService implements DkApiServiceInterface {
   {
     $url = 'https://api.dkplus.is/api/v1';
     $key = '3541031f-baf2-4737-a7e8-c66396e5a5e3';
-    //$key = 'fc3c96da-936e-4942-a057-0aeff3577a48'; // BJB KEY! @TODO: REMOVE THIS
+
     $headers = array(
       "Authorization: bearer " . $key
     );
