@@ -11,7 +11,7 @@
 
 	<rule ref="PHPCompatibility">
 	</rule>
-	<config name="testVersion" value="8.2-"/>
+	<config name="testVersion" value="8.0-"/>
 
 	<!-- Use WordPress as the basis of our ruleset -->
 	<rule ref="WordPress">
