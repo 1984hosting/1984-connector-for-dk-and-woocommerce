@@ -1,0 +1,162 @@
+body.woocommerce_page_NineteenEightyWoo .wrap {
+	width: calc(100%);
+	max-width: 60rem;
+	min-height: 100%;
+	margin: 0 auto;
+}
+
+#nineteen-eighty-woo-wrap {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: calc(100vh - 100px);
+}
+
+#nineteen-eighty-woo-wrap .form-table {
+	display: table;
+}
+
+#nineteen-eighty-woo-wrap #api-key-form-table th {
+	width: 5em;
+}
+
+#nineteen-eighty-woo-wrap table .with-padding {
+	padding: 20px 10px 20px 10px;
+}
+
+#payment-gateway-id-map-table tr th:first-child {
+	width: 10em;
+}
+
+#payment-gateway-id-map-table .payment-id {
+	width: 10em;
+}
+
+#payment-gateway-id-map-table label {
+	display: block;
+	padding-top: 0.3em;
+	margin-bottom: 0.3em;
+}
+
+#nineteen-eighty-woo-settings-form input:invalid {
+	border-color: #900;
+}
+
+#nineteen-eighty-woo-settings-form .validity {
+	display: none;
+	font-weight: 600;
+}
+
+#nineteen-eighty-woo-settings-form input:valid ~ .valid {
+	display: block;
+	color: #060;
+}
+
+#nineteen-eighty-woo-settings-form input:invalid ~ .invalid {
+	display: block;
+	color: #900;
+}
+
+#nineteen-eighty-woo-wrap #api-key-form-table td {
+	max-width: calc(100vw - 10px - 8rem);
+	width: calc(60rem - 10px - 5em - 4rem);
+}
+
+#api-key-form-table input[type=text] {
+	width: 100%;
+}
+
+#nineteen-eighty-woo-wrap .section {
+	width: calc(100% - 6rem);
+	background-color: #fff;
+	padding: 1rem 2rem;
+	margin: 2rem 0;
+	margin-bottom: 1rem;
+	border: 1px solid #c3c4c7;
+	border-radius: 5px;
+}
+
+#nineteen-eighty-woo-wrap h1 {
+	margin-bottom: 0.2em;
+	margin-top: 1em;
+	font-size: 3rem;
+	font-weight: 700;
+	line-height: 1em;
+}
+
+#nineteen-eighty-woo-wrap .submit-container {
+	width: calc(100% - 2rem);
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}
+
+#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error {
+	flex: 1;
+	margin-right: 5em;
+}
+
+#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error p {
+	font-size: 1.17em;
+}
+
+#nineteen-eighty-woo-wrap .loader {
+	margin-right: 1rem;
+}
+
+#payment-gateway-id-map-table .payment-gateway-status {
+	font-weight: normal;
+}
+
+#payment-gateway-id-map-table td.method-id {
+	width: 5em;
+}
+
+#ninteen-eighty-four-logo-container {
+	display: flex;
+	margin-top: 5em;
+	max-width: calc(100% - 2em);
+	width: calc(100%);
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+#ninteen-eighty-four-logo-container p {
+	margin: 0;
+	font-size: 12px;
+}
+
+#ninteen-eighty-four-logo-container img {
+	flex: 1 1 auto;
+	height: 40px;
+	width: auto;
+	margin-left: 2em;
+}
+
+@media screen and (max-width: 782px) {
+	#nineteen-eighty-woo-wrap h1 {
+		margin-left: 21px;
+	}
+	#nineteen-eighty-woo-wrap #api-key-form-table td {
+		max-width: calc(100vw - 10px - 6rem);
+	}
+	#payment-gateway-id-map-table tr th:first-child {
+		width: 100%;
+	}
+	#payment-gateway-id-map-table td.method-id {
+		width: auto;
+	}
+	.payment-gateway-title {
+		display: block;
+		margin-top: 0.2em;
+		font-size: 1.3em;
+	}
+	#payment-gateway-id-map-table label {
+		padding-top: 0;
+	}
+
+	#ninteen-eighty-four-logo-container {
+		width: calc(100% - 6rem);
+	}
+}

@@ -4,8 +4,362 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31796bcea4818a5719a9e05470dcaa23",
-    "packages": [],
+    "content-hash": "73407e9c2e5745ce82eecafe42a75ea0",
+    "packages": [
+        {
+            "name": "opis/json-schema",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opis/json-schema.git",
+                "reference": "c48df6d7089a45f01e1c82432348f2d5976f9bfb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opis/json-schema/zipball/c48df6d7089a45f01e1c82432348f2d5976f9bfb",
+                "reference": "c48df6d7089a45f01e1c82432348f2d5976f9bfb",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "opis/string": "^2.0",
+                "opis/uri": "^1.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "ext-bcmath": "*",
+                "ext-intl": "*",
+                "phpunit/phpunit": "^9.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Opis\\JsonSchema\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sorin Sarca",
+                    "email": "sarca_sorin@hotmail.com"
+                },
+                {
+                    "name": "Marius Sarca",
+                    "email": "marius.sarca@gmail.com"
+                }
+            ],
+            "description": "Json Schema Validator for PHP",
+            "homepage": "https://opis.io/json-schema",
+            "keywords": [
+                "json",
+                "json-schema",
+                "schema",
+                "validation",
+                "validator"
+            ],
+            "support": {
+                "issues": "https://github.com/opis/json-schema/issues",
+                "source": "https://github.com/opis/json-schema/tree/2.3.0"
+            },
+            "time": "2022-01-08T20:38:03+00:00"
+        },
+        {
+            "name": "opis/string",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opis/string.git",
+                "reference": "9ebf1a1f873f502f6859d11210b25a4bf5d141e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opis/string/zipball/9ebf1a1f873f502f6859d11210b25a4bf5d141e7",
+                "reference": "9ebf1a1f873f502f6859d11210b25a4bf5d141e7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-iconv": "*",
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Opis\\String\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Marius Sarca",
+                    "email": "marius.sarca@gmail.com"
+                },
+                {
+                    "name": "Sorin Sarca",
+                    "email": "sarca_sorin@hotmail.com"
+                }
+            ],
+            "description": "Multibyte strings as objects",
+            "homepage": "https://opis.io/string",
+            "keywords": [
+                "multi-byte",
+                "opis",
+                "string",
+                "string manipulation",
+                "utf-8"
+            ],
+            "support": {
+                "issues": "https://github.com/opis/string/issues",
+                "source": "https://github.com/opis/string/tree/2.0.1"
+            },
+            "time": "2022-01-14T15:42:23+00:00"
+        },
+        {
+            "name": "opis/uri",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opis/uri.git",
+                "reference": "0f3ca49ab1a5e4a6681c286e0b2cc081b93a7d5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opis/uri/zipball/0f3ca49ab1a5e4a6681c286e0b2cc081b93a7d5a",
+                "reference": "0f3ca49ab1a5e4a6681c286e0b2cc081b93a7d5a",
+                "shasum": ""
+            },
+            "require": {
+                "opis/string": "^2.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Opis\\Uri\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Marius Sarca",
+                    "email": "marius.sarca@gmail.com"
+                },
+                {
+                    "name": "Sorin Sarca",
+                    "email": "sarca_sorin@hotmail.com"
+                }
+            ],
+            "description": "Build, parse and validate URIs and URI-templates",
+            "homepage": "https://opis.io",
+            "keywords": [
+                "URI Template",
+                "parse url",
+                "punycode",
+                "uri",
+                "uri components",
+                "url",
+                "validate uri"
+            ],
+            "support": {
+                "issues": "https://github.com/opis/uri/issues",
+                "source": "https://github.com/opis/uri/tree/1.1.0"
+            },
+            "time": "2021-05-22T15:57:08+00:00"
+        },
+        {
+            "name": "typisttech/imposter",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TypistTech/imposter.git",
+                "reference": "0282df368b1862594f7ad09e50dbb264dbb146ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TypistTech/imposter/zipball/0282df368b1862594f7ad09e50dbb264dbb146ec",
+                "reference": "0282df368b1862594f7ad09e50dbb264dbb146ec",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "^4.1",
+                "codeception/mockery-module": "^0.4.0",
+                "codeception/module-asserts": "^1.3",
+                "codeception/module-filesystem": "^1.0",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "suggest": {
+                "typisttech/imposter-plugin": "Composer plugin to integrate composer and imposter"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TypistTech\\Imposter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Typist Tech",
+                    "email": "imposter@typist.tech",
+                    "homepage": "https://typist.tech"
+                },
+                {
+                    "name": "Tang Rufus",
+                    "email": "tangrufus@gmail.com",
+                    "homepage": "https://typist.tech",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Wrapping all composer vendor packages inside your own namespace. Intended for WordPress plugins.",
+            "homepage": "https://github.com/TypistTech/imposter",
+            "keywords": [
+                "composer",
+                "dependency",
+                "monkey-patching",
+                "namespace",
+                "wordpress"
+            ],
+            "support": {
+                "email": "imposter@typist.tech",
+                "issues": "https://github.com/TypistTech/imposter/issues",
+                "source": "https://github.com/TypistTech/imposter"
+            },
+            "funding": [
+                {
+                    "url": "https://typist.tech/donation/",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-04-29T16:44:34+00:00"
+        },
+        {
+            "name": "typisttech/imposter-plugin",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TypistTech/imposter-plugin.git",
+                "reference": "11d16a7af76dc08e47b05c3baca93036404b4f93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TypistTech/imposter-plugin/zipball/11d16a7af76dc08e47b05c3baca93036404b4f93",
+                "reference": "11d16a7af76dc08e47b05c3baca93036404b4f93",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1 || ^2.0",
+                "php": "^7.3 || ^8.0",
+                "typisttech/imposter": "^0.6.1"
+            },
+            "require-dev": {
+                "codeception/codeception": "^4.1",
+                "codeception/module-asserts": "^1.3",
+                "codeception/module-cli": "^1.1",
+                "codeception/module-filesystem": "^1.0",
+                "composer/composer": "^1.10.19 || ^2.0",
+                "squizlabs/php_codesniffer": "^3.5",
+                "typisttech/codeception-composer-project-module": "^0.1.1"
+            },
+            "default-branch": true,
+            "type": "composer-plugin",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6.x-dev"
+                },
+                "class": "TypistTech\\Imposter\\Plugin\\ImposterPlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "TypistTech\\Imposter\\Plugin\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Typist Tech",
+                    "email": "imposter-plugin@typist.tech",
+                    "homepage": "https://www.typist.tech"
+                },
+                {
+                    "name": "Tang Rufus",
+                    "email": "tangrufus@gmail.com",
+                    "homepage": "https://www.typist.tech",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Composer plugin that wraps all composer vendor packages inside your own namespace. Intended for WordPress plugins.",
+            "homepage": "https://github.com/TypistTech/imposter-plugin",
+            "keywords": [
+                "composer",
+                "composer-plugin",
+                "dependency",
+                "monkey-patching",
+                "namespace",
+                "wordpress"
+            ],
+            "support": {
+                "email": "imposter-plugin@typist.tech",
+                "issues": "https://github.com/TypistTech/imposter-plugin/issues",
+                "source": "https://github.com/TypistTech/imposter-plugin"
+            },
+            "funding": [
+                {
+                    "url": "https://typist.tech/donation/",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-04-29T16:42:35+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "aldavigdis/wp-tests-strapon",
@@ -13,12 +367,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/aldavigdis/wp-tests-strapon.git",
-                "reference": "797c2b17dbb2c3b97b6009f735761d17361124a5"
+                "reference": "e5611b6e5ce42087b14a2899975177404b62f587"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aldavigdis/wp-tests-strapon/zipball/797c2b17dbb2c3b97b6009f735761d17361124a5",
-                "reference": "797c2b17dbb2c3b97b6009f735761d17361124a5",
+                "url": "https://api.github.com/repos/aldavigdis/wp-tests-strapon/zipball/e5611b6e5ce42087b14a2899975177404b62f587",
+                "reference": "e5611b6e5ce42087b14a2899975177404b62f587",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +417,7 @@
                 "source": "https://github.com/aldavigdis/wp-tests-strapon/tree/main",
                 "issues": "https://github.com/aldavigdis/wp-tests-strapon/issues"
             },
-            "time": "2024-02-18T23:33:16+00:00"
+            "time": "2024-02-26T20:15:09+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -210,12 +564,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "ce019e9ad711e31ee87c2c4c72e538b5240970c3"
+                "reference": "139676794dc1e9231bf7bcd123cfc0c99182cb13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/ce019e9ad711e31ee87c2c4c72e538b5240970c3",
-                "reference": "ce019e9ad711e31ee87c2c4c72e538b5240970c3",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/139676794dc1e9231bf7bcd123cfc0c99182cb13",
+                "reference": "139676794dc1e9231bf7bcd123cfc0c99182cb13",
                 "shasum": ""
             },
             "require": {
@@ -259,9 +613,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/master"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.0.2"
             },
-            "time": "2024-01-14T09:02:54+00:00"
+            "time": "2024-03-05T20:51:40+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -269,12 +623,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/manifest.git",
-                "reference": "67729272c564ab9f953c81f48db44e8b1cb1e1c3"
+                "reference": "54750ef60c58e43759730615a392c31c80e23176"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/manifest/zipball/67729272c564ab9f953c81f48db44e8b1cb1e1c3",
-                "reference": "67729272c564ab9f953c81f48db44e8b1cb1e1c3",
+                "url": "https://api.github.com/repos/phar-io/manifest/zipball/54750ef60c58e43759730615a392c31c80e23176",
+                "reference": "54750ef60c58e43759730615a392c31c80e23176",
                 "shasum": ""
             },
             "require": {
@@ -283,7 +637,7 @@
                 "ext-phar": "*",
                 "ext-xmlwriter": "*",
                 "phar-io/version": "^3.0.1",
-                "php": "^7.3 || ^8.0"
+                "php": "^7.2 || ^8.0"
             },
             "default-branch": true,
             "type": "library",
@@ -321,7 +675,7 @@
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
             "support": {
                 "issues": "https://github.com/phar-io/manifest/issues",
-                "source": "https://github.com/phar-io/manifest/tree/master"
+                "source": "https://github.com/phar-io/manifest/tree/2.0.4"
             },
             "funding": [
                 {
@@ -329,7 +683,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-01T14:19:47+00:00"
+            "time": "2024-03-03T12:33:53+00:00"
         },
         {
             "name": "phar-io/version",
@@ -450,12 +804,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSExtra.git",
-                "reference": "71ce087b11b12bf1f1b6fff0bf9b911a2fcb494c"
+                "reference": "7384703f57a65879dc6fb5a0fc0dbe60fe2c1d8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSExtra/zipball/71ce087b11b12bf1f1b6fff0bf9b911a2fcb494c",
-                "reference": "71ce087b11b12bf1f1b6fff0bf9b911a2fcb494c",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSExtra/zipball/7384703f57a65879dc6fb5a0fc0dbe60fe2c1d8d",
+                "reference": "7384703f57a65879dc6fb5a0fc0dbe60fe2c1d8d",
                 "shasum": ""
             },
             "require": {
@@ -521,7 +875,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-02-16T03:41:33+00:00"
+            "time": "2024-03-04T02:11:33+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -529,18 +883,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-                "reference": "da9836640d177e623aa262475a88d4fc6994f273"
+                "reference": "7883bd854d3a7594a1504fca79aacd3595dacd2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/da9836640d177e623aa262475a88d4fc6994f273",
-                "reference": "da9836640d177e623aa262475a88d4fc6994f273",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/7883bd854d3a7594a1504fca79aacd3595dacd2d",
+                "reference": "7883bd854d3a7594a1504fca79aacd3595dacd2d",
                 "shasum": ""
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7 || ^1.0",
                 "php": ">=5.4",
-                "squizlabs/php_codesniffer": "^3.8.0 || 4.0.x-dev@dev"
+                "squizlabs/php_codesniffer": "^3.9.0 || 4.0.x-dev@dev"
             },
             "require-dev": {
                 "ext-filter": "*",
@@ -610,20 +964,20 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-02-17T06:57:59+00:00"
+            "time": "2024-03-04T08:00:16+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.25.0",
+            "version": "1.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "bd84b629c8de41aa2ae82c067c955e06f1b00240"
+                "reference": "231e3186624c03d7e7c890ec662b81e6b0405227"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/bd84b629c8de41aa2ae82c067c955e06f1b00240",
-                "reference": "bd84b629c8de41aa2ae82c067c955e06f1b00240",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/231e3186624c03d7e7c890ec662b81e6b0405227",
+                "reference": "231e3186624c03d7e7c890ec662b81e6b0405227",
                 "shasum": ""
             },
             "require": {
@@ -655,9 +1009,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.25.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.26.0"
             },
-            "time": "2024-01-04T17:06:16+00:00"
+            "time": "2024-02-23T16:05:55+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -665,12 +1019,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "68f0085d6408a585bf3335cd26b22c0f220c4458"
+                "reference": "842f72662d6b9edda84c4b6f13885fd9cd53dc63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/68f0085d6408a585bf3335cd26b22c0f220c4458",
-                "reference": "68f0085d6408a585bf3335cd26b22c0f220c4458",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/842f72662d6b9edda84c4b6f13885fd9cd53dc63",
+                "reference": "842f72662d6b9edda84c4b6f13885fd9cd53dc63",
                 "shasum": ""
             },
             "require": {
@@ -727,7 +1081,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.12"
             },
             "funding": [
                 {
@@ -735,7 +1089,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-30T13:35:06+00:00"
+            "time": "2024-03-02T07:22:05+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -988,12 +1342,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b6bcafee3eb8d21ab423050ab87809221c33e689"
+                "reference": "0cef856509bab2512dc1595af6776d455b0c5ea7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b6bcafee3eb8d21ab423050ab87809221c33e689",
-                "reference": "b6bcafee3eb8d21ab423050ab87809221c33e689",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0cef856509bab2512dc1595af6776d455b0c5ea7",
+                "reference": "0cef856509bab2512dc1595af6776d455b0c5ea7",
                 "shasum": ""
             },
             "require": {
@@ -1081,7 +1435,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-18T10:35:31+00:00"
+            "time": "2024-03-05T16:04:03+00:00"
         },
         {
             "name": "psr/container",
@@ -1223,12 +1577,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/cli-parser.git",
-                "reference": "b6f26fb2f0242172306356a5cf2e0f4eb7e865fb"
+                "reference": "c34583b87e7b7a8055bf6c450c2c77ce32a24084"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/cli-parser/zipball/b6f26fb2f0242172306356a5cf2e0f4eb7e865fb",
-                "reference": "b6f26fb2f0242172306356a5cf2e0f4eb7e865fb",
+                "url": "https://api.github.com/repos/sebastianbergmann/cli-parser/zipball/c34583b87e7b7a8055bf6c450c2c77ce32a24084",
+                "reference": "c34583b87e7b7a8055bf6c450c2c77ce32a24084",
                 "shasum": ""
             },
             "require": {
@@ -1264,7 +1618,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/cli-parser/issues",
                 "security": "https://github.com/sebastianbergmann/cli-parser/security/policy",
-                "source": "https://github.com/sebastianbergmann/cli-parser/tree/2.0"
+                "source": "https://github.com/sebastianbergmann/cli-parser/tree/2.0.1"
             },
             "funding": [
                 {
@@ -1272,7 +1626,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-01T13:54:40+00:00"
+            "time": "2024-03-02T07:12:49+00:00"
         },
         {
             "name": "sebastian/code-unit",
@@ -1528,12 +1882,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "86649b78a5c4175cdf281855c7876141bed1968e"
+                "reference": "c41e007b4b62af48218231d6c2275e4c9b975b2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/86649b78a5c4175cdf281855c7876141bed1968e",
-                "reference": "86649b78a5c4175cdf281855c7876141bed1968e",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/c41e007b4b62af48218231d6c2275e4c9b975b2e",
+                "reference": "c41e007b4b62af48218231d6c2275e4c9b975b2e",
                 "shasum": ""
             },
             "require": {
@@ -1579,7 +1933,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/diff/issues",
                 "security": "https://github.com/sebastianbergmann/diff/security/policy",
-                "source": "https://github.com/sebastianbergmann/diff/tree/5.1"
+                "source": "https://github.com/sebastianbergmann/diff/tree/5.1.1"
             },
             "funding": [
                 {
@@ -1587,7 +1941,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-30T13:46:00+00:00"
+            "time": "2024-03-02T07:15:17+00:00"
         },
         {
             "name": "sebastian/environment",
@@ -1659,12 +2013,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "935b7ee9d5d9db69992fa288a92aded230dbe0f3"
+                "reference": "955288482d97c19a372d3f31006ab3f37da47adf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/935b7ee9d5d9db69992fa288a92aded230dbe0f3",
-                "reference": "935b7ee9d5d9db69992fa288a92aded230dbe0f3",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/955288482d97c19a372d3f31006ab3f37da47adf",
+                "reference": "955288482d97c19a372d3f31006ab3f37da47adf",
                 "shasum": ""
             },
             "require": {
@@ -1721,7 +2075,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/exporter/issues",
                 "security": "https://github.com/sebastianbergmann/exporter/security/policy",
-                "source": "https://github.com/sebastianbergmann/exporter/tree/5.1"
+                "source": "https://github.com/sebastianbergmann/exporter/tree/5.1.2"
             },
             "funding": [
                 {
@@ -1729,7 +2083,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-30T13:55:07+00:00"
+            "time": "2024-03-02T07:17:12+00:00"
         },
         {
             "name": "sebastian/global-state",
@@ -1737,12 +2091,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "54eb5dad20775611b81c891259e5d9d7f39250f4"
+                "reference": "987bafff24ecc4c9ac418cab1145b96dd6e9cbd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/54eb5dad20775611b81c891259e5d9d7f39250f4",
-                "reference": "54eb5dad20775611b81c891259e5d9d7f39250f4",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/987bafff24ecc4c9ac418cab1145b96dd6e9cbd9",
+                "reference": "987bafff24ecc4c9ac418cab1145b96dd6e9cbd9",
                 "shasum": ""
             },
             "require": {
@@ -1783,7 +2137,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
                 "security": "https://github.com/sebastianbergmann/global-state/security/policy",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/6.0"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/6.0.2"
             },
             "funding": [
                 {
@@ -1791,7 +2145,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-30T13:55:32+00:00"
+            "time": "2024-03-02T07:19:19+00:00"
         },
         {
             "name": "sebastian/lines-of-code",
@@ -2262,12 +2616,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "68a8a340f83835d66eb00b81e1d50834c1c61fed"
+                "reference": "811f138210c7ece81b3a23ab400a6291ea7449f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/68a8a340f83835d66eb00b81e1d50834c1c61fed",
-                "reference": "68a8a340f83835d66eb00b81e1d50834c1c61fed",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/811f138210c7ece81b3a23ab400a6291ea7449f2",
+                "reference": "811f138210c7ece81b3a23ab400a6291ea7449f2",
                 "shasum": ""
             },
             "require": {
@@ -2335,7 +2689,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-02-18T01:57:31+00:00"
+            "time": "2024-03-05T09:30:17+00:00"
         },
         {
             "name": "symfony/console",
@@ -2343,12 +2697,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "d0d049254b19979aa227481f3d35395742b2c5e7"
+                "reference": "3a6b6bf5ce1b8a497ac75cb5d31cc7376f9a902f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/d0d049254b19979aa227481f3d35395742b2c5e7",
-                "reference": "d0d049254b19979aa227481f3d35395742b2c5e7",
+                "url": "https://api.github.com/repos/symfony/console/zipball/3a6b6bf5ce1b8a497ac75cb5d31cc7376f9a902f",
+                "reference": "3a6b6bf5ce1b8a497ac75cb5d31cc7376f9a902f",
                 "shasum": ""
             },
             "require": {
@@ -2428,7 +2782,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-07T14:12:34+00:00"
+            "time": "2024-02-22T20:28:06+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3007,16 +3361,16 @@
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "b2ad5003ca10d4ee50a12da31de12a5774ba6b96"
+                "reference": "737eda637ed5e28c3413cb1ebe8bb52cbf1ca7a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/b2ad5003ca10d4ee50a12da31de12a5774ba6b96",
-                "reference": "b2ad5003ca10d4ee50a12da31de12a5774ba6b96",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/737eda637ed5e28c3413cb1ebe8bb52cbf1ca7a2",
+                "reference": "737eda637ed5e28c3413cb1ebe8bb52cbf1ca7a2",
                 "shasum": ""
             },
             "require": {
@@ -3045,7 +3399,7 @@
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "support": {
                 "issues": "https://github.com/theseer/tokenizer/issues",
-                "source": "https://github.com/theseer/tokenizer/tree/1.2.2"
+                "source": "https://github.com/theseer/tokenizer/tree/1.2.3"
             },
             "funding": [
                 {
@@ -3053,7 +3407,16 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-20T00:12:19+00:00"
+            "time": "2024-03-03T12:36:25+00:00"
+        },
+        {
+            "name": "woocommerce/woocommerce",
+            "version": "8.6.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/woocommerce/woocommerce/releases/download/8.6.1/woocommerce.zip"
+            },
+            "type": "library"
         },
         {
             "name": "wp-coding-standards/wpcs",
@@ -3185,6 +3548,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "opis/json-schema": 20,
+        "typisttech/imposter-plugin": 20,
         "aldavigdis/wp-tests-strapon": 20
     },
     "prefer-stable": false,

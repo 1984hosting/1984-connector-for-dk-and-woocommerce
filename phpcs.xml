@@ -7,6 +7,8 @@
 		value="../../slevomat/coding-standard,../../wp-coding-standards/wpcs,../../phpcsstandards/phpcsutils,../../phpcsstandards/phpcsextra,../../phpcompatibility/php-compatibility/"
 	/>
 
+	<arg name="extensions" value="php,js,css"/>
+
 	<rule ref="PHPCompatibility">
 	</rule>
 	<config name="testVersion" value="8.2-"/>
@@ -31,6 +33,27 @@
 		root file, used for WordPress specific metadata.
 		-->
 		<exclude name="Squiz.Commenting.FileComment" />
+
+		<!--
+		Disables a check for JS being loaded from the footer. It is a silly idea
+		and heresy.
+		-->
+		<exclude name="WordPress.WP.EnqueuedResourceParameters.NotInFooter" />
+	</rule>
+
+	<!--
+	Disable multiline function call checks for JS files.
+	This sniff seems to be buggy as it is insisiting on spaces, instead of tabs.
+	-->
+	<rule ref="PEAR.Functions.FunctionCallSignature.Indent">
+		<exclude-pattern>./js/**</exclude-pattern>
+	</rule>
+
+	<!--
+	Not escaping outputted strings should be allowed in tests, because why not.
+	-->
+	<rule ref="WordPress.Security.EscapeOutput.OutputNotEscaped">
+		<exclude-pattern>./tests/**</exclude-pattern>
 	</rule>
 
 	<!--
