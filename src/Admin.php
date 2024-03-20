@@ -35,8 +35,8 @@ class Admin {
 	public static function add_menu_page(): void {
 		add_submenu_page(
 			'woocommerce',
-			__( '1984 dkPlus Connection', 'NineteenEightyWoo' ),
-			__( 'dkPlus Connection', 'NineteenEightyWoo' ),
+			__( '1984 DK Connection', 'NineteenEightyWoo' ),
+			__( 'DK Connection', 'NineteenEightyWoo' ),
 			'manage_options',
 			'NineteenEightyWoo',
 			array( __CLASS__, 'render_admin_page' )
