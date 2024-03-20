@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Service;
 
-use Model\Product\Product;
-use Service\Exception\WooCooServiceException;
+use NineteenEightyFour\NineteenEightyWoo\Model\Product\Product;
+use NineteenEightyFour\NineteenEightyWoo\Service\Exception\WooCooServiceException;
 use stdClass;
 
 class WooCooProductService implements WooCooServiceInterface {
@@ -103,11 +103,16 @@ class WooCooProductService implements WooCooServiceInterface {
 	 *
 	 * @throws WooCooServiceException
 	 */
-	public function getProduct( string $sku ): ?stdClass {
-		return $this->handleDkResponse(
+	public function getProduct( string $sku ): ?Product {
+		$data_from_dk = $this->handleDkResponse(
 			$this->apiService->getProductById( $sku ),
 			'Error occurred while fetching product with Sku: ' . $sku
 		);
+
+		$product_object = new Product();
+		$product_object->createProductFromDkData($data_from_dk);
+		$product_object->toWooCoo();
+		return $product_object;
 	}
 
 	public function getProductsPaged(): void {

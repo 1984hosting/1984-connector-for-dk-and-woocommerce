@@ -249,6 +249,11 @@ class Product implements JsonSerializable {
 		$this->setHasAlternative( $product->has_alternative ?? false );
 	}
 
+	public function toWCProductSimple() {
+		// @TODO Create WooCommerce Product Simple Object from this Object
+		// @author aldavigdis
+	}
+
 	public function getItemCode(): string {
 		return $this->ItemCode;
 	}

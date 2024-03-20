@@ -5,7 +5,8 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Model\Customer;
 
 use JsonSerializable;
-use Model\Customer\CustomerCondition;
+use NineteenEightyFour\NineteenEightyWoo\Model\Customer\CustomerCondition;
+use stdClass;
 
 /**
  * ATM there are 7 variables that are described in the Dataset for Customer that are NOT in it
@@ -30,100 +31,241 @@ use Model\Customer\CustomerCondition;
  * @date 2024-03-05
  */
 class Customer implements JsonSerializable {
-
+	/**
+	 * @var bool $Deleted
+	 */
 	protected bool $Deleted;
 
+	/**
+	 * @var array $Contacts
+	 */
 	protected array $Contacts = [];
 
+	/**
+	 * @var array $Recivers
+	 */
 	protected array $Recivers = [];
 
+	/**
+	 * @var array $Memos
+	 */
 	protected array $Memos = [];
 
+	/**
+	 * @var array $Properties
+	 */
 	protected array $Properties = [];
 
+	/**
+	 * @var array $Changes
+	 */
 	protected array $Changes = [];
 
+	/**
+	 * @var array $Attachments
+	 */
 	protected array $Attachments = [];
 
+	/**
+	 * @var CustomerCondition|null $Conditions
+	 */
 	protected CustomerCondition|null $Conditions;
 
+	/**
+	 * @var CustomerSendTo|null $SendTo
+	 */
 	protected CustomerSendTo|null $SendTo;
 
+	/**
+	 * @var UBL|null $UBL
+	 */
 	protected UBL|null $UBL;
 
+	/**
+	 * @var int|null $RecordID
+	 */
 	protected int|null $RecordID;
 
+	/**
+	 * @var string|null $Number
+	 */
 	protected string|null $Number;
 
+	/**
+	 * @var string|null $Name
+	 */
 	protected string|null $Name;
 
+	/**
+	 * @var string|null $SSNumber
+	 */
 	protected string|null $SSNumber;
 
+	/**
+	 * @var string|null $Alias
+	 */
 	protected string|null $Alias;
 
+	/**
+	 * @var string|null $Address1
+	 */
 	protected string|null $Address1;
 
+	/**
+	 * @var string|null $Address2
+	 */
 	protected string|null $Address2;
 
+	/**
+	 * @var string|null $Address3
+	 */
 	protected string|null $Address3;
 
+	/**
+	 * @var string|null $City
+	 */
 	protected string|null $City;
 
+	/**
+	 * @var string|null $ZipCode
+	 */
 	protected string|null $ZipCode;
 
+	/**
+	 * @var float $BalanceAmount
+	 */
 	protected float $BalanceAmount = 0;
 
+	/**
+	 * @var string|null $Phone
+	 */
 	protected string|null $Phone;
 
+	/**
+	 * @var string|null $PhoneLocal
+	 */
 	protected string|null $PhoneLocal;
 
+	/**
+	 * @var string|null $PhoneMobile
+	 */
 	protected string|null $PhoneMobile;
 
+	/**
+	 * @var string|null $PhoneFax
+	 */
 	protected string|null $PhoneFax;
 
+	/**
+	 * @var string|null $CountryCode
+	 */
 	protected string|null $CountryCode;
 
+	/**
+	 * @var string|null $OriginCountryCode
+	 */
 	protected string|null $OriginCountryCode;
 
+	/**
+	 * @var string|null $Email
+	 */
 	protected string|null $Email;
 
+	/**
+	 * @var string|null $Password
+	 */
 	protected string|null $Password;
 
+	/**
+	 * @var string|null $Group
+	 */
 	protected string|null $Group;
 
+	/**
+	 * @var string|null $SalesPerson
+	 */
 	protected string|null $SalesPerson;
 
+	/**
+	 * @var float|int $Discount
+	 */
 	protected float $Discount = 0;
 
+	/**
+	 * @var bool|null $UseItemRecivers
+	 */
 	protected bool|null $UseItemRecivers;
 
+	/**
+	 * @var string|null $PaymentTerm
+	 */
 	protected string|null $PaymentTerm;
 
+	/**
+	 * @var string|null $PaymentMode
+	 */
 	protected string|null $PaymentMode;
 
+	/**
+	 * @var string|null $CurrencyCode
+	 */
 	protected string|null $CurrencyCode;
 
+	/**
+	 * @var bool $NoVat
+	 */
 	protected bool $NoVat = false;
 
+	/**
+	 * @var string|null $LedgerCode
+	 */
 	protected string|null $LedgerCode;
 
+	/**
+	 * @var bool $Blocked
+	 */
 	protected bool $Blocked = false;
 
+	/**
+	 * @var string $Gender
+	 */
 	protected string $Gender;
 
+	/**
+	 * @var int $PriceGroup
+	 */
 	protected int $PriceGroup = 0;
 
+	/**
+	 * @var float $BillingFee
+	 */
 	protected float $BillingFee = 0;
 
+	/**
+	 * @var string|null $Modified
+	 */
 	protected string|null $Modified;
 
+	/**
+	 * @var string|null $ObjectDate
+	 */
 	protected string|null $ObjectDate;
 
+	/**
+	 * @var string|null $VATNumber
+	 */
 	protected string|null $VATNumber;
 
+	/**
+	 * @var string|null $ISATNumber
+	 */
 	protected string|null $ISATNumber;
 
-	public function createCustomerFromDKData( \stdClass $customer ): void {
+	/**
+	 * @param stdClass $customer
+	 * @return void
+	 */
+	public function createCustomerFromDKData( stdClass $customer ): void {
 		if ( isset( $customer->Contacts ) ) {
 			if ( is_array( $customer->Contacts ) && sizeof( $customer->Contacts ) > 0 ) {
 				$this->setContacts( $customer->Contacts );
@@ -225,19 +367,33 @@ class Customer implements JsonSerializable {
 		$this->setISATNumber( $customer->ISATNumber ?? null );
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isDeleted(): bool {
 		return $this->Deleted;
 	}
 
+	/**
+	 * @param bool $Deleted
+	 * @return $this
+	 */
 	public function setDeleted( bool $Deleted ): Customer {
 		$this->Deleted = $Deleted;
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getContacts(): array {
 		return $this->Contacts;
 	}
 
+	/**
+	 * @param array $Contacts
+	 * @return $this
+	 */
 	public function setContacts( array $Contacts ): Customer {
 		if ( sizeof( $Contacts ) > 0 ) {
 			$new_array = [];
@@ -253,10 +409,17 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getRecivers(): array {
 		return $this->Recivers;
 	}
 
+	/**
+	 * @param array $Recivers
+	 * @return $this
+	 */
 	public function setRecivers( array $Recivers ): Customer {
 		$arr = [];
 		foreach ( $Recivers as $reciver ) {
@@ -268,393 +431,697 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getMemos(): array {
 		return $this->Memos;
 	}
 
+	/**
+	 * @param array $Memos
+	 * @return $this
+	 */
 	public function setMemos( array $Memos ): Customer {
 		$this->Memos = $Memos;
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getProperties(): array {
 		return $this->Properties;
 	}
 
+	/**
+	 * @param array $Properties
+	 * @return $this
+	 */
 	public function setProperties( array $Properties ): Customer {
 		$this->Properties = $Properties;
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getChanges(): array {
 		return $this->Changes;
 	}
 
+	/**
+	 * @param array $Changes
+	 * @return $this
+	 */
 	public function setChanges( array $Changes ): Customer {
 		$this->Changes = $Changes;
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getAttachments(): array {
 		return $this->Attachments;
 	}
 
+	/**
+	 * @param array $Attachments
+	 * @return $this
+	 */
 	public function setAttachments( array $Attachments ): Customer {
 		$this->Attachments = $Attachments;
 		return $this;
 	}
 
-	public function getConditions(): \Model\Customer\CustomerCondition {
+	/**
+	 * @return CustomerCondition
+	 */
+	public function getConditions(): CustomerCondition {
 		return $this->Conditions;
 	}
 
-	public function setConditions( \Model\Customer\CustomerCondition $Conditions ): Customer {
+	/**
+	 * @param \NineteenEightyFour\NineteenEightyWoo\Model\Customer\CustomerCondition $Conditions
+	 * @return $this
+	 */
+	public function setConditions( CustomerCondition $Conditions ): Customer {
 		$this->Conditions = $Conditions;
 		return $this;
 	}
 
+	/**
+	 * @return CustomerSendTo
+	 */
 	public function getSendTo(): CustomerSendTo {
 		return $this->SendTo;
 	}
 
+	/**
+	 * @param CustomerSendTo $SendTo
+	 * @return $this
+	 */
 	public function setSendTo( CustomerSendTo $SendTo ): Customer {
 		$this->SendTo = $SendTo;
 		return $this;
 	}
 
+	/**
+	 * @return UBL
+	 */
 	public function getUBL(): UBL {
 		return $this->UBL;
 	}
 
+	/**
+	 * @param UBL $UBL
+	 * @return $this
+	 */
 	public function setUBL( UBL $UBL ): Customer {
 		$this->UBL = $UBL;
 		return $this;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getRecordID(): int {
 		return $this->RecordID;
 	}
 
+	/**
+	 * @param int $RecordID
+	 * @return $this
+	 */
 	public function setRecordID( int $RecordID ): Customer {
 		$this->RecordID = $RecordID;
 		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getNumber(): string {
 		return $this->Number;
 	}
 
+	/**
+	 * @param string $Number
+	 * @return $this
+	 */
 	public function setNumber( string $Number ): Customer {
 		$this->Number = $Number;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getName(): string|null {
 		return $this->Name;
 	}
 
+	/**
+	 * @param string|null $Name
+	 * @return $this
+	 */
 	public function setName( string|null $Name ): Customer {
 		$this->Name = $Name;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getSSNumber(): string|null {
 		return $this->SSNumber;
 	}
 
+	/**
+	 * @param string|null $SSNumber
+	 * @return $this
+	 */
 	public function setSSNumber( string|null $SSNumber ): Customer {
 		$this->SSNumber = $SSNumber;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getAlias(): string|null {
 		return $this->Alias;
 	}
 
+	/**
+	 * @param string|null $Alias
+	 * @return $this
+	 */
 	public function setAlias( string|null $Alias ): Customer {
 		$this->Alias = $Alias;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getAddress1(): string|null {
 		return $this->Address1;
 	}
 
+	/**
+	 * @param string|null $Address1
+	 * @return $this
+	 */
 	public function setAddress1( string|null $Address1 ): Customer {
 		$this->Address1 = $Address1;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getAddress2(): string|null {
 		return $this->Address2;
 	}
 
+	/**
+	 * @param string|null $Address2
+	 * @return $this
+	 */
 	public function setAddress2( string|null $Address2 ): Customer {
 		$this->Address2 = $Address2;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getAddress3(): string|null {
 		return $this->Address3;
 	}
 
+	/**
+	 * @param string|null $Address3
+	 * @return $this
+	 */
 	public function setAddress3( string|null $Address3 ): Customer {
 		$this->Address3 = $Address3;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getCity(): string|null {
 		return $this->City;
 	}
 
+	/**
+	 * @param string|null $City
+	 * @return $this
+	 */
 	public function setCity( string|null $City ): Customer {
 		$this->City = $City;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getZipCode(): string|null {
 		return $this->ZipCode;
 	}
 
+	/**
+	 * @param string|null $ZipCode
+	 * @return $this
+	 */
 	public function setZipCode( string|null $ZipCode ): Customer {
 		$this->ZipCode = $ZipCode;
 		return $this;
 	}
 
+	/**
+	 * @return float
+	 */
 	public function getBalanceAmount(): float {
 		return $this->BalanceAmount;
 	}
 
+	/**
+	 * @param float $BalanceAmount
+	 * @return $this
+	 */
 	public function setBalanceAmount( float $BalanceAmount ): Customer {
 		$this->BalanceAmount = $BalanceAmount;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getPhone(): string|null {
 		return $this->Phone;
 	}
 
+	/**
+	 * @param string|null $Phone
+	 * @return $this
+	 */
 	public function setPhone( string|null $Phone ): Customer {
 		$this->Phone = $Phone;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getPhoneLocal(): string|null {
 		return $this->PhoneLocal;
 	}
 
+	/**
+	 * @param string|null $PhoneLocal
+	 * @return $this
+	 */
 	public function setPhoneLocal( string|null $PhoneLocal ): Customer {
 		$this->PhoneLocal = $PhoneLocal;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getPhoneMobile(): string|null {
 		return $this->PhoneMobile;
 	}
 
+	/**
+	 * @param string|null $PhoneMobile
+	 * @return $this
+	 */
 	public function setPhoneMobile( string|null $PhoneMobile ): Customer {
 		$this->PhoneMobile = $PhoneMobile;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getPhoneFax(): string|null {
 		return $this->PhoneFax;
 	}
 
+	/**
+	 * @param string|null $PhoneFax
+	 * @return $this
+	 */
 	public function setPhoneFax( string|null $PhoneFax ): Customer {
 		$this->PhoneFax = $PhoneFax;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getCountryCode(): string|null {
 		return $this->CountryCode;
 	}
 
+	/**
+	 * @param string|null $CountryCode
+	 * @return $this
+	 */
 	public function setCountryCode( string|null $CountryCode ): Customer {
 		$this->CountryCode = $CountryCode;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getOriginCountryCode(): string|null {
 		return $this->OriginCountryCode;
 	}
 
+	/**
+	 * @param string|null $OriginCountryCode
+	 * @return $this
+	 */
 	public function setOriginCountryCode( string|null $OriginCountryCode ): Customer {
 		$this->OriginCountryCode = $OriginCountryCode;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getEmail(): string|null {
 		return $this->Email;
 	}
 
+	/**
+	 * @param string|null $Email
+	 * @return $this
+	 */
 	public function setEmail( string|null $Email ): Customer {
 		$this->Email = $Email;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getPassword(): string|null {
 		return $this->Password;
 	}
 
+	/**
+	 * @param string|null $Password
+	 * @return $this
+	 */
 	public function setPassword( string|null $Password ): Customer {
 		$this->Password = $Password;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getGroup(): string|null {
 		return $this->Group;
 	}
 
+	/**
+	 * @param string|null $Group
+	 * @return $this
+	 */
 	public function setGroup( string|null $Group ): Customer {
 		$this->Group = $Group;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getSalesPerson(): string|null {
 		return $this->SalesPerson;
 	}
 
+	/**
+	 * @param string|null $SalesPerson
+	 * @return $this
+	 */
 	public function setSalesPerson( string|null $SalesPerson ): Customer {
 		$this->SalesPerson = $SalesPerson;
 		return $this;
 	}
 
+	/**
+	 * @return float
+	 */
 	public function getDiscount(): float {
 		return $this->Discount;
 	}
 
+	/**
+	 * @param float $Discount
+	 * @return $this
+	 */
 	public function setDiscount( float $Discount ): Customer {
 		$this->Discount = $Discount;
 		return $this;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isUseItemRecivers(): bool {
 		return $this->UseItemRecivers;
 	}
 
+	/**
+	 * @param bool $UseItemRecivers
+	 * @return $this
+	 */
 	public function setUseItemRecivers( bool $UseItemRecivers ): Customer {
 		$this->UseItemRecivers = $UseItemRecivers;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getPaymentTerm(): string|null {
 		return $this->PaymentTerm;
 	}
 
+	/**
+	 * @param string|null $PaymentTerm
+	 * @return $this
+	 */
 	public function setPaymentTerm( string|null $PaymentTerm ): Customer {
 		$this->PaymentTerm = $PaymentTerm;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getPaymentMode(): string|null {
 		return $this->PaymentMode;
 	}
 
+	/**
+	 * @param string|null $PaymentMode
+	 * @return $this
+	 */
 	public function setPaymentMode( string|null $PaymentMode ): Customer {
 		$this->PaymentMode = $PaymentMode;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getCurrencyCode(): string|null {
 		return $this->CurrencyCode;
 	}
 
+	/**
+	 * @param string|null $CurrencyCode
+	 * @return $this
+	 */
 	public function setCurrencyCode( string|null $CurrencyCode ): Customer {
 		$this->CurrencyCode = $CurrencyCode;
 		return $this;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isNoVat(): bool {
 		return $this->NoVat;
 	}
 
+	/**
+	 * @param bool $NoVat
+	 * @return $this
+	 */
 	public function setNoVat( bool $NoVat ): Customer {
 		$this->NoVat = $NoVat;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getLedgerCode(): string|null {
 		return $this->LedgerCode;
 	}
 
+	/**
+	 * @param string|null $LedgerCode
+	 * @return $this
+	 */
 	public function setLedgerCode( string|null $LedgerCode ): Customer {
 		$this->LedgerCode = $LedgerCode;
 		return $this;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isBlocked(): bool {
 		return $this->Blocked;
 	}
 
+	/**
+	 * @param bool $Blocked
+	 * @return $this
+	 */
 	public function setBlocked( bool $Blocked ): Customer {
 		$this->Blocked = $Blocked;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getGender(): string|null {
 		return $this->Gender;
 	}
 
+	/**
+	 * @param string|null $Gender
+	 * @return $this
+	 */
 	public function setGender( string|null $Gender ): Customer {
 		$this->Gender = $Gender;
 		return $this;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getPriceGroup(): int {
 		return $this->PriceGroup;
 	}
 
+	/**
+	 * @param int $PriceGroup
+	 * @return $this
+	 */
 	public function setPriceGroup( int $PriceGroup ): Customer {
 		$this->PriceGroup = $PriceGroup;
 		return $this;
 	}
 
+	/**
+	 * @return float
+	 */
 	public function getBillingFee(): float {
 		return $this->BillingFee;
 	}
 
+	/**
+	 * @param float $BillingFee
+	 * @return $this
+	 */
 	public function setBillingFee( float $BillingFee ): Customer {
 		$this->BillingFee = $BillingFee;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getModified(): string|null {
 		return $this->Modified;
 	}
 
+	/**
+	 * @param string|null $Modified
+	 * @return $this
+	 */
 	public function setModified( string|null $Modified ): Customer {
 		$this->Modified = $Modified;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getObjectDate(): string|null {
 		return $this->ObjectDate;
 	}
 
+	/**
+	 * @param string|null $ObjectDate
+	 * @return $this
+	 */
 	public function setObjectDate( string|null $ObjectDate ): Customer {
 		$this->ObjectDate = $ObjectDate;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getVATNumber(): string|null {
 		return $this->VATNumber;
 	}
 
+	/**
+	 * @param string|null $VATNumber
+	 * @return $this
+	 */
 	public function setVATNumber( string|null $VATNumber ): Customer {
 		$this->VATNumber = $VATNumber;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getISATNumber(): string|null {
 		return $this->ISATNumber;
 	}
 
+	/**
+	 * @param string|null $ISATNumber
+	 * @return $this
+	 */
 	public function setISATNumber( string|null $ISATNumber ): Customer {
 		$this->ISATNumber = $ISATNumber;
 		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function jsonSerialize(): string {
 		return json_encode( get_object_vars( $this ) );
 	}
