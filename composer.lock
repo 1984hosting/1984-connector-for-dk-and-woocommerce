@@ -368,34 +368,34 @@
     "packages-dev": [
         {
             "name": "aldavigdis/wp-tests-strapon",
-            "version": "0.1.4",
+            "version": "0.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aldavigdis/wp-tests-strapon.git",
-                "reference": "69d63e4d9d8570379af8e67d0b888f1cc6a440a5"
+                "reference": "4b69ba2a091e05454c77dfdf7598e64116b8d25c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aldavigdis/wp-tests-strapon/zipball/69d63e4d9d8570379af8e67d0b888f1cc6a440a5",
-                "reference": "69d63e4d9d8570379af8e67d0b888f1cc6a440a5",
+                "url": "https://api.github.com/repos/aldavigdis/wp-tests-strapon/zipball/4b69ba2a091e05454c77dfdf7598e64116b8d25c",
+                "reference": "4b69ba2a091e05454c77dfdf7598e64116b8d25c",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^2.6",
+                "phpunit/phpunit": "^9.0 || ^10.0",
                 "simoneast/simple-ansi-colors": "^1.0",
                 "yoast/phpunit-polyfills": "^2.0"
             },
             "require-dev": {
                 "composer/composer": "^2.7",
+                "phpcompatibility/php-compatibility": "^9.3",
                 "phpunit/phpunit": "^10.0",
                 "psy/psysh": "^0.12.0",
+                "slevomat/coding-standard": "^8.14",
                 "squizlabs/php_codesniffer": "^3.8",
                 "wp-coding-standards/wpcs": "^3.0"
             },
             "type": "library",
-            "extra": {
-                "class": "Aldavigdis\\WpTestsStrapon\\StraponMain"
-            },
             "autoload": {
                 "psr-4": {
                     "Aldavigdis\\WpTestsStrapon\\": "src/"
@@ -408,10 +408,12 @@
             "authors": [
                 {
                     "name": "Alda Vigdís Skarphéðinsdóttir",
-                    "email": "aldavigdis@aldavigdis.is"
+                    "email": "aldavigdis@aldavigdis.is",
+                    "role": "Developer"
                 }
             ],
             "description": "Strap the WordPress PHPUnit tests library onto your plugin or theme with this handy Composer package.",
+            "homepage": "https://github.com/aldavigdis/wp-tests-strapon",
             "keywords": [
                 "dev",
                 "phpunit",
@@ -419,10 +421,17 @@
                 "wordpress"
             ],
             "support": {
+                "email": "aldavigdis@aldavigdis.is",
                 "issues": "https://github.com/aldavigdis/wp-tests-strapon/issues",
-                "source": "https://github.com/aldavigdis/wp-tests-strapon/tree/v0.1.4"
+                "source": "https://github.com/aldavigdis/wp-tests-strapon"
             },
-            "time": "2024-03-20T21:50:46+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/aldavigdis",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-21T23:35:11+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -967,16 +976,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.26.0",
+            "version": "1.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "231e3186624c03d7e7c890ec662b81e6b0405227"
+                "reference": "86e4d5a4b036f8f0be1464522f4c6b584c452757"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/231e3186624c03d7e7c890ec662b81e6b0405227",
-                "reference": "231e3186624c03d7e7c890ec662b81e6b0405227",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/86e4d5a4b036f8f0be1464522f4c6b584c452757",
+                "reference": "86e4d5a4b036f8f0be1464522f4c6b584c452757",
                 "shasum": ""
             },
             "require": {
@@ -1008,9 +1017,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.26.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.27.0"
             },
-            "time": "2024-02-23T16:05:55+00:00"
+            "time": "2024-03-21T13:14:53+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1335,16 +1344,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.13",
+            "version": "10.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "20a63fc1c6db29b15da3bd02d4b6cf59900088a7"
+                "reference": "4cf8824bab39c2dd57b57b9f6332f7135e2a3a49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/20a63fc1c6db29b15da3bd02d4b6cf59900088a7",
-                "reference": "20a63fc1c6db29b15da3bd02d4b6cf59900088a7",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4cf8824bab39c2dd57b57b9f6332f7135e2a3a49",
+                "reference": "4cf8824bab39c2dd57b57b9f6332f7135e2a3a49",
                 "shasum": ""
             },
             "require": {
@@ -1416,7 +1425,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.13"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.14"
             },
             "funding": [
                 {
@@ -1432,7 +1441,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-12T15:37:41+00:00"
+            "time": "2024-03-21T07:31:09+00:00"
         },
         {
             "name": "psr/container",
