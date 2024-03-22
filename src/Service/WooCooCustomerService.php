@@ -98,8 +98,6 @@ class WooCooCustomerService {
 
 	/**
 	 * Gets all transactions for customer (UNIMPLEMENTED)
-	 *
-	 * @return array
 	 */
 	public function getTransactionsForCustomer( string $id ): array {
 		// @TODO: Implement this getTransactionsForCustomer($id) function.

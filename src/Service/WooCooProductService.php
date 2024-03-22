@@ -110,7 +110,7 @@ class WooCooProductService implements WooCooServiceInterface {
 		);
 
 		$product_object = new Product();
-		$product_object->createProductFromDkData($data_from_dk);
+		$product_object->createProductFromDkData( $data_from_dk );
 		$product_object->toWooCoo();
 		return $product_object;
 	}

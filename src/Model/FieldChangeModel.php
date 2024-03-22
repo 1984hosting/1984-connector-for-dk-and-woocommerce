@@ -26,50 +26,38 @@ class FieldChangeModel implements JsonSerializable {
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @return string
 	 */
-	public function getName() :string {
+	public function getName(): string {
 		return $this->Name;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @param string $Name
-	 * @return FieldChangeModel
 	 */
-	public function setName(string $Name ) :FieldChangeModel {
+	public function setName( string $Name ): FieldChangeModel {
 		$this->Name = $Name;
 		return $this;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @return string
 	 */
-	public function getValue() :string {
+	public function getValue(): string {
 		return $this->Value;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @param string $Value
-	 * @return FieldChangeModel
 	 */
-	public function setValue(string $Value ) :FieldChangeModel {
+	public function setValue( string $Value ): FieldChangeModel {
 		$this->Value = $Value;
 		return $this;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @return string
 	 */
-	public function jsonSerialize() :string {
+	public function jsonSerialize(): string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

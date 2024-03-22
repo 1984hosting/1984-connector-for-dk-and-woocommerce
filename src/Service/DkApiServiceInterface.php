@@ -31,15 +31,11 @@ interface DkApiServiceInterface {
 
 	/**
 	 * Creates a customer, by the user data.
-	 *
-	 * @return array
 	 */
 	function createCustomer( string $data ): array;
 
 	/**
 	 * Creates a product, by the user data.
-	 *
-	 * @return array
 	 */
 	function createProduct( string $data ): array;
 
@@ -47,8 +43,6 @@ interface DkApiServiceInterface {
 	 * Creates a Sales Order within DK
 	 *
 	 * @param string $data JSON String with the post data
-	 *
-	 * @return array
 	 */
 	function createSalesOrder( string $data ): array;
 
@@ -58,8 +52,6 @@ interface DkApiServiceInterface {
 	 * @param string $data JSON String with the post data
 	 * @param bool   $print_invoice Indicates if the invoice should be printed or filed
 	 *               as "unprinted".
-	 *
-	 * @return array
 	 */
 	function createInvoice( string $data, bool $print_invoice = false ): array;
 }

@@ -30,7 +30,6 @@ class DkApiService implements DkApiServiceInterface {
 	 * @param string|null $warehouse
 	 * @param string|null $modified
 	 * @param string|null $modified_before
-	 * @return array
 	 */
 	public function getProducts(
 		string $inactive = null,
@@ -85,7 +84,6 @@ class DkApiService implements DkApiServiceInterface {
 	 * Updates one customer with data.
 	 *
 	 * @param string $data JSON formatted string with data.
-	 * @return array
 	 */
 	public function updateCustomer( string $id, string $data ): array {
 		$connection_string = '/Customer/' . $id;
@@ -95,8 +93,6 @@ class DkApiService implements DkApiServiceInterface {
 
 	/**
 	 * Creates a customer, by the user data.
-	 *
-	 * @return array
 	 */
 	public function createCustomer( string $data ): array {
 		$connection_string = '/Customer';
@@ -117,8 +113,6 @@ class DkApiService implements DkApiServiceInterface {
 
 	/**
 	 * Creates a product, by the user data.
-	 *
-	 * @return array
 	 */
 	public function createProduct( string $data ): array {
 		$connection_string = '/Product';
@@ -129,8 +123,6 @@ class DkApiService implements DkApiServiceInterface {
 	 * Creates a Sales Order within DK
 	 *
 	 * @param string $data JSON String with the post data
-	 *
-	 * @return array
 	 */
 	public function createSalesOrder( string $data ): array {
 		$connectionString = '/sales/order';
@@ -150,8 +142,6 @@ class DkApiService implements DkApiServiceInterface {
 
 	/**
 	 * Gets a contact (receiver) assigned to a customer.
-	 *
-	 * @return array
 	 */
 	public function getContactAssignedToCustomer( string $customer_number, string $contact_number ): array {
 		$connectionString = '/Customer/' . $customer_number . '/Reciver/' . $contact_number;
@@ -160,8 +150,6 @@ class DkApiService implements DkApiServiceInterface {
 
 	/**
 	 * Deletes an contact (receiver) that is assigned to a Customer.
-	 *
-	 * @return array
 	 */
 	public function deleteContactAssignedToCustomer( string $customer_number, string $contact_number ): array {
 		$connectionString = 'Customer/' . $customer_number . '/reciver/' . $contact_number;
@@ -170,8 +158,6 @@ class DkApiService implements DkApiServiceInterface {
 
 	/**
 	 * Updates a contact that is assigned to a customer.
-	 *
-	 * @return array
 	 */
 	public function updateContactAssignedToCustomer( string $customer_number, string $contact_number, string $data ): array {
 		$connectionString = '/Customer/' . $customer_number . '/reciver/' . $contact_number;
@@ -180,8 +166,6 @@ class DkApiService implements DkApiServiceInterface {
 
 	/**
 	 * Gets all customer groups.
-	 *
-	 * @return array
 	 */
 	public function getCustomerGroups( ?string $modifiedAfter = null ): array {
 		$connectionString = '/customergroup';
@@ -193,8 +177,6 @@ class DkApiService implements DkApiServiceInterface {
 
 	/**
 	 * Gets one receiver (contact) by it's number.
-	 *
-	 * @return array
 	 */
 	public function getItemReciverByNumber( string $number ): array {
 		$connectionString = '/Reciver/' . $number;
@@ -204,8 +186,6 @@ class DkApiService implements DkApiServiceInterface {
 
 	/**
 	 * Creates a Customer receiver (person who receives the product).
-	 *
-	 * @return array
 	 */
 	public function createReciver( string $customer_number, string $data ): array {
 		$connectionString = '/Customer/' . $customer_number . '/reciver';
@@ -214,8 +194,6 @@ class DkApiService implements DkApiServiceInterface {
 
 	/**
 	 * Gets Receiver Customer by receiver number.
-	 *
-	 * @return array
 	 */
 	public function getReciverCustomerByReciverNumber( string $number ): array {
 		$connectionString = '/Reciver/' . $number . '/customer';
@@ -228,8 +206,6 @@ class DkApiService implements DkApiServiceInterface {
 	 * @param string $data JSON String with the post data
 	 * @param bool   $print_invoice Indicates if the invoice should be printed or filed
 	 *               as "unprinted".
-	 *
-	 * @return array
 	 */
 	public function createInvoice( string $data, bool $print_invoice = false ): array {
 		$connectionString  = '/sales/invoice';

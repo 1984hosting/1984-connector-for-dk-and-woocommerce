@@ -49,9 +49,8 @@ class CustomerSendTo implements JsonSerializable {
 	 * Short description (CS requirement, unnecessary for DTO Class)
 	 *
 	 * @param $send_to
-	 * @return void
 	 */
-	public function createSendToFromDKData( $send_to ) :void {
+	public function createSendToFromDKData( $send_to ): void {
 		$this->setPrinter( $send_to->Printer ?? false );
 		$this->setClaimToPrinter( $send_to->ClaimToPrinter ?? false );
 		$this->setEmail( $send_to->Email ?? false );
@@ -61,110 +60,93 @@ class CustomerSendTo implements JsonSerializable {
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @return bool
 	 */
-	public function isPrinter() :bool {
+	public function isPrinter(): bool {
 		return $this->Printer;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
 	 *
-	 * @param bool $Printer
 	 * @return $this
 	 */
-	public function setPrinter( bool $Printer ) :CustomerSendTo {
+	public function setPrinter( bool $Printer ): CustomerSendTo {
 		$this->Printer = $Printer;
 		return $this;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @return bool
 	 */
-	public function isClaimToPrinter() :bool {
+	public function isClaimToPrinter(): bool {
 		return $this->ClaimToPrinter;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
 	 *
-	 * @param bool $ClaimToPrinter
 	 * @return $this
 	 */
-	public function setClaimToPrinter( bool $ClaimToPrinter ) :CustomerSendTo {
+	public function setClaimToPrinter( bool $ClaimToPrinter ): CustomerSendTo {
 		$this->ClaimToPrinter = $ClaimToPrinter;
 		return $this;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @return bool
 	 */
-	public function isEmail() :bool {
+	public function isEmail(): bool {
 		return $this->Email;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
 	 *
-	 * @param bool $Email
 	 * @return $this
 	 */
-	public function setEmail( bool $Email ) :CustomerSendTo {
+	public function setEmail( bool $Email ): CustomerSendTo {
 		$this->Email = $Email;
 		return $this;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @return bool
 	 */
-	public function isEDIInvoice() :bool {
+	public function isEDIInvoice(): bool {
 		return $this->EDIInvoice;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
 	 *
-	 * @param bool $EDIInvoice
 	 * @return $this
 	 */
-	public function setEDIInvoice( bool $EDIInvoice ) :CustomerSendTo {
+	public function setEDIInvoice( bool $EDIInvoice ): CustomerSendTo {
 		$this->EDIInvoice = $EDIInvoice;
 		return $this;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @return bool
 	 */
-	public function isPublishingSystem() :bool {
+	public function isPublishingSystem(): bool {
 		return $this->PublishingSystem;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
 	 *
-	 * @param bool $PublishingSystem
 	 * @return $this
 	 */
-	public function setPublishingSystem( bool $PublishingSystem ) :CustomerSendTo {
+	public function setPublishingSystem( bool $PublishingSystem ): CustomerSendTo {
 		$this->PublishingSystem = $PublishingSystem;
 		return $this;
 	}
 
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
-	 * @return string
 	 */
-	public function jsonSerialize() :string {
+	public function jsonSerialize(): string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }
