@@ -109,6 +109,7 @@
 	-->
 	<rule ref="WordPress.NamingConventions.ValidVariableName">
 		<exclude-pattern>./src/Model/**</exclude-pattern>
+		<exclude-pattern>./src/Service/**</exclude-pattern>
 	</rule>
 
 	<!--
