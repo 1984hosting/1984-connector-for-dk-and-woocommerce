@@ -10,24 +10,12 @@ use JsonSerializable;
  * The CustomerMemoModel DTO class for DK
  */
 class CustomerMemoModel implements JsonSerializable {
-	/**
-	 * @var string|null $PageName
-	 */
 	protected ?string $PageName;
 
-	/**
-	 * @var string|null $PlainText
-	 */
 	protected ?string $PlainText;
 
-	/**
-	 * @var string|null $Modified
-	 */
 	protected ?string $Modified;
 
-	/**
-	 * @var int $RecordID
-	 */
 	protected int $RecordID = 0;
 
 	public function getPageName(): ?string {

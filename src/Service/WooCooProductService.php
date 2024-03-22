@@ -10,9 +10,6 @@ use stdClass;
 
 class WooCooProductService implements WooCooServiceInterface {
 
-	/**
-	 * @var DkApiService $apiService
-	 */
 	protected DkApiService $apiService;
 
 	/**

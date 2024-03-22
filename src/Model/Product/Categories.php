@@ -10,24 +10,12 @@ use stdClass;
  * The Categories DTO class for DK
  */
 class Categories implements \JsonSerializable {
-	/**
-	 * @var string $ID
-	 */
 	protected string $ID;
 
-	/**
-	 * @var array $SubCategories
-	 */
 	protected array $SubCategories;
 
-	/**
-	 * @var string $Description
-	 */
 	protected string $Description;
 
-	/**
-	 * @var bool $IsActive
-	 */
 	protected bool $IsActive;
 
 	public function createVariationModelFromDKData( stdClass $categories ) {

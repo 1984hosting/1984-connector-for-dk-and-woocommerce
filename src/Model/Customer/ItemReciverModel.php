@@ -11,109 +11,46 @@ use stdClass;
  * The ItemReciverModel DTO class for DK
  */
 class ItemReciverModel implements JsonSerializable {
-	/**
-	 * @var string $Number
-	 */
 	protected string $Number;
 
-	/**
-	 * @var string|null $Name
-	 */
 	protected string|null $Name;
 
-	/**
-	 * @var string|null $Address1
-	 */
 	protected string|null $Address1;
 
-	/**
-	 * @var string|null $Address2
-	 */
 	protected string|null $Address2;
 
-	/**
-	 * @var string|null $Address3
-	 */
 	protected string|null $Address3;
 
-	/**
-	 * @var string|null $Address4
-	 */
 	protected string|null $Address4;
 
-	/**
-	 * @var string|null $City
-	 */
 	protected string|null $City;
 
-	/**
-	 * @var string|null $ZipCode
-	 */
 	protected string|null $ZipCode;
 
-	/**
-	 * @var string|null $CountryCode
-	 */
 	protected string|null $CountryCode;
 
-	/**
-	 * @var string|null $SSNumber
-	 */
 	protected string|null $SSNumber;
 
-	/**
-	 * @var string|null $Phone
-	 */
 	protected string|null $Phone;
 
-	/**
-	 * @var string|null $PhoneLocal
-	 */
 	protected string|null $PhoneLocal;
 
-	/**
-	 * @var string|null $PhoneMobile
-	 */
 	protected string|null $PhoneMobile;
 
-	/**
-	 * @var string|null $Fax
-	 */
 	protected string|null $Fax;
 
-	/**
-	 * @var string|null $Telex
-	 */
 	protected string|null $Telex;
 
-	/**
-	 * @var string|null $Email
-	 */
 	protected string|null $Email;
 
-	/**
-	 * @var string|null $URL
-	 */
 	protected string|null $URL;
 
-	/**
-	 * @var string|null $EANNumber
-	 */
 	protected string|null $EANNumber;
 
-	/**
-	 * @var string|null $VATNumber
-	 */
 	public string|null $VATNumber;
 
-	/**
-	 * @var bool $Blocked
-	 */
 	public bool $Blocked = false;
 
-	/**
-	 * @var string|null $Modified
-	 */
 	public string|null $Modified;
 
 	public function createItemReciverModelFromDKData( stdClass $ItemReciver ): void {

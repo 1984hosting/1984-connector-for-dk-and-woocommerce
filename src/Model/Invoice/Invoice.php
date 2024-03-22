@@ -12,279 +12,114 @@ use stdClass;
  * The Invoice DTO class for DK
  */
 class Invoice implements JsonSerializable {
-	/**
-	 * @var string|null $Number
-	 */
 	protected ?string $Number;
 
-	/**
-	 * @var string|null $ObjectDate
-	 */
 	protected ?string $ObjectDate;
 
-	/**
-	 * @var string|null $Created
-	 */
 	protected ?string $Created;
 
-	/**
-	 * @var string|null $Modified
-	 */
 	protected ?string $Modified;
 
-	/**
-	 * @var string|null $CreatedBy
-	 */
 	protected ?string $CreatedBy;
 
-	/**
-	 * @var string|null $CNumber
-	 */
 	protected ?string $CNumber;
 
-	/**
-	 * @var string|null $CName
-	 */
 	protected ?string $CName;
 
-	/**
-	 * @var string|null $CAddress1
-	 */
 	protected ?string $CAddress1;
 
-	/**
-	 * @var string|null $CAddress2
-	 */
 	protected ?string $CAddress2;
 
-	/**
-	 * @var string|null $CAddress3
-	 */
 	protected ?string $CAddress3;
 
-	/**
-	 * @var string|null $CAddress4
-	 */
 	protected ?string $CAddress4;
 
-	/**
-	 * @var string|null $CZipCode
-	 */
 	protected ?string $CZipCode;
 
-	/**
-	 * @var string|null $CCountryCode
-	 */
 	protected ?string $CCountryCode;
 
-	/**
-	 * @var string|null $CSSNumber
-	 */
 	protected ?string $CSSNumber;
 
-	/**
-	 * @var string|null $CPhone
-	 */
 	protected ?string $CPhone;
 
-	/**
-	 * @var string|null $CContact
-	 */
 	protected ?string $CContact;
 
-	/**
-	 * @var int|null $RecordID
-	 */
 	protected ?int $RecordID = 0;
 
-	/**
-	 * @var int $OrderNumber
-	 */
 	protected int $OrderNumber = 0;
 
-	/**
-	 * @var string|null $InvoiceDate
-	 */
 	protected ?string $InvoiceDate;
 
-	/**
-	 * @var string|null $DueDate
-	 */
 	protected ?string $DueDate;
 
-	/**
-	 * @var float $DiscountPercent
-	 */
 	protected float $DiscountPercent = 0;
 
-	/**
-	 * @var float $Discount
-	 */
 	protected float $Discount = 0;
 
-	/**
-	 * @var float $TotalAmount
-	 */
 	protected float $TotalAmount = 0;
 
-	/**
-	 * @var float $TotalAmountWithTax
-	 */
 	protected float $TotalAmountWithTax = 0;
 
-	/**
-	 * @var string|null $Currency
-	 */
 	protected ?string $Currency;
 
-	/**
-	 * @var string|null $Reference
-	 */
 	protected ?string $Reference;
 
-	/**
-	 * @var string|null $Voucher
-	 */
 	protected ?string $Voucher;
 
-	/**
-	 * @var int $SettledType
-	 */
 	protected int $SettledType = 0;
 
-	/**
-	 * @var float $SettledAmount
-	 */
 	protected float $SettledAmount = 0;
 
-	/**
-	 * @var string|null $SalePerson
-	 */
 	protected ?string $SalePerson;
 
-	/**
-	 * @var string|null $Text1
-	 */
 	protected ?string $Text1;
 
-	/**
-	 * @var string|null $Text2
-	 */
 	protected ?string $Text2;
 
-	/**
-	 * @var string|null $Dim1
-	 */
 	protected ?string $Dim1;
 
-	/**
-	 * @var string|null $Dim2
-	 */
 	protected ?string $Dim2;
 
-	/**
-	 * @var int $Origin
-	 */
 	protected int $Origin = 0;
 
-	/**
-	 * @var string|null $PaymentTerm
-	 */
 	protected ?string $PaymentTerm;
 
-	/**
-	 * @var string|null $PaymentMode
-	 */
 	protected ?string $PaymentMode;
 
-	/**
-	 * @var int $ClaimStatus
-	 */
 	protected int $ClaimStatus = 0;
 
-	/**
-	 * @var float|int $Exchange
-	 */
 	protected float $Exchange = 0;
 
-	/**
-	 * @var int $SalesType
-	 */
 	protected int $SalesType = 0;
 
-	/**
-	 * @var int $Version
-	 */
 	protected int $Version = 0;
 
-	/**
-	 * @var string|null $Project
-	 */
 	protected ?string $Project;
 
-	/**
-	 * @var string|null $IRNumber
-	 */
 	protected ?string $IRNumber;
 
-	/**
-	 * @var string|null $IRName
-	 */
 	protected ?string $IRName;
 
-	/**
-	 * @var string|null $IRAddress1
-	 */
 	protected ?string $IRAddress1;
 
-	/**
-	 * @var string|null $IRAddress2
-	 */
 	protected ?string $IRAddress2;
 
-	/**
-	 * @var string|null $IRZipCode
-	 */
 	protected ?string $IRZipCode;
 
-	/**
-	 * @var string|null $IRContact
-	 */
 	protected ?string $IRContact;
 
-	/**
-	 * @var int $ExternalInvoiceNumber
-	 */
 	protected int $ExternalInvoiceNumber = 0;
 
-	/**
-	 * @var int $ClaimNumber
-	 */
 	protected int $ClaimNumber = 0;
 
-	/**
-	 * @var string|null $ClaimDate
-	 */
 	protected ?string $ClaimDate;
 
-	/**
-	 * @var string|null $Register
-	 */
 	protected ?string $Register;
 
-	/**
-	 * @var int $PosInvoice
-	 */
 	protected int $PosInvoice = 0;
 
-	/**
-	 * @var int $JournalId
-	 */
 	protected int $JournalId = 0;
 
-	/**
-	 * @var array|null $Lines
-	 */
 	protected ?array $Lines;
 
 	public function createInvoiceFromDKData( stdClass $Invoice ): void {

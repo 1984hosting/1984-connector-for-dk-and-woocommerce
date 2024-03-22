@@ -11,49 +11,22 @@ use stdClass;
  * The MailInfo DTO class for DK
  */
 class MailInfo implements JsonSerializable {
-	/**
-	 * @var string|null $DisplayName
-	 */
 	protected ?string $DisplayName;
 
-	/**
-	 * @var string|null $To
-	 */
 	protected ?string $To;
 
-	/**
-	 * @var string|null $CC
-	 */
 	protected ?string $CC;
 
-	/**
-	 * @var string|null $BCC
-	 */
 	protected ?string $BCC;
 
-	/**
-	 * @var string|null $Subject
-	 */
 	protected ?string $Subject;
 
-	/**
-	 * @var string|null $Body
-	 */
 	protected ?string $Body;
 
-	/**
-	 * @var string|null $Priority
-	 */
 	protected ?string $Priority;
 
-	/**
-	 * @var string|array|null $Attachments
-	 */
 	protected string|array|null $Attachments;
 
-	/**
-	 * @var bool $HasRecipients
-	 */
 	protected bool $HasRecipients;
 
 	/**

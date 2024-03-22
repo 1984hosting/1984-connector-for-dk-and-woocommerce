@@ -31,234 +31,96 @@ use stdClass;
  * @date 2024-03-05
  */
 class Customer implements JsonSerializable {
-	/**
-	 * @var bool $Deleted
-	 */
 	protected bool $Deleted;
 
-	/**
-	 * @var array $Contacts
-	 */
 	protected array $Contacts = [];
 
-	/**
-	 * @var array $Recivers
-	 */
 	protected array $Recivers = [];
 
-	/**
-	 * @var array $Memos
-	 */
 	protected array $Memos = [];
 
-	/**
-	 * @var array $Properties
-	 */
 	protected array $Properties = [];
 
-	/**
-	 * @var array $Changes
-	 */
 	protected array $Changes = [];
 
-	/**
-	 * @var array $Attachments
-	 */
 	protected array $Attachments = [];
 
-	/**
-	 * @var CustomerCondition|null $Conditions
-	 */
 	protected CustomerCondition|null $Conditions;
 
-	/**
-	 * @var CustomerSendTo|null $SendTo
-	 */
 	protected CustomerSendTo|null $SendTo;
 
-	/**
-	 * @var UBL|null $UBL
-	 */
 	protected UBL|null $UBL;
 
-	/**
-	 * @var int|null $RecordID
-	 */
 	protected int|null $RecordID;
 
-	/**
-	 * @var string|null $Number
-	 */
 	protected string|null $Number;
 
-	/**
-	 * @var string|null $Name
-	 */
 	protected string|null $Name;
 
-	/**
-	 * @var string|null $SSNumber
-	 */
 	protected string|null $SSNumber;
 
-	/**
-	 * @var string|null $Alias
-	 */
 	protected string|null $Alias;
 
-	/**
-	 * @var string|null $Address1
-	 */
 	protected string|null $Address1;
 
-	/**
-	 * @var string|null $Address2
-	 */
 	protected string|null $Address2;
 
-	/**
-	 * @var string|null $Address3
-	 */
 	protected string|null $Address3;
 
-	/**
-	 * @var string|null $City
-	 */
 	protected string|null $City;
 
-	/**
-	 * @var string|null $ZipCode
-	 */
 	protected string|null $ZipCode;
 
-	/**
-	 * @var float $BalanceAmount
-	 */
 	protected float $BalanceAmount = 0;
 
-	/**
-	 * @var string|null $Phone
-	 */
 	protected string|null $Phone;
 
-	/**
-	 * @var string|null $PhoneLocal
-	 */
 	protected string|null $PhoneLocal;
 
-	/**
-	 * @var string|null $PhoneMobile
-	 */
 	protected string|null $PhoneMobile;
 
-	/**
-	 * @var string|null $PhoneFax
-	 */
 	protected string|null $PhoneFax;
 
-	/**
-	 * @var string|null $CountryCode
-	 */
 	protected string|null $CountryCode;
 
-	/**
-	 * @var string|null $OriginCountryCode
-	 */
 	protected string|null $OriginCountryCode;
 
-	/**
-	 * @var string|null $Email
-	 */
 	protected string|null $Email;
 
-	/**
-	 * @var string|null $Password
-	 */
 	protected string|null $Password;
 
-	/**
-	 * @var string|null $Group
-	 */
 	protected string|null $Group;
 
-	/**
-	 * @var string|null $SalesPerson
-	 */
 	protected string|null $SalesPerson;
 
-	/**
-	 * @var float|int $Discount
-	 */
 	protected float $Discount = 0;
 
-	/**
-	 * @var bool|null $UseItemRecivers
-	 */
 	protected bool|null $UseItemRecivers;
 
-	/**
-	 * @var string|null $PaymentTerm
-	 */
 	protected string|null $PaymentTerm;
 
-	/**
-	 * @var string|null $PaymentMode
-	 */
 	protected string|null $PaymentMode;
 
-	/**
-	 * @var string|null $CurrencyCode
-	 */
 	protected string|null $CurrencyCode;
 
-	/**
-	 * @var bool $NoVat
-	 */
 	protected bool $NoVat = false;
 
-	/**
-	 * @var string|null $LedgerCode
-	 */
 	protected string|null $LedgerCode;
 
-	/**
-	 * @var bool $Blocked
-	 */
 	protected bool $Blocked = false;
 
-	/**
-	 * @var string $Gender
-	 */
 	protected string $Gender;
 
-	/**
-	 * @var int $PriceGroup
-	 */
 	protected int $PriceGroup = 0;
 
-	/**
-	 * @var float $BillingFee
-	 */
 	protected float $BillingFee = 0;
 
-	/**
-	 * @var string|null $Modified
-	 */
 	protected string|null $Modified;
 
-	/**
-	 * @var string|null $ObjectDate
-	 */
 	protected string|null $ObjectDate;
 
-	/**
-	 * @var string|null $VATNumber
-	 */
 	protected string|null $VATNumber;
 
-	/**
-	 * @var string|null $ISATNumber
-	 */
 	protected string|null $ISATNumber;
 
 	public function createCustomerFromDKData( stdClass $customer ): void {

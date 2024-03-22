@@ -11,24 +11,12 @@ use stdClass;
  * The CustomerGroup DTO class for DK
  */
 class CustomerGroup implements JsonSerializable {
-	/**
-	 * @var string|null $Modified
-	 */
 	protected ?string $Modified;
 
-	/**
-	 * @var int $ID
-	 */
 	protected int $ID = 0;
 
-	/**
-	 * @var string|null $Number
-	 */
 	protected ?string $Number;
 
-	/**
-	 * @var string|null $Description
-	 */
 	protected ?string $Description;
 
 	/**

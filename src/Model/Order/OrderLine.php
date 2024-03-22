@@ -11,109 +11,46 @@ use stdClass;
  * The OrderLine DTO class for DK
  */
 class OrderLine implements JsonSerializable {
-	/**
-	 * @var int $SequenceNumber
-	 */
 	protected int $SequenceNumber = 0;
 
-	/**
-	 * @var string $ItemCode
-	 */
 	protected string $ItemCode;
 
-	/**
-	 * @var string|null $Text
-	 */
 	protected string|null $Text;
 
-	/**
-	 * @var string|null $Text2
-	 */
 	protected string|null $Text2;
 
-	/**
-	 * @var string|null $Warehouse
-	 */
 	protected string|null $Warehouse;
 
-	/**
-	 * @var string|null $Location
-	 */
 	protected string|null $Location;
 
-	/**
-	 * @var float $Quantity
-	 */
 	protected float $Quantity = 0;
 
-	/**
-	 * @var float $QuantityDelivered
-	 */
 	protected float $QuantityDelivered = 0;
 
-	/**
-	 * @var float $UnitPrice
-	 */
 	protected float $UnitPrice;
 
-	/**
-	 * @var float $UnitPriceWithTax
-	 */
 	protected float $UnitPriceWithTax;
 
-	/**
-	 * @var string|null $UnitCode
-	 */
 	protected string|null $UnitCode;
 
-	/**
-	 * @var float $Discount
-	 */
 	protected float $Discount = 0;
 
-	/**
-	 * @var float $DiscountPercent
-	 */
 	protected float $DiscountPercent = 0;
 
-	/**
-	 * @var float $TotalAmount
-	 */
 	protected float $TotalAmount = 0;
 
-	/**
-	 * @var float $TotalAmountWithTax
-	 */
 	protected float $TotalAmountWithTax = 0;
 
-	/**
-	 * @var string|null $BarCode
-	 */
 	protected string|null $BarCode;
 
-	/**
-	 * @var string|null $Reference
-	 */
 	protected string|null $Reference;
 
-	/**
-	 * @var string|null $EDIOrderNumber
-	 */
 	protected string|null $EDIOrderNumber;
 
-	/**
-	 * @var int $UNDOrderNumber
-	 */
 	protected int $UNDOrderNumber = 0;
 
-	/**
-	 * @var string|null $Memo
-	 */
 	protected string|null $Memo;
 
-	/**
-	 * @var array $Variations
-	 */
 	protected array $Variations = [];
 
 	public function createOrderLineFromDKData( stdClass $OrderLine ): void {

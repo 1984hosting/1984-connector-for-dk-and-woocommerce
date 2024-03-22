@@ -10,29 +10,14 @@ use JsonSerializable;
  * The CustomerPropertyModel DTO class for DK
  */
 class CustomerPropertyModel implements JsonSerializable {
-	/**
-	 * @var string|null $ID
-	 */
 	protected ?string $ID;
 
-	/**
-	 * @var string|null $Attribute
-	 */
 	protected ?string $Attribute;
 
-	/**
-	 * @var string|null $Option
-	 */
 	protected ?string $Option;
 
-	/**
-	 * @var string|null $Comment
-	 */
 	protected ?string $Comment;
 
-	/**
-	 * @var string|null $Modified
-	 */
 	protected ?string $Modified;
 
 	public function getID(): ?string {

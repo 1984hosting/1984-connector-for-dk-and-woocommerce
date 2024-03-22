@@ -10,29 +10,14 @@ use JsonSerializable;
  * DTO for CustomerSendTo, part of DK Customer.
  */
 class CustomerSendTo implements JsonSerializable {
-	/**
-	 * @var bool $Printer
-	 */
 	protected bool $Printer;
 
-	/**
-	 * @var bool $ClaimToPrinter
-	 */
 	protected bool $ClaimToPrinter;
 
-	/**
-	 * @var bool $Email
-	 */
 	protected bool $Email;
 
-	/**
-	 * @var bool $EDIInvoice
-	 */
 	protected bool $EDIInvoice;
 
-	/**
-	 * @var bool $PublishingSystem
-	 */
 	protected bool $PublishingSystem;
 
 	/**

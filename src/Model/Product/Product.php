@@ -11,314 +11,128 @@ use stdClass;
  * The Product DTO class for DK
  */
 class Product implements JsonSerializable {
-	/**
-	 * @var string
-	 */
 	protected string $ItemCode;
 
-	/**
-	 * @var string|null
-	 */
 	protected string|null $Group;
 
-	/**
-	 * @var string
-	 */
 	protected string $Description;
 
-	/**
-	 * @var string|null
-	 */
 	protected string|null $Description2;
 
-	/**
-	 * @var float
-	 */
 	protected float $UnitPrice1WithTax;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $Inactive;
 
-	/**
-	 * @var string
-	 */
 	protected string $ItemClass;
 
-	/**
-	 * @var string
-	 */
 	protected string $UnitCode;
 
-	/**
-	 * @var int
-	 */
 	protected int $UnitQuantity;
 
-	/**
-	 * @var float
-	 */
 	protected float $NetWeight;
 
-	/**
-	 * @var int
-	 */
 	protected int $UnitVolume;
 
-	/**
-	 * @var float
-	 */
 	protected float $TotalQuantityInWarehouse;
 
-	/**
-	 * @var float
-	 */
 	protected float $PurchasePrice;
 
-	/**
-	 * @var string
-	 */
 	protected string $CurrencyCode;
 
-	/**
-	 * @var float
-	 */
 	protected float $Exchange;
 
-	/**
-	 * @var float
-	 */
 	protected float $UnitPrice1;
 
-	/**
-	 * @var float
-	 */
 	protected float $PurchaseFactor;
 
-	/**
-	 * @var float
-	 */
 	protected float $CostPrice;
 
-	/**
-	 * @var float
-	 */
 	protected float $ProfitRatio1;
 
-	/**
-	 * @var float
-	 */
 	protected float $UnitPrice2;
 
-	/**
-	 * @var float
-	 */
 	protected float $UnitPrice3WithTax;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $ShowItemInWebShop;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $AllowDiscount;
 
-	/**
-	 * @var float
-	 */
 	protected float $Discount;
 
-	/**
-	 * @var float
-	 */
 	protected float $UnitPrice2WithTax;
 
-	/**
-	 * @var float
-	 */
 	protected float $UnitPrice3;
 
-	/**
-	 * @var float
-	 */
 	protected float $PropositionPrice;
 
-	/**
-	 * @var string|null
-	 */
 	protected string|null $ExtraDesc1;
 
-	/**
-	 * @var string|null
-	 */
 	protected string|null $ExtraDesc2;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $IsVariation;
 
-	/**
-	 * @var string
-	 */
 	protected string $OriginCountry;
 
-	/**
-	 * @var float
-	 */
 	protected float $TaxPercent;
 
-	/**
-	 * @var string
-	 */
 	protected string $SalesTaxCode;
 
-	/**
-	 * @var string
-	 */
 	protected string $SalesLedgerCode;
 
-	/**
-	 * @var string
-	 */
 	protected string $PurchaseTaxCode;
 
-	/**
-	 * @var string
-	 */
 	protected string $PurchaseLedgerCode;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $AllowNegativeInventory;
 
-	/**
-	 * @var float
-	 */
 	protected float $MinimumStock;
 
-	/**
-	 * @var float
-	 */
 	protected float $MaximumStock;
 
-	/**
-	 * @var float
-	 */
 	protected float $DefaultPurchaseQuantity;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $SkipInPurchaseOrderSuggestions;
 
-	/**
-	 * @var int
-	 */
 	protected int $DeliveryTime;
 
-	/**
-	 * @var float
-	 */
 	protected float $DiscountQuantity;
 
-	/**
-	 * @var float
-	 */
 	protected float $MaxDiscountAllowed;
 
-	/**
-	 * @var float
-	 */
 	protected float $DefaultSaleQuantity;
 
-	/**
-	 * @var int
-	 */
 	protected int $CostMethod;
 
-	/**
-	 * @var stdClass|null
-	 */
 	protected \stdClass|null $PosProperties;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $HasAttachments;
 
-	/**
-	 * @var array
-	 */
 	protected array $Attachments;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $HasBarcodes;
 
-	/**
-	 * @var array
-	 */
 	protected array $Barcodes;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $HasCurrencyPrices;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $HasUnits;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $HasAlternative;
 
-	/**
-	 * @var array
-	 */
 	protected array $Categories;
 
-	/**
-	 * @var array
-	 */
 	protected array $Warehouses;
 
-	/**
-	 * @var array
-	 */
 	protected array $CurrencyPrices;
 
-	/**
-	 * @var array
-	 */
 	protected array $Units;
 
-	/**
-	 * @var array
-	 */
 	protected array $Alternative;
 
-	/**
-	 * @var array
-	 */
 	protected array $Changes;
 
-	/**
-	 * @var array
-	 */
 	protected array $Memos;
 
-	/**
-	 * @var array
-	 */
 	protected array $Vendors;
 
 	public function __construct() {

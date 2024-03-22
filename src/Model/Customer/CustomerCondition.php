@@ -10,24 +10,12 @@ use JsonSerializable;
  * DTO for Customer Condition, part of DK Customer.
  */
 class CustomerCondition implements JsonSerializable {
-	/**
-	 * @var float $CreditLimit
-	 */
 	protected float $CreditLimit = 0;
 
-	/**
-	 * @var float $CreditMax
-	 */
 	protected float $CreditMax = 0;
 
-	/**
-	 * @var bool $DisableSale
-	 */
 	protected bool $DisableSale = false;
 
-	/**
-	 * @var bool $DisableRetail
-	 */
 	protected bool $DisableRetail = false;
 
 	/**

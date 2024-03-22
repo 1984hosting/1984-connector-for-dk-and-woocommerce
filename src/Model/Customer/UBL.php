@@ -10,29 +10,14 @@ use JsonSerializable;
  * The UBL DTO class for DK
  */
 class UBL implements JsonSerializable {
-	/**
-	 * @var string|null $ID
-	 */
 	protected string|null $ID;
 
-	/**
-	 * @var string|null $Prefix
-	 */
 	protected string|null $Prefix;
 
-	/**
-	 * @var bool|null $Enabled
-	 */
 	protected bool|null $Enabled;
 
-	/**
-	 * @var string|null $AccountingCostType
-	 */
 	protected string|null $AccountingCostType;
 
-	/**
-	 * @var string|null $AccountingCost
-	 */
 	protected string|null $AccountingCost;
 
 	/**

@@ -13,124 +13,52 @@ use stdClass;
  * The Order DTO from DK.
  */
 class Order implements JsonSerializable {
-	/**
-	 * @var int $Number
-	 */
 	protected int $Number;
 
-	/**
-	 * @var Customer|null $Customer
-	 */
 	protected Customer|null $Customer;
 
-	/**
-	 * @var string|null $CContact
-	 */
 	protected string|null $CContact;
 
-	/**
-	 * @var int $ID
-	 */
 	protected int $ID = 0;
 
-	/**
-	 * @var string|null
-	 */
 	protected string|null $OrderDate;
 
-	/**
-	 * @var string|null $CustomerOrderDate
-	 */
 	protected string|null $CustomerOrderDate;
 
-	/**
-	 * @var string|null $CustomerOrderNumber
-	 */
 	protected string|null $CustomerOrderNumber;
 
-	/**
-	 * @var float|int $TotalAmount
-	 */
 	protected float $TotalAmount = 0;
 
-	/**
-	 * @var string|null $Currency
-	 */
 	protected string|null $Currency;
 
-	/**
-	 * @var string|null $Reference
-	 */
 	protected string|null $Reference;
 
-	/**
-	 * @var int $SettledType
-	 */
 	protected int $SettledType = 0;
 
-	/**
-	 * @var int
-	 */
 	protected int $SettledAmount = 0;
 
-	/**
-	 * @var string|null $SalePerson
-	 */
 	protected string|null $SalePerson;
 
-	/**
-	 * @var string|null
-	 */
 	protected string|null $Text1;
 
-	/**
-	 * @var string|null $Text2
-	 */
 	protected string|null $Text2;
 
-	/**
-	 * @var string|null $Dim1
-	 */
 	protected string|null $Dim1;
 
-	/**
-	 * @var int $Origin
-	 */
 	protected int $Origin = 0;
 
-	/**
-	 * @var string|null $PaymentTerm
-	 */
 	protected string|null $PaymentTerm;
 
-	/**
-	 * @var int $ClaimStatus
-	 */
 	protected int $ClaimStatus = 0;
 
-	/**
-	 * @var int $Exchange
-	 */
 	protected int $Exchange = 0;
 
-	/**
-	 * @var string|null $Status
-	 */
 	protected string|null $Status;
 
-	/**
-	 * @var string|null $
-	 */
 	protected string|null $DeliveryStatus;
 
-	/**
-	 * @var ItemReciverModel|null
-	 */
 	protected ItemReciverModel|null $DeliverTo;
 
-	/**
-	 * @var array $OrderLines
-	 */
 	protected array $OrderLines;
 
 	public function createOrderFromDKData( stdClass $order ): void {

@@ -10,34 +10,16 @@ use stdClass;
  * The Attachments DTO class for DK
  */
 class Attachments implements \JsonSerializable {
-	/**
-	 * @var int $ID
-	 */
 	protected int $ID;
 
-	/**
-	 * @var string $Name
-	 */
 	protected string $Name;
 
-	/**
-	 * @var int $Size
-	 */
 	protected int $Size;
 
-	/**
-	 * @var string $Linked
-	 */
 	protected string $Linked;
 
-	/**
-	 * @var string $MD5Hash
-	 */
 	protected string $MD5Hash;
 
-	/**
-	 * @var bool $ShowOnWeb
-	 */
 	protected bool $ShowOnWeb = true;
 
 	public function createAttachmentFromDKData( stdClass $attachment ) {

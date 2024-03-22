@@ -10,99 +10,42 @@ use JsonSerializable;
  * The ContactModel DTO Class for DK
  */
 class ContactModel implements JsonSerializable {
-	/**
-	 * @var string $Number
-	 */
 	protected string $Number;
 
-	/**
-	 * @var string|null $Name
-	 */
 	protected string|null $Name;
 
-	/**
-	 * @var string|null $Address1
-	 */
 	protected string|null $Address1;
 
-	/**
-	 * @var string|null $Address2
-	 */
 	protected string|null $Address2;
 
-	/**
-	 * @var string|null $Address3
-	 */
 	protected string|null $Address3;
 
-	/**
-	 * @var string|null $City
-	 */
 	protected string|null $City;
 
-	/**
-	 * @var string|null $ZipCode
-	 */
 	protected string|null $ZipCode;
 
-	/**
-	 * @var string|null $CountryCode
-	 */
 	protected string|null $CountryCode;
 
-	/**
-	 * @var string|null $Department
-	 */
 	protected string|null $Department;
 
-	/**
-	 * @var string|null $SSNumber
-	 */
 	protected string|null $SSNumber;
 
-	/**
-	 * @var string|null $Phone
-	 */
 	protected string|null $Phone;
 
-	/**
-	 * @var string|null $PhoneLocal
-	 */
 	protected string|null $PhoneLocal;
 
-	/**
-	 * @var string|null $PhoneMobile
-	 */
 	protected string|null $PhoneMobile;
 
-	/**
-	 * @var string|null $Fax
-	 */
 	protected string|null $Fax;
 
-	/**
-	 * @var string|null $Telex
-	 */
 	protected string|null $Telex;
 
-	/**
-	 * @var string|null $Email
-	 */
 	protected string|null $Email;
 
-	/**
-	 * @var string|null $URL
-	 */
 	protected string|null $URL;
 
-	/**
-	 * @var string|null $JobTitleCode
-	 */
 	protected string|null $JobTitleCode;
 
-	/**
-	 * @var string|null $Modified
-	 */
 	protected string|null $Modified;
 
 	public function getNumber(): ?string {

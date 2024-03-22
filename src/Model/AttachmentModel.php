@@ -10,34 +10,16 @@ use JsonSerializable;
  * The AttachmentModel DTO class for DK
  */
 class AttachmentModel implements JsonSerializable {
-	/**
-	 * @var int
-	 */
 	protected int $ID;
 
-	/**
-	 * @var string
-	 */
 	protected string $Name;
 
-	/**
-	 * @var int
-	 */
 	protected int $Size;
 
-	/**
-	 * @var string
-	 */
 	protected string $Linked;
 
-	/**
-	 * @var string
-	 */
 	protected string $MD5Hash;
 
-	/**
-	 * @var bool
-	 */
 	protected bool $ShowOnWeb;
 
 	public function getID(): int {

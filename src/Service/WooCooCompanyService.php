@@ -9,9 +9,6 @@ use stdClass;
 
 class WooCooCompanyService {
 
-	/**
-	 * @var DkApiService $apiService
-	 */
 	protected DkApiService $apiService;
 
 	/**

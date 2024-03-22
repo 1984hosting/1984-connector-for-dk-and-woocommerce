@@ -10,14 +10,8 @@ use JsonSerializable;
  * The FieldChangeModel DTO class for DK
  */
 class FieldChangeModel implements JsonSerializable {
-	/**
-	 * @var string
-	 */
 	protected string $Name;
 
-	/**
-	 * @var string
-	 */
 	protected string $Value;
 
 	public function getName(): string {

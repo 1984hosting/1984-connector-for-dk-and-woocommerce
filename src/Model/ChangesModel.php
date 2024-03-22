@@ -10,19 +10,10 @@ use JsonSerializable;
  * The ChangesModel DTO class for DK
  */
 class ChangesModel implements JsonSerializable {
-	/**
-	 * @var string
-	 */
 	protected string $Modified;
 
-	/**
-	 * @var string
-	 */
 	protected string $By;
 
-	/**
-	 * @var array
-	 */
 	protected array $Fields;
 
 	public function getModified(): string {

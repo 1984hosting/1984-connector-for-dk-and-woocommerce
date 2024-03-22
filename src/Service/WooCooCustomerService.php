@@ -16,9 +16,6 @@ use stdClass;
  * Class that implements everything for the Customer part of the DK API.
  */
 class WooCooCustomerService {
-	/**
-	 * @var DkApiService $apiService
-	 */
 	protected DkApiService $apiService;
 
 	/**

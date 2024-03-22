@@ -12,9 +12,6 @@ use Service\Exception\WooCooServiceException;
 use stdClass;
 
 class WooCooSalesInvoiceService {
-	/**
-	 * @var DkApiService $apiService
-	 */
 	protected DkApiService $apiService;
 
 	/**

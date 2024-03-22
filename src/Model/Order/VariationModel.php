@@ -11,34 +11,16 @@ use stdClass;
  * The VariationModel DTO class for DK
  */
 class VariationModel implements JsonSerializable {
-	/**
-	 * @var string|null $Code
-	 */
 	protected string|null $Code;
 
-	/**
-	 * @var string|null $Code2
-	 */
 	protected string|null $Code2;
 
-	/**
-	 * @var string|null $Description
-	 */
 	protected string|null $Description;
 
-	/**
-	 * @var string|null $Description2
-	 */
 	protected string|null $Description2;
 
-	/**
-	 * @var float $Quantity
-	 */
 	protected float $Quantity = 0;
 
-	/**
-	 * @var float $QuantityOnBackOrders
-	 */
 	protected float $QuantityOnBackOrders = 0;
 
 	public function createVariationModelFromDKData( stdClass $variation ): void {
