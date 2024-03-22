@@ -7,20 +7,45 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model\Order;
 use JsonSerializable;
 use stdClass;
 
+/**
+ * The VariationModel DTO class for DK
+ */
 class VariationModel implements JsonSerializable {
+	/**
+	 * @var string|null $Code
+	 */
 	protected string|null $Code;
 
+	/**
+	 * @var string|null $Code2
+	 */
 	protected string|null $Code2;
 
+	/**
+	 * @var string|null $Description
+	 */
 	protected string|null $Description;
 
+	/**
+	 * @var string|null $Description2
+	 */
 	protected string|null $Description2;
 
+	/**
+	 * @var float $Quantity
+	 */
 	protected float $Quantity = 0;
 
+	/**
+	 * @var float $QuantityOnBackOrders
+	 */
 	protected float $QuantityOnBackOrders = 0;
 
-	public function createVariationModelFromDKData( stdClass $variation ): void {
+	/**
+	 * @param stdClass $variation
+	 * @return void
+	 */
+	public function createVariationModelFromDKData(stdClass $variation ): void {
 		$this->setCode( $variation->Code ?? null );
 		$this->setCode2( $variation->Code2 ?? null );
 		$this->setDescription( $variation->Description ?? null );
@@ -29,62 +54,106 @@ class VariationModel implements JsonSerializable {
 		$this->setQuantityOnBackOrders( $variation->QuantityOnBackOrders ?? 0 );
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getCode(): ?string {
 		return $this->Code;
 	}
 
-	public function setCode( ?string $Code ): VariationModel {
+	/**
+	 * @param string|null $Code
+	 * @return VariationModel
+	 */
+	public function setCode(?string $Code ): VariationModel {
 		$this->Code = $Code;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getCode2(): ?string {
 		return $this->Code2;
 	}
 
-	public function setCode2( ?string $Code2 ): VariationModel {
+	/**
+	 * @param string|null $Code2
+	 * @return VariationModel
+	 */
+	public function setCode2(?string $Code2 ): VariationModel {
 		$this->Code2 = $Code2;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getDescription(): ?string {
 		return $this->Description;
 	}
 
-	public function setDescription( ?string $Description ): VariationModel {
+	/**
+	 * @param string|null $Description
+	 * @return VariationModel
+	 */
+	public function setDescription(?string $Description ): VariationModel {
 		$this->Description = $Description;
 		return $this;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getDescription2(): ?string {
 		return $this->Description2;
 	}
 
-	public function setDescription2( ?string $Description2 ): VariationModel {
+	/**
+	 * @param string|null $Description2
+	 * @return VariationModel
+	 */
+	public function setDescription2(?string $Description2 ): VariationModel {
 		$this->Description2 = $Description2;
 		return $this;
 	}
 
+	/**
+	 * @return float
+	 */
 	public function getQuantity(): float {
 		return $this->Quantity;
 	}
 
-	public function setQuantity( float $Quantity ): VariationModel {
+	/**
+	 * @param float $Quantity
+	 * @return VariationModel
+	 */
+	public function setQuantity(float $Quantity ): VariationModel {
 		$this->Quantity = $Quantity;
 		return $this;
 	}
 
+	/**
+	 * @return float
+	 */
 	public function getQuantityOnBackOrders(): float {
 		return $this->QuantityOnBackOrders;
 	}
 
-	public function setQuantityOnBackOrders( float $QuantityOnBackOrders ): VariationModel {
+	/**
+	 * @param float $QuantityOnBackOrders
+	 * @return VariationModel
+	 */
+	public function setQuantityOnBackOrders(float $QuantityOnBackOrders ): VariationModel {
 		$this->QuantityOnBackOrders = $QuantityOnBackOrders;
 		return $this;
 	}
 
 
-
+	/**
+	 * @return string
+	 */
 	public function jsonSerialize(): string {
 		return json_encode( get_object_vars( $this ) );
 	}
