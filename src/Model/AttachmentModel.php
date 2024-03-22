@@ -7,8 +7,6 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model;
 use JsonSerializable;
 
 /**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
  * The AttachmentModel DTO class for DK
  */
 class AttachmentModel implements JsonSerializable {
@@ -59,7 +57,7 @@ class AttachmentModel implements JsonSerializable {
 	 *
 	 * @return int
 	 */
-	public function getID() : int {
+	public function getID() :int {
 		return $this->ID;
 	}
 
@@ -69,7 +67,7 @@ class AttachmentModel implements JsonSerializable {
 	 * @param int $ID
 	 * @return AttachmentModel
 	 */
-	public function setID(int $ID ) : AttachmentModel {
+	public function setID(int $ID ) :AttachmentModel {
 		$this->ID = $ID;
 		return $this;
 	}
@@ -79,7 +77,7 @@ class AttachmentModel implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function getName() : string {
+	public function getName() :string {
 		return $this->Name;
 	}
 
@@ -89,7 +87,7 @@ class AttachmentModel implements JsonSerializable {
 	 * @param string $Name
 	 * @return AttachmentModel
 	 */
-	public function setName(string $Name ) : AttachmentModel {
+	public function setName(string $Name ) :AttachmentModel {
 		$this->Name = $Name;
 		return $this;
 	}
@@ -99,7 +97,7 @@ class AttachmentModel implements JsonSerializable {
 	 *
 	 * @return int
 	 */
-	public function getSize() : int {
+	public function getSize() :int {
 		return $this->Size;
 	}
 
@@ -109,7 +107,7 @@ class AttachmentModel implements JsonSerializable {
 	 * @param int $Size
 	 * @return AttachmentModel
 	 */
-	public function setSize(int $Size ) : AttachmentModel {
+	public function setSize(int $Size ) :AttachmentModel {
 		$this->Size = $Size;
 		return $this;
 	}
@@ -119,7 +117,7 @@ class AttachmentModel implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function getLinked() : string {
+	public function getLinked() :string {
 		return $this->Linked;
 	}
 
@@ -129,7 +127,7 @@ class AttachmentModel implements JsonSerializable {
 	 * @param string $Linked
 	 * @return AttachmentModel
 	 */
-	public function setLinked(string $Linked ) : AttachmentModel {
+	public function setLinked(string $Linked ) :AttachmentModel {
 		$this->Linked = $Linked;
 		return $this;
 	}
@@ -139,7 +137,7 @@ class AttachmentModel implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function getMD5Hash() : string {
+	public function getMD5Hash() :string {
 		return $this->MD5Hash;
 	}
 
@@ -149,7 +147,7 @@ class AttachmentModel implements JsonSerializable {
 	 * @param string $MD5Hash
 	 * @return AttachmentModel
 	 */
-	public function setMD5Hash(string $MD5Hash ) : AttachmentModel {
+	public function setMD5Hash(string $MD5Hash ) :AttachmentModel {
 		$this->MD5Hash = $MD5Hash;
 		return $this;
 	}
@@ -159,7 +157,7 @@ class AttachmentModel implements JsonSerializable {
 	 *
 	 * @return bool
 	 */
-	public function isShowOnWeb() : bool {
+	public function isShowOnWeb() :bool {
 		return $this->ShowOnWeb;
 	}
 
@@ -169,7 +167,7 @@ class AttachmentModel implements JsonSerializable {
 	 * @param bool $ShowOnWeb
 	 * @return AttachmentModel
 	 */
-	public function setShowOnWeb(bool $ShowOnWeb ) : AttachmentModel {
+	public function setShowOnWeb(bool $ShowOnWeb ) :AttachmentModel {
 		$this->ShowOnWeb = $ShowOnWeb;
 		return $this;
 	}
@@ -180,7 +178,7 @@ class AttachmentModel implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function jsonSerialize() : string {
+	public function jsonSerialize() :string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

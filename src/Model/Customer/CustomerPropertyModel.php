@@ -6,6 +6,9 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model\Customer;
 
 use JsonSerializable;
 
+/**
+ * The CustomerPropertyModel DTO class for DK
+ */
 class CustomerPropertyModel implements JsonSerializable {
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
@@ -47,7 +50,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getID() : ?string {
+	public function getID() :?string {
 		return $this->ID;
 	}
 
@@ -57,7 +60,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 * @param string|null $ID
 	 * @return $this
 	 */
-	public function setID( ?string $ID ) : CustomerPropertyModel {
+	public function setID( ?string $ID ) :CustomerPropertyModel {
 		$this->ID = $ID;
 		return $this;
 	}
@@ -67,7 +70,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getAttribute() : ?string {
+	public function getAttribute() :?string {
 		return $this->Attribute;
 	}
 
@@ -77,7 +80,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 * @param string|null $Attribute
 	 * @return $this
 	 */
-	public function setAttribute( ?string $Attribute ) : CustomerPropertyModel {
+	public function setAttribute( ?string $Attribute ) :CustomerPropertyModel {
 		$this->Attribute = $Attribute;
 		return $this;
 	}
@@ -87,7 +90,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getOption() : ?string {
+	public function getOption() :?string {
 		return $this->Option;
 	}
 
@@ -97,7 +100,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 * @param string|null $Option
 	 * @return $this
 	 */
-	public function setOption( ?string $Option ) : CustomerPropertyModel {
+	public function setOption( ?string $Option ) :CustomerPropertyModel {
 		$this->Option = $Option;
 		return $this;
 	}
@@ -107,7 +110,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getComment() : ?string {
+	public function getComment() :?string {
 		return $this->Comment;
 	}
 
@@ -117,7 +120,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 * @param string|null $Comment
 	 * @return $this
 	 */
-	public function setComment( ?string $Comment ) : CustomerPropertyModel {
+	public function setComment( ?string $Comment ) :CustomerPropertyModel {
 		$this->Comment = $Comment;
 		return $this;
 	}
@@ -127,7 +130,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getModified() : ?string {
+	public function getModified() :?string {
 		return $this->Modified;
 	}
 
@@ -137,7 +140,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 * @param string|null $Modified
 	 * @return $this
 	 */
-	public function setModified( ?string $Modified ) : CustomerPropertyModel {
+	public function setModified( ?string $Modified ) :CustomerPropertyModel {
 		$this->Modified = $Modified;
 		return $this;
 	}
@@ -147,7 +150,7 @@ class CustomerPropertyModel implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function jsonSerialize() : string {
+	public function jsonSerialize() :string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

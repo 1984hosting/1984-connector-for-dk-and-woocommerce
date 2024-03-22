@@ -8,8 +8,6 @@ use JsonSerializable;
 use stdClass;
 
 /**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
  * The OrderLine DTO class for DK
  */
 class OrderLine implements JsonSerializable {
@@ -166,7 +164,7 @@ class OrderLine implements JsonSerializable {
 	 * @param stdClass $OrderLine
 	 * @return void
 	 */
-	public function createOrderLineFromDKData(stdClass $OrderLine ) : void {
+	public function createOrderLineFromDKData( stdClass $OrderLine ) :void {
 		$this->setSequenceNumber( $OrderLine->SequenceNumber ?? 0 );
 		$this->setItemCode( $OrderLine->ItemCode );
 		$this->setText( $OrderLine->Text ?? null );
@@ -194,7 +192,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return int
 	 */
-	public function getSequenceNumber() : int {
+	public function getSequenceNumber() :int {
 		return $this->SequenceNumber;
 	}
 
@@ -204,7 +202,7 @@ class OrderLine implements JsonSerializable {
 	 * @param int $SequenceNumber
 	 * @return OrderLine
 	 */
-	public function setSequenceNumber(int $SequenceNumber ) : OrderLine {
+	public function setSequenceNumber( int $SequenceNumber ) :OrderLine {
 		$this->SequenceNumber = $SequenceNumber;
 		return $this;
 	}
@@ -214,7 +212,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function getItemCode() : string {
+	public function getItemCode() :string {
 		return $this->ItemCode;
 	}
 
@@ -224,7 +222,7 @@ class OrderLine implements JsonSerializable {
 	 * @param string $ItemCode
 	 * @return OrderLine
 	 */
-	public function setItemCode(string $ItemCode ) : OrderLine {
+	public function setItemCode( string $ItemCode ) :OrderLine {
 		$this->ItemCode = $ItemCode;
 		return $this;
 	}
@@ -234,7 +232,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getText() : ?string {
+	public function getText() :?string {
 		return $this->Text;
 	}
 
@@ -244,7 +242,7 @@ class OrderLine implements JsonSerializable {
 	 * @param string|null $Text
 	 * @return OrderLine
 	 */
-	public function setText(?string $Text ) : OrderLine {
+	public function setText( ?string $Text ) :OrderLine {
 		$this->Text = $Text;
 		return $this;
 	}
@@ -254,7 +252,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getText2() : ?string {
+	public function getText2() :?string {
 		return $this->Text2;
 	}
 
@@ -264,7 +262,7 @@ class OrderLine implements JsonSerializable {
 	 * @param string|null $Text2
 	 * @return OrderLine
 	 */
-	public function setText2(?string $Text2 ) : OrderLine {
+	public function setText2( ?string $Text2 ) :OrderLine {
 		$this->Text2 = $Text2;
 		return $this;
 	}
@@ -274,7 +272,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getWarehouse() : ?string {
+	public function getWarehouse() :?string {
 		return $this->Warehouse;
 	}
 
@@ -284,7 +282,7 @@ class OrderLine implements JsonSerializable {
 	 * @param string|null $Warehouse
 	 * @return OrderLine
 	 */
-	public function setWarehouse(?string $Warehouse ) : OrderLine {
+	public function setWarehouse( ?string $Warehouse ) :OrderLine {
 		$this->Warehouse = $Warehouse;
 		return $this;
 	}
@@ -294,7 +292,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getLocation() : ?string {
+	public function getLocation() :?string {
 		return $this->Location;
 	}
 
@@ -304,7 +302,7 @@ class OrderLine implements JsonSerializable {
 	 * @param string|null $Location
 	 * @return OrderLine
 	 */
-	public function setLocation(?string $Location ) : OrderLine {
+	public function setLocation( ?string $Location ) :OrderLine {
 		$this->Location = $Location;
 		return $this;
 	}
@@ -314,7 +312,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getQuantity() : float {
+	public function getQuantity() :float {
 		return $this->Quantity;
 	}
 
@@ -324,7 +322,7 @@ class OrderLine implements JsonSerializable {
 	 * @param float $Quantity
 	 * @return OrderLine
 	 */
-	public function setQuantity(float $Quantity ) : OrderLine {
+	public function setQuantity( float $Quantity ) :OrderLine {
 		$this->Quantity = $Quantity;
 		return $this;
 	}
@@ -334,7 +332,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getQuantityDelivered() : float {
+	public function getQuantityDelivered() :float {
 		return $this->QuantityDelivered;
 	}
 
@@ -344,7 +342,7 @@ class OrderLine implements JsonSerializable {
 	 * @param float $QuantityDelivered
 	 * @return OrderLine
 	 */
-	public function setQuantityDelivered(float $QuantityDelivered ) : OrderLine {
+	public function setQuantityDelivered( float $QuantityDelivered ) :OrderLine {
 		$this->QuantityDelivered = $QuantityDelivered;
 		return $this;
 	}
@@ -354,7 +352,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getUnitPrice() : float {
+	public function getUnitPrice() :float {
 		return $this->UnitPrice;
 	}
 
@@ -364,7 +362,7 @@ class OrderLine implements JsonSerializable {
 	 * @param float $UnitPrice
 	 * @return OrderLine
 	 */
-	public function setUnitPrice(float $UnitPrice ) : OrderLine {
+	public function setUnitPrice( float $UnitPrice ) :OrderLine {
 		$this->UnitPrice = $UnitPrice;
 		return $this;
 	}
@@ -374,7 +372,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getUnitPriceWithTax() : float {
+	public function getUnitPriceWithTax() :float {
 		return $this->UnitPriceWithTax;
 	}
 
@@ -384,7 +382,7 @@ class OrderLine implements JsonSerializable {
 	 * @param float $UnitPriceWithTax
 	 * @return OrderLine
 	 */
-	public function setUnitPriceWithTax(float $UnitPriceWithTax ) : OrderLine {
+	public function setUnitPriceWithTax( float $UnitPriceWithTax ) :OrderLine {
 		$this->UnitPriceWithTax = $UnitPriceWithTax;
 		return $this;
 	}
@@ -394,7 +392,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getUnitCode() : ?string {
+	public function getUnitCode() :?string {
 		return $this->UnitCode;
 	}
 
@@ -404,7 +402,7 @@ class OrderLine implements JsonSerializable {
 	 * @param string|null $UnitCode
 	 * @return OrderLine
 	 */
-	public function setUnitCode(?string $UnitCode ) : OrderLine {
+	public function setUnitCode( ?string $UnitCode ) :OrderLine {
 		$this->UnitCode = $UnitCode;
 		return $this;
 	}
@@ -414,7 +412,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getDiscount() : float {
+	public function getDiscount() :float {
 		return $this->Discount;
 	}
 
@@ -424,7 +422,7 @@ class OrderLine implements JsonSerializable {
 	 * @param float $Discount
 	 * @return OrderLine
 	 */
-	public function setDiscount(float $Discount ) : OrderLine {
+	public function setDiscount( float $Discount ) :OrderLine {
 		$this->Discount = $Discount;
 		return $this;
 	}
@@ -434,7 +432,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getDiscountPercent() : float {
+	public function getDiscountPercent() :float {
 		return $this->DiscountPercent;
 	}
 
@@ -444,7 +442,7 @@ class OrderLine implements JsonSerializable {
 	 * @param float $DiscountPercent
 	 * @return OrderLine
 	 */
-	public function setDiscountPercent(float $DiscountPercent ) : OrderLine {
+	public function setDiscountPercent( float $DiscountPercent ) :OrderLine {
 		$this->DiscountPercent = $DiscountPercent;
 		return $this;
 	}
@@ -454,7 +452,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getTotalAmount() : float {
+	public function getTotalAmount() :float {
 		return $this->TotalAmount;
 	}
 
@@ -464,7 +462,7 @@ class OrderLine implements JsonSerializable {
 	 * @param float $TotalAmount
 	 * @return OrderLine
 	 */
-	public function setTotalAmount(float $TotalAmount ) : OrderLine {
+	public function setTotalAmount( float $TotalAmount ) :OrderLine {
 		$this->TotalAmount = $TotalAmount;
 		return $this;
 	}
@@ -474,7 +472,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getTotalAmountWithTax() : float {
+	public function getTotalAmountWithTax() :float {
 		return $this->TotalAmountWithTax;
 	}
 
@@ -484,7 +482,7 @@ class OrderLine implements JsonSerializable {
 	 * @param float $TotalAmountWithTax
 	 * @return OrderLine
 	 */
-	public function setTotalAmountWithTax(float $TotalAmountWithTax ) : OrderLine {
+	public function setTotalAmountWithTax( float $TotalAmountWithTax ) :OrderLine {
 		$this->TotalAmountWithTax = $TotalAmountWithTax;
 		return $this;
 	}
@@ -494,7 +492,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getBarCode() : ?string {
+	public function getBarCode() :?string {
 		return $this->BarCode;
 	}
 
@@ -504,7 +502,7 @@ class OrderLine implements JsonSerializable {
 	 * @param string|null $BarCode
 	 * @return OrderLine
 	 */
-	public function setBarCode(?string $BarCode ) : OrderLine {
+	public function setBarCode( ?string $BarCode ) :OrderLine {
 		$this->BarCode = $BarCode;
 		return $this;
 	}
@@ -514,7 +512,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getReference() : ?string {
+	public function getReference() :?string {
 		return $this->Reference;
 	}
 
@@ -524,7 +522,7 @@ class OrderLine implements JsonSerializable {
 	 * @param string|null $Reference
 	 * @return OrderLine
 	 */
-	public function setReference(?string $Reference ) : OrderLine {
+	public function setReference( ?string $Reference ) :OrderLine {
 		$this->Reference = $Reference;
 		return $this;
 	}
@@ -534,7 +532,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getEDIOrderNumber() : ?string {
+	public function getEDIOrderNumber() :?string {
 		return $this->EDIOrderNumber;
 	}
 
@@ -544,7 +542,7 @@ class OrderLine implements JsonSerializable {
 	 * @param string|null $EDIOrderNumber
 	 * @return OrderLine
 	 */
-	public function setEDIOrderNumber(?string $EDIOrderNumber ) : OrderLine {
+	public function setEDIOrderNumber( ?string $EDIOrderNumber ) :OrderLine {
 		$this->EDIOrderNumber = $EDIOrderNumber;
 		return $this;
 	}
@@ -554,7 +552,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return int
 	 */
-	public function getUNDOrderNumber() : int {
+	public function getUNDOrderNumber() :int {
 		return $this->UNDOrderNumber;
 	}
 
@@ -564,7 +562,7 @@ class OrderLine implements JsonSerializable {
 	 * @param int $UNDOrderNumber
 	 * @return OrderLine
 	 */
-	public function setUNDOrderNumber(int $UNDOrderNumber ) : OrderLine {
+	public function setUNDOrderNumber( int $UNDOrderNumber ) :OrderLine {
 		$this->UNDOrderNumber = $UNDOrderNumber;
 		return $this;
 	}
@@ -574,7 +572,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getMemo() : ?string {
+	public function getMemo() :?string {
 		return $this->Memo;
 	}
 
@@ -584,7 +582,7 @@ class OrderLine implements JsonSerializable {
 	 * @param string|null $Memo
 	 * @return OrderLine
 	 */
-	public function setMemo(?string $Memo ) : OrderLine {
+	public function setMemo( ?string $Memo ) :OrderLine {
 		$this->Memo = $Memo;
 		return $this;
 	}
@@ -594,7 +592,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return array
 	 */
-	public function getVariations() : array {
+	public function getVariations() :array {
 		return $this->Variations;
 	}
 
@@ -604,7 +602,7 @@ class OrderLine implements JsonSerializable {
 	 * @param array $Variations
 	 * @return OrderLine
 	 */
-	public function setVariations(array $Variations ) : OrderLine {
+	public function setVariations( array $Variations ) :OrderLine {
 		foreach ( $Variations as $variation ) {
 			$obj = new VariationModel();
 			$obj->createVariationModelFromDKData( $variation );
@@ -619,7 +617,7 @@ class OrderLine implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function jsonSerialize() : string {
+	public function jsonSerialize() :string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

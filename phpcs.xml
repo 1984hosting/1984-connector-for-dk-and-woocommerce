@@ -66,6 +66,9 @@
 		<exclude-pattern>./tests/**</exclude-pattern>
 	</rule>
 
+	<rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation">
+		<exclude-pattern>@return void</exclude-pattern>
+	</rule>
 	<!--
 	As we are using the tests/Supress* files for a hack, we can safely define
 	multiple classes in there

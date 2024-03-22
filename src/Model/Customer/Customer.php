@@ -9,8 +9,6 @@ use NineteenEightyFour\NineteenEightyWoo\Model\Customer\CustomerCondition;
 use stdClass;
 
 /**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
  * ATM there are 7 variables that are described in the Dataset for Customer that are NOT in it
  * when a call to Customer is made. Test were made with the test dataset from the API (87000 records)
  * and on a live dataset with over 40.000 records. Therefor they are not implemented correctly. These
@@ -361,7 +359,7 @@ class Customer implements JsonSerializable {
 	 * @param stdClass $customer
 	 * @return void
 	 */
-	public function createCustomerFromDKData( stdClass $customer ) : void {
+	public function createCustomerFromDKData( stdClass $customer ) :void {
 		if ( isset( $customer->Contacts ) ) {
 			if ( is_array( $customer->Contacts ) && sizeof( $customer->Contacts ) > 0 ) {
 				$this->setContacts( $customer->Contacts );
@@ -468,7 +466,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return bool
 	 */
-	public function isDeleted() : bool {
+	public function isDeleted() :bool {
 		return $this->Deleted;
 	}
 
@@ -478,7 +476,7 @@ class Customer implements JsonSerializable {
 	 * @param bool $Deleted
 	 * @return $this
 	 */
-	public function setDeleted( bool $Deleted ) : Customer {
+	public function setDeleted( bool $Deleted ) :Customer {
 		$this->Deleted = $Deleted;
 		return $this;
 	}
@@ -488,7 +486,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return array
 	 */
-	public function getContacts() : array {
+	public function getContacts() :array {
 		return $this->Contacts;
 	}
 
@@ -498,7 +496,7 @@ class Customer implements JsonSerializable {
 	 * @param array $Contacts
 	 * @return $this
 	 */
-	public function setContacts( array $Contacts ) : Customer {
+	public function setContacts( array $Contacts ) :Customer {
 		if ( sizeof( $Contacts ) > 0 ) {
 			$new_array = [];
 			foreach ( $Contacts as $contact ) {
@@ -518,7 +516,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return array
 	 */
-	public function getRecivers() : array {
+	public function getRecivers() :array {
 		return $this->Recivers;
 	}
 
@@ -528,7 +526,7 @@ class Customer implements JsonSerializable {
 	 * @param array $Recivers
 	 * @return $this
 	 */
-	public function setRecivers( array $Recivers ) : Customer {
+	public function setRecivers( array $Recivers ) :Customer {
 		$arr = [];
 		foreach ( $Recivers as $reciver ) {
 			$ItemReciver = new ItemReciverModel();
@@ -544,7 +542,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return array
 	 */
-	public function getMemos() : array {
+	public function getMemos() :array {
 		return $this->Memos;
 	}
 
@@ -554,7 +552,7 @@ class Customer implements JsonSerializable {
 	 * @param array $Memos
 	 * @return $this
 	 */
-	public function setMemos( array $Memos ) : Customer {
+	public function setMemos( array $Memos ) :Customer {
 		$this->Memos = $Memos;
 		return $this;
 	}
@@ -564,7 +562,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return array
 	 */
-	public function getProperties() : array {
+	public function getProperties() :array {
 		return $this->Properties;
 	}
 
@@ -574,7 +572,7 @@ class Customer implements JsonSerializable {
 	 * @param array $Properties
 	 * @return $this
 	 */
-	public function setProperties( array $Properties ) : Customer {
+	public function setProperties( array $Properties ) :Customer {
 		$this->Properties = $Properties;
 		return $this;
 	}
@@ -584,7 +582,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return array
 	 */
-	public function getChanges() : array {
+	public function getChanges() :array {
 		return $this->Changes;
 	}
 
@@ -594,7 +592,7 @@ class Customer implements JsonSerializable {
 	 * @param array $Changes
 	 * @return $this
 	 */
-	public function setChanges( array $Changes ) : Customer {
+	public function setChanges( array $Changes ) :Customer {
 		$this->Changes = $Changes;
 		return $this;
 	}
@@ -604,7 +602,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return array
 	 */
-	public function getAttachments() : array {
+	public function getAttachments() :array {
 		return $this->Attachments;
 	}
 
@@ -614,7 +612,7 @@ class Customer implements JsonSerializable {
 	 * @param array $Attachments
 	 * @return $this
 	 */
-	public function setAttachments( array $Attachments ) : Customer {
+	public function setAttachments( array $Attachments ) :Customer {
 		$this->Attachments = $Attachments;
 		return $this;
 	}
@@ -624,7 +622,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return CustomerCondition
 	 */
-	public function getConditions() : CustomerCondition {
+	public function getConditions() :CustomerCondition {
 		return $this->Conditions;
 	}
 
@@ -634,7 +632,7 @@ class Customer implements JsonSerializable {
 	 * @param \NineteenEightyFour\NineteenEightyWoo\Model\Customer\CustomerCondition $Conditions
 	 * @return $this
 	 */
-	public function setConditions( CustomerCondition $Conditions ) : Customer {
+	public function setConditions( CustomerCondition $Conditions ) :Customer {
 		$this->Conditions = $Conditions;
 		return $this;
 	}
@@ -644,7 +642,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return CustomerSendTo
 	 */
-	public function getSendTo() : CustomerSendTo {
+	public function getSendTo() :CustomerSendTo {
 		return $this->SendTo;
 	}
 
@@ -654,7 +652,7 @@ class Customer implements JsonSerializable {
 	 * @param CustomerSendTo $SendTo
 	 * @return $this
 	 */
-	public function setSendTo( CustomerSendTo $SendTo ) : Customer {
+	public function setSendTo( CustomerSendTo $SendTo ) :Customer {
 		$this->SendTo = $SendTo;
 		return $this;
 	}
@@ -664,7 +662,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return UBL
 	 */
-	public function getUBL() : UBL {
+	public function getUBL() :UBL {
 		return $this->UBL;
 	}
 
@@ -674,7 +672,7 @@ class Customer implements JsonSerializable {
 	 * @param UBL $UBL
 	 * @return $this
 	 */
-	public function setUBL( UBL $UBL ) : Customer {
+	public function setUBL( UBL $UBL ) :Customer {
 		$this->UBL = $UBL;
 		return $this;
 	}
@@ -684,7 +682,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return int
 	 */
-	public function getRecordID() : int {
+	public function getRecordID() :int {
 		return $this->RecordID;
 	}
 
@@ -694,7 +692,7 @@ class Customer implements JsonSerializable {
 	 * @param int $RecordID
 	 * @return $this
 	 */
-	public function setRecordID( int $RecordID ) : Customer {
+	public function setRecordID( int $RecordID ) :Customer {
 		$this->RecordID = $RecordID;
 		return $this;
 	}
@@ -704,7 +702,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function getNumber() : string {
+	public function getNumber() :string {
 		return $this->Number;
 	}
 
@@ -714,7 +712,7 @@ class Customer implements JsonSerializable {
 	 * @param string $Number
 	 * @return $this
 	 */
-	public function setNumber( string $Number ) : Customer {
+	public function setNumber( string $Number ) :Customer {
 		$this->Number = $Number;
 		return $this;
 	}
@@ -724,7 +722,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getName() : string|null {
+	public function getName() :string|null {
 		return $this->Name;
 	}
 
@@ -734,7 +732,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Name
 	 * @return $this
 	 */
-	public function setName( string|null $Name ) : Customer {
+	public function setName( string|null $Name ) :Customer {
 		$this->Name = $Name;
 		return $this;
 	}
@@ -744,7 +742,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getSSNumber() : string|null {
+	public function getSSNumber() :string|null {
 		return $this->SSNumber;
 	}
 
@@ -754,7 +752,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $SSNumber
 	 * @return $this
 	 */
-	public function setSSNumber( string|null $SSNumber ) : Customer {
+	public function setSSNumber( string|null $SSNumber ) :Customer {
 		$this->SSNumber = $SSNumber;
 		return $this;
 	}
@@ -764,7 +762,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getAlias() : string|null {
+	public function getAlias() :string|null {
 		return $this->Alias;
 	}
 
@@ -774,7 +772,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Alias
 	 * @return $this
 	 */
-	public function setAlias( string|null $Alias ) : Customer {
+	public function setAlias( string|null $Alias ) :Customer {
 		$this->Alias = $Alias;
 		return $this;
 	}
@@ -784,7 +782,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getAddress1() : string|null {
+	public function getAddress1() :string|null {
 		return $this->Address1;
 	}
 
@@ -794,7 +792,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Address1
 	 * @return $this
 	 */
-	public function setAddress1( string|null $Address1 ) : Customer {
+	public function setAddress1( string|null $Address1 ) :Customer {
 		$this->Address1 = $Address1;
 		return $this;
 	}
@@ -804,7 +802,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getAddress2() : string|null {
+	public function getAddress2() :string|null {
 		return $this->Address2;
 	}
 
@@ -814,7 +812,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Address2
 	 * @return $this
 	 */
-	public function setAddress2( string|null $Address2 ) : Customer {
+	public function setAddress2( string|null $Address2 ) :Customer {
 		$this->Address2 = $Address2;
 		return $this;
 	}
@@ -824,7 +822,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getAddress3() : string|null {
+	public function getAddress3() :string|null {
 		return $this->Address3;
 	}
 
@@ -834,7 +832,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Address3
 	 * @return $this
 	 */
-	public function setAddress3( string|null $Address3 ) : Customer {
+	public function setAddress3( string|null $Address3 ) :Customer {
 		$this->Address3 = $Address3;
 		return $this;
 	}
@@ -844,7 +842,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getCity() : string|null {
+	public function getCity() :string|null {
 		return $this->City;
 	}
 
@@ -854,7 +852,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $City
 	 * @return $this
 	 */
-	public function setCity( string|null $City ) : Customer {
+	public function setCity( string|null $City ) :Customer {
 		$this->City = $City;
 		return $this;
 	}
@@ -864,7 +862,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getZipCode() : string|null {
+	public function getZipCode() :string|null {
 		return $this->ZipCode;
 	}
 
@@ -874,7 +872,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $ZipCode
 	 * @return $this
 	 */
-	public function setZipCode( string|null $ZipCode ) : Customer {
+	public function setZipCode( string|null $ZipCode ) :Customer {
 		$this->ZipCode = $ZipCode;
 		return $this;
 	}
@@ -884,7 +882,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getBalanceAmount() : float {
+	public function getBalanceAmount() :float {
 		return $this->BalanceAmount;
 	}
 
@@ -894,7 +892,7 @@ class Customer implements JsonSerializable {
 	 * @param float $BalanceAmount
 	 * @return $this
 	 */
-	public function setBalanceAmount( float $BalanceAmount ) : Customer {
+	public function setBalanceAmount( float $BalanceAmount ) :Customer {
 		$this->BalanceAmount = $BalanceAmount;
 		return $this;
 	}
@@ -904,7 +902,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getPhone() : string|null {
+	public function getPhone() :string|null {
 		return $this->Phone;
 	}
 
@@ -914,7 +912,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Phone
 	 * @return $this
 	 */
-	public function setPhone( string|null $Phone ) : Customer {
+	public function setPhone( string|null $Phone ) :Customer {
 		$this->Phone = $Phone;
 		return $this;
 	}
@@ -924,7 +922,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getPhoneLocal() : string|null {
+	public function getPhoneLocal() :string|null {
 		return $this->PhoneLocal;
 	}
 
@@ -934,7 +932,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $PhoneLocal
 	 * @return $this
 	 */
-	public function setPhoneLocal( string|null $PhoneLocal ) : Customer {
+	public function setPhoneLocal( string|null $PhoneLocal ) :Customer {
 		$this->PhoneLocal = $PhoneLocal;
 		return $this;
 	}
@@ -944,7 +942,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getPhoneMobile() : string|null {
+	public function getPhoneMobile() :string|null {
 		return $this->PhoneMobile;
 	}
 
@@ -954,7 +952,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $PhoneMobile
 	 * @return $this
 	 */
-	public function setPhoneMobile( string|null $PhoneMobile ) : Customer {
+	public function setPhoneMobile( string|null $PhoneMobile ) :Customer {
 		$this->PhoneMobile = $PhoneMobile;
 		return $this;
 	}
@@ -964,7 +962,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getPhoneFax() : string|null {
+	public function getPhoneFax() :string|null {
 		return $this->PhoneFax;
 	}
 
@@ -974,7 +972,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $PhoneFax
 	 * @return $this
 	 */
-	public function setPhoneFax( string|null $PhoneFax ) : Customer {
+	public function setPhoneFax( string|null $PhoneFax ) :Customer {
 		$this->PhoneFax = $PhoneFax;
 		return $this;
 	}
@@ -984,7 +982,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getCountryCode() : string|null {
+	public function getCountryCode() :string|null {
 		return $this->CountryCode;
 	}
 
@@ -994,7 +992,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $CountryCode
 	 * @return $this
 	 */
-	public function setCountryCode( string|null $CountryCode ) : Customer {
+	public function setCountryCode( string|null $CountryCode ) :Customer {
 		$this->CountryCode = $CountryCode;
 		return $this;
 	}
@@ -1004,7 +1002,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getOriginCountryCode() : string|null {
+	public function getOriginCountryCode() :string|null {
 		return $this->OriginCountryCode;
 	}
 
@@ -1014,7 +1012,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $OriginCountryCode
 	 * @return $this
 	 */
-	public function setOriginCountryCode( string|null $OriginCountryCode ) : Customer {
+	public function setOriginCountryCode( string|null $OriginCountryCode ) :Customer {
 		$this->OriginCountryCode = $OriginCountryCode;
 		return $this;
 	}
@@ -1024,7 +1022,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getEmail() : string|null {
+	public function getEmail() :string|null {
 		return $this->Email;
 	}
 
@@ -1034,7 +1032,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Email
 	 * @return $this
 	 */
-	public function setEmail( string|null $Email ) : Customer {
+	public function setEmail( string|null $Email ) :Customer {
 		$this->Email = $Email;
 		return $this;
 	}
@@ -1044,7 +1042,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getPassword() : string|null {
+	public function getPassword() :string|null {
 		return $this->Password;
 	}
 
@@ -1054,7 +1052,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Password
 	 * @return $this
 	 */
-	public function setPassword( string|null $Password ) : Customer {
+	public function setPassword( string|null $Password ) :Customer {
 		$this->Password = $Password;
 		return $this;
 	}
@@ -1064,7 +1062,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getGroup() : string|null {
+	public function getGroup() :string|null {
 		return $this->Group;
 	}
 
@@ -1074,7 +1072,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Group
 	 * @return $this
 	 */
-	public function setGroup( string|null $Group ) : Customer {
+	public function setGroup( string|null $Group ) :Customer {
 		$this->Group = $Group;
 		return $this;
 	}
@@ -1084,7 +1082,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getSalesPerson() : string|null {
+	public function getSalesPerson() :string|null {
 		return $this->SalesPerson;
 	}
 
@@ -1094,7 +1092,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $SalesPerson
 	 * @return $this
 	 */
-	public function setSalesPerson( string|null $SalesPerson ) : Customer {
+	public function setSalesPerson( string|null $SalesPerson ) :Customer {
 		$this->SalesPerson = $SalesPerson;
 		return $this;
 	}
@@ -1104,7 +1102,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getDiscount() : float {
+	public function getDiscount() :float {
 		return $this->Discount;
 	}
 
@@ -1114,7 +1112,7 @@ class Customer implements JsonSerializable {
 	 * @param float $Discount
 	 * @return $this
 	 */
-	public function setDiscount( float $Discount ) : Customer {
+	public function setDiscount( float $Discount ) :Customer {
 		$this->Discount = $Discount;
 		return $this;
 	}
@@ -1124,7 +1122,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return bool
 	 */
-	public function isUseItemRecivers() : bool {
+	public function isUseItemRecivers() :bool {
 		return $this->UseItemRecivers;
 	}
 
@@ -1134,7 +1132,7 @@ class Customer implements JsonSerializable {
 	 * @param bool $UseItemRecivers
 	 * @return $this
 	 */
-	public function setUseItemRecivers( bool $UseItemRecivers ) : Customer {
+	public function setUseItemRecivers( bool $UseItemRecivers ) :Customer {
 		$this->UseItemRecivers = $UseItemRecivers;
 		return $this;
 	}
@@ -1144,7 +1142,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getPaymentTerm() : string|null {
+	public function getPaymentTerm() :string|null {
 		return $this->PaymentTerm;
 	}
 
@@ -1154,7 +1152,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $PaymentTerm
 	 * @return $this
 	 */
-	public function setPaymentTerm( string|null $PaymentTerm ) : Customer {
+	public function setPaymentTerm( string|null $PaymentTerm ) :Customer {
 		$this->PaymentTerm = $PaymentTerm;
 		return $this;
 	}
@@ -1164,7 +1162,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getPaymentMode() : string|null {
+	public function getPaymentMode() :string|null {
 		return $this->PaymentMode;
 	}
 
@@ -1174,7 +1172,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $PaymentMode
 	 * @return $this
 	 */
-	public function setPaymentMode( string|null $PaymentMode ) : Customer {
+	public function setPaymentMode( string|null $PaymentMode ) :Customer {
 		$this->PaymentMode = $PaymentMode;
 		return $this;
 	}
@@ -1184,7 +1182,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getCurrencyCode() : string|null {
+	public function getCurrencyCode() :string|null {
 		return $this->CurrencyCode;
 	}
 
@@ -1194,7 +1192,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $CurrencyCode
 	 * @return $this
 	 */
-	public function setCurrencyCode( string|null $CurrencyCode ) : Customer {
+	public function setCurrencyCode( string|null $CurrencyCode ) :Customer {
 		$this->CurrencyCode = $CurrencyCode;
 		return $this;
 	}
@@ -1204,7 +1202,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return bool
 	 */
-	public function isNoVat() : bool {
+	public function isNoVat() :bool {
 		return $this->NoVat;
 	}
 
@@ -1214,7 +1212,7 @@ class Customer implements JsonSerializable {
 	 * @param bool $NoVat
 	 * @return $this
 	 */
-	public function setNoVat( bool $NoVat ) : Customer {
+	public function setNoVat( bool $NoVat ) :Customer {
 		$this->NoVat = $NoVat;
 		return $this;
 	}
@@ -1224,7 +1222,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getLedgerCode() : string|null {
+	public function getLedgerCode() :string|null {
 		return $this->LedgerCode;
 	}
 
@@ -1234,7 +1232,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $LedgerCode
 	 * @return $this
 	 */
-	public function setLedgerCode( string|null $LedgerCode ) : Customer {
+	public function setLedgerCode( string|null $LedgerCode ) :Customer {
 		$this->LedgerCode = $LedgerCode;
 		return $this;
 	}
@@ -1244,7 +1242,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return bool
 	 */
-	public function isBlocked() : bool {
+	public function isBlocked() :bool {
 		return $this->Blocked;
 	}
 
@@ -1254,7 +1252,7 @@ class Customer implements JsonSerializable {
 	 * @param bool $Blocked
 	 * @return $this
 	 */
-	public function setBlocked( bool $Blocked ) : Customer {
+	public function setBlocked( bool $Blocked ) :Customer {
 		$this->Blocked = $Blocked;
 		return $this;
 	}
@@ -1264,7 +1262,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getGender() : string|null {
+	public function getGender() :string|null {
 		return $this->Gender;
 	}
 
@@ -1274,7 +1272,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Gender
 	 * @return $this
 	 */
-	public function setGender( string|null $Gender ) : Customer {
+	public function setGender( string|null $Gender ) :Customer {
 		$this->Gender = $Gender;
 		return $this;
 	}
@@ -1284,7 +1282,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return int
 	 */
-	public function getPriceGroup() : int {
+	public function getPriceGroup() :int {
 		return $this->PriceGroup;
 	}
 
@@ -1294,7 +1292,7 @@ class Customer implements JsonSerializable {
 	 * @param int $PriceGroup
 	 * @return $this
 	 */
-	public function setPriceGroup( int $PriceGroup ) : Customer {
+	public function setPriceGroup( int $PriceGroup ) :Customer {
 		$this->PriceGroup = $PriceGroup;
 		return $this;
 	}
@@ -1304,7 +1302,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return float
 	 */
-	public function getBillingFee() : float {
+	public function getBillingFee() :float {
 		return $this->BillingFee;
 	}
 
@@ -1314,7 +1312,7 @@ class Customer implements JsonSerializable {
 	 * @param float $BillingFee
 	 * @return $this
 	 */
-	public function setBillingFee( float $BillingFee ) : Customer {
+	public function setBillingFee( float $BillingFee ) :Customer {
 		$this->BillingFee = $BillingFee;
 		return $this;
 	}
@@ -1324,7 +1322,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getModified() : string|null {
+	public function getModified() :string|null {
 		return $this->Modified;
 	}
 
@@ -1334,7 +1332,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $Modified
 	 * @return $this
 	 */
-	public function setModified( string|null $Modified ) : Customer {
+	public function setModified( string|null $Modified ) :Customer {
 		$this->Modified = $Modified;
 		return $this;
 	}
@@ -1344,7 +1342,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getObjectDate() : string|null {
+	public function getObjectDate() :string|null {
 		return $this->ObjectDate;
 	}
 
@@ -1354,7 +1352,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $ObjectDate
 	 * @return $this
 	 */
-	public function setObjectDate( string|null $ObjectDate ) : Customer {
+	public function setObjectDate( string|null $ObjectDate ) :Customer {
 		$this->ObjectDate = $ObjectDate;
 		return $this;
 	}
@@ -1364,7 +1362,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getVATNumber() : string|null {
+	public function getVATNumber() :string|null {
 		return $this->VATNumber;
 	}
 
@@ -1374,7 +1372,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $VATNumber
 	 * @return $this
 	 */
-	public function setVATNumber( string|null $VATNumber ) : Customer {
+	public function setVATNumber( string|null $VATNumber ) :Customer {
 		$this->VATNumber = $VATNumber;
 		return $this;
 	}
@@ -1384,7 +1382,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getISATNumber() : string|null {
+	public function getISATNumber() :string|null {
 		return $this->ISATNumber;
 	}
 
@@ -1394,7 +1392,7 @@ class Customer implements JsonSerializable {
 	 * @param string|null $ISATNumber
 	 * @return $this
 	 */
-	public function setISATNumber( string|null $ISATNumber ) : Customer {
+	public function setISATNumber( string|null $ISATNumber ) :Customer {
 		$this->ISATNumber = $ISATNumber;
 		return $this;
 	}
@@ -1404,7 +1402,7 @@ class Customer implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function jsonSerialize() : string {
+	public function jsonSerialize() :string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

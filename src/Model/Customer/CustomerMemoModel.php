@@ -6,6 +6,9 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model\Customer;
 
 use JsonSerializable;
 
+/**
+ * The CustomerMemoModel DTO class for DK
+ */
 class CustomerMemoModel implements JsonSerializable {
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
@@ -40,7 +43,7 @@ class CustomerMemoModel implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getPageName() : ?string {
+	public function getPageName() :?string {
 		return $this->PageName;
 	}
 
@@ -50,7 +53,7 @@ class CustomerMemoModel implements JsonSerializable {
 	 * @param string|null $PageName
 	 * @return $this
 	 */
-	public function setPageName( ?string $PageName ) : CustomerMemoModel {
+	public function setPageName( ?string $PageName ) :CustomerMemoModel {
 		$this->PageName = $PageName;
 		return $this;
 	}
@@ -60,7 +63,7 @@ class CustomerMemoModel implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getPlainText() : ?string {
+	public function getPlainText() :?string {
 		return $this->PlainText;
 	}
 
@@ -70,7 +73,7 @@ class CustomerMemoModel implements JsonSerializable {
 	 * @param string|null $PlainText
 	 * @return $this
 	 */
-	public function setPlainText( ?string $PlainText ) : CustomerMemoModel {
+	public function setPlainText( ?string $PlainText ) :CustomerMemoModel {
 		$this->PlainText = $PlainText;
 		return $this;
 	}
@@ -80,7 +83,7 @@ class CustomerMemoModel implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getModified() : ?string {
+	public function getModified() :?string {
 		return $this->Modified;
 	}
 
@@ -90,7 +93,7 @@ class CustomerMemoModel implements JsonSerializable {
 	 * @param string|null $Modified
 	 * @return $this
 	 */
-	public function setModified( ?string $Modified ) : CustomerMemoModel {
+	public function setModified( ?string $Modified ) :CustomerMemoModel {
 		$this->Modified = $Modified;
 		return $this;
 	}
@@ -100,7 +103,7 @@ class CustomerMemoModel implements JsonSerializable {
 	 *
 	 * @return int
 	 */
-	public function getRecordID() : int {
+	public function getRecordID() :int {
 		return $this->RecordID;
 	}
 
@@ -110,7 +113,7 @@ class CustomerMemoModel implements JsonSerializable {
 	 * @param int $RecordID
 	 * @return $this
 	 */
-	public function setRecordID( int $RecordID ) : CustomerMemoModel {
+	public function setRecordID( int $RecordID ) :CustomerMemoModel {
 		$this->RecordID = $RecordID;
 		return $this;
 	}
@@ -120,7 +123,7 @@ class CustomerMemoModel implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function jsonSerialize() : string {
+	public function jsonSerialize() :string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

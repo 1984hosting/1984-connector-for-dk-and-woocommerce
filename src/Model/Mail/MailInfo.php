@@ -7,6 +7,9 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model\Mail;
 use JsonSerializable;
 use stdClass;
 
+/**
+ * The MailInfo DTO class for DK
+ */
 class MailInfo implements JsonSerializable {
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
@@ -77,7 +80,7 @@ class MailInfo implements JsonSerializable {
 	 * @param stdClass $mail_info
 	 * @return $this
 	 */
-	public function createMailInfoFromDKData( stdClass $mail_info ) : MailInfo {
+	public function createMailInfoFromDKData( stdClass $mail_info ) :MailInfo {
 		$this->setDisplayName( $mail_info->DisplayName ?? null );
 		$this->setTo( $mail_info->To ?? null );
 		$this->setCC( $mail_info->CC ?? null );
@@ -95,7 +98,7 @@ class MailInfo implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getDisplayName() : ?string {
+	public function getDisplayName() :?string {
 		return $this->DisplayName;
 	}
 
@@ -105,7 +108,7 @@ class MailInfo implements JsonSerializable {
 	 * @param string|null $DisplayName
 	 * @return $this
 	 */
-	public function setDisplayName( ?string $DisplayName ) : MailInfo {
+	public function setDisplayName( ?string $DisplayName ) :MailInfo {
 		$this->DisplayName = $DisplayName;
 		return $this;
 	}
@@ -115,7 +118,7 @@ class MailInfo implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getTo() : ?string {
+	public function getTo() :?string {
 		return $this->To;
 	}
 
@@ -125,7 +128,7 @@ class MailInfo implements JsonSerializable {
 	 * @param string|null $To
 	 * @return MailInfo
 	 */
-	public function setTo( ?string $To ) : MailInfo {
+	public function setTo( ?string $To ) :MailInfo {
 		$this->To = $To;
 		return $this;
 	}
@@ -135,7 +138,7 @@ class MailInfo implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getCC() : ?string {
+	public function getCC() :?string {
 		return $this->CC;
 	}
 
@@ -145,7 +148,7 @@ class MailInfo implements JsonSerializable {
 	 * @param string|null $CC
 	 * @return $this
 	 */
-	public function setCC( ?string $CC ) : MailInfo {
+	public function setCC( ?string $CC ) :MailInfo {
 		$this->CC = $CC;
 		return $this;
 	}
@@ -155,7 +158,7 @@ class MailInfo implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getBCC() : ?string {
+	public function getBCC() :?string {
 		return $this->BCC;
 	}
 
@@ -165,7 +168,7 @@ class MailInfo implements JsonSerializable {
 	 * @param string|null $BCC
 	 * @return $this
 	 */
-	public function setBCC( ?string $BCC ) : MailInfo {
+	public function setBCC( ?string $BCC ) :MailInfo {
 		$this->BCC = $BCC;
 		return $this;
 	}
@@ -175,7 +178,7 @@ class MailInfo implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getSubject() : ?string {
+	public function getSubject() :?string {
 		return $this->Subject;
 	}
 
@@ -185,7 +188,7 @@ class MailInfo implements JsonSerializable {
 	 * @param string|null $Subject
 	 * @return $this
 	 */
-	public function setSubject( ?string $Subject ) : MailInfo {
+	public function setSubject( ?string $Subject ) :MailInfo {
 		$this->Subject = $Subject;
 		return $this;
 	}
@@ -195,7 +198,7 @@ class MailInfo implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getBody() : ?string {
+	public function getBody() :?string {
 		return $this->Body;
 	}
 
@@ -205,7 +208,7 @@ class MailInfo implements JsonSerializable {
 	 * @param string|null $Body
 	 * @return $this
 	 */
-	public function setBody( ?string $Body ) : MailInfo {
+	public function setBody( ?string $Body ) :MailInfo {
 		$this->Body = $Body;
 		return $this;
 	}
@@ -215,7 +218,7 @@ class MailInfo implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getPriority() : ?string {
+	public function getPriority() :?string {
 		return $this->Priority;
 	}
 
@@ -225,7 +228,7 @@ class MailInfo implements JsonSerializable {
 	 * @param string|null $Priority
 	 * @return $this
 	 */
-	public function setPriority( ?string $Priority ) : MailInfo {
+	public function setPriority( ?string $Priority ) :MailInfo {
 		$this->Priority = $Priority;
 		return $this;
 	}
@@ -235,7 +238,7 @@ class MailInfo implements JsonSerializable {
 	 *
 	 * @return array|string|null
 	 */
-	public function getAttachments() : array|string|null {
+	public function getAttachments() :array|string|null {
 		return $this->Attachments;
 	}
 
@@ -245,7 +248,7 @@ class MailInfo implements JsonSerializable {
 	 * @param array|string|null $Attachments
 	 * @return $this
 	 */
-	public function setAttachments( array|string|null $Attachments ) : MailInfo {
+	public function setAttachments( array|string|null $Attachments ) :MailInfo {
 		$this->Attachments = $Attachments;
 		return $this;
 	}
@@ -255,7 +258,7 @@ class MailInfo implements JsonSerializable {
 	 *
 	 * @return bool
 	 */
-	public function isHasRecipients() : bool {
+	public function isHasRecipients() :bool {
 		return $this->HasRecipients;
 	}
 
@@ -265,7 +268,7 @@ class MailInfo implements JsonSerializable {
 	 * @param bool $HasRecipients
 	 * @return $this
 	 */
-	public function setHasRecipients( bool $HasRecipients ) : MailInfo {
+	public function setHasRecipients( bool $HasRecipients ) :MailInfo {
 		$this->HasRecipients = $HasRecipients;
 		return $this;
 	}
@@ -275,7 +278,7 @@ class MailInfo implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function jsonSerialize() : string {
+	public function jsonSerialize() :string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

@@ -7,6 +7,9 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model\Customer;
 use JsonSerializable;
 use stdClass;
 
+/**
+ * The CustomerGroup DTO class for DK
+ */
 class CustomerGroup implements JsonSerializable {
 	/**
 	 * Short description (CS requirement, unnecessary for DTO Class)
@@ -42,7 +45,7 @@ class CustomerGroup implements JsonSerializable {
 	 * @param stdClass $customer_group
 	 * @return $this
 	 */
-	public function createCustomerGroupFromDKData( stdClass $customer_group ) : CustomerGroup {
+	public function createCustomerGroupFromDKData( stdClass $customer_group ) :CustomerGroup {
 		$this->setModified( $customer_group->Modified ?? null );
 		$this->setID( $customer_group->ID ?? 0 );
 		$this->setNumber( $customer_group->Number ?? null );
@@ -55,7 +58,7 @@ class CustomerGroup implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getModified() : ?string {
+	public function getModified() :?string {
 		return $this->Modified;
 	}
 
@@ -65,7 +68,7 @@ class CustomerGroup implements JsonSerializable {
 	 * @param string|null $Modified
 	 * @return $this
 	 */
-	public function setModified( ?string $Modified ) : CustomerGroup {
+	public function setModified( ?string $Modified ) :CustomerGroup {
 		$this->Modified = $Modified;
 		return $this;
 	}
@@ -75,7 +78,7 @@ class CustomerGroup implements JsonSerializable {
 	 *
 	 * @return int
 	 */
-	public function getID() : int {
+	public function getID() :int {
 		return $this->ID;
 	}
 
@@ -85,7 +88,7 @@ class CustomerGroup implements JsonSerializable {
 	 * @param int $ID
 	 * @return $this
 	 */
-	public function setID( int $ID ) : CustomerGroup {
+	public function setID( int $ID ) :CustomerGroup {
 		$this->ID = $ID;
 		return $this;
 	}
@@ -95,7 +98,7 @@ class CustomerGroup implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getNumber() : ?string {
+	public function getNumber() :?string {
 		return $this->Number;
 	}
 
@@ -105,7 +108,7 @@ class CustomerGroup implements JsonSerializable {
 	 * @param string|null $Number
 	 * @return $this
 	 */
-	public function setNumber( ?string $Number ) : CustomerGroup {
+	public function setNumber( ?string $Number ) :CustomerGroup {
 		$this->Number = $Number;
 		return $this;
 	}
@@ -115,7 +118,7 @@ class CustomerGroup implements JsonSerializable {
 	 *
 	 * @return string|null
 	 */
-	public function getDescription() : ?string {
+	public function getDescription() :?string {
 		return $this->Description;
 	}
 
@@ -125,7 +128,7 @@ class CustomerGroup implements JsonSerializable {
 	 * @param string|null $Description
 	 * @return $this
 	 */
-	public function setDescription( ?string $Description ) : CustomerGroup {
+	public function setDescription( ?string $Description ) :CustomerGroup {
 		$this->Description = $Description;
 		return $this;
 	}
@@ -135,7 +138,7 @@ class CustomerGroup implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function jsonSerialize() : string {
+	public function jsonSerialize() :string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

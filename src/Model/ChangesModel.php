@@ -7,8 +7,6 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model;
 use JsonSerializable;
 
 /**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
  * The ChangesModel DTO class for DK
  */
 class ChangesModel implements JsonSerializable {
@@ -38,7 +36,7 @@ class ChangesModel implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function getModified() : string {
+	public function getModified() :string {
 		return $this->Modified;
 	}
 
@@ -48,7 +46,7 @@ class ChangesModel implements JsonSerializable {
 	 * @param string $Modified
 	 * @return ChangesModel
 	 */
-	public function setModified(string $Modified ) : ChangesModel {
+	public function setModified(string $Modified ) :ChangesModel {
 		$this->Modified = $Modified;
 		return $this;
 	}
@@ -58,7 +56,7 @@ class ChangesModel implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function getBy() : string {
+	public function getBy() :string {
 		return $this->By;
 	}
 
@@ -68,7 +66,7 @@ class ChangesModel implements JsonSerializable {
 	 * @param string $By
 	 * @return ChangesModel
 	 */
-	public function setBy(string $By ) : ChangesModel {
+	public function setBy(string $By ) :ChangesModel {
 		$this->By = $By;
 		return $this;
 	}
@@ -78,7 +76,7 @@ class ChangesModel implements JsonSerializable {
 	 *
 	 * @return array
 	 */
-	public function getFields() : array {
+	public function getFields() :array {
 		return $this->Fields;
 	}
 
@@ -88,7 +86,7 @@ class ChangesModel implements JsonSerializable {
 	 * @param array $Fields
 	 * @return ChangesModel
 	 */
-	public function setFields(array $Fields ) : ChangesModel {
+	public function setFields(array $Fields ) :ChangesModel {
 		$this->Fields = $Fields;
 		return $this;
 	}
@@ -99,7 +97,7 @@ class ChangesModel implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function jsonSerialize() : string {
+	public function jsonSerialize() :string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }
