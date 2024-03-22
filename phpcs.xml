@@ -66,14 +66,6 @@
 		<exclude-pattern>./tests/**</exclude-pattern>
 	</rule>
 
-	<!--
-	As we are using the tests/Supress* files for a hack, we can safely define
-	multiple classes in there
-	-->
-	<rule ref="Generic.Files.OneObjectStructurePerFile.MultipleFound">
-		<exclude-pattern>./tests/_/Supress*</exclude-pattern>
-	</rule>
-
 	<!-- Disable everything from the phpcsextra package -->
 	<rule ref="Universal">
 		<exclude name="Universal"></exclude>
@@ -104,10 +96,4 @@
 	Exclude the vendor direcotry because of course
 	-->
 	<exclude-pattern>./vendor/*</exclude-pattern>
-
-	<!--
-	As we are rebuilding and moving functionality from the ./App directory and
-	over to ./src, we will simply ignore the code in there for the time being.
-	-->
-	<exclude-pattern>./App/*</exclude-pattern>
 </ruleset>
