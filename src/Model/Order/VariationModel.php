@@ -8,40 +8,56 @@ use JsonSerializable;
 use stdClass;
 
 /**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
  * The VariationModel DTO class for DK
  */
 class VariationModel implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Code
 	 */
 	protected string|null $Code;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Code2
 	 */
 	protected string|null $Code2;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Description
 	 */
 	protected string|null $Description;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Description2
 	 */
 	protected string|null $Description2;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $Quantity
 	 */
 	protected float $Quantity = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $QuantityOnBackOrders
 	 */
 	protected float $QuantityOnBackOrders = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param stdClass $variation
 	 * @return void
 	 */
@@ -55,6 +71,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCode() : ?string {
@@ -62,6 +80,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Code
 	 * @return VariationModel
 	 */
@@ -71,6 +91,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCode2() : ?string {
@@ -78,6 +100,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Code2
 	 * @return VariationModel
 	 */
@@ -87,6 +111,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getDescription() : ?string {
@@ -94,6 +120,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Description
 	 * @return VariationModel
 	 */
@@ -103,6 +131,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getDescription2() : ?string {
@@ -110,6 +140,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Description2
 	 * @return VariationModel
 	 */
@@ -119,6 +151,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getQuantity() : float {
@@ -126,6 +160,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $Quantity
 	 * @return VariationModel
 	 */
@@ -135,6 +171,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getQuantityOnBackOrders() : float {
@@ -142,6 +180,8 @@ class VariationModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $QuantityOnBackOrders
 	 * @return VariationModel
 	 */
@@ -152,6 +192,8 @@ class VariationModel implements JsonSerializable {
 
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

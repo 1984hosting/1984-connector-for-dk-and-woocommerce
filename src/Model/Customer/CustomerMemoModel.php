@@ -8,26 +8,36 @@ use JsonSerializable;
 
 class CustomerMemoModel implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $PageName
 	 */
 	protected ?string $PageName;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $PlainText
 	 */
 	protected ?string $PlainText;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Modified
 	 */
 	protected ?string $Modified;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $RecordID
 	 */
 	protected int $RecordID = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getPageName() : ?string {
@@ -35,6 +45,8 @@ class CustomerMemoModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $PageName
 	 * @return $this
 	 */
@@ -44,6 +56,8 @@ class CustomerMemoModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getPlainText() : ?string {
@@ -51,6 +65,8 @@ class CustomerMemoModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $PlainText
 	 * @return $this
 	 */
@@ -60,6 +76,8 @@ class CustomerMemoModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getModified() : ?string {
@@ -67,6 +85,8 @@ class CustomerMemoModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Modified
 	 * @return $this
 	 */
@@ -76,6 +96,8 @@ class CustomerMemoModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getRecordID() : int {
@@ -83,6 +105,8 @@ class CustomerMemoModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $RecordID
 	 * @return $this
 	 */
@@ -92,6 +116,8 @@ class CustomerMemoModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

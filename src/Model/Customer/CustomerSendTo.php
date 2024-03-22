@@ -7,35 +7,49 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model\Customer;
 use JsonSerializable;
 
 /**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
  * DTO for CustomerSendTo, part of DK Customer.
  */
 class CustomerSendTo implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var bool $Printer
 	 */
 	protected bool $Printer;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var bool $ClaimToPrinter
 	 */
 	protected bool $ClaimToPrinter;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var bool $Email
 	 */
 	protected bool $Email;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var bool $EDIInvoice
 	 */
 	protected bool $EDIInvoice;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var bool $PublishingSystem
 	 */
 	protected bool $PublishingSystem;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param $send_to
 	 * @return void
 	 */
@@ -48,6 +62,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return bool
 	 */
 	public function isPrinter() : bool {
@@ -55,6 +71,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param bool $Printer
 	 * @return $this
 	 */
@@ -64,6 +82,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return bool
 	 */
 	public function isClaimToPrinter() : bool {
@@ -71,6 +91,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param bool $ClaimToPrinter
 	 * @return $this
 	 */
@@ -80,6 +102,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return bool
 	 */
 	public function isEmail() : bool {
@@ -87,6 +111,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param bool $Email
 	 * @return $this
 	 */
@@ -96,6 +122,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return bool
 	 */
 	public function isEDIInvoice() : bool {
@@ -103,6 +131,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param bool $EDIInvoice
 	 * @return $this
 	 */
@@ -112,6 +142,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return bool
 	 */
 	public function isPublishingSystem() : bool {
@@ -119,6 +151,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param bool $PublishingSystem
 	 * @return $this
 	 */
@@ -128,6 +162,8 @@ class CustomerSendTo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

@@ -7,40 +7,56 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model\Product;
 use stdClass;
 
 /**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
  * The Attachments DTO class for DK
  */
 class Attachments implements \JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $ID
 	 */
 	protected int $ID;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string $Name
 	 */
 	protected string $Name;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $Size
 	 */
 	protected int $Size;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string $Linked
 	 */
 	protected string $Linked;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string $MD5Hash
 	 */
 	protected string $MD5Hash;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var bool $ShowOnWeb
 	 */
 	protected bool $ShowOnWeb = true;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 *
 	 */
 	public function createAttachmentFromDKData(stdClass $attachment) {
@@ -48,6 +64,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getID() : int {
@@ -55,6 +73,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $ID
 	 * @return Attachments
 	 */
@@ -64,6 +84,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getName() : string {
@@ -71,6 +93,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string $Name
 	 * @return Attachments
 	 */
@@ -80,6 +104,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getSize() : int {
@@ -87,6 +113,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $Size
 	 * @return Attachments
 	 */
@@ -96,6 +124,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getLinked() : string {
@@ -103,6 +133,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string $Linked
 	 * @return Attachments
 	 */
@@ -112,6 +144,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getMD5Hash() : string {
@@ -119,6 +153,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string $MD5Hash
 	 * @return Attachments
 	 */
@@ -128,6 +164,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return bool
 	 */
 	public function isShowOnWeb() : bool {
@@ -135,6 +173,8 @@ class Attachments implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param bool $ShowOnWeb
 	 * @return Attachments
 	 */
@@ -145,6 +185,8 @@ class Attachments implements \JsonSerializable {
 
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

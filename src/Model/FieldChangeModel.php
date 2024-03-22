@@ -7,20 +7,28 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model;
 use JsonSerializable;
 
 /**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
  * The FieldChangeModel DTO class for DK
  */
 class FieldChangeModel implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string
 	 */
 	protected string $Name;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string
 	 */
 	protected string $Value;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getName() : string {
@@ -28,6 +36,8 @@ class FieldChangeModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string $Name
 	 * @return FieldChangeModel
 	 */
@@ -37,6 +47,8 @@ class FieldChangeModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getValue() : string {
@@ -44,6 +56,8 @@ class FieldChangeModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string $Value
 	 * @return FieldChangeModel
 	 */
@@ -53,6 +67,8 @@ class FieldChangeModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

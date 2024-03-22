@@ -8,31 +8,43 @@ use JsonSerializable;
 
 class CustomerPropertyModel implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $ID
 	 */
 	protected ?string $ID;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Attribute
 	 */
 	protected ?string $Attribute;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Option
 	 */
 	protected ?string $Option;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Comment
 	 */
 	protected ?string $Comment;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Modified
 	 */
 	protected ?string $Modified;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getID() : ?string {
@@ -40,6 +52,8 @@ class CustomerPropertyModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $ID
 	 * @return $this
 	 */
@@ -49,6 +63,8 @@ class CustomerPropertyModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getAttribute() : ?string {
@@ -56,6 +72,8 @@ class CustomerPropertyModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Attribute
 	 * @return $this
 	 */
@@ -65,6 +83,8 @@ class CustomerPropertyModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getOption() : ?string {
@@ -72,6 +92,8 @@ class CustomerPropertyModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Option
 	 * @return $this
 	 */
@@ -81,6 +103,8 @@ class CustomerPropertyModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getComment() : ?string {
@@ -88,6 +112,8 @@ class CustomerPropertyModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Comment
 	 * @return $this
 	 */
@@ -97,6 +123,8 @@ class CustomerPropertyModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getModified() : ?string {
@@ -104,6 +132,8 @@ class CustomerPropertyModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Modified
 	 * @return $this
 	 */
@@ -113,6 +143,8 @@ class CustomerPropertyModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

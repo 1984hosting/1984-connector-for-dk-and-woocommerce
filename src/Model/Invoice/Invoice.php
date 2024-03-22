@@ -10,281 +10,393 @@ use stdClass;
 
 class Invoice implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Number
 	 */
 	protected ?string $Number;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $ObjectDate
 	 */
 	protected ?string $ObjectDate;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Created
 	 */
 	protected ?string $Created;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Modified
 	 */
 	protected ?string $Modified;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CreatedBy
 	 */
 	protected ?string $CreatedBy;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CNumber
 	 */
 	protected ?string $CNumber;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CName
 	 */
 	protected ?string $CName;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CAddress1
 	 */
 	protected ?string $CAddress1;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CAddress2
 	 */
 	protected ?string $CAddress2;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CAddress3
 	 */
 	protected ?string $CAddress3;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CAddress4
 	 */
 	protected ?string $CAddress4;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CZipCode
 	 */
 	protected ?string $CZipCode;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CCountryCode
 	 */
 	protected ?string $CCountryCode;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CSSNumber
 	 */
 	protected ?string $CSSNumber;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CPhone
 	 */
 	protected ?string $CPhone;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CContact
 	 */
 	protected ?string $CContact;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int|null $RecordID
 	 */
 	protected ?int $RecordID = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $OrderNumber
 	 */
 	protected int $OrderNumber = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $InvoiceDate
 	 */
 	protected ?string $InvoiceDate;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $DueDate
 	 */
 	protected ?string $DueDate;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $DiscountPercent
 	 */
 	protected float $DiscountPercent = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $Discount
 	 */
 	protected float $Discount = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $TotalAmount
 	 */
 	protected float $TotalAmount = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $TotalAmountWithTax
 	 */
 	protected float $TotalAmountWithTax = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Currency
 	 */
 	protected ?string $Currency;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Reference
 	 */
 	protected ?string $Reference;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Voucher
 	 */
 	protected ?string $Voucher;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $SettledType
 	 */
 	protected int $SettledType = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $SettledAmount
 	 */
 	protected float $SettledAmount = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $SalePerson
 	 */
 	protected ?string $SalePerson;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Text1
 	 */
 	protected ?string $Text1;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Text2
 	 */
 	protected ?string $Text2;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Dim1
 	 */
 	protected ?string $Dim1;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Dim2
 	 */
 	protected ?string $Dim2;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $Origin
 	 */
 	protected int $Origin = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $PaymentTerm
 	 */
 	protected ?string $PaymentTerm;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $PaymentMode
 	 */
 	protected ?string $PaymentMode;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $ClaimStatus
 	 */
 	protected int $ClaimStatus = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float|int $Exchange
 	 */
 	protected float $Exchange = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $SalesType
 	 */
 	protected int $SalesType = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $Version
 	 */
 	protected int $Version = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Project
 	 */
 	protected ?string $Project;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $IRNumber
 	 */
 	protected ?string $IRNumber;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $IRName
 	 */
 	protected ?string $IRName;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $IRAddress1
 	 */
 	protected ?string $IRAddress1;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $IRAddress2
 	 */
 	protected ?string $IRAddress2;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $IRZipCode
 	 */
 	protected ?string $IRZipCode;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $IRContact
 	 */
 	protected ?string $IRContact;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $ExternalInvoiceNumber
 	 */
 	protected int $ExternalInvoiceNumber = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $ClaimNumber
 	 */
 	protected int $ClaimNumber = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $ClaimDate
 	 */
 	protected ?string $ClaimDate;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Register
 	 */
 	protected ?string $Register;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $PosInvoice
 	 */
 	protected int $PosInvoice = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $JournalId
 	 */
 	protected int $JournalId = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var array|null $Lines
 	 */
 	protected ?array $Lines;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param stdClass $Invoice
 	 * @return void
 	 */
@@ -347,6 +459,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getNumber() : ?string {
@@ -354,6 +468,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Number
 	 * @return $this
 	 */
@@ -363,6 +479,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getObjectDate() : ?string {
@@ -370,6 +488,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $ObjectDate
 	 * @return $this
 	 */
@@ -379,6 +499,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCreated() : ?string {
@@ -386,6 +508,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Created
 	 * @return $this
 	 */
@@ -395,6 +519,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getModified() : ?string {
@@ -402,6 +528,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Modified
 	 * @return $this
 	 */
@@ -411,6 +539,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCreatedBy() : ?string {
@@ -418,6 +548,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CreatedBy
 	 * @return $this
 	 */
@@ -427,6 +559,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCNumber() : ?string {
@@ -434,6 +568,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CNumber
 	 * @return $this
 	 */
@@ -443,6 +579,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCName() : ?string {
@@ -450,6 +588,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CName
 	 * @return $this
 	 */
@@ -459,6 +599,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCAddress1() : ?string {
@@ -466,6 +608,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CAddress1
 	 * @return $this
 	 */
@@ -475,6 +619,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCAddress2() : ?string {
@@ -482,6 +628,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CAddress2
 	 * @return $this
 	 */
@@ -491,6 +639,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCAddress3() : ?string {
@@ -498,6 +648,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CAddress3
 	 * @return $this
 	 */
@@ -507,6 +659,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCAddress4() : ?string {
@@ -514,6 +668,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CAddress4
 	 * @return $this
 	 */
@@ -523,6 +679,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCZipCode() : ?string {
@@ -530,6 +688,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CZipCode
 	 * @return $this
 	 */
@@ -539,6 +699,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCCountryCode() : ?string {
@@ -546,6 +708,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CCountryCode
 	 * @return $this
 	 */
@@ -555,6 +719,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCSSNumber() : ?string {
@@ -562,6 +728,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CSSNumber
 	 * @return $this
 	 */
@@ -571,6 +739,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCPhone() : ?string {
@@ -578,6 +748,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CPhone
 	 * @return $this
 	 */
@@ -587,6 +759,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCContact() : ?string {
@@ -594,6 +768,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CContact
 	 * @return $this
 	 */
@@ -603,6 +779,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int|null
 	 */
 	public function getRecordID() : ?int {
@@ -610,6 +788,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int|null $RecordID
 	 * @return $this
 	 */
@@ -619,6 +799,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getOrderNumber() : int {
@@ -626,6 +808,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $OrderNumber
 	 * @return $this
 	 */
@@ -635,6 +819,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getInvoiceDate() : ?string {
@@ -642,6 +828,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $InvoiceDate
 	 * @return $this
 	 */
@@ -651,6 +839,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getDueDate() : ?string {
@@ -658,6 +848,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $DueDate
 	 * @return $this
 	 */
@@ -667,6 +859,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getDiscountPercent() : float {
@@ -674,6 +868,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $DiscountPercent
 	 * @return $this
 	 */
@@ -683,6 +879,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getDiscount() : float {
@@ -690,6 +888,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $Discount
 	 * @return $this
 	 */
@@ -699,6 +899,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getTotalAmount() : float {
@@ -706,6 +908,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $TotalAmount
 	 * @return $this
 	 */
@@ -715,6 +919,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getTotalAmountWithTax() : float {
@@ -722,6 +928,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $TotalAmountWithTax
 	 * @return $this
 	 */
@@ -731,6 +939,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCurrency() : ?string {
@@ -738,6 +948,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Currency
 	 * @return $this
 	 */
@@ -747,6 +959,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getReference() : ?string {
@@ -754,6 +968,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Reference
 	 * @return $this
 	 */
@@ -763,6 +979,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getVoucher() : ?string {
@@ -770,6 +988,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Voucher
 	 * @return $this
 	 */
@@ -779,6 +999,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getSettledType() : int {
@@ -786,6 +1008,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $SettledType
 	 * @return $this
 	 */
@@ -795,6 +1019,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getSettledAmount() : float {
@@ -802,6 +1028,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $SettledAmount
 	 * @return $this
 	 */
@@ -811,6 +1039,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getSalePerson() : ?string {
@@ -818,6 +1048,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $SalePerson
 	 * @return $this
 	 */
@@ -827,6 +1059,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getText1() : ?string {
@@ -834,6 +1068,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Text1
 	 * @return $this
 	 */
@@ -843,6 +1079,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getText2() : ?string {
@@ -850,6 +1088,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Text2
 	 * @return $this
 	 */
@@ -859,6 +1099,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getDim1() : ?string {
@@ -866,6 +1108,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Dim1
 	 * @return $this
 	 */
@@ -875,6 +1119,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getDim2() : ?string {
@@ -882,6 +1128,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Dim2
 	 * @return $this
 	 */
@@ -891,6 +1139,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getOrigin() : int {
@@ -898,6 +1148,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $Origin
 	 * @return $this
 	 */
@@ -907,6 +1159,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getPaymentTerm() : ?string {
@@ -914,6 +1168,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $PaymentTerm
 	 * @return $this
 	 */
@@ -923,6 +1179,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getPaymentMode() : ?string {
@@ -930,6 +1188,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $PaymentMode
 	 * @return $this
 	 */
@@ -939,6 +1199,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getClaimStatus() : int {
@@ -946,6 +1208,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $ClaimStatus
 	 * @return $this
 	 */
@@ -955,6 +1219,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getExchange() : float {
@@ -962,6 +1228,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $Exchange
 	 * @return $this
 	 */
@@ -971,6 +1239,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getSalesType() : int {
@@ -978,6 +1248,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $SalesType
 	 * @return $this
 	 */
@@ -987,6 +1259,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getVersion() : int {
@@ -994,6 +1268,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $Version
 	 * @return $this
 	 */
@@ -1003,6 +1279,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getProject() : ?string {
@@ -1010,6 +1288,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Project
 	 * @return $this
 	 */
@@ -1019,6 +1299,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getIRNumber() : ?string {
@@ -1026,6 +1308,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $IRNumber
 	 * @return $this
 	 */
@@ -1035,6 +1319,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getIRName() : ?string {
@@ -1042,6 +1328,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $IRName
 	 * @return $this
 	 */
@@ -1051,6 +1339,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getIRAddress1() : ?string {
@@ -1058,6 +1348,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $IRAddress1
 	 * @return $this
 	 */
@@ -1067,6 +1359,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getIRAddress2() : ?string {
@@ -1074,6 +1368,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $IRAddress2
 	 * @return $this
 	 */
@@ -1083,6 +1379,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getIRZipCode() : ?string {
@@ -1090,6 +1388,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $IRZipCode
 	 * @return $this
 	 */
@@ -1099,6 +1399,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getIRContact() : ?string {
@@ -1106,6 +1408,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $IRContact
 	 * @return $this
 	 */
@@ -1115,6 +1419,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getExternalInvoiceNumber() : int {
@@ -1122,6 +1428,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $ExternalInvoiceNumber
 	 * @return $this
 	 */
@@ -1131,6 +1439,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getClaimNumber() : int {
@@ -1138,6 +1448,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $ClaimNumber
 	 * @return $this
 	 */
@@ -1147,6 +1459,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getClaimDate() : ?string {
@@ -1154,6 +1468,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $ClaimDate
 	 * @return $this
 	 */
@@ -1163,6 +1479,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getRegister() : ?string {
@@ -1170,6 +1488,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Register
 	 * @return $this
 	 */
@@ -1179,6 +1499,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getPosInvoice() : int {
@@ -1186,6 +1508,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $PosInvoice
 	 * @return $this
 	 */
@@ -1195,6 +1519,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getJournalId() : int {
@@ -1202,6 +1528,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $JournalId
 	 * @return $this
 	 */
@@ -1211,6 +1539,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return array|null
 	 */
 	public function getLines() : ?array {
@@ -1218,6 +1548,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param array|null $Lines
 	 * @return $this
 	 */
@@ -1240,6 +1572,8 @@ class Invoice implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

@@ -7,25 +7,35 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model;
 use JsonSerializable;
 
 /**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
  * The ChangesModel DTO class for DK
  */
 class ChangesModel implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string
 	 */
 	protected string $Modified;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string
 	 */
 	protected string $By;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var array
 	 */
 	protected array $Fields;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getModified() : string {
@@ -33,6 +43,8 @@ class ChangesModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string $Modified
 	 * @return ChangesModel
 	 */
@@ -42,6 +54,8 @@ class ChangesModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getBy() : string {
@@ -49,6 +63,8 @@ class ChangesModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string $By
 	 * @return ChangesModel
 	 */
@@ -58,6 +74,8 @@ class ChangesModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return array
 	 */
 	public function getFields() : array {
@@ -65,6 +83,8 @@ class ChangesModel implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param array $Fields
 	 * @return ChangesModel
 	 */
@@ -75,6 +95,8 @@ class ChangesModel implements JsonSerializable {
 
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

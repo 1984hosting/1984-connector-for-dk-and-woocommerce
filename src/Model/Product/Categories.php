@@ -7,30 +7,42 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model\Product;
 use stdClass;
 
 /**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
  * The Categories DTO class for DK
  */
 class Categories implements \JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string $ID
 	 */
 	protected string $ID;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var array $SubCategories
 	 */
 	protected array $SubCategories;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string $Description
 	 */
 	protected string $Description;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var bool $IsActive
 	 */
 	protected bool $IsActive;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 *
 	 */
 	public function createVariationModelFromDKData(stdClass $categories) {
@@ -38,6 +50,8 @@ class Categories implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getID() : string {
@@ -45,6 +59,8 @@ class Categories implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string $ID
 	 * @return Categories
 	 */
@@ -54,6 +70,8 @@ class Categories implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return array
 	 */
 	public function getSubCategories() : array {
@@ -61,6 +79,8 @@ class Categories implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param array $SubCategories
 	 * @return Categories
 	 */
@@ -70,6 +90,8 @@ class Categories implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getDescription() : string {
@@ -77,6 +99,8 @@ class Categories implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string $Description
 	 * @return Categories
 	 */
@@ -86,6 +110,8 @@ class Categories implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return bool
 	 */
 	public function isIsActive() : bool {
@@ -93,6 +119,8 @@ class Categories implements \JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param bool $IsActive
 	 * @return Categories
 	 */
@@ -103,6 +131,8 @@ class Categories implements \JsonSerializable {
 
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

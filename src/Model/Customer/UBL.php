@@ -7,31 +7,43 @@ namespace NineteenEightyFour\NineteenEightyWoo\Model\Customer;
 use JsonSerializable;
 class UBL implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $ID
 	 */
 	protected string|null $ID;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Prefix
 	 */
 	protected string|null $Prefix;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var bool|null $Enabled
 	 */
 	protected bool|null $Enabled;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $AccountingCostType
 	 */
 	protected string|null $AccountingCostType;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $AccountingCost
 	 */
 	protected string|null $AccountingCost;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param $ubl
 	 * @return void
 	 */
@@ -44,6 +56,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getID() : string {
@@ -51,6 +65,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $ID
 	 * @return $this
 	 */
@@ -60,6 +76,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getPrefix() : string {
@@ -67,6 +85,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Prefix
 	 * @return $this
 	 */
@@ -76,6 +96,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return bool
 	 */
 	public function isEnabled() : bool {
@@ -83,6 +105,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param bool $Enabled
 	 * @return $this
 	 */
@@ -92,6 +116,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getAccountingCostType() : string {
@@ -99,6 +125,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $AccountingCostType
 	 * @return $this
 	 */
@@ -108,6 +136,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getAccountingCost() : string {
@@ -115,6 +145,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $AccountingCost
 	 * @return $this
 	 */
@@ -124,6 +156,8 @@ class UBL implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

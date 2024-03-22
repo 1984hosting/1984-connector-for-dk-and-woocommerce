@@ -9,51 +9,71 @@ use stdClass;
 
 class MailInfo implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $DisplayName
 	 */
 	protected ?string $DisplayName;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $To
 	 */
 	protected ?string $To;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $CC
 	 */
 	protected ?string $CC;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $BCC
 	 */
 	protected ?string $BCC;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Subject
 	 */
 	protected ?string $Subject;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Body
 	 */
 	protected ?string $Body;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Priority
 	 */
 	protected ?string $Priority;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|array|null $Attachments
 	 */
 	protected string|array|null $Attachments;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var bool $HasRecipients
 	 */
 	protected bool $HasRecipients;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param stdClass $mail_info
 	 * @return $this
 	 */
@@ -71,6 +91,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getDisplayName() : ?string {
@@ -78,6 +100,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $DisplayName
 	 * @return $this
 	 */
@@ -87,6 +111,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getTo() : ?string {
@@ -94,6 +120,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $To
 	 * @return MailInfo
 	 */
@@ -103,6 +131,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getCC() : ?string {
@@ -110,6 +140,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $CC
 	 * @return $this
 	 */
@@ -119,6 +151,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getBCC() : ?string {
@@ -126,6 +160,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $BCC
 	 * @return $this
 	 */
@@ -135,6 +171,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getSubject() : ?string {
@@ -142,6 +180,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Subject
 	 * @return $this
 	 */
@@ -151,6 +191,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getBody() : ?string {
@@ -158,6 +200,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Body
 	 * @return $this
 	 */
@@ -167,6 +211,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getPriority() : ?string {
@@ -174,6 +220,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Priority
 	 * @return $this
 	 */
@@ -183,6 +231,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return array|string|null
 	 */
 	public function getAttachments() : array|string|null {
@@ -190,6 +240,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param array|string|null $Attachments
 	 * @return $this
 	 */
@@ -199,6 +251,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return bool
 	 */
 	public function isHasRecipients() : bool {
@@ -206,6 +260,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param bool $HasRecipients
 	 * @return $this
 	 */
@@ -215,6 +271,8 @@ class MailInfo implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

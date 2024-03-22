@@ -9,26 +9,36 @@ use stdClass;
 
 class CustomerGroup implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Modified
 	 */
 	protected ?string $Modified;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $ID
 	 */
 	protected int $ID = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Number
 	 */
 	protected ?string $Number;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Description
 	 */
 	protected ?string $Description;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param stdClass $customer_group
 	 * @return $this
 	 */
@@ -41,6 +51,8 @@ class CustomerGroup implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getModified() : ?string {
@@ -48,6 +60,8 @@ class CustomerGroup implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Modified
 	 * @return $this
 	 */
@@ -57,6 +71,8 @@ class CustomerGroup implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getID() : int {
@@ -64,6 +80,8 @@ class CustomerGroup implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $ID
 	 * @return $this
 	 */
@@ -73,6 +91,8 @@ class CustomerGroup implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getNumber() : ?string {
@@ -80,6 +100,8 @@ class CustomerGroup implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Number
 	 * @return $this
 	 */
@@ -89,6 +111,8 @@ class CustomerGroup implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getDescription() : ?string {
@@ -96,6 +120,8 @@ class CustomerGroup implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Description
 	 * @return $this
 	 */
@@ -105,6 +131,8 @@ class CustomerGroup implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {

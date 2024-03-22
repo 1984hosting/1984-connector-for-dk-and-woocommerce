@@ -8,115 +8,161 @@ use JsonSerializable;
 use stdClass;
 
 /**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
  * The OrderLine DTO class for DK
  */
 class OrderLine implements JsonSerializable {
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $SequenceNumber
 	 */
 	protected int $SequenceNumber = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string $ItemCode
 	 */
 	protected string $ItemCode;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Text
 	 */
 	protected string|null $Text;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Text2
 	 */
 	protected string|null $Text2;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Warehouse
 	 */
 	protected string|null $Warehouse;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Location
 	 */
 	protected string|null $Location;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $Quantity
 	 */
 	protected float $Quantity = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $QuantityDelivered
 	 */
 	protected float $QuantityDelivered = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $UnitPrice
 	 */
 	protected float $UnitPrice;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $UnitPriceWithTax
 	 */
 	protected float $UnitPriceWithTax;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $UnitCode
 	 */
 	protected string|null $UnitCode;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $Discount
 	 */
 	protected float $Discount = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $DiscountPercent
 	 */
 	protected float $DiscountPercent = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $TotalAmount
 	 */
 	protected float $TotalAmount = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var float $TotalAmountWithTax
 	 */
 	protected float $TotalAmountWithTax = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $BarCode
 	 */
 	protected string|null $BarCode;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Reference
 	 */
 	protected string|null $Reference;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $EDIOrderNumber
 	 */
 	protected string|null $EDIOrderNumber;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var int $UNDOrderNumber
 	 */
 	protected int $UNDOrderNumber = 0;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var string|null $Memo
 	 */
 	protected string|null $Memo;
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @var array $Variations
 	 */
 	protected array $Variations = [];
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param stdClass $OrderLine
 	 * @return void
 	 */
@@ -144,6 +190,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getSequenceNumber() : int {
@@ -151,6 +199,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $SequenceNumber
 	 * @return OrderLine
 	 */
@@ -160,6 +210,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function getItemCode() : string {
@@ -167,6 +219,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string $ItemCode
 	 * @return OrderLine
 	 */
@@ -176,6 +230,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getText() : ?string {
@@ -183,6 +239,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Text
 	 * @return OrderLine
 	 */
@@ -192,6 +250,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getText2() : ?string {
@@ -199,6 +259,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Text2
 	 * @return OrderLine
 	 */
@@ -208,6 +270,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getWarehouse() : ?string {
@@ -215,6 +279,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Warehouse
 	 * @return OrderLine
 	 */
@@ -224,6 +290,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getLocation() : ?string {
@@ -231,6 +299,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Location
 	 * @return OrderLine
 	 */
@@ -240,6 +310,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getQuantity() : float {
@@ -247,6 +319,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $Quantity
 	 * @return OrderLine
 	 */
@@ -256,6 +330,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getQuantityDelivered() : float {
@@ -263,6 +339,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $QuantityDelivered
 	 * @return OrderLine
 	 */
@@ -272,6 +350,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getUnitPrice() : float {
@@ -279,6 +359,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $UnitPrice
 	 * @return OrderLine
 	 */
@@ -288,6 +370,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getUnitPriceWithTax() : float {
@@ -295,6 +379,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $UnitPriceWithTax
 	 * @return OrderLine
 	 */
@@ -304,6 +390,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getUnitCode() : ?string {
@@ -311,6 +399,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $UnitCode
 	 * @return OrderLine
 	 */
@@ -320,6 +410,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getDiscount() : float {
@@ -327,6 +419,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $Discount
 	 * @return OrderLine
 	 */
@@ -336,6 +430,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getDiscountPercent() : float {
@@ -343,6 +439,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $DiscountPercent
 	 * @return OrderLine
 	 */
@@ -352,6 +450,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getTotalAmount() : float {
@@ -359,6 +459,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $TotalAmount
 	 * @return OrderLine
 	 */
@@ -368,6 +470,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return float
 	 */
 	public function getTotalAmountWithTax() : float {
@@ -375,6 +479,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param float $TotalAmountWithTax
 	 * @return OrderLine
 	 */
@@ -384,6 +490,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getBarCode() : ?string {
@@ -391,6 +499,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $BarCode
 	 * @return OrderLine
 	 */
@@ -400,6 +510,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getReference() : ?string {
@@ -407,6 +519,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Reference
 	 * @return OrderLine
 	 */
@@ -416,6 +530,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getEDIOrderNumber() : ?string {
@@ -423,6 +539,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $EDIOrderNumber
 	 * @return OrderLine
 	 */
@@ -432,6 +550,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return int
 	 */
 	public function getUNDOrderNumber() : int {
@@ -439,6 +559,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param int $UNDOrderNumber
 	 * @return OrderLine
 	 */
@@ -448,6 +570,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string|null
 	 */
 	public function getMemo() : ?string {
@@ -455,6 +579,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param string|null $Memo
 	 * @return OrderLine
 	 */
@@ -464,6 +590,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return array
 	 */
 	public function getVariations() : array {
@@ -471,6 +599,8 @@ class OrderLine implements JsonSerializable {
 	}
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @param array $Variations
 	 * @return OrderLine
 	 */
@@ -485,6 +615,8 @@ class OrderLine implements JsonSerializable {
 
 
 	/**
+	 * Short description (CS requirement, unnecessary for DTO Class)
+	 *
 	 * @return string
 	 */
 	public function jsonSerialize() : string {
