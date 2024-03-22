@@ -117,7 +117,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param stdClass $ItemReciver
 	 * @return void
 	 */
-	public function createItemReciverModelFromDKData( stdClass $ItemReciver ): void {
+	public function createItemReciverModelFromDKData( stdClass $ItemReciver ) : void {
 		$this->setNumber( $ItemReciver->Number );
 		$this->setName( $ItemReciver->Name ?? null );
 		$this->setAddress1( $ItemReciver->Address1 ?? null );
@@ -144,7 +144,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getNumber(): ?string {
+	public function getNumber() : ?string {
 		return $this->Number;
 	}
 
@@ -152,7 +152,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Number
 	 * @return $this
 	 */
-	public function setNumber( ?string $Number ): ItemReciverModel {
+	public function setNumber( ?string $Number ) : ItemReciverModel {
 		$this->Number = $Number;
 		return $this;
 	}
@@ -160,7 +160,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getName(): ?string {
+	public function getName() : ?string {
 		return $this->Name;
 	}
 
@@ -168,7 +168,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Name
 	 * @return $this
 	 */
-	public function setName( ?string $Name ): ItemReciverModel {
+	public function setName( ?string $Name ) : ItemReciverModel {
 		$this->Name = $Name;
 		return $this;
 	}
@@ -176,7 +176,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getAddress1(): ?string {
+	public function getAddress1() : ?string {
 		return $this->Address1;
 	}
 
@@ -184,7 +184,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Address1
 	 * @return $this
 	 */
-	public function setAddress1( ?string $Address1 ): ItemReciverModel {
+	public function setAddress1( ?string $Address1 ) : ItemReciverModel {
 		$this->Address1 = $Address1;
 		return $this;
 	}
@@ -192,7 +192,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getAddress2(): ?string {
+	public function getAddress2() : ?string {
 		return $this->Address2;
 	}
 
@@ -200,7 +200,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Address2
 	 * @return $this
 	 */
-	public function setAddress2( ?string $Address2 ): ItemReciverModel {
+	public function setAddress2( ?string $Address2 ) : ItemReciverModel {
 		$this->Address2 = $Address2;
 		return $this;
 	}
@@ -208,7 +208,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getAddress3(): ?string {
+	public function getAddress3() : ?string {
 		return $this->Address3;
 	}
 
@@ -216,7 +216,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Address3
 	 * @return $this
 	 */
-	public function setAddress3( ?string $Address3 ): ItemReciverModel {
+	public function setAddress3( ?string $Address3 ) : ItemReciverModel {
 		$this->Address3 = $Address3;
 		return $this;
 	}
@@ -224,7 +224,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getAddress4(): ?string {
+	public function getAddress4() : ?string {
 		return $this->Address4;
 	}
 
@@ -232,7 +232,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Address4
 	 * @return $this
 	 */
-	public function setAddress4( ?string $Address4 ): ItemReciverModel {
+	public function setAddress4( ?string $Address4 ) : ItemReciverModel {
 		$this->Address4 = $Address4;
 		return $this;
 	}
@@ -240,7 +240,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getCity(): ?string {
+	public function getCity() : ?string {
 		return $this->City;
 	}
 
@@ -248,7 +248,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $City
 	 * @return $this
 	 */
-	public function setCity( ?string $City ): ItemReciverModel {
+	public function setCity( ?string $City ) : ItemReciverModel {
 		$this->City = $City;
 		return $this;
 	}
@@ -256,7 +256,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getZipCode(): ?string {
+	public function getZipCode() : ?string {
 		return $this->ZipCode;
 	}
 
@@ -264,7 +264,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $ZipCode
 	 * @return $this
 	 */
-	public function setZipCode( ?string $ZipCode ): ItemReciverModel {
+	public function setZipCode( ?string $ZipCode ) : ItemReciverModel {
 		$this->ZipCode = $ZipCode;
 		return $this;
 	}
@@ -272,7 +272,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getCountryCode(): ?string {
+	public function getCountryCode() : ?string {
 		return $this->CountryCode;
 	}
 
@@ -280,7 +280,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $CountryCode
 	 * @return $this
 	 */
-	public function setCountryCode( ?string $CountryCode ): ItemReciverModel {
+	public function setCountryCode( ?string $CountryCode ) : ItemReciverModel {
 		$this->CountryCode = $CountryCode;
 		return $this;
 	}
@@ -288,7 +288,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getSSNumber(): ?string {
+	public function getSSNumber() : ?string {
 		return $this->SSNumber;
 	}
 
@@ -296,7 +296,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $SSNumber
 	 * @return $this
 	 */
-	public function setSSNumber( ?string $SSNumber ): ItemReciverModel {
+	public function setSSNumber( ?string $SSNumber ) : ItemReciverModel {
 		$this->SSNumber = $SSNumber;
 		return $this;
 	}
@@ -304,7 +304,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getPhone(): ?string {
+	public function getPhone() : ?string {
 		return $this->Phone;
 	}
 
@@ -312,7 +312,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Phone
 	 * @return $this
 	 */
-	public function setPhone( ?string $Phone ): ItemReciverModel {
+	public function setPhone( ?string $Phone ) : ItemReciverModel {
 		$this->Phone = $Phone;
 		return $this;
 	}
@@ -320,7 +320,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getPhoneLocal(): ?string {
+	public function getPhoneLocal() : ?string {
 		return $this->PhoneLocal;
 	}
 
@@ -328,7 +328,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $PhoneLocal
 	 * @return $this
 	 */
-	public function setPhoneLocal( ?string $PhoneLocal ): ItemReciverModel {
+	public function setPhoneLocal( ?string $PhoneLocal ) : ItemReciverModel {
 		$this->PhoneLocal = $PhoneLocal;
 		return $this;
 	}
@@ -336,7 +336,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getPhoneMobile(): ?string {
+	public function getPhoneMobile() : ?string {
 		return $this->PhoneMobile;
 	}
 
@@ -344,7 +344,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $PhoneMobile
 	 * @return $this
 	 */
-	public function setPhoneMobile( ?string $PhoneMobile ): ItemReciverModel {
+	public function setPhoneMobile( ?string $PhoneMobile ) : ItemReciverModel {
 		$this->PhoneMobile = $PhoneMobile;
 		return $this;
 	}
@@ -352,7 +352,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getFax(): ?string {
+	public function getFax() : ?string {
 		return $this->Fax;
 	}
 
@@ -360,7 +360,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Fax
 	 * @return $this
 	 */
-	public function setFax( ?string $Fax ): ItemReciverModel {
+	public function setFax( ?string $Fax ) : ItemReciverModel {
 		$this->Fax = $Fax;
 		return $this;
 	}
@@ -368,7 +368,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getTelex(): ?string {
+	public function getTelex() : ?string {
 		return $this->Telex;
 	}
 
@@ -376,7 +376,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Telex
 	 * @return $this
 	 */
-	public function setTelex( ?string $Telex ): ItemReciverModel {
+	public function setTelex( ?string $Telex ) : ItemReciverModel {
 		$this->Telex = $Telex;
 		return $this;
 	}
@@ -384,7 +384,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getEmail(): ?string {
+	public function getEmail() : ?string {
 		return $this->Email;
 	}
 
@@ -392,7 +392,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Email
 	 * @return $this
 	 */
-	public function setEmail( ?string $Email ): ItemReciverModel {
+	public function setEmail( ?string $Email ) : ItemReciverModel {
 		$this->Email = $Email;
 		return $this;
 	}
@@ -400,7 +400,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getURL(): ?string {
+	public function getURL() : ?string {
 		return $this->URL;
 	}
 
@@ -408,12 +408,12 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $URL
 	 * @return $this
 	 */
-	public function setURL( ?string $URL ): ItemReciverModel {
+	public function setURL( ?string $URL ) : ItemReciverModel {
 		$this->URL = $URL;
 		return $this;
 	}
 
-	public function getEANNumber(): ?string {
+	public function getEANNumber() : ?string {
 		return $this->EANNumber;
 	}
 
@@ -421,7 +421,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $EANNumber
 	 * @return $this
 	 */
-	public function setEANNumber( ?string $EANNumber ): ItemReciverModel {
+	public function setEANNumber( ?string $EANNumber ) : ItemReciverModel {
 		$this->EANNumber = $EANNumber;
 		return $this;
 	}
@@ -429,7 +429,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getVATNumber(): ?string {
+	public function getVATNumber() : ?string {
 		return $this->VATNumber;
 	}
 
@@ -437,7 +437,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $VATNumber
 	 * @return $this
 	 */
-	public function setVATNumber( ?string $VATNumber ): ItemReciverModel {
+	public function setVATNumber( ?string $VATNumber ) : ItemReciverModel {
 		$this->VATNumber = $VATNumber;
 		return $this;
 	}
@@ -445,7 +445,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isBlocked(): bool {
+	public function isBlocked() : bool {
 		return $this->Blocked;
 	}
 
@@ -453,7 +453,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param bool $Blocked
 	 * @return $this
 	 */
-	public function setBlocked( bool $Blocked ): ItemReciverModel {
+	public function setBlocked( bool $Blocked ) : ItemReciverModel {
 		$this->Blocked = $Blocked;
 		return $this;
 	}
@@ -461,7 +461,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getModified(): ?string {
+	public function getModified() : ?string {
 		return $this->Modified;
 	}
 
@@ -469,7 +469,7 @@ class ItemReciverModel implements JsonSerializable {
 	 * @param string|null $Modified
 	 * @return $this
 	 */
-	public function setModified( ?string $Modified ): ItemReciverModel {
+	public function setModified( ?string $Modified ) : ItemReciverModel {
 		$this->Modified = $Modified;
 		return $this;
 	}
@@ -477,7 +477,7 @@ class ItemReciverModel implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function jsonSerialize(): string {
+	public function jsonSerialize() : string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

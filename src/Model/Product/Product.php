@@ -331,7 +331,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass $product
 	 * @return void
 	 */
-	public function createProductFromDkData(\stdClass $product ): void {
+	public function createProductFromDkData(\stdClass $product ) : void {
 		$this->setItemCode( $product->ItemCode );
 		$this->setDescription( $product->Description ?? '' );
 		$this->setDescription2( $product->Description2 ?? null );
@@ -397,7 +397,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass $product
 	 * @return void
 	 */
-	public function createProductFromWooCommerceData(\stdClass $product ): void {
+	public function createProductFromWooCommerceData(\stdClass $product ) : void {
 		// @TODO: This has to be re-written to represent WooCommerce data!
 
 		$this->setItemCode( $product->item_code );
@@ -464,7 +464,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getItemCode(): string {
+	public function getItemCode() : string {
 		return $this->ItemCode;
 	}
 
@@ -472,7 +472,7 @@ class Product implements JsonSerializable {
 	 * @param string $ItemCode
 	 * @return Product
 	 */
-	public function setItemCode(string $ItemCode ): Product {
+	public function setItemCode(string $ItemCode ) : Product {
 		$this->ItemCode = $ItemCode;
 		return $this;
 	}
@@ -480,7 +480,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getGroup(): string|null {
+	public function getGroup() : string|null {
 		return $this->Group;
 	}
 
@@ -488,7 +488,7 @@ class Product implements JsonSerializable {
 	 * @param string|null $Group
 	 * @return Product
 	 */
-	public function setGroup(string|null $Group ): Product {
+	public function setGroup(string|null $Group ) : Product {
 		$this->Group = $Group;
 		return $this;
 	}
@@ -496,7 +496,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getDescription(): string {
+	public function getDescription() : string {
 		return $this->Description;
 	}
 
@@ -504,7 +504,7 @@ class Product implements JsonSerializable {
 	 * @param string $Description
 	 * @return Product
 	 */
-	public function setDescription(string $Description ): Product {
+	public function setDescription(string $Description ) : Product {
 		$this->Description = $Description;
 		return $this;
 	}
@@ -512,7 +512,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getDescription2(): string {
+	public function getDescription2() : string {
 		return $this->Description2;
 	}
 
@@ -520,7 +520,7 @@ class Product implements JsonSerializable {
 	 * @param string|null $Description2
 	 * @return Product
 	 */
-	public function setDescription2(string|null $Description2 ): Product {
+	public function setDescription2(string|null $Description2 ) : Product {
 		$this->Description2 = $Description2;
 		return $this;
 	}
@@ -528,7 +528,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getUnitPrice1WithTax(): float {
+	public function getUnitPrice1WithTax() : float {
 		return $this->UnitPrice1WithTax;
 	}
 
@@ -536,7 +536,7 @@ class Product implements JsonSerializable {
 	 * @param float $UnitPrice1WithTax
 	 * @return Product
 	 */
-	public function setUnitPrice1WithTax(float $UnitPrice1WithTax ): Product {
+	public function setUnitPrice1WithTax(float $UnitPrice1WithTax ) : Product {
 		$this->UnitPrice1WithTax = $UnitPrice1WithTax;
 		return $this;
 	}
@@ -544,7 +544,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isInactive(): bool {
+	public function isInactive() : bool {
 		return $this->Inactive;
 	}
 
@@ -552,7 +552,7 @@ class Product implements JsonSerializable {
 	 * @param bool $Inactive
 	 * @return Product
 	 */
-	public function setInactive(bool $Inactive ): Product {
+	public function setInactive(bool $Inactive ) : Product {
 		$this->Inactive = $Inactive;
 		return $this;
 	}
@@ -560,7 +560,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getItemClass(): string {
+	public function getItemClass() : string {
 		return $this->ItemClass;
 	}
 
@@ -568,7 +568,7 @@ class Product implements JsonSerializable {
 	 * @param string $ItemClass
 	 * @return Product
 	 */
-	public function setItemClass(string $ItemClass ): Product {
+	public function setItemClass(string $ItemClass ) : Product {
 		$this->ItemClass = $ItemClass;
 		return $this;
 	}
@@ -576,7 +576,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getUnitCode(): string {
+	public function getUnitCode() : string {
 		return $this->UnitCode;
 	}
 
@@ -584,7 +584,7 @@ class Product implements JsonSerializable {
 	 * @param string $UnitCode
 	 * @return Product
 	 */
-	public function setUnitCode(string $UnitCode ): Product {
+	public function setUnitCode(string $UnitCode ) : Product {
 		$this->UnitCode = $UnitCode;
 		return $this;
 	}
@@ -592,7 +592,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return int
 	 */
-	public function getUnitQuantity(): int {
+	public function getUnitQuantity() : int {
 		return $this->UnitQuantity;
 	}
 
@@ -600,7 +600,7 @@ class Product implements JsonSerializable {
 	 * @param int $UnitQuantity
 	 * @return Product
 	 */
-	public function setUnitQuantity(int $UnitQuantity ): Product {
+	public function setUnitQuantity(int $UnitQuantity ) : Product {
 		$this->UnitQuantity = $UnitQuantity;
 		return $this;
 	}
@@ -608,7 +608,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getNetWeight(): float {
+	public function getNetWeight() : float {
 		return $this->NetWeight;
 	}
 
@@ -616,7 +616,7 @@ class Product implements JsonSerializable {
 	 * @param float $NetWeight
 	 * @return Product
 	 */
-	public function setNetWeight(float $NetWeight ): Product {
+	public function setNetWeight(float $NetWeight ) : Product {
 		$this->NetWeight = $NetWeight;
 		return $this;
 	}
@@ -624,7 +624,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return int
 	 */
-	public function getUnitVolume(): int {
+	public function getUnitVolume() : int {
 		return $this->UnitVolume;
 	}
 
@@ -632,7 +632,7 @@ class Product implements JsonSerializable {
 	 * @param int $UnitVolume
 	 * @return Product
 	 */
-	public function setUnitVolume(int $UnitVolume ): Product {
+	public function setUnitVolume(int $UnitVolume ) : Product {
 		$this->UnitVolume = $UnitVolume;
 		return $this;
 	}
@@ -640,7 +640,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getTotalQuantityInWarehouse(): float {
+	public function getTotalQuantityInWarehouse() : float {
 		return $this->TotalQuantityInWarehouse;
 	}
 
@@ -648,7 +648,7 @@ class Product implements JsonSerializable {
 	 * @param float $TotalQuantityInWarehouse
 	 * @return Product
 	 */
-	public function setTotalQuantityInWarehouse(float $TotalQuantityInWarehouse ): Product {
+	public function setTotalQuantityInWarehouse(float $TotalQuantityInWarehouse ) : Product {
 		$this->TotalQuantityInWarehouse = $TotalQuantityInWarehouse;
 		return $this;
 	}
@@ -656,7 +656,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getPurchasePrice(): float {
+	public function getPurchasePrice() : float {
 		return $this->PurchasePrice;
 	}
 
@@ -664,7 +664,7 @@ class Product implements JsonSerializable {
 	 * @param float $PurchasePrice
 	 * @return Product
 	 */
-	public function setPurchasePrice(float $PurchasePrice ): Product {
+	public function setPurchasePrice(float $PurchasePrice ) : Product {
 		$this->PurchasePrice = $PurchasePrice;
 		return $this;
 	}
@@ -672,7 +672,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getCurrencyCode(): string {
+	public function getCurrencyCode() : string {
 		return $this->CurrencyCode;
 	}
 
@@ -680,7 +680,7 @@ class Product implements JsonSerializable {
 	 * @param string $CurrencyCode
 	 * @return Product
 	 */
-	public function setCurrencyCode(string $CurrencyCode ): Product {
+	public function setCurrencyCode(string $CurrencyCode ) : Product {
 		$this->CurrencyCode = $CurrencyCode;
 		return $this;
 	}
@@ -688,7 +688,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getExchange(): float {
+	public function getExchange() : float {
 		return $this->Exchange;
 	}
 
@@ -696,7 +696,7 @@ class Product implements JsonSerializable {
 	 * @param float $Exchange
 	 * @return Product
 	 */
-	public function setExchange(float $Exchange ): Product {
+	public function setExchange(float $Exchange ) : Product {
 		$this->Exchange = $Exchange;
 		return $this;
 	}
@@ -704,7 +704,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getUnitPrice1(): float {
+	public function getUnitPrice1() : float {
 		return $this->UnitPrice1;
 	}
 
@@ -712,7 +712,7 @@ class Product implements JsonSerializable {
 	 * @param float $UnitPrice1
 	 * @return Product
 	 */
-	public function setUnitPrice1(float $UnitPrice1 ): Product {
+	public function setUnitPrice1(float $UnitPrice1 ) : Product {
 		$this->UnitPrice1 = $UnitPrice1;
 		return $this;
 	}
@@ -720,7 +720,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getPurchaseFactor(): float {
+	public function getPurchaseFactor() : float {
 		return $this->PurchaseFactor;
 	}
 
@@ -728,7 +728,7 @@ class Product implements JsonSerializable {
 	 * @param float $PurchaseFactor
 	 * @return Product
 	 */
-	public function setPurchaseFactor(float $PurchaseFactor ): Product {
+	public function setPurchaseFactor(float $PurchaseFactor ) : Product {
 		$this->PurchaseFactor = $PurchaseFactor;
 		return $this;
 	}
@@ -736,7 +736,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getCostPrice(): float {
+	public function getCostPrice() : float {
 		return $this->CostPrice;
 	}
 
@@ -744,7 +744,7 @@ class Product implements JsonSerializable {
 	 * @param float $CostPrice
 	 * @return Product
 	 */
-	public function setCostPrice(float $CostPrice ): Product {
+	public function setCostPrice(float $CostPrice ) : Product {
 		$this->CostPrice = $CostPrice;
 		return $this;
 	}
@@ -752,7 +752,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getProfitRatio1(): float {
+	public function getProfitRatio1() : float {
 		return $this->ProfitRatio1;
 	}
 
@@ -760,7 +760,7 @@ class Product implements JsonSerializable {
 	 * @param float $ProfitRatio1
 	 * @return Product
 	 */
-	public function setProfitRatio1(float $ProfitRatio1 ): Product {
+	public function setProfitRatio1(float $ProfitRatio1 ) : Product {
 		$this->ProfitRatio1 = $ProfitRatio1;
 		return $this;
 	}
@@ -768,7 +768,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getUnitPrice2(): float {
+	public function getUnitPrice2() : float {
 		return $this->UnitPrice2;
 	}
 
@@ -776,7 +776,7 @@ class Product implements JsonSerializable {
 	 * @param float $UnitPrice2
 	 * @return Product
 	 */
-	public function setUnitPrice2(float $UnitPrice2 ): Product {
+	public function setUnitPrice2(float $UnitPrice2 ) : Product {
 		$this->UnitPrice2 = $UnitPrice2;
 		return $this;
 	}
@@ -784,7 +784,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getUnitPrice3WithTax(): float {
+	public function getUnitPrice3WithTax() : float {
 		return $this->UnitPrice3WithTax;
 	}
 
@@ -792,7 +792,7 @@ class Product implements JsonSerializable {
 	 * @param float $UnitPrice3WithTax
 	 * @return Product
 	 */
-	public function setUnitPrice3WithTax(float $UnitPrice3WithTax ): Product {
+	public function setUnitPrice3WithTax(float $UnitPrice3WithTax ) : Product {
 		$this->UnitPrice3WithTax = $UnitPrice3WithTax;
 		return $this;
 	}
@@ -800,7 +800,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isShowItemInWebShop(): bool {
+	public function isShowItemInWebShop() : bool {
 		return $this->ShowItemInWebShop;
 	}
 
@@ -808,7 +808,7 @@ class Product implements JsonSerializable {
 	 * @param bool $ShowItemInWebShop
 	 * @return Product
 	 */
-	public function setShowItemInWebShop(bool $ShowItemInWebShop ): Product {
+	public function setShowItemInWebShop(bool $ShowItemInWebShop ) : Product {
 		$this->ShowItemInWebShop = $ShowItemInWebShop;
 		return $this;
 	}
@@ -816,7 +816,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isAllowDiscount(): bool {
+	public function isAllowDiscount() : bool {
 		return $this->AllowDiscount;
 	}
 
@@ -824,7 +824,7 @@ class Product implements JsonSerializable {
 	 * @param bool $AllowDiscount
 	 * @return Product
 	 */
-	public function setAllowDiscount(bool $AllowDiscount ): Product {
+	public function setAllowDiscount(bool $AllowDiscount ) : Product {
 		$this->AllowDiscount = $AllowDiscount;
 		return $this;
 	}
@@ -832,7 +832,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getDiscount(): float {
+	public function getDiscount() : float {
 		return $this->Discount;
 	}
 
@@ -840,7 +840,7 @@ class Product implements JsonSerializable {
 	 * @param float $Discount
 	 * @return Product
 	 */
-	public function setDiscount(float $Discount ): Product {
+	public function setDiscount(float $Discount ) : Product {
 		$this->Discount = $Discount;
 		return $this;
 	}
@@ -848,7 +848,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getUnitPrice2WithTax(): float {
+	public function getUnitPrice2WithTax() : float {
 		return $this->UnitPrice2WithTax;
 	}
 
@@ -856,7 +856,7 @@ class Product implements JsonSerializable {
 	 * @param float $UnitPrice2WithTax
 	 * @return Product
 	 */
-	public function setUnitPrice2WithTax(float $UnitPrice2WithTax ): Product {
+	public function setUnitPrice2WithTax(float $UnitPrice2WithTax ) : Product {
 		$this->UnitPrice2WithTax = $UnitPrice2WithTax;
 		return $this;
 	}
@@ -864,7 +864,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getUnitPrice3(): float {
+	public function getUnitPrice3() : float {
 		return $this->UnitPrice3;
 	}
 
@@ -872,7 +872,7 @@ class Product implements JsonSerializable {
 	 * @param float $UnitPrice3
 	 * @return Product
 	 */
-	public function setUnitPrice3(float $UnitPrice3 ): Product {
+	public function setUnitPrice3(float $UnitPrice3 ) : Product {
 		$this->UnitPrice3 = $UnitPrice3;
 		return $this;
 	}
@@ -880,7 +880,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getPropositionPrice(): float {
+	public function getPropositionPrice() : float {
 		return $this->PropositionPrice;
 	}
 
@@ -888,7 +888,7 @@ class Product implements JsonSerializable {
 	 * @param float $PropositionPrice
 	 * @return Product
 	 */
-	public function setPropositionPrice(float $PropositionPrice ): Product {
+	public function setPropositionPrice(float $PropositionPrice ) : Product {
 		$this->PropositionPrice = $PropositionPrice;
 		return $this;
 	}
@@ -896,7 +896,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getExtraDesc1(): string|null {
+	public function getExtraDesc1() : string|null {
 		return $this->ExtraDesc1;
 	}
 
@@ -904,7 +904,7 @@ class Product implements JsonSerializable {
 	 * @param string|null $ExtraDesc1
 	 * @return Product
 	 */
-	public function setExtraDesc1(string|null $ExtraDesc1 ): Product {
+	public function setExtraDesc1(string|null $ExtraDesc1 ) : Product {
 		$this->ExtraDesc1 = $ExtraDesc1;
 		return $this;
 	}
@@ -912,7 +912,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getExtraDesc2(): string|null {
+	public function getExtraDesc2() : string|null {
 		return $this->ExtraDesc2;
 	}
 
@@ -920,7 +920,7 @@ class Product implements JsonSerializable {
 	 * @param string|null $ExtraDesc2
 	 * @return Product
 	 */
-	public function setExtraDesc2(string|null $ExtraDesc2 ): Product {
+	public function setExtraDesc2(string|null $ExtraDesc2 ) : Product {
 		$this->ExtraDesc2 = $ExtraDesc2;
 		return $this;
 	}
@@ -928,7 +928,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isIsVariation(): bool {
+	public function isIsVariation() : bool {
 		return $this->IsVariation;
 	}
 
@@ -936,7 +936,7 @@ class Product implements JsonSerializable {
 	 * @param bool $IsVariation
 	 * @return Product
 	 */
-	public function setIsVariation(bool $IsVariation ): Product {
+	public function setIsVariation(bool $IsVariation ) : Product {
 		$this->IsVariation = $IsVariation;
 		return $this;
 	}
@@ -944,7 +944,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getOriginCountry(): string {
+	public function getOriginCountry() : string {
 		return $this->OriginCountry;
 	}
 
@@ -952,7 +952,7 @@ class Product implements JsonSerializable {
 	 * @param string $OriginCountry
 	 * @return Product
 	 */
-	public function setOriginCountry(string $OriginCountry ): Product {
+	public function setOriginCountry(string $OriginCountry ) : Product {
 		$this->OriginCountry = $OriginCountry;
 		return $this;
 	}
@@ -960,7 +960,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getTaxPercent(): float {
+	public function getTaxPercent() : float {
 		return $this->TaxPercent;
 	}
 
@@ -968,7 +968,7 @@ class Product implements JsonSerializable {
 	 * @param float $TaxPercent
 	 * @return Product
 	 */
-	public function setTaxPercent(float $TaxPercent ): Product {
+	public function setTaxPercent(float $TaxPercent ) : Product {
 		$this->TaxPercent = $TaxPercent;
 		return $this;
 	}
@@ -976,7 +976,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getSalesTaxCode(): string {
+	public function getSalesTaxCode() : string {
 		return $this->SalesTaxCode;
 	}
 
@@ -984,7 +984,7 @@ class Product implements JsonSerializable {
 	 * @param string $SalesTaxCode
 	 * @return Product
 	 */
-	public function setSalesTaxCode(string $SalesTaxCode ): Product {
+	public function setSalesTaxCode(string $SalesTaxCode ) : Product {
 		$this->SalesTaxCode = $SalesTaxCode;
 		return $this;
 	}
@@ -992,7 +992,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getSalesLedgerCode(): string {
+	public function getSalesLedgerCode() : string {
 		return $this->SalesLedgerCode;
 	}
 
@@ -1000,7 +1000,7 @@ class Product implements JsonSerializable {
 	 * @param string $SalesLedgerCode
 	 * @return Product
 	 */
-	public function setSalesLedgerCode(string $SalesLedgerCode ): Product {
+	public function setSalesLedgerCode(string $SalesLedgerCode ) : Product {
 		$this->SalesLedgerCode = $SalesLedgerCode;
 		return $this;
 	}
@@ -1008,7 +1008,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getPurchaseTaxCode(): string {
+	public function getPurchaseTaxCode() : string {
 		return $this->PurchaseTaxCode;
 	}
 
@@ -1016,7 +1016,7 @@ class Product implements JsonSerializable {
 	 * @param string $PurchaseTaxCode
 	 * @return Product
 	 */
-	public function setPurchaseTaxCode(string $PurchaseTaxCode ): Product {
+	public function setPurchaseTaxCode(string $PurchaseTaxCode ) : Product {
 		$this->PurchaseTaxCode = $PurchaseTaxCode;
 		return $this;
 	}
@@ -1024,7 +1024,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getPurchaseLedgerCode(): string {
+	public function getPurchaseLedgerCode() : string {
 		return $this->PurchaseLedgerCode;
 	}
 
@@ -1032,7 +1032,7 @@ class Product implements JsonSerializable {
 	 * @param string $PurchaseLedgerCode
 	 * @return Product
 	 */
-	public function setPurchaseLedgerCode(string $PurchaseLedgerCode ): Product {
+	public function setPurchaseLedgerCode(string $PurchaseLedgerCode ) : Product {
 		$this->PurchaseLedgerCode = $PurchaseLedgerCode;
 		return $this;
 	}
@@ -1040,7 +1040,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isAllowNegativeInventory(): bool {
+	public function isAllowNegativeInventory() : bool {
 		return $this->AllowNegativeInventory;
 	}
 
@@ -1048,7 +1048,7 @@ class Product implements JsonSerializable {
 	 * @param bool $AllowNegativeInventory
 	 * @return Product
 	 */
-	public function setAllowNegativeInventory(bool $AllowNegativeInventory ): Product {
+	public function setAllowNegativeInventory(bool $AllowNegativeInventory ) : Product {
 		$this->AllowNegativeInventory = $AllowNegativeInventory;
 		return $this;
 	}
@@ -1056,7 +1056,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getMinimumStock(): float {
+	public function getMinimumStock() : float {
 		return $this->MinimumStock;
 	}
 
@@ -1064,7 +1064,7 @@ class Product implements JsonSerializable {
 	 * @param float $MinimumStock
 	 * @return Product
 	 */
-	public function setMinimumStock(float $MinimumStock ): Product {
+	public function setMinimumStock(float $MinimumStock ) : Product {
 		$this->MinimumStock = $MinimumStock;
 		return $this;
 	}
@@ -1072,7 +1072,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getMaximumStock(): float {
+	public function getMaximumStock() : float {
 		return $this->MaximumStock;
 	}
 
@@ -1080,7 +1080,7 @@ class Product implements JsonSerializable {
 	 * @param float $MaximumStock
 	 * @return Product
 	 */
-	public function setMaximumStock(float $MaximumStock ): Product {
+	public function setMaximumStock(float $MaximumStock ) : Product {
 		$this->MaximumStock = $MaximumStock;
 		return $this;
 	}
@@ -1088,7 +1088,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getDefaultPurchaseQuantity(): float {
+	public function getDefaultPurchaseQuantity() : float {
 		return $this->DefaultPurchaseQuantity;
 	}
 
@@ -1096,7 +1096,7 @@ class Product implements JsonSerializable {
 	 * @param float $DefaultPurchaseQuantity
 	 * @return Product
 	 */
-	public function setDefaultPurchaseQuantity(float $DefaultPurchaseQuantity ): Product {
+	public function setDefaultPurchaseQuantity(float $DefaultPurchaseQuantity ) : Product {
 		$this->DefaultPurchaseQuantity = $DefaultPurchaseQuantity;
 		return $this;
 	}
@@ -1104,7 +1104,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isSkipInPurchaseOrderSuggestions(): bool {
+	public function isSkipInPurchaseOrderSuggestions() : bool {
 		return $this->SkipInPurchaseOrderSuggestions;
 	}
 
@@ -1112,7 +1112,7 @@ class Product implements JsonSerializable {
 	 * @param bool $SkipInPurchaseOrderSuggestions
 	 * @return Product
 	 */
-	public function setSkipInPurchaseOrderSuggestions(bool $SkipInPurchaseOrderSuggestions ): Product {
+	public function setSkipInPurchaseOrderSuggestions(bool $SkipInPurchaseOrderSuggestions ) : Product {
 		$this->SkipInPurchaseOrderSuggestions = $SkipInPurchaseOrderSuggestions;
 		return $this;
 	}
@@ -1120,7 +1120,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return int
 	 */
-	public function getDeliveryTime(): int {
+	public function getDeliveryTime() : int {
 		return $this->DeliveryTime;
 	}
 
@@ -1128,7 +1128,7 @@ class Product implements JsonSerializable {
 	 * @param int $DeliveryTime
 	 * @return Product
 	 */
-	public function setDeliveryTime(int $DeliveryTime ): Product {
+	public function setDeliveryTime(int $DeliveryTime ) : Product {
 		$this->DeliveryTime = $DeliveryTime;
 		return $this;
 	}
@@ -1136,7 +1136,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getDiscountQuantity(): float {
+	public function getDiscountQuantity() : float {
 		return $this->DiscountQuantity;
 	}
 
@@ -1144,7 +1144,7 @@ class Product implements JsonSerializable {
 	 * @param float $DiscountQuantity
 	 * @return Product
 	 */
-	public function setDiscountQuantity(float $DiscountQuantity ): Product {
+	public function setDiscountQuantity(float $DiscountQuantity ) : Product {
 		$this->DiscountQuantity = $DiscountQuantity;
 		return $this;
 	}
@@ -1152,7 +1152,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getMaxDiscountAllowed(): float {
+	public function getMaxDiscountAllowed() : float {
 		return $this->MaxDiscountAllowed;
 	}
 
@@ -1160,7 +1160,7 @@ class Product implements JsonSerializable {
 	 * @param float $MaxDiscountAllowed
 	 * @return Product
 	 */
-	public function setMaxDiscountAllowed(float $MaxDiscountAllowed ): Product {
+	public function setMaxDiscountAllowed(float $MaxDiscountAllowed ) : Product {
 		$this->MaxDiscountAllowed = $MaxDiscountAllowed;
 		return $this;
 	}
@@ -1168,7 +1168,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getDefaultSaleQuantity(): float {
+	public function getDefaultSaleQuantity() : float {
 		return $this->DefaultSaleQuantity;
 	}
 
@@ -1176,7 +1176,7 @@ class Product implements JsonSerializable {
 	 * @param float $DefaultSaleQuantity
 	 * @return Product
 	 */
-	public function setDefaultSaleQuantity(float $DefaultSaleQuantity ): Product {
+	public function setDefaultSaleQuantity(float $DefaultSaleQuantity ) : Product {
 		$this->DefaultSaleQuantity = $DefaultSaleQuantity;
 		return $this;
 	}
@@ -1184,7 +1184,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return int
 	 */
-	public function getCostMethod(): int {
+	public function getCostMethod() : int {
 		return $this->CostMethod;
 	}
 
@@ -1192,7 +1192,7 @@ class Product implements JsonSerializable {
 	 * @param int $CostMethod
 	 * @return Product
 	 */
-	public function setCostMethod(int $CostMethod ): Product {
+	public function setCostMethod(int $CostMethod ) : Product {
 		$this->CostMethod = $CostMethod;
 		return $this;
 	}
@@ -1200,7 +1200,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return stdClass|null
 	 */
-	public function getPosProperties(): \stdClass|null {
+	public function getPosProperties() : \stdClass|null {
 		return $this->PosProperties;
 	}
 
@@ -1208,7 +1208,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass|null $PosProperties
 	 * @return Product
 	 */
-	public function setPosProperties(\stdClass|null $PosProperties ): Product {
+	public function setPosProperties(\stdClass|null $PosProperties ) : Product {
 		if ( is_null( $PosProperties ) ) {
 			$obj                   = new \stdClass();
 			$obj->IsIncludedItem   = false;
@@ -1224,7 +1224,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isHasAttachments(): bool {
+	public function isHasAttachments() : bool {
 		return $this->HasAttachments;
 	}
 
@@ -1232,7 +1232,7 @@ class Product implements JsonSerializable {
 	 * @param bool $HasAttachments
 	 * @return Product
 	 */
-	public function setHasAttachments(bool $HasAttachments ): Product {
+	public function setHasAttachments(bool $HasAttachments ) : Product {
 		$this->HasAttachments = $HasAttachments;
 		return $this;
 	}
@@ -1240,7 +1240,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getAttachments(): array {
+	public function getAttachments() : array {
 		return $this->Attachments;
 	}
 
@@ -1248,7 +1248,7 @@ class Product implements JsonSerializable {
 	 * @param array $Attachments
 	 * @return Product
 	 */
-	public function setAttachments(array $Attachments ): Product {
+	public function setAttachments(array $Attachments ) : Product {
 		$this->Attachments = $Attachments;
 		return $this;
 	}
@@ -1256,7 +1256,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getBarcodes(): array {
+	public function getBarcodes() : array {
 		return $this->Barcodes;
 	}
 
@@ -1264,7 +1264,7 @@ class Product implements JsonSerializable {
 	 * @param array $Barcodes
 	 * @return Product
 	 */
-	public function setBarcodes(array $Barcodes ): Product {
+	public function setBarcodes(array $Barcodes ) : Product {
 		$this->Barcodes = $Barcodes;
 		return $this;
 	}
@@ -1272,7 +1272,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isHasBarcodes(): bool {
+	public function isHasBarcodes() : bool {
 		return $this->HasBarcodes;
 	}
 
@@ -1280,7 +1280,7 @@ class Product implements JsonSerializable {
 	 * @param bool $HasBarcodes
 	 * @return Product
 	 */
-	public function setHasBarcodes(bool $HasBarcodes ): Product {
+	public function setHasBarcodes(bool $HasBarcodes ) : Product {
 		$this->HasBarcodes = $HasBarcodes;
 		return $this;
 	}
@@ -1288,7 +1288,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isHasCurrencyPrices(): bool {
+	public function isHasCurrencyPrices() : bool {
 		return $this->HasCurrencyPrices;
 	}
 
@@ -1296,7 +1296,7 @@ class Product implements JsonSerializable {
 	 * @param bool $HasCurrencyPrices
 	 * @return Product
 	 */
-	public function setHasCurrencyPrices(bool $HasCurrencyPrices ): Product {
+	public function setHasCurrencyPrices(bool $HasCurrencyPrices ) : Product {
 		$this->HasCurrencyPrices = $HasCurrencyPrices;
 		return $this;
 	}
@@ -1304,7 +1304,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isHasUnits(): bool {
+	public function isHasUnits() : bool {
 		return $this->HasUnits;
 	}
 
@@ -1312,7 +1312,7 @@ class Product implements JsonSerializable {
 	 * @param bool $HasUnits
 	 * @return Product
 	 */
-	public function setHasUnits(bool $HasUnits ): Product {
+	public function setHasUnits(bool $HasUnits ) : Product {
 		$this->HasUnits = $HasUnits;
 		return $this;
 	}
@@ -1320,7 +1320,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isHasAlternative(): bool {
+	public function isHasAlternative() : bool {
 		return $this->HasAlternative;
 	}
 
@@ -1328,7 +1328,7 @@ class Product implements JsonSerializable {
 	 * @param bool $HasAlternative
 	 * @return Product
 	 */
-	public function setHasAlternative(bool $HasAlternative ): Product {
+	public function setHasAlternative(bool $HasAlternative ) : Product {
 		$this->HasAlternative = $HasAlternative;
 		return $this;
 	}
@@ -1336,7 +1336,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getCategories(): array {
+	public function getCategories() : array {
 		return $this->Categories;
 	}
 
@@ -1344,7 +1344,7 @@ class Product implements JsonSerializable {
 	 * @param array $Categories
 	 * @return Product
 	 */
-	public function setCategories(array $Categories ): Product {
+	public function setCategories(array $Categories ) : Product {
 		$this->Categories = $Categories;
 		return $this;
 	}
@@ -1353,7 +1353,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass $category
 	 * @return Product
 	 */
-	public function setCategory(\stdClass $category ): Product {
+	public function setCategory(\stdClass $category ) : Product {
 		$this->Categories[] = $category;
 		return $this;
 	}
@@ -1361,7 +1361,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getWarehouses(): array {
+	public function getWarehouses() : array {
 		return $this->Warehouses;
 	}
 
@@ -1369,7 +1369,7 @@ class Product implements JsonSerializable {
 	 * @param array $Warehouses
 	 * @return Product
 	 */
-	public function setWarehouses(array $Warehouses ): Product {
+	public function setWarehouses(array $Warehouses ) : Product {
 		$this->Warehouses = $Warehouses;
 		return $this;
 	}
@@ -1378,7 +1378,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass $warehouse
 	 * @return Product
 	 */
-	public function setWarehouse(\stdClass $warehouse ): Product {
+	public function setWarehouse(\stdClass $warehouse ) : Product {
 		$this->Warehouses[] = $warehouse;
 		return $this;
 	}
@@ -1386,7 +1386,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getCurrencyPrices(): array {
+	public function getCurrencyPrices() : array {
 		return $this->CurrencyPrices;
 	}
 
@@ -1394,7 +1394,7 @@ class Product implements JsonSerializable {
 	 * @param array $CurrencyPrices
 	 * @return Product
 	 */
-	public function setCurrencyPrices(array $CurrencyPrices ): Product {
+	public function setCurrencyPrices(array $CurrencyPrices ) : Product {
 		$this->CurrencyPrices = $CurrencyPrices;
 		return $this;
 	}
@@ -1403,7 +1403,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass $currency_price
 	 * @return Product
 	 */
-	public function setCurrencyPrice(\stdClass $currency_price ): Product {
+	public function setCurrencyPrice(\stdClass $currency_price ) : Product {
 		$this->CurrencyPrices[] = $currency_price;
 		return $this;
 	}
@@ -1411,7 +1411,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getUnits(): array {
+	public function getUnits() : array {
 		return $this->Units;
 	}
 
@@ -1419,7 +1419,7 @@ class Product implements JsonSerializable {
 	 * @param array $Units
 	 * @return Product
 	 */
-	public function setUnits(array $Units ): Product {
+	public function setUnits(array $Units ) : Product {
 		$this->Units = $Units;
 		return $this;
 	}
@@ -1428,7 +1428,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass $unit
 	 * @return Product
 	 */
-	public function setUnit(\stdClass $unit ): Product {
+	public function setUnit(\stdClass $unit ) : Product {
 		$this->Units[] = $unit;
 		return $this;
 	}
@@ -1436,7 +1436,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getAlternative(): array {
+	public function getAlternative() : array {
 		return $this->Alternative;
 	}
 
@@ -1444,7 +1444,7 @@ class Product implements JsonSerializable {
 	 * @param array $Alternative
 	 * @return Product
 	 */
-	public function setAlternative(array $Alternative ): Product {
+	public function setAlternative(array $Alternative ) : Product {
 		$this->Alternative = $Alternative;
 		return $this;
 	}
@@ -1453,7 +1453,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass $alternative
 	 * @return Product
 	 */
-	public function setAlternativeItem(\stdClass $alternative ): Product {
+	public function setAlternativeItem(\stdClass $alternative ) : Product {
 		$this->Alternative[] = $alternative;
 		return $this;
 	}
@@ -1461,7 +1461,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getChanges(): array {
+	public function getChanges() : array {
 		return $this->Changes;
 	}
 
@@ -1469,7 +1469,7 @@ class Product implements JsonSerializable {
 	 * @param array $Changes
 	 * @return Product
 	 */
-	public function setChanges(array $Changes ): Product {
+	public function setChanges(array $Changes ) : Product {
 		$this->Changes = $Changes;
 		return $this;
 	}
@@ -1478,7 +1478,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass $change
 	 * @return Product
 	 */
-	public function setChange(\stdClass $change ): Product {
+	public function setChange(\stdClass $change ) : Product {
 		$this->Changes[] = $change;
 		return $this;
 	}
@@ -1486,7 +1486,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getMemos(): array {
+	public function getMemos() : array {
 		return $this->Memos;
 	}
 
@@ -1494,7 +1494,7 @@ class Product implements JsonSerializable {
 	 * @param array $Memos
 	 * @return Product
 	 */
-	public function setMemos(array $Memos ): Product {
+	public function setMemos(array $Memos ) : Product {
 		$this->Memos = $Memos;
 		return $this;
 	}
@@ -1503,7 +1503,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass $memo
 	 * @return Product
 	 */
-	public function setMemo(\stdClass $memo ): Product {
+	public function setMemo(\stdClass $memo ) : Product {
 		$this->Memos[] = $memo;
 		return $this;
 	}
@@ -1511,7 +1511,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getVendors(): array {
+	public function getVendors() : array {
 		return $this->Vendors;
 	}
 
@@ -1519,7 +1519,7 @@ class Product implements JsonSerializable {
 	 * @param array $Vendors
 	 * @return Product
 	 */
-	public function setVendors(array $Vendors ): Product {
+	public function setVendors(array $Vendors ) : Product {
 		$this->Vendors = $Vendors;
 		return $this;
 	}
@@ -1528,7 +1528,7 @@ class Product implements JsonSerializable {
 	 * @param stdClass $vendor
 	 * @return Product
 	 */
-	public function setVendor(\stdClass $vendor ): Product {
+	public function setVendor(\stdClass $vendor ) : Product {
 		$this->Vendors[] = $vendor;
 		return $this;
 	}
@@ -1536,7 +1536,7 @@ class Product implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function jsonSerialize(): string {
+	public function jsonSerialize() : string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

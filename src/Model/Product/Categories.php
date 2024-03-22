@@ -40,7 +40,7 @@ class Categories implements \JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getID(): string {
+	public function getID() : string {
 		return $this->ID;
 	}
 
@@ -48,7 +48,7 @@ class Categories implements \JsonSerializable {
 	 * @param string $ID
 	 * @return Categories
 	 */
-	public function setID(string $ID ): Categories {
+	public function setID(string $ID ) : Categories {
 		$this->ID = $ID;
 		return $this;
 	}
@@ -56,7 +56,7 @@ class Categories implements \JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getSubCategories(): array {
+	public function getSubCategories() : array {
 		return $this->SubCategories;
 	}
 
@@ -64,7 +64,7 @@ class Categories implements \JsonSerializable {
 	 * @param array $SubCategories
 	 * @return Categories
 	 */
-	public function setSubCategories(array $SubCategories ): Categories {
+	public function setSubCategories(array $SubCategories ) : Categories {
 		$this->SubCategories = $SubCategories;
 		return $this;
 	}
@@ -72,7 +72,7 @@ class Categories implements \JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getDescription(): string {
+	public function getDescription() : string {
 		return $this->Description;
 	}
 
@@ -80,7 +80,7 @@ class Categories implements \JsonSerializable {
 	 * @param string $Description
 	 * @return Categories
 	 */
-	public function setDescription(string $Description ): Categories {
+	public function setDescription(string $Description ) : Categories {
 		$this->Description = $Description;
 		return $this;
 	}
@@ -88,7 +88,7 @@ class Categories implements \JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isIsActive(): bool {
+	public function isIsActive() : bool {
 		return $this->IsActive;
 	}
 
@@ -96,7 +96,7 @@ class Categories implements \JsonSerializable {
 	 * @param bool $IsActive
 	 * @return Categories
 	 */
-	public function setIsActive(bool $IsActive ): Categories {
+	public function setIsActive(bool $IsActive ) : Categories {
 		$this->IsActive = $IsActive;
 		return $this;
 	}
@@ -105,7 +105,7 @@ class Categories implements \JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function jsonSerialize(): string {
+	public function jsonSerialize() : string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

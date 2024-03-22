@@ -23,7 +23,7 @@ class FieldChangeModel implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getName(): string {
+	public function getName() : string {
 		return $this->Name;
 	}
 
@@ -31,7 +31,7 @@ class FieldChangeModel implements JsonSerializable {
 	 * @param string $Name
 	 * @return FieldChangeModel
 	 */
-	public function setName(string $Name ): FieldChangeModel {
+	public function setName(string $Name ) : FieldChangeModel {
 		$this->Name = $Name;
 		return $this;
 	}
@@ -39,7 +39,7 @@ class FieldChangeModel implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getValue(): string {
+	public function getValue() : string {
 		return $this->Value;
 	}
 
@@ -47,7 +47,7 @@ class FieldChangeModel implements JsonSerializable {
 	 * @param string $Value
 	 * @return FieldChangeModel
 	 */
-	public function setValue(string $Value ): FieldChangeModel {
+	public function setValue(string $Value ) : FieldChangeModel {
 		$this->Value = $Value;
 		return $this;
 	}
@@ -55,7 +55,7 @@ class FieldChangeModel implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function jsonSerialize(): string {
+	public function jsonSerialize() : string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

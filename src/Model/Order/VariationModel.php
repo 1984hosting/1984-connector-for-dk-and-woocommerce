@@ -45,7 +45,7 @@ class VariationModel implements JsonSerializable {
 	 * @param stdClass $variation
 	 * @return void
 	 */
-	public function createVariationModelFromDKData(stdClass $variation ): void {
+	public function createVariationModelFromDKData(stdClass $variation ) : void {
 		$this->setCode( $variation->Code ?? null );
 		$this->setCode2( $variation->Code2 ?? null );
 		$this->setDescription( $variation->Description ?? null );
@@ -57,7 +57,7 @@ class VariationModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getCode(): ?string {
+	public function getCode() : ?string {
 		return $this->Code;
 	}
 
@@ -65,7 +65,7 @@ class VariationModel implements JsonSerializable {
 	 * @param string|null $Code
 	 * @return VariationModel
 	 */
-	public function setCode(?string $Code ): VariationModel {
+	public function setCode(?string $Code ) : VariationModel {
 		$this->Code = $Code;
 		return $this;
 	}
@@ -73,7 +73,7 @@ class VariationModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getCode2(): ?string {
+	public function getCode2() : ?string {
 		return $this->Code2;
 	}
 
@@ -81,7 +81,7 @@ class VariationModel implements JsonSerializable {
 	 * @param string|null $Code2
 	 * @return VariationModel
 	 */
-	public function setCode2(?string $Code2 ): VariationModel {
+	public function setCode2(?string $Code2 ) : VariationModel {
 		$this->Code2 = $Code2;
 		return $this;
 	}
@@ -89,7 +89,7 @@ class VariationModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getDescription(): ?string {
+	public function getDescription() : ?string {
 		return $this->Description;
 	}
 
@@ -97,7 +97,7 @@ class VariationModel implements JsonSerializable {
 	 * @param string|null $Description
 	 * @return VariationModel
 	 */
-	public function setDescription(?string $Description ): VariationModel {
+	public function setDescription(?string $Description ) : VariationModel {
 		$this->Description = $Description;
 		return $this;
 	}
@@ -105,7 +105,7 @@ class VariationModel implements JsonSerializable {
 	/**
 	 * @return string|null
 	 */
-	public function getDescription2(): ?string {
+	public function getDescription2() : ?string {
 		return $this->Description2;
 	}
 
@@ -113,7 +113,7 @@ class VariationModel implements JsonSerializable {
 	 * @param string|null $Description2
 	 * @return VariationModel
 	 */
-	public function setDescription2(?string $Description2 ): VariationModel {
+	public function setDescription2(?string $Description2 ) : VariationModel {
 		$this->Description2 = $Description2;
 		return $this;
 	}
@@ -121,7 +121,7 @@ class VariationModel implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getQuantity(): float {
+	public function getQuantity() : float {
 		return $this->Quantity;
 	}
 
@@ -129,7 +129,7 @@ class VariationModel implements JsonSerializable {
 	 * @param float $Quantity
 	 * @return VariationModel
 	 */
-	public function setQuantity(float $Quantity ): VariationModel {
+	public function setQuantity(float $Quantity ) : VariationModel {
 		$this->Quantity = $Quantity;
 		return $this;
 	}
@@ -137,7 +137,7 @@ class VariationModel implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getQuantityOnBackOrders(): float {
+	public function getQuantityOnBackOrders() : float {
 		return $this->QuantityOnBackOrders;
 	}
 
@@ -145,7 +145,7 @@ class VariationModel implements JsonSerializable {
 	 * @param float $QuantityOnBackOrders
 	 * @return VariationModel
 	 */
-	public function setQuantityOnBackOrders(float $QuantityOnBackOrders ): VariationModel {
+	public function setQuantityOnBackOrders(float $QuantityOnBackOrders ) : VariationModel {
 		$this->QuantityOnBackOrders = $QuantityOnBackOrders;
 		return $this;
 	}
@@ -154,7 +154,7 @@ class VariationModel implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function jsonSerialize(): string {
+	public function jsonSerialize() : string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }

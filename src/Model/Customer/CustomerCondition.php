@@ -34,7 +34,7 @@ class CustomerCondition implements JsonSerializable {
 	 * @param $customer_condition
 	 * @return void
 	 */
-	public function createCustomerConditionFromDKData( $customer_condition ): void {
+	public function createCustomerConditionFromDKData( $customer_condition ) : void {
 		$this->setCreditLimit( $customer_condition->CreditLimit ?? 0 );
 		$this->setCreditMax( $customer_condition->CreditMax ?? 0 );
 		$this->setDisableSale( $customer_condition->DisableSale ?? false );
@@ -44,7 +44,7 @@ class CustomerCondition implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getCreditLimit(): float {
+	public function getCreditLimit() : float {
 		return $this->CreditLimit;
 	}
 
@@ -52,7 +52,7 @@ class CustomerCondition implements JsonSerializable {
 	 * @param float $CreditLimit
 	 * @return $this
 	 */
-	public function setCreditLimit( float $CreditLimit ): CustomerCondition {
+	public function setCreditLimit( float $CreditLimit ) : CustomerCondition {
 		$this->CreditLimit = $CreditLimit;
 		return $this;
 	}
@@ -60,7 +60,7 @@ class CustomerCondition implements JsonSerializable {
 	/**
 	 * @return float
 	 */
-	public function getCreditMax(): float {
+	public function getCreditMax() : float {
 		return $this->CreditMax;
 	}
 
@@ -68,7 +68,7 @@ class CustomerCondition implements JsonSerializable {
 	 * @param float $CreditMax
 	 * @return $this
 	 */
-	public function setCreditMax( float $CreditMax ): CustomerCondition {
+	public function setCreditMax( float $CreditMax ) : CustomerCondition {
 		$this->CreditMax = $CreditMax;
 		return $this;
 	}
@@ -76,7 +76,7 @@ class CustomerCondition implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isDisableSale(): bool {
+	public function isDisableSale() : bool {
 		return $this->DisableSale;
 	}
 
@@ -84,7 +84,7 @@ class CustomerCondition implements JsonSerializable {
 	 * @param bool $DisableSale
 	 * @return $this
 	 */
-	public function setDisableSale( bool $DisableSale ): CustomerCondition {
+	public function setDisableSale( bool $DisableSale ) : CustomerCondition {
 		$this->DisableSale = $DisableSale;
 		return $this;
 	}
@@ -92,7 +92,7 @@ class CustomerCondition implements JsonSerializable {
 	/**
 	 * @return bool
 	 */
-	public function isDisableRetail(): bool {
+	public function isDisableRetail() : bool {
 		return $this->DisableRetail;
 	}
 
@@ -100,7 +100,7 @@ class CustomerCondition implements JsonSerializable {
 	 * @param bool $DisableRetail
 	 * @return $this
 	 */
-	public function setDisableRetail( bool $DisableRetail ): CustomerCondition {
+	public function setDisableRetail( bool $DisableRetail ) : CustomerCondition {
 		$this->DisableRetail = $DisableRetail;
 		return $this;
 	}
@@ -108,7 +108,7 @@ class CustomerCondition implements JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function jsonSerialize(): string {
+	public function jsonSerialize() : string {
 		return json_encode( get_object_vars( $this ) );
 	}
 }
