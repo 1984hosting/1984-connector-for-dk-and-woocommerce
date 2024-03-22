@@ -244,7 +244,7 @@ class WooCooCustomerService {
 			'Error occurred while getting receivers for customer ' . $customer_number
 		);
 
-		if ( sizeof( $data_from_dk ) > 0 ) {
+		if ( count( $data_from_dk ) > 0 ) {
 			$receivers = [];
 			foreach ( $data_from_dk as $receiver_data ) {
 				$Receiver = new ItemReciverModel();

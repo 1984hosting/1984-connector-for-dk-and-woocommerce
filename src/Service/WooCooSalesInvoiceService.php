@@ -151,7 +151,7 @@ class WooCooSalesInvoiceService {
 			'Error occurred when getting sale invoices'
 		);
 
-		if ( sizeof( $data_from_dk ) > 0 ) {
+		if ( count( $data_from_dk ) > 0 ) {
 			$invoices = [];
 			foreach ( $data_from_dk as $data ) {
 				$Invoice = new Invoice();

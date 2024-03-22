@@ -125,54 +125,54 @@ class Customer implements JsonSerializable {
 
 	public function createCustomerFromDKData( stdClass $customer ): void {
 		if ( isset( $customer->Contacts ) ) {
-			if ( is_array( $customer->Contacts ) && sizeof( $customer->Contacts ) > 0 ) {
+			if ( is_array( $customer->Contacts ) && count( $customer->Contacts ) > 0 ) {
 				$this->setContacts( $customer->Contacts );
-			} elseif ( is_array( $customer->Contacts ) && sizeof( $customer->Contacts ) === 0 ) {
+			} elseif ( is_array( $customer->Contacts ) && count( $customer->Contacts ) === 0 ) {
 				$this->setContacts( [] );
 			}
 		} else {
 			$this->setContacts( [] );
 		}
 		if ( isset( $customer->Recivers ) ) {
-			if ( is_array( $customer->Recivers ) && sizeof( $customer->Recivers ) > 0 ) {
+			if ( is_array( $customer->Recivers ) && count( $customer->Recivers ) > 0 ) {
 				$this->setRecivers( $customer->Recivers );
-			} elseif ( is_array( $customer->Recivers ) && sizeof( $customer->Recivers ) === 0 ) {
+			} elseif ( is_array( $customer->Recivers ) && count( $customer->Recivers ) === 0 ) {
 				$this->setRecivers( [] );
 			}
 		} else {
 			$this->setRecivers( [] );
 		}
 		if ( isset( $customer->Memos ) ) {
-			if ( is_array( $customer->Memos ) && sizeof( $customer->Memos ) > 0 ) {
+			if ( is_array( $customer->Memos ) && count( $customer->Memos ) > 0 ) {
 				$this->setMemos( $customer->Memos );
-			} elseif ( is_array( $customer->Memos ) && sizeof( $customer->Memos ) === 0 ) {
+			} elseif ( is_array( $customer->Memos ) && count( $customer->Memos ) === 0 ) {
 				$this->setMemos( [] );
 			}
 		} else {
 			$this->setMemos( [] );
 		}
 		if ( isset( $customer->Properties ) ) {
-			if ( is_array( $customer->Properties ) && sizeof( $customer->Properties ) > 0 ) {
+			if ( is_array( $customer->Properties ) && count( $customer->Properties ) > 0 ) {
 				$this->setProperties( $customer->Properties );
-			} elseif ( is_array( $customer->Properties ) && sizeof( $customer->Properties ) === 0 ) {
+			} elseif ( is_array( $customer->Properties ) && count( $customer->Properties ) === 0 ) {
 				$this->setProperties( [] );
 			}
 		} else {
 			$this->setProperties( [] );
 		}
 		if ( isset( $customer->Changes ) ) {
-			if ( is_array( $customer->Changes ) && sizeof( $customer->Changes ) > 0 ) {
+			if ( is_array( $customer->Changes ) && count( $customer->Changes ) > 0 ) {
 				$this->setChanges( $customer->Changes );
-			} elseif ( is_array( $customer->Changes ) && sizeof( $customer->Changes ) === 0 ) {
+			} elseif ( is_array( $customer->Changes ) && count( $customer->Changes ) === 0 ) {
 				$this->setChanges( [] );
 			}
 		} else {
 			$this->setChanges( [] );
 		}
 		if ( isset( $customer->Attachments ) ) {
-			if ( is_array( $customer->Attachments ) && sizeof( $customer->Attachments ) > 0 ) {
+			if ( is_array( $customer->Attachments ) && count( $customer->Attachments ) > 0 ) {
 				$this->setAttachments( $customer->Attachments );
-			} elseif ( is_array( $customer->Attachments ) && sizeof( $customer->Attachments ) === 0 ) {
+			} elseif ( is_array( $customer->Attachments ) && count( $customer->Attachments ) === 0 ) {
 				$this->setAttachments( [] );
 			}
 		} else {
@@ -245,7 +245,7 @@ class Customer implements JsonSerializable {
 	 * @return $this
 	 */
 	public function setContacts( array $Contacts ): Customer {
-		if ( sizeof( $Contacts ) > 0 ) {
+		if ( count( $Contacts ) > 0 ) {
 			$new_array = [];
 			foreach ( $Contacts as $contact ) {
 				$type = gettype( $contact );
