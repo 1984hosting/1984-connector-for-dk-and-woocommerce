@@ -39,6 +39,19 @@
 		and heresy.
 		-->
 		<exclude name="WordPress.WP.EnqueuedResourceParameters.NotInFooter" />
+
+		<!--
+		It's the year 2024 and we may not have flying cars, but we can assume
+		that every web host has libcurl installed by now. What the WP wrapper
+		functions do is falling back on the PHP filesystem functions if curl is
+		not found and we don't need such negativity in our lives.
+		-->
+		<exclude name="WordPress.WP.AlternativeFunctions.curl_curl_init" />
+		<exclude name="WordPress.WP.AlternativeFunctions.curl_curl_setopt" />
+		<exclude name="WordPress.WP.AlternativeFunctions.curl_curl_exec" />
+		<exclude name="WordPress.WP.AlternativeFunctions.curl_curl_getinfo" />
+		<exclude name="WordPress.WP.AlternativeFunctions.curl_curl_error" />
+		<exclude name="WordPress.WP.AlternativeFunctions.curl_curl_close" />
 	</rule>
 
 	<!--
