@@ -32,330 +32,235 @@ use stdClass;
  */
 class Customer implements JsonSerializable {
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var bool $Deleted
 	 */
 	protected bool $Deleted;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var array $Contacts
 	 */
 	protected array $Contacts = [];
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var array $Recivers
 	 */
 	protected array $Recivers = [];
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var array $Memos
 	 */
 	protected array $Memos = [];
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var array $Properties
 	 */
 	protected array $Properties = [];
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var array $Changes
 	 */
 	protected array $Changes = [];
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var array $Attachments
 	 */
 	protected array $Attachments = [];
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var CustomerCondition|null $Conditions
 	 */
 	protected CustomerCondition|null $Conditions;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var CustomerSendTo|null $SendTo
 	 */
 	protected CustomerSendTo|null $SendTo;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var UBL|null $UBL
 	 */
 	protected UBL|null $UBL;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var int|null $RecordID
 	 */
 	protected int|null $RecordID;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Number
 	 */
 	protected string|null $Number;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Name
 	 */
 	protected string|null $Name;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $SSNumber
 	 */
 	protected string|null $SSNumber;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Alias
 	 */
 	protected string|null $Alias;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Address1
 	 */
 	protected string|null $Address1;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Address2
 	 */
 	protected string|null $Address2;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Address3
 	 */
 	protected string|null $Address3;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $City
 	 */
 	protected string|null $City;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $ZipCode
 	 */
 	protected string|null $ZipCode;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var float $BalanceAmount
 	 */
 	protected float $BalanceAmount = 0;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Phone
 	 */
 	protected string|null $Phone;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $PhoneLocal
 	 */
 	protected string|null $PhoneLocal;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $PhoneMobile
 	 */
 	protected string|null $PhoneMobile;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $PhoneFax
 	 */
 	protected string|null $PhoneFax;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $CountryCode
 	 */
 	protected string|null $CountryCode;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $OriginCountryCode
 	 */
 	protected string|null $OriginCountryCode;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Email
 	 */
 	protected string|null $Email;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Password
 	 */
 	protected string|null $Password;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Group
 	 */
 	protected string|null $Group;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $SalesPerson
 	 */
 	protected string|null $SalesPerson;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var float|int $Discount
 	 */
 	protected float $Discount = 0;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var bool|null $UseItemRecivers
 	 */
 	protected bool|null $UseItemRecivers;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $PaymentTerm
 	 */
 	protected string|null $PaymentTerm;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $PaymentMode
 	 */
 	protected string|null $PaymentMode;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $CurrencyCode
 	 */
 	protected string|null $CurrencyCode;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var bool $NoVat
 	 */
 	protected bool $NoVat = false;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $LedgerCode
 	 */
 	protected string|null $LedgerCode;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var bool $Blocked
 	 */
 	protected bool $Blocked = false;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string $Gender
 	 */
 	protected string $Gender;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var int $PriceGroup
 	 */
 	protected int $PriceGroup = 0;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var float $BillingFee
 	 */
 	protected float $BillingFee = 0;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Modified
 	 */
 	protected string|null $Modified;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $ObjectDate
 	 */
 	protected string|null $ObjectDate;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $VATNumber
 	 */
 	protected string|null $VATNumber;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $ISATNumber
 	 */
 	protected string|null $ISATNumber;
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function createCustomerFromDKData( stdClass $customer ): void {
 		if ( isset( $customer->Contacts ) ) {
 			if ( is_array( $customer->Contacts ) && sizeof( $customer->Contacts ) > 0 ) {
@@ -458,16 +363,11 @@ class Customer implements JsonSerializable {
 		$this->setISATNumber( $customer->ISATNumber ?? null );
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function isDeleted(): bool {
 		return $this->Deleted;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setDeleted( bool $Deleted ): Customer {
@@ -475,16 +375,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getContacts(): array {
 		return $this->Contacts;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setContacts( array $Contacts ): Customer {
@@ -502,16 +397,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getRecivers(): array {
 		return $this->Recivers;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setRecivers( array $Recivers ): Customer {
@@ -525,16 +415,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getMemos(): array {
 		return $this->Memos;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setMemos( array $Memos ): Customer {
@@ -542,16 +427,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getProperties(): array {
 		return $this->Properties;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setProperties( array $Properties ): Customer {
@@ -559,16 +439,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getChanges(): array {
 		return $this->Changes;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setChanges( array $Changes ): Customer {
@@ -576,16 +451,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getAttachments(): array {
 		return $this->Attachments;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setAttachments( array $Attachments ): Customer {
@@ -593,16 +463,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getConditions(): CustomerCondition {
 		return $this->Conditions;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setConditions( CustomerCondition $Conditions ): Customer {
@@ -610,16 +475,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getSendTo(): CustomerSendTo {
 		return $this->SendTo;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setSendTo( CustomerSendTo $SendTo ): Customer {
@@ -627,16 +487,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getUBL(): UBL {
 		return $this->UBL;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setUBL( UBL $UBL ): Customer {
@@ -644,16 +499,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getRecordID(): int {
 		return $this->RecordID;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setRecordID( int $RecordID ): Customer {
@@ -661,16 +511,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getNumber(): string {
 		return $this->Number;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setNumber( string $Number ): Customer {
@@ -678,16 +523,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getName(): string|null {
 		return $this->Name;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setName( string|null $Name ): Customer {
@@ -695,16 +535,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getSSNumber(): string|null {
 		return $this->SSNumber;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setSSNumber( string|null $SSNumber ): Customer {
@@ -712,16 +547,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getAlias(): string|null {
 		return $this->Alias;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setAlias( string|null $Alias ): Customer {
@@ -729,16 +559,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getAddress1(): string|null {
 		return $this->Address1;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setAddress1( string|null $Address1 ): Customer {
@@ -746,16 +571,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getAddress2(): string|null {
 		return $this->Address2;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setAddress2( string|null $Address2 ): Customer {
@@ -763,16 +583,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getAddress3(): string|null {
 		return $this->Address3;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setAddress3( string|null $Address3 ): Customer {
@@ -780,16 +595,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getCity(): string|null {
 		return $this->City;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setCity( string|null $City ): Customer {
@@ -797,16 +607,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getZipCode(): string|null {
 		return $this->ZipCode;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setZipCode( string|null $ZipCode ): Customer {
@@ -814,16 +619,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getBalanceAmount(): float {
 		return $this->BalanceAmount;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setBalanceAmount( float $BalanceAmount ): Customer {
@@ -831,16 +631,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPhone(): string|null {
 		return $this->Phone;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPhone( string|null $Phone ): Customer {
@@ -848,16 +643,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPhoneLocal(): string|null {
 		return $this->PhoneLocal;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPhoneLocal( string|null $PhoneLocal ): Customer {
@@ -865,16 +655,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPhoneMobile(): string|null {
 		return $this->PhoneMobile;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPhoneMobile( string|null $PhoneMobile ): Customer {
@@ -882,16 +667,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPhoneFax(): string|null {
 		return $this->PhoneFax;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPhoneFax( string|null $PhoneFax ): Customer {
@@ -899,16 +679,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getCountryCode(): string|null {
 		return $this->CountryCode;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setCountryCode( string|null $CountryCode ): Customer {
@@ -916,16 +691,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getOriginCountryCode(): string|null {
 		return $this->OriginCountryCode;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setOriginCountryCode( string|null $OriginCountryCode ): Customer {
@@ -933,16 +703,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getEmail(): string|null {
 		return $this->Email;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setEmail( string|null $Email ): Customer {
@@ -950,16 +715,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPassword(): string|null {
 		return $this->Password;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPassword( string|null $Password ): Customer {
@@ -967,16 +727,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getGroup(): string|null {
 		return $this->Group;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setGroup( string|null $Group ): Customer {
@@ -984,16 +739,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getSalesPerson(): string|null {
 		return $this->SalesPerson;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setSalesPerson( string|null $SalesPerson ): Customer {
@@ -1001,16 +751,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getDiscount(): float {
 		return $this->Discount;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setDiscount( float $Discount ): Customer {
@@ -1018,16 +763,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function isUseItemRecivers(): bool {
 		return $this->UseItemRecivers;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setUseItemRecivers( bool $UseItemRecivers ): Customer {
@@ -1035,16 +775,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPaymentTerm(): string|null {
 		return $this->PaymentTerm;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPaymentTerm( string|null $PaymentTerm ): Customer {
@@ -1052,16 +787,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPaymentMode(): string|null {
 		return $this->PaymentMode;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPaymentMode( string|null $PaymentMode ): Customer {
@@ -1069,16 +799,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getCurrencyCode(): string|null {
 		return $this->CurrencyCode;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setCurrencyCode( string|null $CurrencyCode ): Customer {
@@ -1086,16 +811,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function isNoVat(): bool {
 		return $this->NoVat;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setNoVat( bool $NoVat ): Customer {
@@ -1103,16 +823,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getLedgerCode(): string|null {
 		return $this->LedgerCode;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setLedgerCode( string|null $LedgerCode ): Customer {
@@ -1120,16 +835,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function isBlocked(): bool {
 		return $this->Blocked;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setBlocked( bool $Blocked ): Customer {
@@ -1137,16 +847,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getGender(): string|null {
 		return $this->Gender;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setGender( string|null $Gender ): Customer {
@@ -1154,16 +859,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPriceGroup(): int {
 		return $this->PriceGroup;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPriceGroup( int $PriceGroup ): Customer {
@@ -1171,16 +871,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getBillingFee(): float {
 		return $this->BillingFee;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setBillingFee( float $BillingFee ): Customer {
@@ -1188,16 +883,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getModified(): string|null {
 		return $this->Modified;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setModified( string|null $Modified ): Customer {
@@ -1205,16 +895,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getObjectDate(): string|null {
 		return $this->ObjectDate;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setObjectDate( string|null $ObjectDate ): Customer {
@@ -1222,16 +907,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getVATNumber(): string|null {
 		return $this->VATNumber;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setVATNumber( string|null $VATNumber ): Customer {
@@ -1239,16 +919,11 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getISATNumber(): string|null {
 		return $this->ISATNumber;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setISATNumber( string|null $ISATNumber ): Customer {
@@ -1256,9 +931,6 @@ class Customer implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function jsonSerialize(): string {
 		return json_encode( get_object_vars( $this ) );
 	}

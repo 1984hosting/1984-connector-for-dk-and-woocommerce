@@ -12,155 +12,110 @@ use stdClass;
  */
 class ItemReciverModel implements JsonSerializable {
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string $Number
 	 */
 	protected string $Number;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Name
 	 */
 	protected string|null $Name;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Address1
 	 */
 	protected string|null $Address1;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Address2
 	 */
 	protected string|null $Address2;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Address3
 	 */
 	protected string|null $Address3;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Address4
 	 */
 	protected string|null $Address4;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $City
 	 */
 	protected string|null $City;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $ZipCode
 	 */
 	protected string|null $ZipCode;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $CountryCode
 	 */
 	protected string|null $CountryCode;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $SSNumber
 	 */
 	protected string|null $SSNumber;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Phone
 	 */
 	protected string|null $Phone;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $PhoneLocal
 	 */
 	protected string|null $PhoneLocal;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $PhoneMobile
 	 */
 	protected string|null $PhoneMobile;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Fax
 	 */
 	protected string|null $Fax;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Telex
 	 */
 	protected string|null $Telex;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Email
 	 */
 	protected string|null $Email;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $URL
 	 */
 	protected string|null $URL;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $EANNumber
 	 */
 	protected string|null $EANNumber;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $VATNumber
 	 */
 	public string|null $VATNumber;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var bool $Blocked
 	 */
 	public bool $Blocked = false;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var string|null $Modified
 	 */
 	public string|null $Modified;
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function createItemReciverModelFromDKData( stdClass $ItemReciver ): void {
 		$this->setNumber( $ItemReciver->Number );
 		$this->setName( $ItemReciver->Name ?? null );
@@ -185,16 +140,11 @@ class ItemReciverModel implements JsonSerializable {
 		$this->setModified( $ItemReciver->Modified ?? null );
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getNumber(): ?string {
 		return $this->Number;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setNumber( ?string $Number ): ItemReciverModel {
@@ -202,16 +152,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getName(): ?string {
 		return $this->Name;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setName( ?string $Name ): ItemReciverModel {
@@ -219,16 +164,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getAddress1(): ?string {
 		return $this->Address1;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setAddress1( ?string $Address1 ): ItemReciverModel {
@@ -236,16 +176,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getAddress2(): ?string {
 		return $this->Address2;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setAddress2( ?string $Address2 ): ItemReciverModel {
@@ -253,16 +188,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getAddress3(): ?string {
 		return $this->Address3;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setAddress3( ?string $Address3 ): ItemReciverModel {
@@ -270,16 +200,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getAddress4(): ?string {
 		return $this->Address4;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setAddress4( ?string $Address4 ): ItemReciverModel {
@@ -287,16 +212,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getCity(): ?string {
 		return $this->City;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setCity( ?string $City ): ItemReciverModel {
@@ -304,16 +224,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getZipCode(): ?string {
 		return $this->ZipCode;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setZipCode( ?string $ZipCode ): ItemReciverModel {
@@ -321,16 +236,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getCountryCode(): ?string {
 		return $this->CountryCode;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setCountryCode( ?string $CountryCode ): ItemReciverModel {
@@ -338,16 +248,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getSSNumber(): ?string {
 		return $this->SSNumber;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setSSNumber( ?string $SSNumber ): ItemReciverModel {
@@ -355,16 +260,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPhone(): ?string {
 		return $this->Phone;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPhone( ?string $Phone ): ItemReciverModel {
@@ -372,16 +272,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPhoneLocal(): ?string {
 		return $this->PhoneLocal;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPhoneLocal( ?string $PhoneLocal ): ItemReciverModel {
@@ -389,16 +284,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getPhoneMobile(): ?string {
 		return $this->PhoneMobile;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setPhoneMobile( ?string $PhoneMobile ): ItemReciverModel {
@@ -406,16 +296,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getFax(): ?string {
 		return $this->Fax;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setFax( ?string $Fax ): ItemReciverModel {
@@ -423,16 +308,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getTelex(): ?string {
 		return $this->Telex;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setTelex( ?string $Telex ): ItemReciverModel {
@@ -440,16 +320,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getEmail(): ?string {
 		return $this->Email;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setEmail( ?string $Email ): ItemReciverModel {
@@ -457,16 +332,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getURL(): ?string {
 		return $this->URL;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setURL( ?string $URL ): ItemReciverModel {
@@ -479,8 +349,6 @@ class ItemReciverModel implements JsonSerializable {
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setEANNumber( ?string $EANNumber ): ItemReciverModel {
@@ -488,16 +356,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getVATNumber(): ?string {
 		return $this->VATNumber;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setVATNumber( ?string $VATNumber ): ItemReciverModel {
@@ -505,16 +368,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function isBlocked(): bool {
 		return $this->Blocked;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setBlocked( bool $Blocked ): ItemReciverModel {
@@ -522,16 +380,11 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getModified(): ?string {
 		return $this->Modified;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setModified( ?string $Modified ): ItemReciverModel {
@@ -539,9 +392,6 @@ class ItemReciverModel implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function jsonSerialize(): string {
 		return json_encode( get_object_vars( $this ) );
 	}

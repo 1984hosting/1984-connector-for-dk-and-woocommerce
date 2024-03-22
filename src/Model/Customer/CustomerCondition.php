@@ -11,36 +11,26 @@ use JsonSerializable;
  */
 class CustomerCondition implements JsonSerializable {
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var float $CreditLimit
 	 */
 	protected float $CreditLimit = 0;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var float $CreditMax
 	 */
 	protected float $CreditMax = 0;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var bool $DisableSale
 	 */
 	protected bool $DisableSale = false;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @var bool $DisableRetail
 	 */
 	protected bool $DisableRetail = false;
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @param $customer_condition
 	 */
 	public function createCustomerConditionFromDKData( $customer_condition ): void {
@@ -50,16 +40,11 @@ class CustomerCondition implements JsonSerializable {
 		$this->setDisableRetail( $customer_condition->DisableRetail ?? false );
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getCreditLimit(): float {
 		return $this->CreditLimit;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setCreditLimit( float $CreditLimit ): CustomerCondition {
@@ -67,16 +52,11 @@ class CustomerCondition implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function getCreditMax(): float {
 		return $this->CreditMax;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setCreditMax( float $CreditMax ): CustomerCondition {
@@ -84,16 +64,11 @@ class CustomerCondition implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function isDisableSale(): bool {
 		return $this->DisableSale;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setDisableSale( bool $DisableSale ): CustomerCondition {
@@ -101,16 +76,11 @@ class CustomerCondition implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function isDisableRetail(): bool {
 		return $this->DisableRetail;
 	}
 
 	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 *
 	 * @return $this
 	 */
 	public function setDisableRetail( bool $DisableRetail ): CustomerCondition {
@@ -118,9 +88,6 @@ class CustomerCondition implements JsonSerializable {
 		return $this;
 	}
 
-	/**
-	 * Short description (CS requirement, unnecessary for DTO Class)
-	 */
 	public function jsonSerialize(): string {
 		return json_encode( get_object_vars( $this ) );
 	}
