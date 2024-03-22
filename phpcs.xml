@@ -52,6 +52,11 @@
 		<exclude name="WordPress.WP.AlternativeFunctions.curl_curl_getinfo" />
 		<exclude name="WordPress.WP.AlternativeFunctions.curl_curl_error" />
 		<exclude name="WordPress.WP.AlternativeFunctions.curl_curl_close" />
+
+		<!--
+		We are using Base64 here, so there's no need to warn us about its use.
+		-->
+		<exclude name="WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode" />
 	</rule>
 
 	<!--
