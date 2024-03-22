@@ -103,6 +103,10 @@
 	<rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators">
 	</rule>
 
+	<!--
+	As we are aligning the variable name conventions with DK in the Model
+	classes, we ignore the WordPress variable names for those.
+	-->
 	<rule ref="WordPress.NamingConventions.ValidVariableName">
 		<exclude-pattern>./src/Model/**</exclude-pattern>
 	</rule>
