@@ -184,9 +184,6 @@ class Invoice implements JsonSerializable {
 		return $this->Number;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setNumber( ?string $Number ): Invoice {
 		$this->Number = $Number;
 		return $this;
@@ -196,9 +193,6 @@ class Invoice implements JsonSerializable {
 		return $this->ObjectDate;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setObjectDate( ?string $ObjectDate ): Invoice {
 		$this->ObjectDate = $ObjectDate;
 		return $this;
@@ -208,9 +202,6 @@ class Invoice implements JsonSerializable {
 		return $this->Created;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCreated( ?string $Created ): Invoice {
 		$this->Created = $Created;
 		return $this;
@@ -220,9 +211,6 @@ class Invoice implements JsonSerializable {
 		return $this->Modified;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setModified( ?string $Modified ): Invoice {
 		$this->Modified = $Modified;
 		return $this;
@@ -232,9 +220,6 @@ class Invoice implements JsonSerializable {
 		return $this->CreatedBy;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCreatedBy( ?string $CreatedBy ): Invoice {
 		$this->CreatedBy = $CreatedBy;
 		return $this;
@@ -244,9 +229,6 @@ class Invoice implements JsonSerializable {
 		return $this->CNumber;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCNumber( ?string $CNumber ): Invoice {
 		$this->CNumber = $CNumber;
 		return $this;
@@ -256,9 +238,6 @@ class Invoice implements JsonSerializable {
 		return $this->CName;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCName( ?string $CName ): Invoice {
 		$this->CName = $CName;
 		return $this;
@@ -268,9 +247,6 @@ class Invoice implements JsonSerializable {
 		return $this->CAddress1;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCAddress1( ?string $CAddress1 ): Invoice {
 		$this->CAddress1 = $CAddress1;
 		return $this;
@@ -280,9 +256,6 @@ class Invoice implements JsonSerializable {
 		return $this->CAddress2;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCAddress2( ?string $CAddress2 ): Invoice {
 		$this->CAddress2 = $CAddress2;
 		return $this;
@@ -292,9 +265,6 @@ class Invoice implements JsonSerializable {
 		return $this->CAddress3;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCAddress3( ?string $CAddress3 ): Invoice {
 		$this->CAddress3 = $CAddress3;
 		return $this;
@@ -304,9 +274,6 @@ class Invoice implements JsonSerializable {
 		return $this->CAddress4;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCAddress4( ?string $CAddress4 ): Invoice {
 		$this->CAddress4 = $CAddress4;
 		return $this;
@@ -316,9 +283,6 @@ class Invoice implements JsonSerializable {
 		return $this->CZipCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCZipCode( ?string $CZipCode ): Invoice {
 		$this->CZipCode = $CZipCode;
 		return $this;
@@ -328,9 +292,6 @@ class Invoice implements JsonSerializable {
 		return $this->CCountryCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCCountryCode( ?string $CCountryCode ): Invoice {
 		$this->CCountryCode = $CCountryCode;
 		return $this;
@@ -340,9 +301,6 @@ class Invoice implements JsonSerializable {
 		return $this->CSSNumber;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCSSNumber( ?string $CSSNumber ): Invoice {
 		$this->CSSNumber = $CSSNumber;
 		return $this;
@@ -352,9 +310,6 @@ class Invoice implements JsonSerializable {
 		return $this->CPhone;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCPhone( ?string $CPhone ): Invoice {
 		$this->CPhone = $CPhone;
 		return $this;
@@ -364,9 +319,6 @@ class Invoice implements JsonSerializable {
 		return $this->CContact;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCContact( ?string $CContact ): Invoice {
 		$this->CContact = $CContact;
 		return $this;
@@ -376,9 +328,6 @@ class Invoice implements JsonSerializable {
 		return $this->RecordID;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setRecordID( ?int $RecordID ): Invoice {
 		$this->RecordID = $RecordID;
 		return $this;
@@ -388,9 +337,6 @@ class Invoice implements JsonSerializable {
 		return $this->OrderNumber;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setOrderNumber( int $OrderNumber ): Invoice {
 		$this->OrderNumber = $OrderNumber;
 		return $this;
@@ -400,9 +346,6 @@ class Invoice implements JsonSerializable {
 		return $this->InvoiceDate;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setInvoiceDate( ?string $InvoiceDate ): Invoice {
 		$this->InvoiceDate = $InvoiceDate;
 		return $this;
@@ -412,9 +355,6 @@ class Invoice implements JsonSerializable {
 		return $this->DueDate;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDueDate( ?string $DueDate ): Invoice {
 		$this->DueDate = $DueDate;
 		return $this;
@@ -424,9 +364,6 @@ class Invoice implements JsonSerializable {
 		return $this->DiscountPercent;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDiscountPercent( float $DiscountPercent ): Invoice {
 		$this->DiscountPercent = $DiscountPercent;
 		return $this;
@@ -436,9 +373,6 @@ class Invoice implements JsonSerializable {
 		return $this->Discount;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDiscount( float $Discount ): Invoice {
 		$this->Discount = $Discount;
 		return $this;
@@ -448,9 +382,6 @@ class Invoice implements JsonSerializable {
 		return $this->TotalAmount;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setTotalAmount( float $TotalAmount ): Invoice {
 		$this->TotalAmount = $TotalAmount;
 		return $this;
@@ -460,9 +391,6 @@ class Invoice implements JsonSerializable {
 		return $this->TotalAmountWithTax;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setTotalAmountWithTax( float $TotalAmountWithTax ): Invoice {
 		$this->TotalAmountWithTax = $TotalAmountWithTax;
 		return $this;
@@ -472,9 +400,6 @@ class Invoice implements JsonSerializable {
 		return $this->Currency;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCurrency( ?string $Currency ): Invoice {
 		$this->Currency = $Currency;
 		return $this;
@@ -484,9 +409,6 @@ class Invoice implements JsonSerializable {
 		return $this->Reference;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setReference( ?string $Reference ): Invoice {
 		$this->Reference = $Reference;
 		return $this;
@@ -496,9 +418,6 @@ class Invoice implements JsonSerializable {
 		return $this->Voucher;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setVoucher( ?string $Voucher ): Invoice {
 		$this->Voucher = $Voucher;
 		return $this;
@@ -508,9 +427,6 @@ class Invoice implements JsonSerializable {
 		return $this->SettledType;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setSettledType( int $SettledType ): Invoice {
 		$this->SettledType = $SettledType;
 		return $this;
@@ -520,9 +436,6 @@ class Invoice implements JsonSerializable {
 		return $this->SettledAmount;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setSettledAmount( float $SettledAmount ): Invoice {
 		$this->SettledAmount = $SettledAmount;
 		return $this;
@@ -532,9 +445,6 @@ class Invoice implements JsonSerializable {
 		return $this->SalePerson;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setSalePerson( ?string $SalePerson ): Invoice {
 		$this->SalePerson = $SalePerson;
 		return $this;
@@ -544,9 +454,6 @@ class Invoice implements JsonSerializable {
 		return $this->Text1;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setText1( ?string $Text1 ): Invoice {
 		$this->Text1 = $Text1;
 		return $this;
@@ -556,9 +463,6 @@ class Invoice implements JsonSerializable {
 		return $this->Text2;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setText2( ?string $Text2 ): Invoice {
 		$this->Text2 = $Text2;
 		return $this;
@@ -568,9 +472,6 @@ class Invoice implements JsonSerializable {
 		return $this->Dim1;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDim1( ?string $Dim1 ): Invoice {
 		$this->Dim1 = $Dim1;
 		return $this;
@@ -580,9 +481,6 @@ class Invoice implements JsonSerializable {
 		return $this->Dim2;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDim2( ?string $Dim2 ): Invoice {
 		$this->Dim2 = $Dim2;
 		return $this;
@@ -592,9 +490,6 @@ class Invoice implements JsonSerializable {
 		return $this->Origin;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setOrigin( int $Origin ): Invoice {
 		$this->Origin = $Origin;
 		return $this;
@@ -604,9 +499,6 @@ class Invoice implements JsonSerializable {
 		return $this->PaymentTerm;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPaymentTerm( ?string $PaymentTerm ): Invoice {
 		$this->PaymentTerm = $PaymentTerm;
 		return $this;
@@ -616,9 +508,6 @@ class Invoice implements JsonSerializable {
 		return $this->PaymentMode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPaymentMode( ?string $PaymentMode ): Invoice {
 		$this->PaymentMode = $PaymentMode;
 		return $this;
@@ -628,9 +517,6 @@ class Invoice implements JsonSerializable {
 		return $this->ClaimStatus;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setClaimStatus( int $ClaimStatus ): Invoice {
 		$this->ClaimStatus = $ClaimStatus;
 		return $this;
@@ -640,9 +526,6 @@ class Invoice implements JsonSerializable {
 		return $this->Exchange;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setExchange( float $Exchange ): Invoice {
 		$this->Exchange = $Exchange;
 		return $this;
@@ -652,9 +535,6 @@ class Invoice implements JsonSerializable {
 		return $this->SalesType;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setSalesType( int $SalesType ): Invoice {
 		$this->SalesType = $SalesType;
 		return $this;
@@ -664,9 +544,6 @@ class Invoice implements JsonSerializable {
 		return $this->Version;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setVersion( int $Version ): Invoice {
 		$this->Version = $Version;
 		return $this;
@@ -676,9 +553,6 @@ class Invoice implements JsonSerializable {
 		return $this->Project;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setProject( ?string $Project ): Invoice {
 		$this->Project = $Project;
 		return $this;
@@ -688,9 +562,6 @@ class Invoice implements JsonSerializable {
 		return $this->IRNumber;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setIRNumber( ?string $IRNumber ): Invoice {
 		$this->IRNumber = $IRNumber;
 		return $this;
@@ -700,9 +571,6 @@ class Invoice implements JsonSerializable {
 		return $this->IRName;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setIRName( ?string $IRName ): Invoice {
 		$this->IRName = $IRName;
 		return $this;
@@ -712,9 +580,6 @@ class Invoice implements JsonSerializable {
 		return $this->IRAddress1;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setIRAddress1( ?string $IRAddress1 ): Invoice {
 		$this->IRAddress1 = $IRAddress1;
 		return $this;
@@ -724,9 +589,6 @@ class Invoice implements JsonSerializable {
 		return $this->IRAddress2;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setIRAddress2( ?string $IRAddress2 ): Invoice {
 		$this->IRAddress2 = $IRAddress2;
 		return $this;
@@ -736,9 +598,6 @@ class Invoice implements JsonSerializable {
 		return $this->IRZipCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setIRZipCode( ?string $IRZipCode ): Invoice {
 		$this->IRZipCode = $IRZipCode;
 		return $this;
@@ -748,9 +607,6 @@ class Invoice implements JsonSerializable {
 		return $this->IRContact;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setIRContact( ?string $IRContact ): Invoice {
 		$this->IRContact = $IRContact;
 		return $this;
@@ -760,9 +616,6 @@ class Invoice implements JsonSerializable {
 		return $this->ExternalInvoiceNumber;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setExternalInvoiceNumber( int $ExternalInvoiceNumber ): Invoice {
 		$this->ExternalInvoiceNumber = $ExternalInvoiceNumber;
 		return $this;
@@ -772,9 +625,6 @@ class Invoice implements JsonSerializable {
 		return $this->ClaimNumber;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setClaimNumber( int $ClaimNumber ): Invoice {
 		$this->ClaimNumber = $ClaimNumber;
 		return $this;
@@ -784,9 +634,6 @@ class Invoice implements JsonSerializable {
 		return $this->ClaimDate;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setClaimDate( ?string $ClaimDate ): Invoice {
 		$this->ClaimDate = $ClaimDate;
 		return $this;
@@ -796,9 +643,6 @@ class Invoice implements JsonSerializable {
 		return $this->Register;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setRegister( ?string $Register ): Invoice {
 		$this->Register = $Register;
 		return $this;
@@ -808,9 +652,6 @@ class Invoice implements JsonSerializable {
 		return $this->PosInvoice;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPosInvoice( int $PosInvoice ): Invoice {
 		$this->PosInvoice = $PosInvoice;
 		return $this;
@@ -820,9 +661,6 @@ class Invoice implements JsonSerializable {
 		return $this->JournalId;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setJournalId( int $JournalId ): Invoice {
 		$this->JournalId = $JournalId;
 		return $this;

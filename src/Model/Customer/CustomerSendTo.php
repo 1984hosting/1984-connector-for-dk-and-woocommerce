@@ -35,9 +35,6 @@ class CustomerSendTo implements JsonSerializable {
 		return $this->Printer;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPrinter( bool $Printer ): CustomerSendTo {
 		$this->Printer = $Printer;
 		return $this;
@@ -47,9 +44,6 @@ class CustomerSendTo implements JsonSerializable {
 		return $this->ClaimToPrinter;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setClaimToPrinter( bool $ClaimToPrinter ): CustomerSendTo {
 		$this->ClaimToPrinter = $ClaimToPrinter;
 		return $this;
@@ -59,9 +53,6 @@ class CustomerSendTo implements JsonSerializable {
 		return $this->Email;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setEmail( bool $Email ): CustomerSendTo {
 		$this->Email = $Email;
 		return $this;
@@ -71,9 +62,6 @@ class CustomerSendTo implements JsonSerializable {
 		return $this->EDIInvoice;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setEDIInvoice( bool $EDIInvoice ): CustomerSendTo {
 		$this->EDIInvoice = $EDIInvoice;
 		return $this;
@@ -83,9 +71,6 @@ class CustomerSendTo implements JsonSerializable {
 		return $this->PublishingSystem;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPublishingSystem( bool $PublishingSystem ): CustomerSendTo {
 		$this->PublishingSystem = $PublishingSystem;
 		return $this;

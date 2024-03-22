@@ -32,9 +32,6 @@ class CustomerCondition implements JsonSerializable {
 		return $this->CreditLimit;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCreditLimit( float $CreditLimit ): CustomerCondition {
 		$this->CreditLimit = $CreditLimit;
 		return $this;
@@ -44,9 +41,6 @@ class CustomerCondition implements JsonSerializable {
 		return $this->CreditMax;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCreditMax( float $CreditMax ): CustomerCondition {
 		$this->CreditMax = $CreditMax;
 		return $this;
@@ -56,9 +50,6 @@ class CustomerCondition implements JsonSerializable {
 		return $this->DisableSale;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDisableSale( bool $DisableSale ): CustomerCondition {
 		$this->DisableSale = $DisableSale;
 		return $this;
@@ -68,9 +59,6 @@ class CustomerCondition implements JsonSerializable {
 		return $this->DisableRetail;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDisableRetail( bool $DisableRetail ): CustomerCondition {
 		$this->DisableRetail = $DisableRetail;
 		return $this;

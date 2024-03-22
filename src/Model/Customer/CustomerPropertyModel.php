@@ -24,9 +24,6 @@ class CustomerPropertyModel implements JsonSerializable {
 		return $this->ID;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setID( ?string $ID ): CustomerPropertyModel {
 		$this->ID = $ID;
 		return $this;
@@ -36,9 +33,6 @@ class CustomerPropertyModel implements JsonSerializable {
 		return $this->Attribute;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAttribute( ?string $Attribute ): CustomerPropertyModel {
 		$this->Attribute = $Attribute;
 		return $this;
@@ -48,9 +42,6 @@ class CustomerPropertyModel implements JsonSerializable {
 		return $this->Option;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setOption( ?string $Option ): CustomerPropertyModel {
 		$this->Option = $Option;
 		return $this;
@@ -60,9 +51,6 @@ class CustomerPropertyModel implements JsonSerializable {
 		return $this->Comment;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setComment( ?string $Comment ): CustomerPropertyModel {
 		$this->Comment = $Comment;
 		return $this;
@@ -72,9 +60,6 @@ class CustomerPropertyModel implements JsonSerializable {
 		return $this->Modified;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setModified( ?string $Modified ): CustomerPropertyModel {
 		$this->Modified = $Modified;
 		return $this;

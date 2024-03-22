@@ -29,9 +29,6 @@ class MailInfo implements JsonSerializable {
 
 	protected bool $HasRecipients;
 
-	/**
-	 * @return $this
-	 */
 	public function createMailInfoFromDKData( stdClass $mail_info ): MailInfo {
 		$this->setDisplayName( $mail_info->DisplayName ?? null );
 		$this->setTo( $mail_info->To ?? null );
@@ -49,9 +46,6 @@ class MailInfo implements JsonSerializable {
 		return $this->DisplayName;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDisplayName( ?string $DisplayName ): MailInfo {
 		$this->DisplayName = $DisplayName;
 		return $this;
@@ -70,9 +64,6 @@ class MailInfo implements JsonSerializable {
 		return $this->CC;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCC( ?string $CC ): MailInfo {
 		$this->CC = $CC;
 		return $this;
@@ -82,9 +73,6 @@ class MailInfo implements JsonSerializable {
 		return $this->BCC;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setBCC( ?string $BCC ): MailInfo {
 		$this->BCC = $BCC;
 		return $this;
@@ -94,9 +82,6 @@ class MailInfo implements JsonSerializable {
 		return $this->Subject;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setSubject( ?string $Subject ): MailInfo {
 		$this->Subject = $Subject;
 		return $this;
@@ -106,9 +91,6 @@ class MailInfo implements JsonSerializable {
 		return $this->Body;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setBody( ?string $Body ): MailInfo {
 		$this->Body = $Body;
 		return $this;
@@ -118,9 +100,6 @@ class MailInfo implements JsonSerializable {
 		return $this->Priority;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPriority( ?string $Priority ): MailInfo {
 		$this->Priority = $Priority;
 		return $this;
@@ -130,9 +109,6 @@ class MailInfo implements JsonSerializable {
 		return $this->Attachments;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAttachments( array|string|null $Attachments ): MailInfo {
 		$this->Attachments = $Attachments;
 		return $this;
@@ -142,9 +118,6 @@ class MailInfo implements JsonSerializable {
 		return $this->HasRecipients;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setHasRecipients( bool $HasRecipients ): MailInfo {
 		$this->HasRecipients = $HasRecipients;
 		return $this;

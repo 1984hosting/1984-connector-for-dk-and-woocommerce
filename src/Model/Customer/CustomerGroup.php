@@ -19,9 +19,6 @@ class CustomerGroup implements JsonSerializable {
 
 	protected ?string $Description;
 
-	/**
-	 * @return $this
-	 */
 	public function createCustomerGroupFromDKData( stdClass $customer_group ): CustomerGroup {
 		$this->setModified( $customer_group->Modified ?? null );
 		$this->setID( $customer_group->ID ?? 0 );
@@ -34,9 +31,6 @@ class CustomerGroup implements JsonSerializable {
 		return $this->Modified;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setModified( ?string $Modified ): CustomerGroup {
 		$this->Modified = $Modified;
 		return $this;
@@ -46,9 +40,6 @@ class CustomerGroup implements JsonSerializable {
 		return $this->ID;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setID( int $ID ): CustomerGroup {
 		$this->ID = $ID;
 		return $this;
@@ -58,9 +49,6 @@ class CustomerGroup implements JsonSerializable {
 		return $this->Number;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setNumber( ?string $Number ): CustomerGroup {
 		$this->Number = $Number;
 		return $this;
@@ -70,9 +58,6 @@ class CustomerGroup implements JsonSerializable {
 		return $this->Description;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDescription( ?string $Description ): CustomerGroup {
 		$this->Description = $Description;
 		return $this;

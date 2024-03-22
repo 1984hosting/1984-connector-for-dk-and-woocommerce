@@ -35,9 +35,6 @@ class UBL implements JsonSerializable {
 		return $this->ID;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setID( string|null $ID ): UBL {
 		$this->ID = $ID;
 		return $this;
@@ -47,9 +44,6 @@ class UBL implements JsonSerializable {
 		return $this->Prefix;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPrefix( string|null $Prefix ): UBL {
 		$this->Prefix = $Prefix;
 		return $this;
@@ -59,9 +53,6 @@ class UBL implements JsonSerializable {
 		return $this->Enabled;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setEnabled( bool $Enabled ): UBL {
 		$this->Enabled = $Enabled;
 		return $this;
@@ -71,9 +62,6 @@ class UBL implements JsonSerializable {
 		return $this->AccountingCostType;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAccountingCostType( string|null $AccountingCostType ): UBL {
 		$this->AccountingCostType = $AccountingCostType;
 		return $this;
@@ -83,9 +71,6 @@ class UBL implements JsonSerializable {
 		return $this->AccountingCost;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAccountingCost( string|null $AccountingCost ): UBL {
 		$this->AccountingCost = $AccountingCost;
 		return $this;

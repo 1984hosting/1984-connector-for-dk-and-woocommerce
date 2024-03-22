@@ -22,9 +22,6 @@ class CustomerMemoModel implements JsonSerializable {
 		return $this->PageName;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPageName( ?string $PageName ): CustomerMemoModel {
 		$this->PageName = $PageName;
 		return $this;
@@ -34,9 +31,6 @@ class CustomerMemoModel implements JsonSerializable {
 		return $this->PlainText;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPlainText( ?string $PlainText ): CustomerMemoModel {
 		$this->PlainText = $PlainText;
 		return $this;
@@ -46,9 +40,6 @@ class CustomerMemoModel implements JsonSerializable {
 		return $this->Modified;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setModified( ?string $Modified ): CustomerMemoModel {
 		$this->Modified = $Modified;
 		return $this;
@@ -58,9 +49,6 @@ class CustomerMemoModel implements JsonSerializable {
 		return $this->RecordID;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setRecordID( int $RecordID ): CustomerMemoModel {
 		$this->RecordID = $RecordID;
 		return $this;

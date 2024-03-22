@@ -59,9 +59,6 @@ class ContactModel implements JsonSerializable {
 		// @TODO: Implement this Model
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setNumber( ?string $Number ): ContactModel {
 		$this->Number = $Number;
 		return $this;
@@ -71,9 +68,6 @@ class ContactModel implements JsonSerializable {
 		return $this->Name;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setName( ?string $Name ): ContactModel {
 		$this->Name = $Name;
 		return $this;
@@ -83,9 +77,6 @@ class ContactModel implements JsonSerializable {
 		return $this->Address1;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAddress1( ?string $Address1 ): ContactModel {
 		$this->Address1 = $Address1;
 		return $this;
@@ -95,9 +86,6 @@ class ContactModel implements JsonSerializable {
 		return $this->Address2;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAddress2( ?string $Address2 ): ContactModel {
 		$this->Address2 = $Address2;
 		return $this;
@@ -107,9 +95,6 @@ class ContactModel implements JsonSerializable {
 		return $this->Address3;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAddress3( ?string $Address3 ): ContactModel {
 		$this->Address3 = $Address3;
 		return $this;
@@ -119,9 +104,6 @@ class ContactModel implements JsonSerializable {
 		return $this->City;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCity( ?string $City ): ContactModel {
 		$this->City = $City;
 		return $this;
@@ -131,9 +113,6 @@ class ContactModel implements JsonSerializable {
 		return $this->ZipCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setZipCode( ?string $ZipCode ): ContactModel {
 		$this->ZipCode = $ZipCode;
 		return $this;
@@ -143,9 +122,6 @@ class ContactModel implements JsonSerializable {
 		return $this->CountryCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCountryCode( ?string $CountryCode ): ContactModel {
 		$this->CountryCode = $CountryCode;
 		return $this;
@@ -155,9 +131,6 @@ class ContactModel implements JsonSerializable {
 		return $this->Department;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDepartment( ?string $Department ): ContactModel {
 		$this->Department = $Department;
 		return $this;
@@ -167,9 +140,6 @@ class ContactModel implements JsonSerializable {
 		return $this->SSNumber;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setSSNumber( ?string $SSNumber ): ContactModel {
 		$this->SSNumber = $SSNumber;
 		return $this;
@@ -179,9 +149,6 @@ class ContactModel implements JsonSerializable {
 		return $this->Phone;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPhone( ?string $Phone ): ContactModel {
 		$this->Phone = $Phone;
 		return $this;
@@ -191,9 +158,6 @@ class ContactModel implements JsonSerializable {
 		return $this->PhoneLocal;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPhoneLocal( ?string $PhoneLocal ): ContactModel {
 		$this->PhoneLocal = $PhoneLocal;
 		return $this;
@@ -203,9 +167,6 @@ class ContactModel implements JsonSerializable {
 		return $this->PhoneMobile;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPhoneMobile( ?string $PhoneMobile ): ContactModel {
 		$this->PhoneMobile = $PhoneMobile;
 		return $this;
@@ -215,9 +176,6 @@ class ContactModel implements JsonSerializable {
 		return $this->Fax;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setFax( ?string $Fax ): ContactModel {
 		$this->Fax = $Fax;
 		return $this;
@@ -227,9 +185,6 @@ class ContactModel implements JsonSerializable {
 		return $this->Telex;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setTelex( ?string $Telex ): ContactModel {
 		$this->Telex = $Telex;
 		return $this;
@@ -239,9 +194,6 @@ class ContactModel implements JsonSerializable {
 		return $this->Email;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setEmail( ?string $Email ): ContactModel {
 		$this->Email = $Email;
 		return $this;
@@ -251,9 +203,6 @@ class ContactModel implements JsonSerializable {
 		return $this->URL;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setURL( ?string $URL ): ContactModel {
 		$this->URL = $URL;
 		return $this;
@@ -263,9 +212,6 @@ class ContactModel implements JsonSerializable {
 		return $this->JobTitleCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setJobTitleCode( ?string $JobTitleCode ): ContactModel {
 		$this->JobTitleCode = $JobTitleCode;
 		return $this;
@@ -275,9 +221,6 @@ class ContactModel implements JsonSerializable {
 		return $this->Modified;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setModified( ?string $Modified ): ContactModel {
 		$this->Modified = $Modified;
 		return $this;

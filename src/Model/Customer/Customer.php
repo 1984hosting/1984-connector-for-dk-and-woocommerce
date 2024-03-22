@@ -229,9 +229,6 @@ class Customer implements JsonSerializable {
 		return $this->Deleted;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDeleted( bool $Deleted ): Customer {
 		$this->Deleted = $Deleted;
 		return $this;
@@ -241,9 +238,6 @@ class Customer implements JsonSerializable {
 		return $this->Contacts;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setContacts( array $Contacts ): Customer {
 		if ( count( $Contacts ) > 0 ) {
 			$new_array = [];
@@ -263,9 +257,6 @@ class Customer implements JsonSerializable {
 		return $this->Recivers;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setRecivers( array $Recivers ): Customer {
 		$arr = [];
 		foreach ( $Recivers as $reciver ) {
@@ -281,9 +272,6 @@ class Customer implements JsonSerializable {
 		return $this->Memos;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setMemos( array $Memos ): Customer {
 		$this->Memos = $Memos;
 		return $this;
@@ -293,9 +281,6 @@ class Customer implements JsonSerializable {
 		return $this->Properties;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setProperties( array $Properties ): Customer {
 		$this->Properties = $Properties;
 		return $this;
@@ -305,9 +290,6 @@ class Customer implements JsonSerializable {
 		return $this->Changes;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setChanges( array $Changes ): Customer {
 		$this->Changes = $Changes;
 		return $this;
@@ -317,9 +299,6 @@ class Customer implements JsonSerializable {
 		return $this->Attachments;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAttachments( array $Attachments ): Customer {
 		$this->Attachments = $Attachments;
 		return $this;
@@ -329,9 +308,6 @@ class Customer implements JsonSerializable {
 		return $this->Conditions;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setConditions( CustomerCondition $Conditions ): Customer {
 		$this->Conditions = $Conditions;
 		return $this;
@@ -341,9 +317,6 @@ class Customer implements JsonSerializable {
 		return $this->SendTo;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setSendTo( CustomerSendTo $SendTo ): Customer {
 		$this->SendTo = $SendTo;
 		return $this;
@@ -353,9 +326,6 @@ class Customer implements JsonSerializable {
 		return $this->UBL;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setUBL( UBL $UBL ): Customer {
 		$this->UBL = $UBL;
 		return $this;
@@ -365,9 +335,6 @@ class Customer implements JsonSerializable {
 		return $this->RecordID;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setRecordID( int $RecordID ): Customer {
 		$this->RecordID = $RecordID;
 		return $this;
@@ -377,9 +344,6 @@ class Customer implements JsonSerializable {
 		return $this->Number;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setNumber( string $Number ): Customer {
 		$this->Number = $Number;
 		return $this;
@@ -389,9 +353,6 @@ class Customer implements JsonSerializable {
 		return $this->Name;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setName( string|null $Name ): Customer {
 		$this->Name = $Name;
 		return $this;
@@ -401,9 +362,6 @@ class Customer implements JsonSerializable {
 		return $this->SSNumber;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setSSNumber( string|null $SSNumber ): Customer {
 		$this->SSNumber = $SSNumber;
 		return $this;
@@ -413,9 +371,6 @@ class Customer implements JsonSerializable {
 		return $this->Alias;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAlias( string|null $Alias ): Customer {
 		$this->Alias = $Alias;
 		return $this;
@@ -425,9 +380,6 @@ class Customer implements JsonSerializable {
 		return $this->Address1;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAddress1( string|null $Address1 ): Customer {
 		$this->Address1 = $Address1;
 		return $this;
@@ -437,9 +389,6 @@ class Customer implements JsonSerializable {
 		return $this->Address2;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAddress2( string|null $Address2 ): Customer {
 		$this->Address2 = $Address2;
 		return $this;
@@ -449,9 +398,6 @@ class Customer implements JsonSerializable {
 		return $this->Address3;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setAddress3( string|null $Address3 ): Customer {
 		$this->Address3 = $Address3;
 		return $this;
@@ -461,9 +407,6 @@ class Customer implements JsonSerializable {
 		return $this->City;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCity( string|null $City ): Customer {
 		$this->City = $City;
 		return $this;
@@ -473,9 +416,6 @@ class Customer implements JsonSerializable {
 		return $this->ZipCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setZipCode( string|null $ZipCode ): Customer {
 		$this->ZipCode = $ZipCode;
 		return $this;
@@ -485,9 +425,6 @@ class Customer implements JsonSerializable {
 		return $this->BalanceAmount;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setBalanceAmount( float $BalanceAmount ): Customer {
 		$this->BalanceAmount = $BalanceAmount;
 		return $this;
@@ -497,9 +434,6 @@ class Customer implements JsonSerializable {
 		return $this->Phone;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPhone( string|null $Phone ): Customer {
 		$this->Phone = $Phone;
 		return $this;
@@ -509,9 +443,6 @@ class Customer implements JsonSerializable {
 		return $this->PhoneLocal;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPhoneLocal( string|null $PhoneLocal ): Customer {
 		$this->PhoneLocal = $PhoneLocal;
 		return $this;
@@ -521,9 +452,6 @@ class Customer implements JsonSerializable {
 		return $this->PhoneMobile;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPhoneMobile( string|null $PhoneMobile ): Customer {
 		$this->PhoneMobile = $PhoneMobile;
 		return $this;
@@ -533,9 +461,6 @@ class Customer implements JsonSerializable {
 		return $this->PhoneFax;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPhoneFax( string|null $PhoneFax ): Customer {
 		$this->PhoneFax = $PhoneFax;
 		return $this;
@@ -545,9 +470,6 @@ class Customer implements JsonSerializable {
 		return $this->CountryCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCountryCode( string|null $CountryCode ): Customer {
 		$this->CountryCode = $CountryCode;
 		return $this;
@@ -557,9 +479,6 @@ class Customer implements JsonSerializable {
 		return $this->OriginCountryCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setOriginCountryCode( string|null $OriginCountryCode ): Customer {
 		$this->OriginCountryCode = $OriginCountryCode;
 		return $this;
@@ -569,9 +488,6 @@ class Customer implements JsonSerializable {
 		return $this->Email;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setEmail( string|null $Email ): Customer {
 		$this->Email = $Email;
 		return $this;
@@ -581,9 +497,6 @@ class Customer implements JsonSerializable {
 		return $this->Password;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPassword( string|null $Password ): Customer {
 		$this->Password = $Password;
 		return $this;
@@ -593,9 +506,6 @@ class Customer implements JsonSerializable {
 		return $this->Group;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setGroup( string|null $Group ): Customer {
 		$this->Group = $Group;
 		return $this;
@@ -605,9 +515,6 @@ class Customer implements JsonSerializable {
 		return $this->SalesPerson;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setSalesPerson( string|null $SalesPerson ): Customer {
 		$this->SalesPerson = $SalesPerson;
 		return $this;
@@ -617,9 +524,6 @@ class Customer implements JsonSerializable {
 		return $this->Discount;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setDiscount( float $Discount ): Customer {
 		$this->Discount = $Discount;
 		return $this;
@@ -629,9 +533,6 @@ class Customer implements JsonSerializable {
 		return $this->UseItemRecivers;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setUseItemRecivers( bool $UseItemRecivers ): Customer {
 		$this->UseItemRecivers = $UseItemRecivers;
 		return $this;
@@ -641,9 +542,6 @@ class Customer implements JsonSerializable {
 		return $this->PaymentTerm;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPaymentTerm( string|null $PaymentTerm ): Customer {
 		$this->PaymentTerm = $PaymentTerm;
 		return $this;
@@ -653,9 +551,6 @@ class Customer implements JsonSerializable {
 		return $this->PaymentMode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPaymentMode( string|null $PaymentMode ): Customer {
 		$this->PaymentMode = $PaymentMode;
 		return $this;
@@ -665,9 +560,6 @@ class Customer implements JsonSerializable {
 		return $this->CurrencyCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setCurrencyCode( string|null $CurrencyCode ): Customer {
 		$this->CurrencyCode = $CurrencyCode;
 		return $this;
@@ -677,9 +569,6 @@ class Customer implements JsonSerializable {
 		return $this->NoVat;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setNoVat( bool $NoVat ): Customer {
 		$this->NoVat = $NoVat;
 		return $this;
@@ -689,9 +578,6 @@ class Customer implements JsonSerializable {
 		return $this->LedgerCode;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setLedgerCode( string|null $LedgerCode ): Customer {
 		$this->LedgerCode = $LedgerCode;
 		return $this;
@@ -701,9 +587,6 @@ class Customer implements JsonSerializable {
 		return $this->Blocked;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setBlocked( bool $Blocked ): Customer {
 		$this->Blocked = $Blocked;
 		return $this;
@@ -713,9 +596,6 @@ class Customer implements JsonSerializable {
 		return $this->Gender;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setGender( string|null $Gender ): Customer {
 		$this->Gender = $Gender;
 		return $this;
@@ -725,9 +605,6 @@ class Customer implements JsonSerializable {
 		return $this->PriceGroup;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setPriceGroup( int $PriceGroup ): Customer {
 		$this->PriceGroup = $PriceGroup;
 		return $this;
@@ -737,9 +614,6 @@ class Customer implements JsonSerializable {
 		return $this->BillingFee;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setBillingFee( float $BillingFee ): Customer {
 		$this->BillingFee = $BillingFee;
 		return $this;
@@ -749,9 +623,6 @@ class Customer implements JsonSerializable {
 		return $this->Modified;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setModified( string|null $Modified ): Customer {
 		$this->Modified = $Modified;
 		return $this;
@@ -761,9 +632,6 @@ class Customer implements JsonSerializable {
 		return $this->ObjectDate;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setObjectDate( string|null $ObjectDate ): Customer {
 		$this->ObjectDate = $ObjectDate;
 		return $this;
@@ -773,9 +641,6 @@ class Customer implements JsonSerializable {
 		return $this->VATNumber;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setVATNumber( string|null $VATNumber ): Customer {
 		$this->VATNumber = $VATNumber;
 		return $this;
@@ -785,9 +650,6 @@ class Customer implements JsonSerializable {
 		return $this->ISATNumber;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function setISATNumber( string|null $ISATNumber ): Customer {
 		$this->ISATNumber = $ISATNumber;
 		return $this;
