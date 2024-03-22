@@ -112,6 +112,15 @@
 	</rule>
 
 	<!--
+	As we are already using strong typing, we don't really need to document the
+	type of each class property. This also removes requirements for documenting
+	class properties at all.
+	-->
+	<rule ref="Squiz.Commenting.VariableComment">
+		<exclude name="Squiz.Commenting.VariableComment.Missing" />
+	</rule>
+
+	<!--
 	Exclude the vendor direcotry because of course
 	-->
 	<exclude-pattern>./vendor/*</exclude-pattern>
