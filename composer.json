@@ -44,5 +44,9 @@
         "imposter": {
             "namespace": "NineteenEightyFour\\NineteenEightyWoo"
         }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit --testdox --exclude-group external-api --display-warnings --display-notices",
+        "test:external": "./vendor/bin/phpunit --testdox --group external-api --display-warnings --display-notices"
     }
 }
