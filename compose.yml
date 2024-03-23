@@ -8,7 +8,9 @@ services:
     ports:
       - 80:80
     environment:
-      - WP_PLUGIN_ACTIVATE=woocoo
+      - REMOVE_CRAP_PLUGINS=true
+      - WP_PLUGIN_INSTALL=woocommerce
+      - WP_PLUGIN_ACTIVATE=--all
   mariadb:
     image: mariadb
     restart: always
