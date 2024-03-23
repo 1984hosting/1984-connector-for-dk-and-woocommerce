@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+use NineteenEightyFour\NineteenEightyWoo\Config;
+
 $wc_payment_gateways = new WC_Payment_Gateways();
 
 ?>
@@ -29,8 +31,8 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								class="regular-text api-key-input"
 								name="api_key"
 								type="text"
-								value="<?php echo esc_attr( get_option( '1984_woo_dk_api_key' ) ); ?>"
-								pattern="(a|b|c|d|e|f|[0-9]|-)+"
+								value="<?php echo esc_attr( Config::get_dk_api_key() ); ?>"
+								pattern="<?php echo esc_attr( Config::DK_API_KEY_REGEX ); ?>"
 								required
 							/>
 
@@ -57,52 +59,53 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 			<table id="payment-gateway-id-map-table" class="form-table">
 				<tbody>
 					<?php foreach ( $wc_payment_gateways->payment_gateways as $p ) : ?>
-					<tr data-gateway-id="<?php echo esc_attr( $p->id ); ?>">
-						<th span="row" class="column-title column-primary">
-							<span class="payment-gateway-title"><?php echo esc_html( $p->title ); ?></span>
-							<?php if ( 'yes' === $p->enabled ) : ?>
-							<span class="payment-gateway-status enabled">
-								<?php esc_html_e( 'Enabled in WC', 'NineteenEightyWoo' ); ?>
-							</span>
-							<?php else : ?>
-							<span class="payment-gateway-status enabled">
-								<?php esc_html_e( 'Disabled in WC', 'NineteenEightyWoo' ); ?>
-							</span>
-							<?php endif ?>
-						</th>
-						<td class="method-id">
-							<label for="payment_id_input_<?php echo esc_attr( $p->id ); ?>">
-								<?php esc_html_e( 'Method ID', 'NineteenEightyWoo' ); ?>
-							</label>
-							<input
-								id="payment_id_input_<?php echo esc_attr( $p->id ); ?>"
-								class="regular-text payment-id"
-								name="payment_id"
-								type="text"
-								value="<?php echo esc_attr( get_option( '1984_woo_dk_payment_method_' . $p->id )->dk_id ); ?>"
-								inputmode="numeric"
-								pattern="[0-9]+"
-								required
-							/>
-							<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
-							<p class="validity invalid"><?php esc_html_e( 'Needs to be numeric', 'NineteenEightyWoo' ); ?></p>
-						</td>
-						<td>
-							<label for="payment_name_input_<?php echo esc_attr( $p->id ); ?>">
-								<?php esc_html_e( 'DK Payment Method Name', 'NineteenEightyWoo' ); ?>
-							</label>
-							<input
-								id="payment_name_input_<?php echo esc_attr( $p->id ); ?>"
-								class="regular-text payment-name"
-								name="payment_name"
-								value="<?php echo esc_attr( get_option( '1984_woo_dk_payment_method_' . $p->id )->dk_name ); ?>"
-								type="text"
-								required
-							/>
-							<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
-							<p class="validity invalid"><?php esc_html_e( 'This is a required field', 'NineteenEightyWoo' ); ?></p>
-						</td>
-					</tr>
+						<?php $payment_map = Config::get_payment_mapping( $p->id ); ?>
+						<tr data-gateway-id="<?php echo esc_attr( $p->id ); ?>">
+							<th span="row" class="column-title column-primary">
+								<span class="payment-gateway-title"><?php echo esc_html( $p->title ); ?></span>
+								<?php if ( 'yes' === $p->enabled ) : ?>
+								<span class="payment-gateway-status enabled">
+									<?php esc_html_e( 'Enabled in WC', 'NineteenEightyWoo' ); ?>
+								</span>
+								<?php else : ?>
+								<span class="payment-gateway-status enabled">
+									<?php esc_html_e( 'Disabled in WC', 'NineteenEightyWoo' ); ?>
+								</span>
+								<?php endif ?>
+							</th>
+							<td class="method-id">
+								<label for="payment_id_input_<?php echo esc_attr( $p->id ); ?>">
+									<?php esc_html_e( 'Method ID', 'NineteenEightyWoo' ); ?>
+								</label>
+								<input
+									id="payment_id_input_<?php echo esc_attr( $p->id ); ?>"
+									class="regular-text payment-id"
+									name="payment_id"
+									type="text"
+									value="<?php echo esc_attr( $mapping->dk_id ); ?>"
+									inputmode="numeric"
+									pattern="[0-9]+"
+									required
+								/>
+								<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
+								<p class="validity invalid"><?php esc_html_e( 'Needs to be numeric', 'NineteenEightyWoo' ); ?></p>
+							</td>
+							<td>
+								<label for="payment_name_input_<?php echo esc_attr( $p->id ); ?>">
+									<?php esc_html_e( 'DK Payment Method Name', 'NineteenEightyWoo' ); ?>
+								</label>
+								<input
+									id="payment_name_input_<?php echo esc_attr( $p->id ); ?>"
+									class="regular-text payment-name"
+									name="payment_name"
+									value="<?php echo esc_attr( $mapping->dk_name ); ?>"
+									type="text"
+									required
+								/>
+								<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
+								<p class="validity invalid"><?php esc_html_e( 'This is a required field', 'NineteenEightyWoo' ); ?></p>
+							</td>
+						</tr>
 					<?php endforeach ?>
 				</tbody>
 			</table>

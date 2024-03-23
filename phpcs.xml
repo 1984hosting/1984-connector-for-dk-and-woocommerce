@@ -39,6 +39,14 @@
 		and heresy.
 		-->
 		<exclude name="WordPress.WP.EnqueuedResourceParameters.NotInFooter" />
+
+		<!--
+		Disable checks for class property types being dockblocked when it's
+		sufficient to declare their type.
+		-->
+		<exclude name="Squiz.Commenting.VariableComment.MissingVar"></exclude>
+
+		<exclude-pattern>./tests/**</exclude-pattern>
 	</rule>
 
 	<!--
@@ -47,13 +55,6 @@
 	-->
 	<rule ref="PEAR.Functions.FunctionCallSignature.Indent">
 		<exclude-pattern>./js/**</exclude-pattern>
-	</rule>
-
-	<!--
-	Not escaping outputted strings should be allowed in tests, because why not.
-	-->
-	<rule ref="WordPress.Security.EscapeOutput.OutputNotEscaped">
-		<exclude-pattern>./tests/**</exclude-pattern>
 	</rule>
 
 	<!--
@@ -82,6 +83,7 @@
 
 	<!-- Enforce type hinting for function parameters -->
 	<rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+		<exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification" />
 	</rule>
 
 	<!-- Enforce type hinting for function return values -->
