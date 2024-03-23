@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Rest;
 
+use NineteenEightyFour\NineteenEightyWoo\Config;
+
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -91,20 +93,10 @@ class Settings {
 			);
 		}
 
-		update_option( '1984_woo_dk_api_key', $rest_json->api_key );
+		Config::set_dk_api_key( $rest_json->api_key );
 
 		foreach ( $rest_json->payment_methods as $p ) {
-			update_option(
-				'1984_woo_dk_payment_method_' . $p->woo_id,
-				$p
-			);
-		}
-
-		foreach ( $rest_json->payment_methods as $p ) {
-			update_option(
-				'1984_woo_dk_payment_method_' . $p->woo_id,
-				$p
-			);
+			Config::set_payment_mapping( $p->woo_id, $p->dk_id, $p->dk_name );
 		}
 
 		return new WP_REST_Response( array( 'status' => 200 ) );

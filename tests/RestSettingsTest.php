@@ -17,7 +17,7 @@ use function PHPUnit\Framework\assertIsString;
 #[TestDox( 'The Rest Settings JSON API endpoint class' )]
 final class RestSettingstest extends TestCase {
 	const VALID_POST_BODY = [
-		'api_key'         => 'MwmTtCTfhVQvlEOKCqFxfRAuPYHgy17E',
+		'api_key'         => '3541031f-baf2-4737-a7e8-c66396e5a5e3',
 		'payment_methods' => [
 			[
 				'woo_id'  => 'bacs',
