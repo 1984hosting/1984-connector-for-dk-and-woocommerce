@@ -8,7 +8,10 @@ services:
     ports:
       - 80:80
     environment:
+<<<<<<< HEAD
       - REMOVE_CRAP_PLUGINS=true
+=======
+>>>>>>> 1d3671e (Automatically installing and activating WooCommerce in the development environment)
       - WP_PLUGIN_INSTALL=woocommerce
       - WP_PLUGIN_ACTIVATE=--all
   mariadb:
