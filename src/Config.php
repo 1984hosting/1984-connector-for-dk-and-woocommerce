@@ -78,6 +78,9 @@ class Config {
 	 * Get a payment mapping from a WooCommerce payment gateway ID
 	 *
 	 * @param string $woo_id The WooCommerce payment gateway ID.
+	 * @param bool   $empty_object Populates a default value as an object with
+	 *                             empty properties. If false, it will return
+	 *                             false if no mapping is found.
 	 *
 	 * @return stdClass An object containing woo_id, dk_id and dk_name properties.
 	 */
