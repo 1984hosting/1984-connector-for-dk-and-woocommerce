@@ -57,4 +57,4 @@ jobs:
     - name: PHPUnit
       env:
         WP_VERSION: ${{ matrix.wp-versions }}
-      run: ./vendor/bin/phpunit --testdox --coverage-text --coverage-filter=src --display-warnings --display-notices
+      run: composer test
