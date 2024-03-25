@@ -93,6 +93,16 @@ class Order {
 
 		$invoice_props['TotalAmountWithTax'] = $order->get_total();
 
+		if ( true === $order->is_paid() ) {
+			$payment_mapping = Config::get_payment_mapping( $order->get_payment_method() );
+
+			$invoice_props['Payments'] = array(
+				'ID'     => $payment_mapping->dk_id,
+				'Name'   => $payment_mapping->dk_name,
+				'Amount' => $order->get_total(),
+			);
+		}
+
 		return $invoice_props;
 	}
 
