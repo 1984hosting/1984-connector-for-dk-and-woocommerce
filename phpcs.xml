@@ -88,6 +88,7 @@
 
 	<!-- Enforce type hinting for function return values -->
 	<rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+		<exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification" />
 	</rule>
 
 	<!-- Disallow "sloppy" equals operators -->
