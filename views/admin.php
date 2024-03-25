@@ -42,11 +42,37 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 							<p class="description">
 								<?php
 								esc_html_e(
-									'The API key is provided by DK for use with the dkPlus API. Do not share this key with anyone.',
+									'The API key is provided by DK for use with the DK API. Do not share this key with anyone.',
 									'NineteenEightyWoo'
 								)
 								?>
 							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section class="section">
+			<h2><?php esc_html_e( 'SKU for Shipping', 'NineteenEightyWoo' ); ?></h2>
+			<p><?php esc_html_e( 'In order for shipping to work, a SKU needs to be assigned for shipping costs.', 'NineteenEightyWoo' ); ?></p>
+			<p><?php esc_html_e( 'If no product or service under this SKU has been created in DK, a new service item representing shipping will be created with that SKU.', 'NineteenEightyWoo' ); ?></p>
+			<table id="dk-record-prefixes-table" class="form-table">
+				<tbody>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<?php esc_html_e( 'Shipping SKU', 'NineteenEightyWoo' ); ?>
+						</th>
+						<td>
+							<input
+								id="shipping_sku_field"
+								name="shipping_sku"
+								type="text"
+								value="<?php echo esc_attr( Config::get_shipping_sku() ); ?>"
+								<?php if ( true === Config::get_shipping_sku_is_in_dk() ) : ?>
+								disabled
+								<?php endif ?>
+							/>
 						</td>
 					</tr>
 				</tbody>

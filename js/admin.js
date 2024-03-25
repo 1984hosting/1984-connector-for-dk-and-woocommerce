@@ -14,6 +14,9 @@ class NineteenEightyWoo {
 	static settingsSubmit() {
 		return document.querySelector( '#nineteen-eighty-woo-settings-submit' );
 	}
+	static shippingSkuField() {
+		return document.querySelector( '#shipping_sku_field' );
+	}
 	static rowElements() {
 		return document.querySelectorAll(
 			'#payment-gateway-id-map-table tbody tr'
@@ -37,6 +40,7 @@ class NineteenEightyWoo {
 		const formData = new FormData( event.target );
 
 		let apiKey               = formData.get( 'api_key' ).trim();
+		let shippingSku          = formData.get( 'shipping_sku' );
 		let invoiceNumberPrefix  = formData.get( 'invoice_number_prefix' );
 		let customerNumberPrefix = formData.get( 'customer_number_prefix' );
 		let paymentIds           = formData.getAll( 'payment_id' );
@@ -63,6 +67,7 @@ class NineteenEightyWoo {
 
 		const formDataObject = {
 			api_key: apiKey,
+			shipping_sku: shippingSku,
 			invoice_number_prefix: invoiceNumberPrefix,
 			customer_number_prefix: customerNumberPrefix,
 			payment_methods: paymentMethods
@@ -88,7 +93,9 @@ class NineteenEightyWoo {
 		NineteenEightyWoo.settingsLoader().classList.add( 'hidden' );
 		NineteenEightyWoo.settingsSubmit().disabled = false;
 
-		if ( ! response.ok ) {
+		if ( response.ok ) {
+			NineteenEightyWoo.shippingSkuField().disabled = true;
+		} else {
 			NineteenEightyWoo.settingsErrorIndicator().classList.remove( 'hidden' );
 		}
 	}

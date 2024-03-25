@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo;
 
+use NineteenEightyFour\NineteenEightyWoo\Export\ShippingSKU;
 use stdClass;
 
 /**
@@ -17,6 +18,8 @@ class Config {
 	const DEFAULT_CUSTOMER_NUMBER_PREFIX = 'WCC';
 	const DEFAULT_PRODUCT_NUMBER_PREFIX  = 'WCP';
 	const DEFAULT_INVOICE_NUMBER_PREFIX  = 'WCI';
+
+	const DEFAULT_SHIPPING_SKU = 'SHIPPING';
 
 	/**
 	 * Get the DK API key
@@ -147,5 +150,30 @@ class Config {
 	 */
 	public static function set_invoice_number_prefix( string $prefix ): bool {
 		return update_option( '1984_woo_dk_order_number_prefix', $prefix );
+	}
+
+	public static function get_shipping_sku() {
+		return get_option(
+			'1984_woo_dk_shipping_sku',
+			self::DEFAULT_SHIPPING_SKU
+		);
+	}
+
+	public static function set_shipping_sku( string $sku ) {
+		if ( false === ShippingSKU::is_in_dk( $sku ) ) {
+			if ( true === ShippingSKU::create_in_dk( $sku ) ) {
+				return update_option( '1984_woo_dk_shipping_sku', $sku );
+			}
+		}
+
+		return false;
+	}
+
+	public static function get_shipping_sku_is_in_dk() {
+		return get_option( '1984_woo_dk_shipping_sku_is_in_dk', false );
+	}
+
+	public static function set_shipping_sku_is_in_dk() {
+		return update_option( '1984_woo_dk_shipping_sku_is_in_dk', true );
 	}
 }

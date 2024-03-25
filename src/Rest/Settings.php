@@ -23,6 +23,7 @@ class Settings {
 		"type": "object",
 		"properties": {
 			"api_key": { "type": "string" },
+			"shipping_sku": { "type": "string" },
 			"customer_number_prefix": { "type": "string" },
 			"invoice_number_prefix": { "type": "string" },
 			"payment_methods": {
@@ -38,7 +39,12 @@ class Settings {
 				}
 			}
 		},
-		"required": ["api_key", "payment_methods" ]
+		"required": [
+			"api_key",
+			"customer_number_prefix",
+			"invoice_number_prefix",
+			"payment_methods"
+		]
 	}
 	JSON;
 
@@ -96,6 +102,7 @@ class Settings {
 		}
 
 		Config::set_dk_api_key( $rest_json->api_key );
+		Config::set_shipping_sku( $rest_json->shipping_sku );
 		Config::set_customer_number_prefix( $rest_json->customer_number_prefix );
 		Config::set_invoice_number_prefix( $rest_json->invoice_number_prefix );
 
