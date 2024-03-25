@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo;
+namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
 use WP_Post;
 use WC_Product;

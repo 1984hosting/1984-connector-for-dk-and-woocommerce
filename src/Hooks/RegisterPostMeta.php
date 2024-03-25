@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo;
+namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
 use WP_Post;
 use WP_REST_Request;
@@ -40,6 +40,16 @@ class RegisterPostMeta {
 				'description' => 'Wether to enable stock sync with DK',
 				'single'      => true,
 				'default'     => true,
+			),
+		);
+
+		register_post_meta(
+			'order',
+			'1984_woo_dk_invoice_number',
+			array(
+				'type'        => 'string',
+				'description' => 'The invoice number assigned to the order in DK',
+				'single'      => true,
 			),
 		);
 
