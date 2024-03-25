@@ -23,7 +23,7 @@ class Order {
 	 */
 	public static function to_dk_invoice_body( WC_Order $order ): array {
 		$invoice_props = array(
-			'Number' => Config::get_order_number_prefix() . $order->get_id(),
+			'Number' => Config::get_invoice_number_prefix() . $order->get_id(),
 		);
 
 		$full_name = implode(

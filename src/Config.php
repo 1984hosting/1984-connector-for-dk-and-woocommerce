@@ -16,7 +16,7 @@ class Config {
 
 	const DEFAULT_CUSTOMER_NUMBER_PREFIX = 'WCC';
 	const DEFAULT_PRODUCT_NUMBER_PREFIX  = 'WCP';
-	const DEFAULT_ORDER_NUMBER_PREFIX    = 'WCO';
+	const DEFAULT_INVOICE_NUMBER_PREFIX  = 'WCI';
 
 	/**
 	 * Get the DK API key
@@ -133,10 +133,10 @@ class Config {
 	 * If an order's ID in WooCommerce is `602214076`, then it becomes
 	 * `WCO602214076` once it has made it to DK if the prefix is set to `WCO`.
 	 */
-	public static function get_order_number_prefix(): string {
+	public static function get_invoice_number_prefix(): string {
 		return get_option(
-			'1984_woo_dk_order_number_prefix',
-			self::DEFAULT_ORDER_NUMBER_PREFIX
+			'1984_woo_dk_invoice_number_prefix',
+			self::DEFAULT_INVOICE_NUMBER_PREFIX
 		);
 	}
 
@@ -145,7 +145,7 @@ class Config {
 	 *
 	 * @param string $prefix The prefix.
 	 */
-	public static function set_order_number_prefix( string $prefix ): bool {
+	public static function set_invoice_number_prefix( string $prefix ): bool {
 		return update_option( '1984_woo_dk_order_number_prefix', $prefix );
 	}
 }
