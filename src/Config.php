@@ -14,6 +14,10 @@ use stdClass;
 class Config {
 	const DK_API_KEY_REGEX = '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$';
 
+	const DEFAULT_CUSTOMER_NUMBER_PREFIX = 'WCC';
+	const DEFAULT_PRODUCT_NUMBER_PREFIX  = 'WCP';
+	const DEFAULT_ORDER_NUMBER_PREFIX    = 'WCO';
+
 	/**
 	 * Get the DK API key
 	 *
@@ -99,5 +103,49 @@ class Config {
 			'1984_woo_dk_payment_method_' . $woo_id,
 			$default
 		);
+	}
+
+	/**
+	 * Get the prefix used for customer records from WooCommerce in DK
+	 *
+	 * If a customer's ID in WC/WP is `5885522`, their "customer number" in DK
+	 * becomes `WCC5885522` if the prefix is set to `WCC`.
+	 */
+	public static function get_customer_number_prefix(): string {
+		return get_option(
+			'1984_woo_dk_customer_number_prefix',
+			self::DEFAULT_CUSTOMER_NUMBER_PREFIX
+		);
+	}
+
+	/**
+	 * Set the prefix used for customer records from WooCommerce in DK
+	 *
+	 * @param string $prefix The prefix.
+	 */
+	public static function set_customer_number_prefix( string $prefix ): bool {
+		return update_option( '1984_woo_dk_customer_number_prefix', $prefix );
+	}
+
+	/**
+	 * Get the prefix used for order records from WooCommerce in DK
+	 *
+	 * If an order's ID in WooCommerce is `602214076`, then it becomes
+	 * `WCO602214076` once it has made it to DK if the prefix is set to `WCO`.
+	 */
+	public static function get_order_number_prefix(): string {
+		return get_option(
+			'1984_woo_dk_order_number_prefix',
+			self::DEFAULT_ORDER_NUMBER_PREFIX
+		);
+	}
+
+	/**
+	 * Set the prefix used for order records from WooCommerce in DK
+	 *
+	 * @param string $prefix The prefix.
+	 */
+	public static function set_order_number_prefix( string $prefix ): bool {
+		return update_option( '1984_woo_dk_order_number_prefix', $prefix );
 	}
 }
