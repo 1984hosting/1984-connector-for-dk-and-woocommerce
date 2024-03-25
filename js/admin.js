@@ -36,11 +36,13 @@ class NineteenEightyWoo {
 
 		const formData = new FormData( event.target );
 
-		let apiKey         = formData.get( 'api_key' ).trim();
-		let paymentIds     = formData.getAll( 'payment_id' );
-		let paymentNames   = formData.getAll( 'payment_name' );
-		let paymentMethods = [];
-		let paymentsLength = paymentIds.length;
+		let apiKey               = formData.get( 'api_key' ).trim();
+		let orderNumberPrefix    = formData.get( 'order_number_prefix' );
+		let customerNumberPrefix = formData.get( 'customer_number_prefix' );
+		let paymentIds           = formData.getAll( 'payment_id' );
+		let paymentNames         = formData.getAll( 'payment_name' );
+		let paymentMethods       = [];
+		let paymentsLength       = paymentIds.length;
 
 		for (let i = 0; i < paymentsLength; i++) {
 			let wooId = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
@@ -61,6 +63,8 @@ class NineteenEightyWoo {
 
 		const formDataObject = {
 			api_key: apiKey,
+			order_number_prefix: orderNumberPrefix,
+			customer_number_prefix: customerNumberPrefix,
 			payment_methods: paymentMethods
 		}
 

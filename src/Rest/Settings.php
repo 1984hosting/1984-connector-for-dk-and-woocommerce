@@ -23,6 +23,8 @@ class Settings {
 		"type": "object",
 		"properties": {
 			"api_key": { "type": "string" },
+			"customer_number_prefix": { "type": "string" },
+			"order_number_prefix": { "type": "string" },
 			"payment_methods": {
 				"type": "array",
 				"items": {
@@ -94,6 +96,8 @@ class Settings {
 		}
 
 		Config::set_dk_api_key( $rest_json->api_key );
+		Config::set_customer_number_prefix( $rest_json->customer_number_prefix );
+		Config::set_invoice_number_prefix( $rest_json->invoice_number_prefix );
 
 		foreach ( $rest_json->payment_methods as $p ) {
 			Config::set_payment_mapping( $p->woo_id, $p->dk_id, $p->dk_name );

@@ -54,24 +54,55 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
+			<h2><?php esc_html_e( 'DK Record Prefixes', 'NineteenEightyWoo' ); ?></h2>
+			<p><?php esc_html_e( 'If you wish to use a different prefixes for your customer and order numbers, you can choose them here. You can even leave them empty if you like. This will not work retroactively.', 'NineteenEightyWoo' ); ?></p>
+			<table id="dk-record-prefixes-table" class="form-table">
+				<tbody>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<?php esc_html_e( 'Customer Number Prefix', 'NineteenEightyWoo' ); ?>
+						</th>
+						<td>
+							<input
+								id="customer_number_prefix_field"
+								name="customer_number_prefix"
+								type="text"
+								value="<?php echo esc_attr( Config::get_customer_number_prefix() ); ?>"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<?php esc_html_e( 'Invoice Number Prefix', 'NineteenEightyWoo' ); ?>
+						</th>
+						<td>
+							<input
+								id="invoice_number_prefix_field"
+								name="invoice_number_prefix"
+								type="text"
+								value="<?php echo esc_attr( Config::get_invoice_number_prefix() ); ?>"
+							/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section class="section">
 			<h2><?php esc_html_e( 'WooCommerce Payment Gateways and DK Payment Methods IDs', 'NineteenEightyWoo' ); ?></h2>
 			<p><?php esc_html_e( 'Please enter the Payment Method ID and Name for each payment gateway as it appears in DK:', 'NineteenEightyWoo' ); ?></p>
 			<table id="payment-gateway-id-map-table" class="form-table">
 				<tbody>
 					<?php foreach ( $wc_payment_gateways->payment_gateways as $p ) : ?>
-						<?php $payment_map = Config::get_payment_mapping( $p->id ); ?>
+						<?php
+						if ( 'no' === $p->enabled ) {
+							continue;
+						}
+						$payment_map = Config::get_payment_mapping( $p->id );
+						?>
 						<tr data-gateway-id="<?php echo esc_attr( $p->id ); ?>">
 							<th span="row" class="column-title column-primary">
 								<span class="payment-gateway-title"><?php echo esc_html( $p->title ); ?></span>
-								<?php if ( 'yes' === $p->enabled ) : ?>
-								<span class="payment-gateway-status enabled">
-									<?php esc_html_e( 'Enabled in WC', 'NineteenEightyWoo' ); ?>
-								</span>
-								<?php else : ?>
-								<span class="payment-gateway-status enabled">
-									<?php esc_html_e( 'Disabled in WC', 'NineteenEightyWoo' ); ?>
-								</span>
-								<?php endif ?>
 							</th>
 							<td class="method-id">
 								<label for="payment_id_input_<?php echo esc_attr( $p->id ); ?>">
@@ -82,7 +113,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 									class="regular-text payment-id"
 									name="payment_id"
 									type="text"
-									value="<?php echo esc_attr( $mapping->dk_id ); ?>"
+									value="<?php echo esc_attr( $payment_map->dk_id ); ?>"
 									inputmode="numeric"
 									pattern="[0-9]+"
 									required
@@ -98,7 +129,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 									id="payment_name_input_<?php echo esc_attr( $p->id ); ?>"
 									class="regular-text payment-name"
 									name="payment_name"
-									value="<?php echo esc_attr( $mapping->dk_name ); ?>"
+									value="<?php echo esc_attr( $payment_map->dk_name ); ?>"
 									type="text"
 									required
 								/>
