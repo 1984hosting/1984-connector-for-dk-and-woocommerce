@@ -46,7 +46,25 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit --testdox --exclude-group external-api --display-warnings --display-notices",
-        "test:external": "./vendor/bin/phpunit --testdox --group external-api --display-warnings --display-notices"
+        "shell:bash": [
+            "Composer\\Config::disableProcessTimeout",
+            "docker exec -it $(docker-compose ps -q | head -n 1) bash"
+        ],
+        "shell:local": [
+            "Composer\\Config::disableProcessTimeout",
+            "vendor/bin/psysh"
+        ],
+        "shell:wp": [
+            "Composer\\Config::disableProcessTimeout",
+            "docker exec -it $(docker-compose ps -q | head -n 1) wp shell --allow-root"
+        ],
+        "test": [
+            "./vendor/bin/phpunit --testdox --exclude-group external-api --display-warnings --display-notices"
+        ],
+        "test:external": [
+            "./vendor/bin/phpunit --testdox --group external-api --display-warnings --display-notices"
+        ],
+        "lint": "./vendor/bin/phpcs -s ./src/ ./js/ ./style/",
+        "lint:fix": "./vendor/bin/phpcbf -s ./src/ ./js/ ./style/"
     }
 }
