@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
+use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use WC_Order;
 use WC_Product;
@@ -26,32 +27,9 @@ class Order {
 			'Number' => Config::get_invoice_number_prefix() . $order->get_id(),
 		);
 
-		$full_name = implode(
-			' ',
-			array(
-				$order->get_billing_first_name(),
-				$order->get_billing_last_name(),
-			)
+		$invoice_props['Customer'] = Customer::id_to_dk_customer_body(
+			$order->get_customer_id()
 		);
-
-		if ( empty( $address['company'] ) ) {
-			$invoice_props['CName'] = $full_name;
-		} else {
-			$invoice_props['CName'] = $order->get_billing_company();
-			if ( false === empty( $full_name ) ) {
-				$invoice_props['CContact'] = $full_name;
-			}
-		}
-
-		$invoice_props['CAddress1'] = $order->get_billing_address_1();
-		$invoice_props['CAddress2'] = $order->get_billing_address_2();
-		$invoice_props['CAddress3'] = $order->get_billing_city();
-		$invoice_props['CZipCode']  = $order->get_billing_postcode();
-		$invoice_props['CPhone']    = $order->get_billing_phone();
-
-		if ( get_option( 'woocommerce_default_country' ) !== $order->get_billing_country() ) {
-			$invoice_props['CCountryCode'] = $order->get_billing_country();
-		}
 
 		$invoice_props['Lines'] = array();
 
@@ -72,23 +50,31 @@ class Order {
 			$invoice_props['Lines'][] = $invoice_line_item;
 		}
 
-		if ( '0' !== $order->get_shipping_total() ) {
-			$invoice_props['Lines'][] = array(
-				'Text'             => __( 'Shipping', 'NineteenEightyWoo' ),
-				'Text2'            => $order->get_shipping_method(),
-				'Quantity'         => 1,
-				'UnitPrice'        => bcsub( $order->get_shipping_total(), $order->get_shipping_tax() ),
-				'UnitPriceWithTax' => $order->get_shipping_total(),
-			);
+		if ( 0 < count( $order->get_shipping_methods() ) ) {
+			foreach ( $order->get_shipping_methods() as $shipping_method ) {
+				$unit_price = (
+					(float) $shipping_method->get_total() -
+					(float) $shipping_method->get_total_tax()
+				);
+
+				$invoice_props['Lines'][] = array(
+					'ItemCode'         => Config::get_shipping_sku(),
+					'Text'             => __( 'Shipping', 'NineteenEightyWoo' ),
+					'Text2'            => $shipping_method->get_method_title(),
+					'Quantity'         => 1,
+					'UnitPrice'        => $unit_price,
+					'UnitPriceWithTax' => (float) $shipping_method->get_total(),
+				);
+			}
 		}
 
 		if ( 0 < $order->get_total_discount() ) {
 			$invoice_props['Discount'] = $order->get_total_discount();
 		}
 
-		$invoice_props['TotalAmount'] = bcsub(
-			(string) $order->get_total(),
-			(string) $order->get_total_tax()
+		$invoice_props['TotalAmount'] = (
+			(float) $order->get_total() -
+			(float) $order->get_total_tax()
 		);
 
 		$invoice_props['TotalAmountWithTax'] = $order->get_total();
