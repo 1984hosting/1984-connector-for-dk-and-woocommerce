@@ -24,7 +24,7 @@ class Settings {
 		"properties": {
 			"api_key": { "type": "string" },
 			"customer_number_prefix": { "type": "string" },
-			"order_number_prefix": { "type": "string" },
+			"invoice_number_prefix": { "type": "string" },
 			"payment_methods": {
 				"type": "array",
 				"items": {

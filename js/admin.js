@@ -37,7 +37,7 @@ class NineteenEightyWoo {
 		const formData = new FormData( event.target );
 
 		let apiKey               = formData.get( 'api_key' ).trim();
-		let orderNumberPrefix    = formData.get( 'order_number_prefix' );
+		let invoiceNumberPrefix  = formData.get( 'invoice_number_prefix' );
 		let customerNumberPrefix = formData.get( 'customer_number_prefix' );
 		let paymentIds           = formData.getAll( 'payment_id' );
 		let paymentNames         = formData.getAll( 'payment_name' );
@@ -63,7 +63,7 @@ class NineteenEightyWoo {
 
 		const formDataObject = {
 			api_key: apiKey,
-			order_number_prefix: orderNumberPrefix,
+			invoice_number_prefix: invoiceNumberPrefix,
 			customer_number_prefix: customerNumberPrefix,
 			payment_methods: paymentMethods
 		}
