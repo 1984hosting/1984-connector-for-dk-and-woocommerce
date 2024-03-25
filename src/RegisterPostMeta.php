@@ -69,7 +69,7 @@ class RegisterPostMeta {
 	 * @param WP_Post $post The post object (unused).
 	 * @param bool    $update False if the post is being created, true if updating.
 	 */
-	public function set_default_product_props(
+	public static function set_default_product_props(
 		int $id,
 		WP_Post $post,
 		bool $update
@@ -92,7 +92,7 @@ class RegisterPostMeta {
 	 * @param WP_REST_Request $request The REST request (unused).
 	 * @param bool            $creating True if the post is being created, false if not.
 	 */
-	public function set_default_product_props_in_rest(
+	public static function set_default_product_props_in_rest(
 		WC_Data $object,
 		WP_REST_Request $request,
 		bool $creating
