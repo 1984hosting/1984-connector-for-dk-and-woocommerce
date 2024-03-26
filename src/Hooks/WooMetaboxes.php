@@ -40,14 +40,14 @@ class WooMetaboxes {
 	 * Render the pricing metabox partial
 	 */
 	public static function render_product_options_pricing_partial(): void {
-		require __DIR__ . '/../views/product_options_pricing_partial.php';
+		require __DIR__ . '/../../views/product_options_pricing_partial.php';
 	}
 
 	/**
 	 * Render the SKU metabox partial
 	 */
 	public static function render_product_options_sku_partial(): void {
-		require __DIR__ . '/../views/product_options_sku_partial.php';
+		require __DIR__ . '/../../views/product_options_sku_partial.php';
 	}
 
 	/**
