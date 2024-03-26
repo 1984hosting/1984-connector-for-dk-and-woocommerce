@@ -155,14 +155,22 @@ class Config {
 		return update_option( '1984_woo_dk_order_number_prefix', $prefix );
 	}
 
-	public static function get_shipping_sku() {
-		return get_option(
+	/**
+	 * Get the shipping SKU
+	 */
+	public static function get_shipping_sku(): string {
+		return (string) get_option(
 			'1984_woo_dk_shipping_sku',
 			self::DEFAULT_SHIPPING_SKU
 		);
 	}
 
-	public static function set_shipping_sku( string $sku ) {
+	/**
+	 * Set the value of the shipping SKU
+	 *
+	 * @param string $sku The SKU.
+	 */
+	public static function set_shipping_sku( string $sku ): bool {
 		if (
 			( false === ShippingSKU::is_in_dk( $sku ) ) &&
 			( true === ShippingSKU::create_in_dk( $sku ) )
@@ -173,11 +181,25 @@ class Config {
 		return false;
 	}
 
-	public static function get_shipping_sku_is_in_dk() {
-		return get_option( '1984_woo_dk_shipping_sku_is_in_dk', false );
+	/**
+	 * Check if the shipping SKU has been set
+	 *
+	 * This is a lazy value that is set once the shipping SKU has been set, so
+	 * that we aren't checking the DK API for it having been set.
+	 */
+	public static function get_shipping_sku_is_in_dk(): string {
+		return (string) get_option( '1984_woo_dk_shipping_sku_is_in_dk', false );
 	}
 
-	public static function set_shipping_sku_is_in_dk() {
+	/**
+	 * Set wether the shipping SKU has been set or not
+	 *
+	 * This used when the shipping SKU has been set, so that we aren't checking
+	 * the DK API for it all the time.
+	 *
+	 * @see NineteenEightyFour\NineteenEightyWoo\Export\ShippingSKU::create_in_dk()
+	 */
+	public static function set_shipping_sku_is_in_dk(): bool {
 		return update_option( '1984_woo_dk_shipping_sku_is_in_dk', true );
 	}
 }
