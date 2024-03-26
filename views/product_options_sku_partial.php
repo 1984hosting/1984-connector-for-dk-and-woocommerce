@@ -20,10 +20,34 @@ declare(strict_types = 1);
 	);
 	?>
 	<p class="form-field">
-		The <abbr title="Stock Keeping Unit">SKU</abbr> needs to be set and must
-		equal the <strong>Item Code</strong> in DK for any 1984 DK Sync
-		functionality to work.<br />
-		<strong>Stock management</strong> needs to be enabled for Inventory Sync
-		to work as well.
+		<?php
+		echo sprintf(
+			esc_html(
+				// Translators: %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s stands for a opening and %4$s for a closing <strong> tag.
+				__(
+					'The %1$sSKU%2$s needs to be set and must equal the %3$sItem Code%4$s in DK for any 1984 DK Sync functionality to work.',
+					'NineteenEightyWoo'
+				)
+			),
+			'<abbr title="' . esc_attr( __( 'stock keeping unit', 'NineteenEightyWoo' ) ) . '">',
+			'</abbr>',
+			'<strong>',
+			'</strong>	'
+		);
+		?>
+		<br />
+		<?php
+		echo sprintf(
+			esc_html(
+				// Translators: %1$s stands for a opening and %2$s for a closing <strong> tag.
+				__(
+					'%1$sStock management%2$s needs to be enabled for Inventory Sync to work.',
+					'NineteenEightyWoo'
+				)
+			),
+			'<stong>',
+			'</strong>',
+		);
+		?>
 	</p>
 </div>

@@ -20,6 +20,22 @@ declare(strict_types = 1);
 	);
 	?>
 	<p class="form-field">
-		In order for price sync to work, the <abbr title="Stock Keeping Unit">SKU</abbr> needs to be set and must equal the Item Code in DK. It is set in the <strong>Inventory Panel</strong>.
+		<?php
+		echo sprintf(
+			esc_html(
+				// Translators: %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s and %4$s stand for the opening and closing <strong> tags.
+				__(
+					'In order for price sync to work, the %1$sSKU%2$s needs to be set and must equal the Item Code in DK. It is set in the %3$sInventory Panel%4$s.',
+					'NineteenEightyWoo'
+				)
+			),
+			'<abbr title="' . esc_attr( __( 'stock keeping unit', 'NineteenEightyWoo' ) ) . '">',
+			'</abbr>',
+			'<strong>',
+			'</strong>'
+		);
+		?>
+		<br />
+		<?php esc_html_e( 'Sale and discount prices are not synced.', 'NineteenEightyWoo' ); ?>
 	</p>
 </div>

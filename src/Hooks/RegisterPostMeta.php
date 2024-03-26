@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo;
+namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
 use WP_Post;
 use WP_REST_Request;
@@ -43,6 +43,16 @@ class RegisterPostMeta {
 			),
 		);
 
+		register_post_meta(
+			'order',
+			'1984_woo_dk_invoice_number',
+			array(
+				'type'        => 'string',
+				'description' => 'The invoice number assigned to the order in DK',
+				'single'      => true,
+			),
+		);
+
 		add_action(
 			'save_post_product',
 			array( __CLASS__, 'set_default_product_props' ),
@@ -69,7 +79,7 @@ class RegisterPostMeta {
 	 * @param WP_Post $post The post object (unused).
 	 * @param bool    $update False if the post is being created, true if updating.
 	 */
-	public function set_default_product_props(
+	public static function set_default_product_props(
 		int $id,
 		WP_Post $post,
 		bool $update
@@ -92,7 +102,7 @@ class RegisterPostMeta {
 	 * @param WP_REST_Request $request The REST request (unused).
 	 * @param bool            $creating True if the post is being created, false if not.
 	 */
-	public function set_default_product_props_in_rest(
+	public static function set_default_product_props_in_rest(
 		WC_Data $object,
 		WP_REST_Request $request,
 		bool $creating
