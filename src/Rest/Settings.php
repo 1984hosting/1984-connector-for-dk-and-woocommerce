@@ -102,9 +102,12 @@ class Settings {
 		}
 
 		Config::set_dk_api_key( $rest_json->api_key );
-		Config::set_shipping_sku( $rest_json->shipping_sku );
 		Config::set_customer_number_prefix( $rest_json->customer_number_prefix );
 		Config::set_invoice_number_prefix( $rest_json->invoice_number_prefix );
+
+		if ( true === property_exists( $rest_json, 'shipping_sku' ) ) {
+			Config::set_shipping_sku( $rest_json->shipping_sku );
+		}
 
 		foreach ( $rest_json->payment_methods as $p ) {
 			Config::set_payment_mapping( $p->woo_id, $p->dk_id, $p->dk_name );
