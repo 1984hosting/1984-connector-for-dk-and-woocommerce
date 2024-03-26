@@ -91,7 +91,10 @@ class Config {
 	 *
 	 * @return stdClass An object containing woo_id, dk_id and dk_name properties.
 	 */
-	public static function get_payment_mapping( string $woo_id, bool $empty_object = true ): stdClass {
+	public static function get_payment_mapping(
+		string $woo_id,
+		bool $empty_object = true
+	): stdClass {
 		if ( true === $empty_object ) {
 			$default = (object) array(
 				'woo_id'  => '',
@@ -160,10 +163,11 @@ class Config {
 	}
 
 	public static function set_shipping_sku( string $sku ) {
-		if ( false === ShippingSKU::is_in_dk( $sku ) ) {
-			if ( true === ShippingSKU::create_in_dk( $sku ) ) {
-				return update_option( '1984_woo_dk_shipping_sku', $sku );
-			}
+		if (
+			( false === ShippingSKU::is_in_dk( $sku ) ) &&
+			( true === ShippingSKU::create_in_dk( $sku ) )
+		) {
+			return update_option( '1984_woo_dk_shipping_sku', $sku );
 		}
 
 		return false;

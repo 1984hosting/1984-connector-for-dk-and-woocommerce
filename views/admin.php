@@ -54,39 +54,15 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'SKU for Shipping', 'NineteenEightyWoo' ); ?></h2>
-			<p><?php esc_html_e( 'In order for shipping to work, a SKU needs to be assigned for shipping costs.', 'NineteenEightyWoo' ); ?></p>
-			<p><?php esc_html_e( 'If no product or service under this SKU has been created in DK, a new service item representing shipping will be created with that SKU.', 'NineteenEightyWoo' ); ?></p>
-			<table id="dk-record-prefixes-table" class="form-table">
-				<tbody>
-					<tr>
-						<th span="row" class="column-title column-primary">
-							<?php esc_html_e( 'Shipping SKU', 'NineteenEightyWoo' ); ?>
-						</th>
-						<td>
-							<input
-								id="shipping_sku_field"
-								name="shipping_sku"
-								type="text"
-								value="<?php echo esc_attr( Config::get_shipping_sku() ); ?>"
-								<?php if ( true === Config::get_shipping_sku_is_in_dk() ) : ?>
-								disabled
-								<?php endif ?>
-							/>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</section>
-
-		<section class="section">
 			<h2><?php esc_html_e( 'DK Record Prefixes', 'NineteenEightyWoo' ); ?></h2>
 			<p><?php esc_html_e( 'If you wish to use a different prefixes for your customer and order numbers, you can choose them here. You can even leave them empty if you like. This will not work retroactively.', 'NineteenEightyWoo' ); ?></p>
 			<table id="dk-record-prefixes-table" class="form-table">
 				<tbody>
 					<tr>
 						<th span="row" class="column-title column-primary">
-							<?php esc_html_e( 'Customer Number Prefix', 'NineteenEightyWoo' ); ?>
+							<label for="customer_number_prefix_field">
+								<?php esc_html_e( 'Customer Number Prefix', 'NineteenEightyWoo' ); ?>
+							</label>
 						</th>
 						<td>
 							<input
@@ -99,7 +75,9 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					</tr>
 					<tr>
 						<th span="row" class="column-title column-primary">
-							<?php esc_html_e( 'Invoice Number Prefix', 'NineteenEightyWoo' ); ?>
+							<label for="invoice_number_prefix_field">
+								<?php esc_html_e( 'Invoice Number Prefix', 'NineteenEightyWoo' ); ?>
+							</label>
 						</th>
 						<td>
 							<input
@@ -177,6 +155,62 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 				);
 				?>
 			</p>
+		</section>
+
+		<section class="section">
+			<h2><?php esc_html_e( 'SKU for Shipping', 'NineteenEightyWoo' ); ?></h2>
+			<?php if ( true === Config::get_shipping_sku_is_in_dk() ) : ?>
+			<p>
+				<?php
+				echo sprintf(
+					// Translators: %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s and %4$s stand for the opening and closing <strong> tags.
+					esc_html( __( 'The %1$sSKU%2$s used for shipping has been set to %3$sSHIPPING%4$s. This is a permanent setting.', 'NineteenEightyWoo' ) ),
+					'<abbr title="' . esc_attr( __( 'stock keeping unit', 'NineteenEightyWoo' ) ) . '">',
+					'</abbr>',
+					'<strong>',
+					'</strong>'
+				);
+				?>
+			</p>
+			<p>
+				<?php
+				echo sprintf(
+					esc_html(
+						// Translators: %1$s stands for a opening and %2$s for the closing <strong> tag.
+						__(
+							'This should correspond to a Product record in your DK setup with its %1$sItem Code%2$s set to the same value. The 1984 DK Connection plugin creates this automatically when this form is submitted for the first time.',
+							'NineteenEightyWoo'
+						)
+					),
+					'<strong>',
+					'</strong>'
+				);
+				?>
+			</p>
+			<?php else : ?>
+			<p><?php esc_html_e( 'In order for shipping to work, a SKU needs to be assigned for shipping costs.', 'NineteenEightyWoo' ); ?></p>
+			<p><?php esc_html_e( 'If no product or service under this SKU has been created in DK, a new service item representing shipping will be created with that SKU.', 'NineteenEightyWoo' ); ?></p>
+			<table id="dk-record-prefixes-table" class="form-table">
+				<tbody>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="shipping_sku_field">
+								<?php esc_html_e( 'Shipping SKU', 'NineteenEightyWoo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="shipping_sku_field"
+								name="shipping_sku"
+								type="text"
+								value="<?php echo esc_attr( Config::get_shipping_sku() ); ?>"
+								<?php echo esc_html( Config::get_shipping_sku_is_in_dk() ? 'disabled' : '' ); ?>
+							/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<?php endif ?>
 		</section>
 
 		<div class="submit-container">
