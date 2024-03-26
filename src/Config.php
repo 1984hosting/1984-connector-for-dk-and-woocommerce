@@ -172,6 +172,7 @@ class Config {
 	 */
 	public static function set_shipping_sku( string $sku ): bool {
 		if (
+			( false === self::get_shipping_sku_is_in_dk() ) &&
 			( false === ShippingSKU::is_in_dk( $sku ) ) &&
 			( true === ShippingSKU::create_in_dk( $sku ) )
 		) {
