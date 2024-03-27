@@ -24,10 +24,6 @@ body.woocommerce_page_NineteenEightyWoo .wrap {
 	padding: 20px 10px 20px 10px;
 }
 
-#payment-gateway-id-map-table tr th:first-child {
-	width: 10em;
-}
-
 #payment-gateway-id-map-table .payment-id {
 	width: 10em;
 }
@@ -118,10 +114,6 @@ body.woocommerce_page_NineteenEightyWoo .wrap {
 	font-weight: normal;
 }
 
-#payment-gateway-id-map-table td.method-id {
-	width: 5em;
-}
-
 #ninteen-eighty-four-logo-container {
 	display: flex;
 	margin-top: 5em;
@@ -149,9 +141,6 @@ body.woocommerce_page_NineteenEightyWoo .wrap {
 	}
 	#nineteen-eighty-woo-wrap #api-key-form-table td {
 		max-width: calc(100vw - 10px - 6rem);
-	}
-	#payment-gateway-id-map-table tr th:first-child {
-		width: 100%;
 	}
 	#payment-gateway-id-map-table td.method-id {
 		width: auto;

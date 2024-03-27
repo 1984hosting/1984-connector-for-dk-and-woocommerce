@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo;
 
 use NineteenEightyFour\NineteenEightyWoo\Export\ShippingSKU;
+use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
 use stdClass;
 
 /**
@@ -62,21 +63,25 @@ class Config {
 	 *
 	 * @param string $woo_id The alphanumeric WooCommerce payment ID.
 	 * @param int    $dk_id The payment method ID in DK.
-	 * @param string $dk_name The payment method name in DK.
 	 *
 	 * @return bool True if the mapping is saved in the wp_options table, false if not.
 	 */
 	public static function set_payment_mapping(
 		string $woo_id,
 		int $dk_id,
-		string $dk_name
 	): bool {
+		$dk_payment_method = SalesPayments::find_by_id( $dk_id );
+
+		if ( false === $dk_payment_method ) {
+			return false;
+		}
+
 		return update_option(
 			'1984_woo_dk_payment_method_' . $woo_id,
 			(object) array(
 				'woo_id'  => $woo_id,
-				'dk_id'   => $dk_id,
-				'dk_name' => $dk_name,
+				'dk_id'   => $dk_payment_method->dk_id,
+				'dk_name' => $dk_payment_method->dk_name,
 			)
 		);
 	}
@@ -109,6 +114,28 @@ class Config {
 			'1984_woo_dk_payment_method_' . $woo_id,
 			$default
 		);
+	}
+
+	/**
+	 * Check if a Woo Payment Gateway ID and DK Payment method ID match
+	 *
+	 * @param string $woo_id The WooCommerce gateway ID.
+	 * @param int    $dk_id The DK payment ID.
+	 */
+	public static function payment_mapping_matches(
+		string $woo_id,
+		int $dk_id
+	): bool {
+		$payment_mapping = self::get_payment_mapping(
+			$woo_id,
+			true
+		);
+
+		if ( $payment_mapping->dk_id === $dk_id ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

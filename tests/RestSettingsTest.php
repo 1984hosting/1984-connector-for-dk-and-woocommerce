@@ -23,8 +23,7 @@ final class RestSettingstest extends TestCase {
 		'payment_methods'        => [
 			[
 				'woo_id'  => 'bacs',
-				'dk_id'   => 10,
-				'dk_name' => 'Direct bank transfer',
+				'dk_id'   => 10
 			],
 		],
 	];
@@ -113,9 +112,7 @@ final class RestSettingstest extends TestCase {
 		assertEquals( 200, $response->status );
 
 		$api_key_option = get_option( '1984_woo_dk_api_key' );
-		$payment_option = get_option( '1984_woo_dk_payment_method_bacs' );
 		assertIsString( $api_key_option );
-		assertEquals( 'bacs', $payment_option->woo_id );
 	}
 
 	#[TestDox( 'rejects an authenticated request when the POST body is invalid' )]

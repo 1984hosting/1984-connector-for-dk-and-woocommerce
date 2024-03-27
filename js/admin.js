@@ -44,7 +44,6 @@ class NineteenEightyWoo {
 		let invoiceNumberPrefix  = formData.get( 'invoice_number_prefix' );
 		let customerNumberPrefix = formData.get( 'customer_number_prefix' );
 		let paymentIds           = formData.getAll( 'payment_id' );
-		let paymentNames         = formData.getAll( 'payment_name' );
 		let paymentMethods       = [];
 		let paymentsLength       = paymentIds.length;
 
@@ -60,7 +59,6 @@ class NineteenEightyWoo {
 				{
 					woo_id: wooId,
 					dk_id: dkId,
-					dk_name: paymentNames[i].trim()
 				}
 			);
 		}
@@ -93,9 +91,7 @@ class NineteenEightyWoo {
 		NineteenEightyWoo.settingsLoader().classList.add( 'hidden' );
 		NineteenEightyWoo.settingsSubmit().disabled = false;
 
-		if ( response.ok ) {
-			NineteenEightyWoo.shippingSkuField().disabled = true;
-		} else {
+		if ( ! response.ok ) {
 			NineteenEightyWoo.settingsErrorIndicator().classList.remove( 'hidden' );
 		}
 	}
