@@ -31,6 +31,8 @@ class Config {
 
 	const DEFAULT_WAREHOUSE = 'bg1';
 
+	const DEFAULT_GUEST_CUSTOMER_NUMBER = 'WCC999999999';
+
 	/**
 	 * Get the DK API key
 	 *

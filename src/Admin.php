@@ -26,7 +26,19 @@ class Admin {
 				array( __CLASS__, 'enqueue_styles_and_scripts' )
 			);
 		}
-		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ( isset( $_GET['page'] ) ) && ( 'wc-orders' === $_GET['page'] ) ) {
+			add_action(
+				'admin_init',
+				function (): void {
+					wp_enqueue_style(
+						handle: 'nineteen-eighty-woo-wc-orders',
+						src: plugins_url( 'style/wc-orders.css', __DIR__ ),
+						ver: '0.1'
+					);
+				}
+			);
+		}
 	}
 
 	/**

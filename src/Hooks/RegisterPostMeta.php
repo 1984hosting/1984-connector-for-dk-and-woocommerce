@@ -45,6 +45,16 @@ class RegisterPostMeta {
 
 		register_post_meta(
 			'order',
+			'1984_woo_dk_order_number',
+			array(
+				'type'        => 'integer',
+				'description' => 'The order number assigned to the order in DK',
+				'single'      => true,
+			),
+		);
+
+		register_post_meta(
+			'order',
 			'1984_woo_dk_invoice_number',
 			array(
 				'type'        => 'string',

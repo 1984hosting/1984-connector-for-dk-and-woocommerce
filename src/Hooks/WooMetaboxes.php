@@ -34,6 +34,17 @@ class WooMetaboxes {
 			10,
 			3
 		);
+
+		add_action(
+			'woocommerce_admin_order_data_after_payment_info',
+			array( $this, 'render_dk_order_number' ),
+			10,
+			1
+		);
+	}
+
+	public static function render_dk_order_number( $order ): void {
+		require __DIR__ . '/../../views/order_dk_meta_partial.php';
 	}
 
 	/**

@@ -4,9 +4,11 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
+use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 
 use WC_Customer;
+use WP_Error;
 
 /**
  * The Customer Export class
@@ -16,6 +18,91 @@ use WC_Customer;
  * @see https://api.dkplus.is/swagger/ui/index#/Sales32Invoice
  **/
 class Customer {
+	public static function create_in_dk( WC_Customer $customer ): bool|WP_Error {
+		$api_request  = new DKApiRequest();
+		$request_body = self::to_dk_customer_body( $customer );
+
+		$result = $api_request->request_result(
+			'/Customer/',
+			wp_json_encode( $request_body ),
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( 200 !== $result->response_code ) {
+			return false;
+		}
+
+		self::assign_dk_customer_number( $customer );
+
+		return true;
+	}
+
+	public static function is_in_dk( WC_Customer $customer ): bool|WP_Error {
+		$api_request = new DKApiRequest();
+
+		if ( true === empty( self::get_dk_customer_number( $customer ) ) ) {
+			$dk_customer_number = (
+				Config::get_customer_number_prefix() .
+				$customer->get_id()
+			);
+		} else {
+			$dk_customer_number = self::get_dk_customer_number( $customer );
+		}
+
+		$result = $api_request->get_result(
+			'/Customer/' . $dk_customer_number
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( 200 !== $result->response_code ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public static function has_dk_customer_number(
+		WC_Customer $customer
+	): bool {
+		if ( true === empty( $customer->get_meta( '1984_woo_dk_customer_number' ) ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public static function assign_dk_customer_number(
+		WC_Customer $customer
+	): string {
+		$dk_customer_number = (
+			Config::get_customer_number_prefix() .
+			$customer->get_id()
+		);
+
+		$customer->update_meta_data(
+			'1984_woo_dk_customer_number',
+			$dk_customer_number
+		);
+
+		$customer->save();
+
+		return $dk_customer_number;
+	}
+
+	public static function get_dk_customer_number(
+		WC_Customer $customer
+	): string {
+		return $customer->get_meta(
+			'1984_woo_dk_customer_number'
+		);
+	}
+
 	/**
 	 * Export a WooCommerce customer to a DK API customer POST body
 	 *
