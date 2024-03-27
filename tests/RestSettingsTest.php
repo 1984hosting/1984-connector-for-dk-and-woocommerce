@@ -19,7 +19,6 @@ final class RestSettingstest extends TestCase {
 	const VALID_POST_BODY = [
 		'api_key'                => '3541031f-baf2-4737-a7e8-c66396e5a5e3',
 		'customer_number_prefix' => 'WCN',
-		'invoice_number_prefix'  => 'INR',
 		'payment_methods'        => [
 			[
 				'woo_id'  => 'bacs',

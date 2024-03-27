@@ -23,10 +23,6 @@ class Order {
 	 * @param WC_Order $order The WooCommerce order object.
 	 */
 	public static function to_dk_invoice_body( WC_Order $order ): array {
-		$invoice_props = array(
-			'Number' => Config::get_invoice_number_prefix() . $order->get_id(),
-		);
-
 		$invoice_props['Customer'] = Customer::id_to_dk_customer_body(
 			$order->get_customer_id()
 		);
