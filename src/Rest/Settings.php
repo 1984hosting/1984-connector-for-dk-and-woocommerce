@@ -32,10 +32,9 @@ class Settings {
 					"type": "object",
 					"properties": {
 						"woo_id": { "type": "string" },
-						"dk_id": { "type": "number" },
-						"dk_name": { "type": "string" }
+						"dk_id": { "type": "number" }
 					},
-					"required": ["woo_id", "dk_id", "dk_name" ]
+					"required": ["woo_id", "dk_id" ]
 				}
 			}
 		},
@@ -110,7 +109,10 @@ class Settings {
 		}
 
 		foreach ( $rest_json->payment_methods as $p ) {
-			Config::set_payment_mapping( $p->woo_id, $p->dk_id, $p->dk_name );
+			Config::set_payment_mapping(
+				$p->woo_id,
+				$p->dk_id
+			);
 		}
 
 		return new WP_REST_Response( array( 'status' => 200 ) );

@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use NineteenEightyFour\NineteenEightyWoo\Config;
+use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
 
 $wc_payment_gateways = new WC_Payment_Gateways();
 
@@ -106,39 +107,28 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 						?>
 						<tr data-gateway-id="<?php echo esc_attr( $p->id ); ?>">
 							<th span="row" class="column-title column-primary">
-								<span class="payment-gateway-title"><?php echo esc_html( $p->title ); ?></span>
+								<label
+									for="payment_id_input_<?php echo esc_attr( $p->id ); ?>"
+									class="payment-gateway-title"
+								>
+									<?php echo esc_html( $p->title ); ?>
+								</label>
 							</th>
 							<td class="method-id">
-								<label for="payment_id_input_<?php echo esc_attr( $p->id ); ?>">
-									<?php esc_html_e( 'Method ID', 'NineteenEightyWoo' ); ?>
-								</label>
-								<input
+								<select
 									id="payment_id_input_<?php echo esc_attr( $p->id ); ?>"
-									class="regular-text payment-id"
 									name="payment_id"
-									type="text"
-									value="<?php echo esc_attr( $payment_map->dk_id ); ?>"
-									inputmode="numeric"
-									pattern="[0-9]+"
-									required
-								/>
-								<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
-								<p class="validity invalid"><?php esc_html_e( 'Needs to be numeric', 'NineteenEightyWoo' ); ?></p>
-							</td>
-							<td>
-								<label for="payment_name_input_<?php echo esc_attr( $p->id ); ?>">
-									<?php esc_html_e( 'DK Payment Method Name', 'NineteenEightyWoo' ); ?>
-								</label>
-								<input
-									id="payment_name_input_<?php echo esc_attr( $p->id ); ?>"
-									class="regular-text payment-name"
-									name="payment_name"
-									value="<?php echo esc_attr( $payment_map->dk_name ); ?>"
-									type="text"
-									required
-								/>
-								<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
-								<p class="validity invalid"><?php esc_html_e( 'This is a required field', 'NineteenEightyWoo' ); ?></p>
+								>
+									<option></option>
+									<?php foreach ( SalesPayments::get_methods() as $dk_method ) : ?>
+										<option
+											value="<?php echo esc_attr( $dk_method->dk_id ); ?>"
+											<?php echo esc_attr( Config::payment_mapping_matches( $p->id, $dk_method->dk_id ) ? 'selected="true"' : '' ); ?>
+										>
+											<?php echo esc_attr( $dk_method->dk_name ); ?> (<?php echo esc_attr( $dk_method->dk_id ); ?>)
+										</option>
+									<?php endforeach ?>
+								</select>
 							</td>
 						</tr>
 					<?php endforeach ?>
@@ -159,35 +149,6 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 
 		<section class="section">
 			<h2><?php esc_html_e( 'SKU for Shipping', 'NineteenEightyWoo' ); ?></h2>
-			<?php if ( true === Config::get_shipping_sku_is_in_dk() ) : ?>
-			<p>
-				<?php
-				echo sprintf(
-					// Translators: %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s and %4$s stand for the opening and closing <strong> tags.
-					esc_html( __( 'The %1$sSKU%2$s used for shipping has been set to %3$sSHIPPING%4$s. This is a permanent setting.', 'NineteenEightyWoo' ) ),
-					'<abbr title="' . esc_attr( __( 'stock keeping unit', 'NineteenEightyWoo' ) ) . '">',
-					'</abbr>',
-					'<strong>',
-					'</strong>'
-				);
-				?>
-			</p>
-			<p>
-				<?php
-				echo sprintf(
-					esc_html(
-						// Translators: %1$s stands for a opening and %2$s for the closing <strong> tag.
-						__(
-							'This should correspond to a Product record in your DK setup with its %1$sItem Code%2$s set to the same value. The 1984 DK Connection plugin creates this automatically when this form is submitted for the first time.',
-							'NineteenEightyWoo'
-						)
-					),
-					'<strong>',
-					'</strong>'
-				);
-				?>
-			</p>
-			<?php else : ?>
 			<p><?php esc_html_e( 'In order for shipping to work, a SKU needs to be assigned for shipping costs.', 'NineteenEightyWoo' ); ?></p>
 			<p><?php esc_html_e( 'If no product or service under this SKU has been created in DK, a new service item representing shipping will be created with that SKU.', 'NineteenEightyWoo' ); ?></p>
 			<table id="dk-record-prefixes-table" class="form-table">
@@ -204,13 +165,11 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								name="shipping_sku"
 								type="text"
 								value="<?php echo esc_attr( Config::get_shipping_sku() ); ?>"
-								<?php echo esc_html( Config::get_shipping_sku_is_in_dk() ? 'disabled' : '' ); ?>
 							/>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			<?php endif ?>
 		</section>
 
 		<div class="submit-container">
