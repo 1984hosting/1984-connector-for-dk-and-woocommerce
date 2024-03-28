@@ -74,21 +74,6 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 							/>
 						</td>
 					</tr>
-					<tr>
-						<th span="row" class="column-title column-primary">
-							<label for="invoice_number_prefix_field">
-								<?php esc_html_e( 'Invoice Number Prefix', 'NineteenEightyWoo' ); ?>
-							</label>
-						</th>
-						<td>
-							<input
-								id="invoice_number_prefix_field"
-								name="invoice_number_prefix"
-								type="text"
-								value="<?php echo esc_attr( Config::get_invoice_number_prefix() ); ?>"
-							/>
-						</td>
-					</tr>
 				</tbody>
 			</table>
 		</section>
