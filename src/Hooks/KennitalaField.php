@@ -15,13 +15,15 @@ use WC_Order;
  *
  * This adds a kennitala field to the checkout form and assigns it to the order.
  *
- * We have to add the kennitala field to two different places and handle them
+ * We have to add the kennitala field to three different places and handle them
  * differently each time. First of all, it's the "classic" shortcode based
  * checkout form and then there's the more recent block-based checkout form.
  *
- * It's not nice (or cheap) having to do things twice over during a transition
- * period like that, but it's not like Gutenberg hasn't been out for 6 years
- * already!
+ * The third one is the user profile editor.
+ *
+ * It's not nice (or cheap) having to do things three times over during a
+ * transition period like that, but it's not like Gutenberg hasn't been out for
+ * 6 years already!
  */
 class KennitalaField {
 	const KENNITALA_PATTERN = '^(([0-9]{10})|([0-9]{6}(-|\s)[0-9]{4}))$';
@@ -87,7 +89,17 @@ class KennitalaField {
 		);
 	}
 
-	public static function add_field_to_user_profile( $fields ) {
+	/**
+	 * Add a kennitala field to the user profile page
+	 *
+	 * This is used for the `woocommerce_customer_meta_fields` filter and adds
+	 * the kennitala field to the "billing" section of the WooCommerce fields
+	 * in the user profile editor.
+	 *
+	 * @param array $fields The original fields as they enter the
+	 *                      `woocommerce_customer_meta_fields` filter.
+	 */
+	public static function add_field_to_user_profile( array $fields ): array {
 		$billing = array_merge(
 			array_slice( $fields['billing']['fields'], 0, 2 ),
 			array(
