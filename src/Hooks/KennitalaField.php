@@ -298,9 +298,6 @@ class KennitalaField {
 				'__experimental_woocommerce_blocks_register_checkout_field'
 			)
 		) {
-			$current_user = wp_get_current_user();
-			$kennitala    = $current_user->get( 'kennitala' );
-
 			__experimental_woocommerce_blocks_register_checkout_field(
 				array(
 					'id'                => '1984_woo_dk/kennitala',
