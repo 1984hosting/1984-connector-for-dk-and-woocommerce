@@ -27,46 +27,46 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 ### MVP requirements
 
 #### User interface
-[x] Add a settings page and corresponding JSON endpoint to wp-admin
-[x] Integrate kennitala to the WooCommerce order editor
-[x] Design and add options for sync to the WooCommerce product editor
+- [x] Add a settings page and corresponding JSON endpoint to wp-admin
+- [x] Integrate kennitala to the WooCommerce order editor
+- [x] Design and add options for sync to the WooCommerce product editor
 
 #### Localisation/translation
-[ ] Add Icelandic locale files
+- [ ] Add Icelandic locale files
 
 #### Products
-[ ] Create a corresponding *product* record in DK when a WooCommerce product is created
-[ ] Sync changes to *product* records upstream from WooCommerce on update
-[ ] Sync changes to *product* records downstream from DK on regular intervals or using web hooks
+- [ ] Create a corresponding *product* record in DK when a WooCommerce product is created
+- [ ] Sync changes to *product* records upstream from WooCommerce on update
+- [ ] Sync changes to *product* records downstream from DK on regular intervals or using web hooks
 
 #### Product Inventory
-[ ] Sync and create product inventory when a product is created in DK
-[ ] Assign a single *warehose* in DK for items in the WooCommerce store
+- [ ] Sync and create product inventory when a product is created in DK
+- [ ] Assign a single *warehose* in DK for items in the WooCommerce store
 
 #### Customers
 [x] Let customers add a kennitala to their billing address
-[ ] Create a corresponding *customer* record in DK when a WooCommerce customer is created
-[ ] Sync changes to *customer* records upstream from WooCommerce on update
-[ ] Sync changes to *customer* records downstream from DK on regular intervals or using web hooks
+- [ ] Create a corresponding *customer* record in DK when a WooCommerce customer is created
+- [ ] Sync changes to *customer* records upstream from WooCommerce on update
+- [ ] Sync changes to *customer* records downstream from DK on regular intervals or using web hooks
 
 #### Orders and invoices
-[ ] Create and send *invoices* to customers via DK after a successful payment
-[ ] Create and send *credit invoices* on returns
-[ ] Take over the WooCommerce *invoice email delivery mechanism* and use the same hooks to send invoices via DK
+- [ ] Create and send *invoices* to customers via DK after a successful payment
+- [ ] Create and send *credit invoices* on returns
+- [ ] Take over the WooCommerce *invoice email delivery mechanism* and use the same hooks to send invoices via DK
 
 #### Cost SKUs
-[x] Assign SKU for *delivery costs*
-[ ] Assign a SKU for *other costs*
-[ ] Assign a SKU for *coupons*
+- [x] Assign SKU for *delivery costs*
+- [ ] Assign a SKU for *other costs*
+- [ ] Assign a SKU for *coupons*
 
 #### Payment methods
-[x] Map Payment Gateways in WooCommerce with Payment Methods in DK
+- [x] Map Payment Gateways in WooCommerce with Payment Methods in DK
 
 #### Salesperson
-[ ] Assign a *salesperson* in DK for sales in WooCommerce
+- [ ] Assign a *salesperson* in DK for sales in WooCommerce
 
 ### Future Features (after the first beta)
-[ ] Sync WooCommerce orders with the *DK Sales Order* module
+- [ ] Sync WooCommerce orders with the *DK Sales Order* module
 
 ### The DK API
 
