@@ -80,6 +80,30 @@ class KennitalaField {
 			10,
 			3
 		);
+
+		add_filter(
+			'woocommerce_customer_meta_fields',
+			array( __CLASS__, 'add_field_to_user_profile' ),
+		);
+	}
+
+	public static function add_field_to_user_profile( $fields ) {
+		$billing = array_merge(
+			array_slice( $fields['billing']['fields'], 0, 2 ),
+			array(
+				'kennitala' => array(
+					'label'       => __( 'Kennitala', 'NineteenEightyWoo' ),
+					'description' => '',
+				),
+			),
+			array_slice( $fields['billing']['fields'], 2 )
+		);
+
+		$new_fields = $fields;
+
+		$new_fields['billing']['fields'] = $billing;
+
+		return $new_fields;
 	}
 
 	/**
