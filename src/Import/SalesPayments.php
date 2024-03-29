@@ -39,7 +39,7 @@ class SalesPayments {
 	/**
 	 * Get payment methods from the DK API, bypassing the transient cache
 	 */
-	public static function get_methods_from_dk(): array {
+	public static function get_methods_from_dk(): array|false {
 		$request = new DKApiRequest();
 		$result  = $request->get_result(
 			'/Sales/Payment/Type?include=PaymentId%2CName%2CActive'

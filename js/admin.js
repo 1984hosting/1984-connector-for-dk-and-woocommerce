@@ -39,12 +39,15 @@ class NineteenEightyWoo {
 
 		const formData = new FormData( event.target );
 
-		let apiKey               = formData.get( 'api_key' ).trim();
-		let shippingSku          = formData.get( 'shipping_sku' );
-		let customerNumberPrefix = formData.get( 'customer_number_prefix' );
-		let paymentIds           = formData.getAll( 'payment_id' );
-		let paymentMethods       = [];
-		let paymentsLength       = paymentIds.length;
+		let apiKey                 = formData.get( 'api_key' ).trim();
+		let shippingSku            = formData.get( 'shipping_sku' );
+		let customerNumberPrefix   = formData.get( 'customer_number_prefix' );
+		let defaultKennitala       = formData.get( 'default_kennitala' );
+		let enableKennitala        = Boolean( formData.get( 'enable_kennitala' ) );
+		let enableKennitalaInBlock = Boolean( formData.get( 'enable_kennitala_in_block' ) )
+		let paymentIds             = formData.getAll( 'payment_id' );
+		let paymentMethods         = [];
+		let paymentsLength         = paymentIds.length;
 
 		for (let i = 0; i < paymentsLength; i++) {
 			let wooId = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
@@ -66,6 +69,9 @@ class NineteenEightyWoo {
 			api_key: apiKey,
 			shipping_sku: shippingSku,
 			customer_number_prefix: customerNumberPrefix,
+			default_kennitala: defaultKennitala,
+			enable_kennitala: enableKennitala,
+			enable_kennitala_in_block: enableKennitalaInBlock,
 			payment_methods: paymentMethods
 		}
 

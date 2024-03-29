@@ -6,6 +6,7 @@ namespace NineteenEightyFour\NineteenEightyWoo;
 
 use NineteenEightyFour\NineteenEightyWoo\Export\ShippingSKU;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
+use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 use stdClass;
 
 /**
@@ -207,5 +208,82 @@ class Config {
 	 */
 	public static function set_shipping_sku_is_in_dk(): bool {
 		return update_option( '1984_woo_dk_shipping_sku_is_in_dk', true );
+	}
+
+	/**
+	 * Get the default kennitala
+	 *
+	 * This is the kennitala used for "other" customers that do not have a
+	 * kennitala. (Yes, DK is silly like this.)
+	 */
+	public static function get_default_kennitala(): string {
+		return (string) get_option(
+			'1984_woo_dk_default_kennitala',
+			'9999999999'
+		);
+	}
+
+	/**
+	 * Set the default kennitala
+	 *
+	 * @param string $kennitala The kennitala (may be unsanitized).
+	 */
+	public static function set_default_kennitala( string $kennitala ): bool {
+		return update_option(
+			'1984_woo_dk_default_kennitala',
+			KennitalaField::sanitize_kennitala( $kennitala )
+		);
+	}
+
+	/**
+	 * Get wether the kennitala text input field is to be rendered in the
+	 * classic, shortcode based checkout page
+	 */
+	public static function get_kennitala_classic_field_enabled(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_kennitala_classic_field_enabled',
+			true
+		);
+	}
+
+	/**
+	 * Set wether the kennitala text input field is to be redered in the
+	 * classic, shortcode based checkout page
+	 *
+	 * @param bool $enabled True to enable, false to disable.
+	 */
+	public static function set_kennitala_classic_field_enabled(
+		bool $enabled
+	): bool {
+		return update_option(
+			'1984_woo_dk_kennitala_classic_field_enabled',
+			$enabled
+		);
+	}
+
+	/**
+	 * Get wether the kennitala input field is to be rendered in the block based
+	 * checkout page
+	 */
+	public static function get_kennitala_block_field_enabled(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_kennitala_block_field_enabled',
+			false
+		);
+	}
+
+	/**
+	 * Set wether the kennitala input field is to be rendered in the block based
+	 * checkout page
+	 *
+	 * @param bool $enabled True to enable, false to disable.
+	 */
+	public static function set_kennitala_block_field_enabled(
+		bool $enabled
+	): bool {
+		return update_option(
+			'1984_woo_dk_kennitala_block_field_enabled',
+			$enabled
+		);
 	}
 }

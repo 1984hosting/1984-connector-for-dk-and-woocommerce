@@ -9,16 +9,16 @@
         "psy/psysh": "^0.12.0",
         "yoast/phpunit-polyfills": "^2.0",
         "aldavigdis/wp-tests-strapon": "^0.1",
-        "woocommerce/woocommerce": "8.6.1"
+        "woocommerce/woocommerce": "8.7.0"
     },
     "repositories": [
         {
             "type": "package",
             "package": {
                 "name": "woocommerce/woocommerce",
-                "version": "8.6.1",
+                "version": "8.7.0",
                 "dist": {
-                    "url": "https://github.com/woocommerce/woocommerce/releases/download/8.6.1/woocommerce.zip",
+                    "url": "https://github.com/woocommerce/woocommerce/releases/download/8.7.0/woocommerce.zip",
                     "type": "zip"
                 }
             }

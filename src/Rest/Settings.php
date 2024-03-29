@@ -25,6 +25,9 @@ class Settings {
 			"api_key": { "type": "string" },
 			"shipping_sku": { "type": "string" },
 			"customer_number_prefix": { "type": "string" },
+			"default_kennitala": { "type": "string" },
+			"kennitala_classic_field_enabled": { "type": "boolean" },
+			"kennitala_block_field_enabled": { "type": "boolean" },
 			"payment_methods": {
 				"type": "array",
 				"items": {
@@ -36,12 +39,7 @@ class Settings {
 					"required": ["woo_id", "dk_id" ]
 				}
 			}
-		},
-		"required": [
-			"api_key",
-			"customer_number_prefix",
-			"payment_methods"
-		]
+		}
 	}
 	JSON;
 
@@ -98,11 +96,39 @@ class Settings {
 			);
 		}
 
-		Config::set_dk_api_key( $rest_json->api_key );
-		Config::set_customer_number_prefix( $rest_json->customer_number_prefix );
+		if ( true === property_exists( $rest_json, 'api_key' ) ) {
+			Config::set_dk_api_key( $rest_json->api_key );
+		}
+
+		if ( true === property_exists( $rest_json, 'api_key' ) ) {
+			Config::set_customer_number_prefix(
+				$rest_json->customer_number_prefix
+			);
+		}
 
 		if ( true === property_exists( $rest_json, 'shipping_sku' ) ) {
 			Config::set_shipping_sku( $rest_json->shipping_sku );
+		}
+
+		if ( true === property_exists( $rest_json, 'default_kennitala' ) ) {
+			Config::set_default_kennitala( $rest_json->default_kennitala );
+		}
+
+		if ( true === property_exists( $rest_json, 'enable_kennitala' ) ) {
+			Config::set_kennitala_classic_field_enabled(
+				$rest_json->enable_kennitala
+			);
+		}
+
+		if (
+			true === property_exists(
+				$rest_json,
+				'enable_kennitala_in_block'
+			)
+		) {
+			Config::set_kennitala_block_field_enabled(
+				$rest_json->enable_kennitala_in_block
+			);
 		}
 
 		foreach ( $rest_json->payment_methods as $p ) {
