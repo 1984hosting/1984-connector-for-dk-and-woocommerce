@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo;
 
-use NineteenEightyFour\NineteenEightyWoo\Export\ShippingSKU;
+use NineteenEightyFour\NineteenEightyWoo\Export\ServiceSKU;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 use stdClass;
@@ -22,6 +22,8 @@ class Config {
 	const DEFAULT_INVOICE_NUMBER_PREFIX  = 'WCI';
 
 	const DEFAULT_SHIPPING_SKU = 'SHIPPING';
+	const DEFAULT_COUPON_SKU   = 'COUPON';
+	const DEFAULT_COST_SKU     = 'COST';
 
 	/**
 	 * Get the DK API key
@@ -178,9 +180,8 @@ class Config {
 	 */
 	public static function set_shipping_sku( string $sku ): bool {
 		if (
-			( false === self::get_shipping_sku_is_in_dk() ) &&
-			( false === ShippingSKU::is_in_dk( $sku ) ) &&
-			( true === ShippingSKU::create_in_dk( $sku ) )
+			( false === ServiceSKU::is_in_dk( $sku ) ) &&
+			( true === ServiceSKU::create_in_dk( $sku ) )
 		) {
 			return update_option( '1984_woo_dk_shipping_sku', $sku );
 		}
@@ -188,15 +189,42 @@ class Config {
 		return false;
 	}
 
-	/**
-	 * Check if the shipping SKU has been set
-	 *
-	 * This is a lazy value that is set once the shipping SKU has been set, so
-	 * that we aren't checking the DK API for it having been set.
-	 */
-	public static function get_shipping_sku_is_in_dk(): string {
-		return (string) get_option( '1984_woo_dk_shipping_sku_is_in_dk', false );
+	public static function get_coupon_sku(): string {
+		return (string) get_option(
+			'1984_woo_dk_coupon_sku',
+			self::DEFAULT_COUPON_SKU
+		);
 	}
+
+	public static function set_coupon_sku( string $sku ): bool {
+		if (
+			( false === ServiceSKU::is_in_dk( $sku ) ) &&
+			( true === ServiceSKU::create_in_dk( $sku, 'coupon' ) )
+		) {
+			return update_option( '1984_woo_dk_coupon_sku', $sku );
+		}
+
+		return false;
+	}
+
+	public static function get_cost_sku(): string {
+		return (string) get_option(
+			'1984_woo_dk_cost_sku',
+			self::DEFAULT_COST_SKU
+		);
+	}
+
+	public static function set_cost_sku( string $sku ): bool {
+		if (
+			( false === ServiceSKU::is_in_dk( $sku ) ) &&
+			( true === ServiceSKU::create_in_dk( $sku, 'cost' ) )
+		) {
+			return update_option( '1984_woo_dk_cost_sku', $sku );
+		}
+
+		return false;
+	}
+
 
 	/**
 	 * Set wether the shipping SKU has been set or not
