@@ -19,11 +19,26 @@ use WC_Order;
  * differently each time. First of all, it's the "classic" shortcode based
  * checkout form and then there's the more recent block-based checkout form.
  *
- * The third one is the user profile editor.
+ * The third one is the user profile editor, that requires its own thing in
+ * addition to "protecting" the kennitala meta value so that it does not appear
+ * in the Custom Fields metabox and overrides things when trying to edit the
+ * value.
  *
  * It's not nice (or cheap) having to do things three times over during a
  * transition period like that, but it's not like Gutenberg hasn't been out for
  * 6 years already!
+ *
+ * Support for adding custom text fields to the new block based checkout page is
+ * currently considered experimental by Automattic/WooCommerce and the relevant
+ * function does not support assigning a value to fields that are added using
+ * their method.
+ *
+ * I have chimed in to their open conversation on Github but it feels futile as
+ * it looks like their developers don't understand why one would want to assign
+ * a default value to a text field. I wish them good luck in their endevours.
+ *
+ * @link https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce-blocks/docs/third-party-developers/extensibility/checkout-block/additional-checkout-fields.md
+ * @link https://github.com/woocommerce/woocommerce/discussions/42995?sort=new#discussioncomment-8959477
  */
 class KennitalaField {
 	const KENNITALA_PATTERN = '^(([0-9]{10})|([0-9]{6}(-|\s)[0-9]{4}))$';
