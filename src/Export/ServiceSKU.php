@@ -8,12 +8,9 @@ use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 
 /**
- * The Shipping SKU class
- *
- * Provides functions for creating a product in DK representing a specific
- * service item product used for shipping costs and fees.
+ * The Service SKU class
  */
-class ShippingSKU {
+class ServiceSKU {
 	/**
 	 * Check if shipping SKU is in DK
 	 *
@@ -21,8 +18,6 @@ class ShippingSKU {
 	 * saves that information in the options table.
 	 *
 	 * @param string $sku The SKU.
-	 *
-	 * @see NineteenEightyFour\NineteenEightyWoo\Config::set_shipping_sku_is_in_dk()
 	 */
 	public static function is_in_dk( string $sku ): bool {
 		$api_request = new DKApiRequest();
@@ -35,8 +30,6 @@ class ShippingSKU {
 			return false;
 		}
 
-		Config::set_shipping_sku_is_in_dk();
-
 		return true;
 	}
 
@@ -47,20 +40,27 @@ class ShippingSKU {
 	 * specific SKU.
 	 *
 	 * @param string $sku The SKU.
+	 * @param string $type The type of service. Can be `shipping`, `cost` and `coupon`.
 	 */
-	public static function create_in_dk( string $sku ): bool {
+	public static function create_in_dk(
+		string $sku,
+		string $type = 'shipping'
+	): bool {
 		$api_request = new DKApiRequest();
+		$api_body    = self::post_body_for_dk( $sku, $type );
+
+		if ( false === $api_body ) {
+			return false;
+		}
 
 		$result = $api_request->request_result(
 			'/Product/',
-			wp_json_encode( self::post_body_for_dk( $sku ) ),
+			wp_json_encode( $api_body ),
 		);
 
 		if ( 200 !== $result->response_code ) {
 			return false;
 		}
-
-		Config::set_shipping_sku_is_in_dk();
 
 		return true;
 	}
@@ -72,12 +72,30 @@ class ShippingSKU {
 	 * Shipping SKU.
 	 *
 	 * @param string $sku The SKU.
+	 * @param string $type The type of service. Can be `shipping`, `cost` and `coupon`.
 	 */
-	public static function post_body_for_dk( string $sku ): array {
+	public static function post_body_for_dk(
+		string $sku,
+		string $type = 'shipping'
+	): array {
+		switch ( $type ) {
+			case 'shipping':
+				$description = __( 'Shipping', 'NineteenEightyWoo' );
+				break;
+			case 'cost':
+				$description = __( 'Cost', 'NineteenEightyWoo' );
+				break;
+			case 'coupon':
+				$description = __( 'Coupon', 'NineteenEightyWoo' );
+				break;
+			default:
+				return false;
+		}
+
 		return array(
 			'ItemCode'          => $sku,
 			'ShowItemInWebShop' => false,
-			'Description'       => __( 'Shipping' ),
+			'Description'       => $description,
 			'ItemClass'         => 'ServiceItem',
 		);
 	}

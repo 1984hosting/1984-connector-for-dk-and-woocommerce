@@ -56,8 +56,8 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 
 #### Cost SKUs
 - [x] Assign SKU for *delivery costs*
-- [ ] Assign a SKU for *other costs*
-- [ ] Assign a SKU for *coupons*
+- [x] Assign a SKU for *other costs*
+- [x] Assign a SKU for *coupons*
 
 #### Payment methods
 - [x] Map Payment Gateways in WooCommerce with Payment Methods in DK
@@ -65,7 +65,7 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 #### Salesperson
 - [ ] Assign a *salesperson* in DK for sales in WooCommerce
 
-### Future Features (after the first beta)
+### Future Features (after the first release)
 - [ ] Sync WooCommerce orders with the *DK Sales Order* module
 
 ### The DK API
