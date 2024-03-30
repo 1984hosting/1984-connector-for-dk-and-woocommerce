@@ -87,6 +87,106 @@ class KennitalaField {
 			'woocommerce_customer_meta_fields',
 			array( __CLASS__, 'add_field_to_user_profile' ),
 		);
+
+		add_filter(
+			'woocommerce_admin_billing_fields',
+			array( __CLASS__, 'add_billing_field_to_order_editor' ),
+			10,
+			2
+		);
+
+		add_action(
+			'woocommerce_process_shop_order_meta',
+			array( __CLASS__, 'update_order_meta' ),
+			10,
+			2
+		);
+
+		add_filter(
+			'is_protected_meta',
+			array( __CLASS__, 'protect_meta' ),
+			10,
+			2
+		);
+	}
+
+	/**
+	 * Protect the 'billing_kennitala' meta value
+	 *
+	 * This prevents the kennitala value from appearing in the Custom Fields
+	 * metabox, overriding the order editor.
+	 *
+	 * @param bool   $protected Wether the meta value is already protected.
+	 * @param string $meta_key The meta key.
+	 */
+	public static function protect_meta(
+		bool $protected,
+		string $meta_key
+	): bool {
+		if ( 'billing_kennitala' === $meta_key ) {
+			return true;
+		}
+
+		return $protected;
+	}
+
+	/**
+	 * Update the kennitala meta field when an order has been edited
+	 *
+	 * Used for the `woocommerce_process_shop_order_meta` hook, as the order
+	 * meta is being processed.
+	 *
+	 * @param int      $post_id The order ID (unused).
+	 * @param WC_Order $order The order object.
+	 */
+	public static function update_order_meta(
+		int $post_id,
+		WC_Order $order
+	): void {
+		// phpcs:ignore WordPress.Security.NonceVerification
+		if ( isset( $_POST['_billing_kennitala'] ) ) {
+			$kennitala = sanitize_text_field(
+				// phpcs:ignore WordPress.Security.NonceVerification
+				wp_unslash( $_POST['_billing_kennitala'] )
+			);
+
+			$sanitized_kennitala = self::sanitize_kennitala( $kennitala );
+
+			$order->update_meta_data(
+				'billing_kennitala',
+				$sanitized_kennitala,
+			);
+
+			$order->save();
+		}
+	}
+
+	/**
+	 * Add a kennitala field to the billing address in the order editor
+	 *
+	 * This is for hooking into the `woocommerce_admin_billing_fields` filter.
+	 *
+	 * @param array    $fields The fields array as it arrives.
+	 * @param WC_Order $order The current order object.
+	 */
+	public static function add_billing_field_to_order_editor(
+		array $fields,
+		WC_Order $order
+	): array {
+		$formatted_kennitala = self::format_kennitala(
+			$order->get_meta( 'billing_kennitala', true )
+		);
+
+		$first_bit = array_slice( $fields, 0, 2 );
+
+		$first_bit['kennitala'] = array(
+			'label' => __( 'Kennitala', 'NineteenEightyWoo' ),
+			'value' => $formatted_kennitala,
+		);
+
+		$filtered_fields = array_merge( $first_bit, array_slice( $fields, 2 ) );
+
+		return $filtered_fields;
 	}
 
 	/**
