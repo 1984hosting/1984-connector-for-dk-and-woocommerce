@@ -89,6 +89,13 @@ class KennitalaField {
 				10,
 				0
 			);
+
+			add_action(
+				'woocommerce_store_api_checkout_order_processed',
+				array( __CLASS__, 'add_order_kennitala_to_the_customer_from_api' ),
+				10,
+				1
+			);
 		}
 
 		add_action(
@@ -259,6 +266,57 @@ class KennitalaField {
 		}
 
 		$order_kennitala = $order->get_meta( 'billing_kennitala', true );
+
+		if ( false === empty( $order_kennitala ) ) {
+			$customer = new WC_Customer( $customer_id );
+
+			$customer->add_meta_data(
+				'kennitala',
+				$order_kennitala,
+				true
+			);
+			$customer->save_meta_data();
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Add a the kennitala from an order to the order's customer record when
+	 * submitted via the JSON API
+	 *
+	 * This is the JSON API transplant of the above
+	 * `add_order_kennitala_to_the_customer()` function and uses the
+	 * `woocommerce_store_api_checkout_order_processed` hook.
+	 *
+	 * @param WC_Order $order The order being submitted.
+	 */
+	public static function add_order_kennitala_to_the_customer_from_api(
+		WC_Order $order
+	): bool {
+		$customer_id = $order->get_customer_id();
+
+		if ( 0 === $customer_id ) {
+			return false;
+		}
+
+		$additional_fields = $order->get_meta(
+			'_additional_billing_fields',
+			true
+		);
+
+		if (
+			false === array_key_exists(
+				'1984_woo_dk/kennitala',
+				$additional_fields,
+			)
+		) {
+			return false;
+		}
+
+		$order_kennitala = $additional_fields['1984_woo_dk/kennitala'];
 
 		if ( false === empty( $order_kennitala ) ) {
 			$customer = new WC_Customer( $customer_id );
