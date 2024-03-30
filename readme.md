@@ -28,8 +28,13 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 
 #### User interface
 - [x] Add a settings page and corresponding JSON endpoint to wp-admin
-- [x] Integrate kennitala to the WooCommerce order editor
 - [x] Design and add options for sync to the WooCommerce product editor
+
+#### Kennitala support
+- [x] Add a kennitala field to the shortcode based checkout page
+- [x] Add a kennitala field to the block based checkout page
+- [x] Integrate kennitala to the WooCommerce order editor
+- [x] Add a kennitala text field to the user profile editor
 
 #### Localisation/translation
 - [ ] Add Icelandic locale files

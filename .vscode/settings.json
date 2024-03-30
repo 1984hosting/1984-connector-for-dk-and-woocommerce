@@ -1,7 +1,8 @@
 {
 	"intelephense.environment.documentRoot": "NineteenEightyWoo.php",
     "intelephense.environment.includePaths": [
-        "/tmp/wp-tests-strapon/wordpress-develop-trunk/"
+        "/tmp/wp-tests-strapon/wordpress-develop-trunk/",
+        "vendor/woocommerce/woocommerce/"
     ],
     "phpcs.standard": "WordPress",
     "coverage-gutters.showLineCoverage": true,
