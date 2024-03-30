@@ -14,6 +14,8 @@ use WP_Error;
  * Provides funtions for handling downstream payment methods from DK
  */
 class SalesPayments {
+	const TRANSIENT_EXPIRY = 600;
+
 	/**
 	 * Get payment methods
 	 *
@@ -117,7 +119,7 @@ class SalesPayments {
 		return set_transient(
 			'1984_woo_dk_payment_methods',
 			$methods,
-			DAY_IN_SECONDS
+			self::TRANSIENT_EXPIRY
 		);
 	}
 }
