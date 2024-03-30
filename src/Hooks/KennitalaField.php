@@ -268,6 +268,10 @@ class KennitalaField {
 	 * and adds a kennitala line to the formatted address as the 2nd line of
 	 * the billing address.
 	 *
+	 * This is only assumed to be used in the chekcout confirmation and other
+	 * user-facing parts, so it is disabled in the admin interface as we use a
+	 * different method in the order editor.
+	 *
 	 * @param string   $address_data The original string containing the
 	 *                               formatted address.
 	 * @param array    $raw_address The address elements as an array (unused).
@@ -278,6 +282,10 @@ class KennitalaField {
 		array $raw_address,
 		WC_Order $order
 	): string {
+		if ( true === is_admin() ) {
+			return $address_data;
+		}
+
 		$kennitala = $order->get_meta( 'billing_kennitala', true );
 
 		if ( true === empty( $kennitala ) ) {
