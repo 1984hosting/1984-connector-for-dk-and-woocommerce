@@ -40,9 +40,11 @@ class NineteenEightyWoo {
 		const formData = new FormData( event.target );
 
 		let apiKey                 = formData.get( 'api_key' ).trim();
-		let shippingSku            = formData.get( 'shipping_sku' );
-		let customerNumberPrefix   = formData.get( 'customer_number_prefix' );
-		let defaultKennitala       = formData.get( 'default_kennitala' );
+		let shippingSku            = formData.get( 'shipping_sku' ).trim();
+		let couponSku              = formData.get( 'coupon_sku' ).trim();
+		let costSku                = formData.get( 'cost_sku' ).trim();
+		let customerNumberPrefix   = formData.get( 'customer_number_prefix' ).trim();
+		let defaultKennitala       = formData.get( 'default_kennitala' ).trim();
 		let enableKennitala        = Boolean( formData.get( 'enable_kennitala' ) );
 		let enableKennitalaInBlock = Boolean( formData.get( 'enable_kennitala_in_block' ) )
 		let paymentIds             = formData.getAll( 'payment_id' );
@@ -68,6 +70,8 @@ class NineteenEightyWoo {
 		const formDataObject = {
 			api_key: apiKey,
 			shipping_sku: shippingSku,
+			coupon_sku: couponSku,
+			cost_sku: costSku,
 			customer_number_prefix: customerNumberPrefix,
 			default_kennitala: defaultKennitala,
 			enable_kennitala: enableKennitala,
