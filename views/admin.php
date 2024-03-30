@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
+use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 
 $wc_payment_gateways = new WC_Payment_Gateways();
 
@@ -156,6 +157,88 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 				</tbody>
 			</table>
 		</section>
+
+		<section class="section">
+			<h2><?php esc_html_e( 'Kennitala Support and Orders Without Kennitala', 'NineteenEightyWoo' ); ?></h2>
+			<table id="dk-kennitala-table" class="form-table">
+				<tbody>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="default_kennitala_field">
+								Default Kennitala
+							</label>
+						</th>
+						<td>
+							<input
+								id="default_kennitala_field"
+								name="default_kennitala"
+								type="text"
+								value="<?php echo esc_attr( KennitalaField::format_kennitala( Config::get_default_kennitala() ) ); ?>"
+							/>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'The default kennitala is used for identifying customers that don\'t have or supply a kennitala during checkout. This should correspond with a DK customer record called “Various Customers” etc.',
+									'NineteenEightyWoo'
+								)
+								?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="enable_kennitala_field"
+								name="enable_kennitala"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_kennitala_classic_field_enabled() ? 'checked' : '' ); ?>
+							/>
+							<label for="enable_kennitala_field">
+								<?php
+								esc_html_e(
+									'Enable kennitala field in the “Classic” shortcode-based checkout page',
+									'NineteenEightyWoo'
+								);
+								?>
+							</label>
+						</td>
+					</tr>
+					<?php if ( function_exists( '__experimental_woocommerce_blocks_register_checkout_field' ) ): ?>
+					<tr>
+						<th span="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="enable_kennitala_in_block_field"
+								name="enable_kennitala_in_block"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_kennitala_block_field_enabled() ? 'checked' : '' ); ?>
+							/>
+							<label for="enable_kennitala_in_block_field">
+								<?php
+								esc_html_e(
+									'Enable kennitala field in the Block-based checkout page (experimental)',
+									'NineteenEightyWoo'
+								);
+								?>
+							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'WooCommerce 8.7 introduces a new block-based checkout page. This uses a different approach to adding new fields, but it is still considered to be experimental by WooCommerce as of now. For instance, this does not automatically populate the field with the customer\'s kennitala, so it needs to be re-entered for each checkout.',
+									'NineteenEightyWoo'
+								)
+								?>
+							</p>
+						</td>
+					</tr>
+					<?php endif ?>
+				</tbody>
+			</table>
+		</section>
+
 
 		<div class="submit-container">
 			<div id="nineteen-eighty-woo-settings-error" class="hidden" aria-live="polite">
