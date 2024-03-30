@@ -12,6 +12,7 @@
  * License: GPL-3.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: NineteenEightyWoo
+ * Requires Plugins: woocommerce
  */
 
 declare(strict_types = 1);
