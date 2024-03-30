@@ -241,19 +241,6 @@ class Config {
 		return false;
 	}
 
-
-	/**
-	 * Set wether the shipping SKU has been set or not
-	 *
-	 * This used when the shipping SKU has been set, so that we aren't checking
-	 * the DK API for it all the time.
-	 *
-	 * @see NineteenEightyFour\NineteenEightyWoo\Export\ShippingSKU::create_in_dk()
-	 */
-	public static function set_shipping_sku_is_in_dk(): bool {
-		return update_option( '1984_woo_dk_shipping_sku_is_in_dk', true );
-	}
-
 	/**
 	 * Get the default kennitala
 	 *

@@ -18,8 +18,6 @@ class ServiceSKU {
 	 * saves that information in the options table.
 	 *
 	 * @param string $sku The SKU.
-	 *
-	 * @see NineteenEightyFour\NineteenEightyWoo\Config::set_shipping_sku_is_in_dk()
 	 */
 	public static function is_in_dk( string $sku ): bool {
 		$api_request = new DKApiRequest();
