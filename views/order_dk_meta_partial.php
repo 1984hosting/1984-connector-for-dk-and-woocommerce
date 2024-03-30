@@ -18,6 +18,8 @@ if ( 0 === $customer_id ) {
 
 ?>
 
+<?php if ( false === empty( $dk_customer_number ) && false === empty( $dk_order_number ) ) : ?>
+
 <table id="woocommerce-dk-order-meta">
 	<tbody>
 		<?php if ( false === empty( $dk_order_number ) ) : ?>
@@ -48,3 +50,5 @@ if ( 0 === $customer_id ) {
 		<?php endif ?>
 	</tbody>
 </table>
+
+<?php endif ?>
