@@ -134,10 +134,16 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'SKU for Shipping', 'NineteenEightyWoo' ); ?></h2>
-			<p><?php esc_html_e( 'In order for shipping to work, a SKU needs to be assigned for shipping costs.', 'NineteenEightyWoo' ); ?></p>
-			<p><?php esc_html_e( 'If no product or service under this SKU has been created in DK, a new service item representing shipping will be created with that SKU.', 'NineteenEightyWoo' ); ?></p>
-			<table id="dk-record-prefixes-table" class="form-table">
+			<h2><?php esc_html_e( 'SKUs for Services', 'NineteenEightyWoo' ); ?></h2>
+			<p>
+				<?php
+				esc_html_e(
+					'DK treats costs and coupon discounts as line items on invoices. In order for them to work, you need to assign a SKU to each of the following services. If any of them does not exsist, then it will be created in DK.',
+					'NineteenEightyWoo'
+				);
+				?>
+			</p>
+			<table id="dk-service-sku-table" class="form-table">
 				<tbody>
 					<tr>
 						<th span="row" class="column-title column-primary">
@@ -151,6 +157,36 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								name="shipping_sku"
 								type="text"
 								value="<?php echo esc_attr( Config::get_shipping_sku() ); ?>"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="coupon_sku_field">
+								<?php esc_html_e( 'Coupon SKU', 'NineteenEightyWoo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="coupon_sku_field"
+								name="coupon_sku"
+								type="text"
+								value="<?php echo esc_attr( Config::get_coupon_sku() ); ?>"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="cost_sku_field">
+								<?php esc_html_e( 'Cost SKU', 'NineteenEightyWoo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="cost_sku_field"
+								name="cost_sku"
+								type="text"
+								value="<?php echo esc_attr( Config::get_cost_sku() ); ?>"
 							/>
 						</td>
 					</tr>
@@ -198,7 +234,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 							<label for="enable_kennitala_field">
 								<?php
 								esc_html_e(
-									'Enable kennitala field in the “Classic” shortcode-based checkout page',
+									'Enable Kennitala Field in the “Classic” Shortcode Based Checkout Page',
 									'NineteenEightyWoo'
 								);
 								?>
@@ -219,7 +255,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 							<label for="enable_kennitala_in_block_field">
 								<?php
 								esc_html_e(
-									'Enable kennitala field in the Block-based checkout page (experimental)',
+									'Enable Kennitala Field in the Block Based Checkout Page (Experimental)',
 									'NineteenEightyWoo'
 								);
 								?>
@@ -227,7 +263,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 							<p class="description">
 								<?php
 								esc_html_e(
-									'WooCommerce 8.7 introduces a new block-based checkout page. This uses a different approach to adding new fields, but it is still considered to be experimental by WooCommerce as of now. For instance, this does not automatically populate the field with the customer\'s kennitala, so it needs to be re-entered for each checkout.',
+									'WooCommerce 8.7 introduces a new block based checkout page. This uses a different approach to adding new fields, but it is still considered to be experimental by WooCommerce as of now. For instance, this does not automatically populate the field with the customer\'s kennitala, so it needs to be re-entered for each checkout.',
 									'NineteenEightyWoo'
 								)
 								?>
