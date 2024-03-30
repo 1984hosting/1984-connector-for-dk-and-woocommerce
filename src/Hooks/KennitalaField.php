@@ -19,11 +19,26 @@ use WC_Order;
  * differently each time. First of all, it's the "classic" shortcode based
  * checkout form and then there's the more recent block-based checkout form.
  *
- * The third one is the user profile editor.
+ * The third one is the user profile editor, that requires its own thing in
+ * addition to "protecting" the kennitala meta value so that it does not appear
+ * in the Custom Fields metabox and overrides things when trying to edit the
+ * value.
  *
  * It's not nice (or cheap) having to do things three times over during a
  * transition period like that, but it's not like Gutenberg hasn't been out for
  * 6 years already!
+ *
+ * Support for adding custom text fields to the new block based checkout page is
+ * currently considered experimental by Automattic/WooCommerce and the relevant
+ * function does not support assigning a value to fields that are added using
+ * their method.
+ *
+ * I have chimed in to their open conversation on Github but it feels futile as
+ * it looks like their developers don't understand why one would want to assign
+ * a default value to a text field. I wish them good luck in their endevours.
+ *
+ * @link https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce-blocks/docs/third-party-developers/extensibility/checkout-block/additional-checkout-fields.md
+ * @link https://github.com/woocommerce/woocommerce/discussions/42995?sort=new#discussioncomment-8959477
  */
 class KennitalaField {
 	const KENNITALA_PATTERN = '^(([0-9]{10})|([0-9]{6}(-|\s)[0-9]{4}))$';
@@ -87,6 +102,106 @@ class KennitalaField {
 			'woocommerce_customer_meta_fields',
 			array( __CLASS__, 'add_field_to_user_profile' ),
 		);
+
+		add_filter(
+			'woocommerce_admin_billing_fields',
+			array( __CLASS__, 'add_billing_field_to_order_editor' ),
+			10,
+			2
+		);
+
+		add_action(
+			'woocommerce_process_shop_order_meta',
+			array( __CLASS__, 'update_order_meta' ),
+			10,
+			2
+		);
+
+		add_filter(
+			'is_protected_meta',
+			array( __CLASS__, 'protect_meta' ),
+			10,
+			2
+		);
+	}
+
+	/**
+	 * Protect the 'billing_kennitala' meta value
+	 *
+	 * This prevents the kennitala value from appearing in the Custom Fields
+	 * metabox, overriding the order editor.
+	 *
+	 * @param bool   $protected Wether the meta value is already protected.
+	 * @param string $meta_key The meta key.
+	 */
+	public static function protect_meta(
+		bool $protected,
+		string $meta_key
+	): bool {
+		if ( 'billing_kennitala' === $meta_key ) {
+			return true;
+		}
+
+		return $protected;
+	}
+
+	/**
+	 * Update the kennitala meta field when an order has been edited
+	 *
+	 * Used for the `woocommerce_process_shop_order_meta` hook, as the order
+	 * meta is being processed.
+	 *
+	 * @param int      $post_id The order ID (unused).
+	 * @param WC_Order $order The order object.
+	 */
+	public static function update_order_meta(
+		int $post_id,
+		WC_Order $order
+	): void {
+		// phpcs:ignore WordPress.Security.NonceVerification
+		if ( isset( $_POST['_billing_kennitala'] ) ) {
+			$kennitala = sanitize_text_field(
+				// phpcs:ignore WordPress.Security.NonceVerification
+				wp_unslash( $_POST['_billing_kennitala'] )
+			);
+
+			$sanitized_kennitala = self::sanitize_kennitala( $kennitala );
+
+			$order->update_meta_data(
+				'billing_kennitala',
+				$sanitized_kennitala,
+			);
+
+			$order->save();
+		}
+	}
+
+	/**
+	 * Add a kennitala field to the billing address in the order editor
+	 *
+	 * This is for hooking into the `woocommerce_admin_billing_fields` filter.
+	 *
+	 * @param array    $fields The fields array as it arrives.
+	 * @param WC_Order $order The current order object.
+	 */
+	public static function add_billing_field_to_order_editor(
+		array $fields,
+		WC_Order $order
+	): array {
+		$formatted_kennitala = self::format_kennitala(
+			$order->get_meta( 'billing_kennitala', true )
+		);
+
+		$first_bit = array_slice( $fields, 0, 2 );
+
+		$first_bit['kennitala'] = array(
+			'label' => __( 'Kennitala', 'NineteenEightyWoo' ),
+			'value' => $formatted_kennitala,
+		);
+
+		$filtered_fields = array_merge( $first_bit, array_slice( $fields, 2 ) );
+
+		return $filtered_fields;
 	}
 
 	/**
@@ -168,6 +283,10 @@ class KennitalaField {
 	 * and adds a kennitala line to the formatted address as the 2nd line of
 	 * the billing address.
 	 *
+	 * This is only assumed to be used in the chekcout confirmation and other
+	 * user-facing parts, so it is disabled in the admin interface as we use a
+	 * different method in the order editor.
+	 *
 	 * @param string   $address_data The original string containing the
 	 *                               formatted address.
 	 * @param array    $raw_address The address elements as an array (unused).
@@ -178,6 +297,10 @@ class KennitalaField {
 		array $raw_address,
 		WC_Order $order
 	): string {
+		if ( true === is_admin() ) {
+			return $address_data;
+		}
+
 		$kennitala = $order->get_meta( 'billing_kennitala', true );
 
 		if ( true === empty( $kennitala ) ) {
