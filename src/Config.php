@@ -189,6 +189,9 @@ class Config {
 		return false;
 	}
 
+	/**
+	 * Get the coupon SKU
+	 */
 	public static function get_coupon_sku(): string {
 		return (string) get_option(
 			'1984_woo_dk_coupon_sku',
@@ -196,6 +199,11 @@ class Config {
 		);
 	}
 
+	/**
+	 * Set the coupon SKU
+	 *
+	 * @param string $sku The SKU for the coupon service SKU.
+	 */
 	public static function set_coupon_sku( string $sku ): bool {
 		if (
 			( false === ServiceSKU::is_in_dk( $sku ) ) &&
@@ -207,6 +215,9 @@ class Config {
 		return false;
 	}
 
+	/**
+	 * Get the cost SKU
+	 */
 	public static function get_cost_sku(): string {
 		return (string) get_option(
 			'1984_woo_dk_cost_sku',
@@ -214,6 +225,11 @@ class Config {
 		);
 	}
 
+	/**
+	 * Set the cost SKU
+	 *
+	 * @param string $sku The cost SKU.
+	 */
 	public static function set_cost_sku( string $sku ): bool {
 		if (
 			( false === ServiceSKU::is_in_dk( $sku ) ) &&
