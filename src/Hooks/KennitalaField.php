@@ -195,6 +195,15 @@ class KennitalaField {
 		array $fields,
 		WC_Order $order
 	): array {
+		$additional_fields = $order->get_meta( '_additional_billing_fields' );
+		if (
+			true === is_array( $additional_fields ) &&
+			true === array_key_exists( '1984_woo_dk/kennitala', $additional_fields ) &&
+			false === empty( $additional_fields['1984_woo_dk/kennitala'] )
+		) {
+			return $fields;
+		}
+
 		$formatted_kennitala = self::format_kennitala(
 			$order->get_meta( 'billing_kennitala', true )
 		);
@@ -579,5 +588,27 @@ class KennitalaField {
 		$last_four = substr( $kennitala, 6, 4 );
 
 		return $first_six . $divider . $last_four;
+	}
+
+	/**
+	 * Get the billing kennital from an order
+	 *
+	 * @param WC_Order $order The WooCommerce order.
+	 */
+	public static function get_kennitala_from_order( WC_Order $order ): string {
+		$additional_fields = $order->get_meta(
+			'_additional_billing_fields',
+			true
+		);
+
+		if (
+			true === is_array( $additional_fields ) &&
+			true === array_key_exists( '1984_woo_dk/kennitala', $additional_fields ) &&
+			false === empty( $additional_fields['1984_woo_dk/kennitala'] )
+		) {
+			return (string) $additional_fields['1984_woo_dk/kennitala'];
+		}
+
+		return (string) $order->get_meta( 'billing_kennitala', true );
 	}
 }
