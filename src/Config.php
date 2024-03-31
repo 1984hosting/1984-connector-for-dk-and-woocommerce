@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo;
 
+use NineteenEightyFour\NineteenEightyWoo\Export\Employee;
+use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson;
 use NineteenEightyFour\NineteenEightyWoo\Export\ServiceSKU;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
@@ -24,6 +26,8 @@ class Config {
 	const DEFAULT_SHIPPING_SKU = 'SHIPPING';
 	const DEFAULT_COUPON_SKU   = 'COUPON';
 	const DEFAULT_COST_SKU     = 'COST';
+
+	const DEFAULT_SALES_PERSON = 'WEBSALES';
 
 	/**
 	 * Get the DK API key
@@ -315,6 +319,53 @@ class Config {
 		return update_option(
 			'1984_woo_dk_kennitala_block_field_enabled',
 			$enabled
+		);
+	}
+
+	/**
+	 * Get the default sales person number
+	 */
+	public static function get_default_sales_person_number(): string {
+		return (string) get_option(
+			'1984_woo_dk_default_sales_person_number',
+			self::DEFAULT_SALES_PERSON
+		);
+	}
+
+	/**
+	 * Set the default sales person number
+	 *
+	 * @param string $sales_person_number The sales person number.
+	 */
+	public static function set_default_sales_person_number(
+		string $sales_person_number
+	): bool {
+		if ( self::get_default_sales_person_number() !== $sales_person_number ) {
+			return false;
+		}
+
+		if ( false === SalesPerson::is_in_dk( $sales_person_number ) ) {
+			$random_string = base_convert(
+				(string) random_int( 65_536, 131_072 ),
+				10,
+				36
+			);
+
+			$employee_number = 'WEBSALES' . $random_string;
+			if ( true !== Employee::create_in_dk( $employee_number ) ) {
+				return false;
+			}
+
+			if ( true !== SalesPerson::create_in_dk(
+				$sales_person_number,
+				$employee_number
+			) ) {
+				return false;
+			}
+		}
+		return update_option(
+			'1984_woo_dk_default_sales_person_number',
+			$sales_person_number
 		);
 	}
 }

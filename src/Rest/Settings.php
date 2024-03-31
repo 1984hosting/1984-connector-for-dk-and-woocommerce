@@ -28,6 +28,7 @@ class Settings {
 			"default_kennitala": { "type": "string" },
 			"kennitala_classic_field_enabled": { "type": "boolean" },
 			"kennitala_block_field_enabled": { "type": "boolean" },
+			"default_sales_person": { "type": "string" },
 			"payment_methods": {
 				"type": "array",
 				"items": {
@@ -125,6 +126,12 @@ class Settings {
 		if ( true === property_exists( $rest_json, 'enable_kennitala' ) ) {
 			Config::set_kennitala_classic_field_enabled(
 				$rest_json->enable_kennitala
+			);
+		}
+
+		if ( true === property_exists( $rest_json, 'default_sales_person' ) ) {
+			Config::set_default_sales_person_number(
+				$rest_json->default_sales_person
 			);
 		}
 
