@@ -377,6 +377,9 @@ class Config {
 		);
 	}
 
+	/**
+	 * Get the default inventory warehouse
+	 */
 	public static function get_default_warehouse(): string {
 		return (string) get_option(
 			'1984_woo_dk_default_warehouse',
@@ -384,6 +387,11 @@ class Config {
 		);
 	}
 
+	/**
+	 * Set the default inventory warehouse
+	 *
+	 * @param string $warehouse The warehouse code.
+	 */
 	public static function set_default_warehouse( string $warehouse ): bool {
 		return update_option( '1984_woo_dk_default_warehouse', $warehouse );
 	}
