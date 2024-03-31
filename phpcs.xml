@@ -46,6 +46,12 @@
 		-->
 		<exclude name="Squiz.Commenting.VariableComment.MissingVar"></exclude>
 
+		<!--
+		Disabling the check for the "use of" object properties that are not in
+		snake case as we are using code and data from 3rd parties.
+		-->
+		<exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"></exclude>
+
 		<exclude-pattern>./tests/**</exclude-pattern>
 	</rule>
 
