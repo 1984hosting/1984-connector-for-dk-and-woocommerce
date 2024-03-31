@@ -135,6 +135,10 @@ class Settings {
 			);
 		}
 
+		if ( true === property_exists( $rest_json, 'default_warehouse' ) ) {
+			Config::set_default_warehouse( $rest_json->default_warehouse );
+		}
+
 		if (
 			true === property_exists(
 				$rest_json,
