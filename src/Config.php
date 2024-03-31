@@ -184,6 +184,7 @@ class Config {
 	 */
 	public static function set_shipping_sku( string $sku ): bool {
 		if (
+			( self::get_shipping_sku() !== $sku ) &&
 			( false === ServiceSKU::is_in_dk( $sku ) ) &&
 			( true === ServiceSKU::create_in_dk( $sku ) )
 		) {
@@ -210,6 +211,7 @@ class Config {
 	 */
 	public static function set_coupon_sku( string $sku ): bool {
 		if (
+			( self::get_coupon_sku() !== $sku ) &&
 			( false === ServiceSKU::is_in_dk( $sku ) ) &&
 			( true === ServiceSKU::create_in_dk( $sku, 'coupon' ) )
 		) {
@@ -232,17 +234,21 @@ class Config {
 	/**
 	 * Set the cost SKU
 	 *
+	 * If the relevant service product does not exsist as a product in DK, a new
+	 * one will be created.
+	 *
 	 * @param string $sku The cost SKU.
 	 */
 	public static function set_cost_sku( string $sku ): bool {
 		if (
+			( self::get_cost_sku() !== $sku ) &&
 			( false === ServiceSKU::is_in_dk( $sku ) ) &&
-			( true === ServiceSKU::create_in_dk( $sku, 'cost' ) )
+			( false === ServiceSKU::create_in_dk( $sku, 'cost' ) )
 		) {
-			return update_option( '1984_woo_dk_cost_sku', $sku );
+			return false;
 		}
 
-		return false;
+		return update_option( '1984_woo_dk_cost_sku', $sku );
 	}
 
 	/**
