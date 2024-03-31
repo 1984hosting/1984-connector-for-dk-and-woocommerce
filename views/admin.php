@@ -5,6 +5,7 @@ declare(strict_types = 1);
 use NineteenEightyFour\NineteenEightyWoo\Admin;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
+use NineteenEightyFour\NineteenEightyWoo\Import\Warehouses;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 
 $wc_payment_gateways = new WC_Payment_Gateways();
@@ -293,7 +294,8 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					'NineteenEightyWoo'
 				);
 				?>
-			<table id="dk-kennitala-table" class="form-table">
+			</p>
+			<table id="dk-sales-person-table" class="form-table">
 				<tbody>
 					<tr>
 						<th span="row" class="column-title column-primary">
@@ -308,6 +310,33 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								type="text"
 								value="<?php echo esc_attr( Config::get_default_sales_person_number() ); ?>"
 							/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section class="section">
+			<h2><?php esc_html_e( 'Warehouses', 'NineteenEightyWoo' ); ?></h2>
+			<table id="dk-warehouse-table" class="form-table">
+				<tbody>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="default_warehouse_field">
+								<?php esc_html_e( 'Default Warehouse Code', 'NineteenEightyWoo' ); ?>
+							</label>
+						</th>
+						<td>
+							<select id="default_warehouse_field" name="default_warehouse">
+								<?php foreach ( Warehouses::get() as $warehouse ) : ?>
+								<option
+									value="<?php echo esc_attr( $warehouse->Code ); ?>"
+									<?php echo Config::get_default_warehouse() === $warehouse->Code ? 'selected' : ''; ?>
+								>
+									<?php echo esc_attr( $warehouse->Code ); ?>
+								</option>
+								<?php endforeach ?>
+							</select>
 						</td>
 					</tr>
 				</tbody>

@@ -88,11 +88,8 @@ class SalesPayments {
 
 		foreach ( $json_response as $method ) {
 			$methods[] = (object) array(
-				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				'dk_id'     => $method->PaymentId,
-				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				'dk_name'   => $method->Name,
-				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				'dk_active' => $method->Active,
 			);
 		}

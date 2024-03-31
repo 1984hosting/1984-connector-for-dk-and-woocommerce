@@ -29,6 +29,8 @@ class Config {
 
 	const DEFAULT_SALES_PERSON = 'WEBSALES';
 
+	const DEFAULT_WAREHOUSE = 'bg1';
+
 	/**
 	 * Get the DK API key
 	 *
@@ -373,5 +375,24 @@ class Config {
 			'1984_woo_dk_default_sales_person_number',
 			$sales_person_number
 		);
+	}
+
+	/**
+	 * Get the default inventory warehouse
+	 */
+	public static function get_default_warehouse(): string {
+		return (string) get_option(
+			'1984_woo_dk_default_warehouse',
+			self::DEFAULT_WAREHOUSE
+		);
+	}
+
+	/**
+	 * Set the default inventory warehouse
+	 *
+	 * @param string $warehouse The warehouse code.
+	 */
+	public static function set_default_warehouse( string $warehouse ): bool {
+		return update_option( '1984_woo_dk_default_warehouse', $warehouse );
 	}
 }

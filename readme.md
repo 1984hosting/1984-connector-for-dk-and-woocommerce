@@ -46,7 +46,7 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 
 #### Product Inventory
 - [ ] Sync and create product inventory when a product is created in DK
-- [ ] Assign a single *warehose* in DK for items in the WooCommerce store
+- [x] Assign a single *warehose* in DK for items in the WooCommerce store
 
 #### Customers
 - [x] Let customers add a kennitala to their billing address

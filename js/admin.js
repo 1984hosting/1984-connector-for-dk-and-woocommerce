@@ -47,7 +47,8 @@ class NineteenEightyWoo {
 		let defaultKennitala       = formData.get( 'default_kennitala' ).trim();
 		let enableKennitala        = Boolean( formData.get( 'enable_kennitala' ) );
 		let enableKennitalaInBlock = Boolean( formData.get( 'enable_kennitala_in_block' ) );
-		let defaultSalesPerson     = formData.get( 'default_sales_person' );
+		let defaultSalesPerson     = formData.get( 'default_sales_person' ).trim();
+		let defaultWarehouse       = formData.get( 'default_warehouse' ).trim();
 		let paymentIds             = formData.getAll( 'payment_id' );
 		let paymentMethods         = [];
 		let paymentsLength         = paymentIds.length;
@@ -78,6 +79,7 @@ class NineteenEightyWoo {
 			enable_kennitala: enableKennitala,
 			enable_kennitala_in_block: enableKennitalaInBlock,
 			default_sales_person: defaultSalesPerson,
+			default_warehouse: defaultWarehouse,
 			payment_methods: paymentMethods
 		}
 
