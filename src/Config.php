@@ -33,6 +33,8 @@ class Config {
 
 	const DEFAULT_GUEST_CUSTOMER_NUMBER = 'WCC999999999';
 
+	const DEFAULT_SALES_PERSON = 'WEBSALES';
+
 	/**
 	 * Get the DK API key
 	 *
