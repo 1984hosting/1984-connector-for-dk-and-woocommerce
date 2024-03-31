@@ -68,7 +68,10 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 - [x] Map Payment Gateways in WooCommerce with Payment Methods in DK
 
 #### Salesperson
-- [ ] Assign a *salesperson* in DK for sales in WooCommerce
+- [x] Assign a *salesperson* in DK for sales in WooCommerce
+
+#### Prices
+- [ ] Assign a *price group* (1, 2 , 3) for products
 
 ### Future Features (after the first release)
 - [ ] Sync WooCommerce orders with the *DK Sales Order* module

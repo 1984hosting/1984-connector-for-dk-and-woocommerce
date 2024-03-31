@@ -2,6 +2,7 @@
 
 declare(strict_types = 1);
 
+use NineteenEightyFour\NineteenEightyWoo\Admin;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
@@ -201,7 +202,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="default_kennitala_field">
-								Default Kennitala
+								Default Customer Kennitala
 							</label>
 						</th>
 						<td>
@@ -275,6 +276,43 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 			</table>
 		</section>
 
+		<section class="section">
+			<h2><?php esc_html_e( 'Default Sales Person', 'NineteenEightyWoo' ); ?></h2>
+			<p>
+				<?php
+				esc_html_e(
+					'DK requires a sales person to be assigned to every order and invoice. Generally, this would be a pseudo-person called “Web Sales” or something similar but can also be assigned to a specific sales person or employee.',
+					'NineteenEightyWoo'
+				);
+				?>
+			</p>
+			<p>
+				<?php
+				esc_html_e(
+					'If no sales person or employee exsists in your DK environment with the identifier entered above, a new one will be created along with an associated employee record.',
+					'NineteenEightyWoo'
+				);
+				?>
+			<table id="dk-kennitala-table" class="form-table">
+				<tbody>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="default_sales_person_field">
+								<?php esc_html_e( 'Default Sales Person Number', 'NineteenEightyWoo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="default_sales_person_field"
+								name="default_sales_person"
+								type="text"
+								value="<?php echo esc_attr( Config::get_default_sales_person_number() ); ?>"
+							/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
 
 		<div class="submit-container">
 			<div id="nineteen-eighty-woo-settings-error" class="hidden" aria-live="polite">
@@ -316,7 +354,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</p>
 		<img
 			alt="<?php esc_attr_e( 'Ninteen-Eighty-Four', 'NineteenEightyWoo' ); ?>"
-			src="<?php echo esc_attr( NineteenEightyFour\NineteenEightyWoo\Admin::logo_url() ); ?>"
+			src="<?php echo esc_attr( Admin::logo_url() ); ?>"
 		/>
 	</div>
 </div>
