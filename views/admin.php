@@ -136,11 +136,11 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'SKUs for Services', 'NineteenEightyWoo' ); ?></h2>
+			<h2><?php esc_html_e( 'SKUs for Costs and Fees', 'NineteenEightyWoo' ); ?></h2>
 			<p>
 				<?php
 				esc_html_e(
-					'DK treats costs and coupon discounts as line items on invoices. In order for them to work, you need to assign a SKU to each of the following services. If any of them does not exsist, then it will be created in DK.',
+					'DK treats shipping and other costs as line items on invoices. In order for them to work, you need to assign a SKU to each of the following services. If any of them does not exsist, then it will be created in DK.',
 					'NineteenEightyWoo'
 				);
 				?>
@@ -159,21 +159,6 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								name="shipping_sku"
 								type="text"
 								value="<?php echo esc_attr( Config::get_shipping_sku() ); ?>"
-							/>
-						</td>
-					</tr>
-					<tr>
-						<th span="row" class="column-title column-primary">
-							<label for="coupon_sku_field">
-								<?php esc_html_e( 'Coupon SKU', 'NineteenEightyWoo' ); ?>
-							</label>
-						</th>
-						<td>
-							<input
-								id="coupon_sku_field"
-								name="coupon_sku"
-								type="text"
-								value="<?php echo esc_attr( Config::get_coupon_sku() ); ?>"
 							/>
 						</td>
 					</tr>

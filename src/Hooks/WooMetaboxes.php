@@ -43,7 +43,10 @@ class WooMetaboxes {
 		);
 	}
 
-	public static function render_dk_order_number( $order ): void {
+	/**
+	 * Render the DK-related metadata partial in the order editor
+	 */
+	public static function render_dk_order_number(): void {
 		require __DIR__ . '/../../views/order_dk_meta_partial.php';
 	}
 
@@ -70,7 +73,11 @@ class WooMetaboxes {
 	 * @param WP_Post $post The post object (unused).
 	 * @param bool    $update Wether the action is an update.
 	 */
-	public function save_product_meta( int $id, WP_Post $post, bool $update ): void {
+	public function save_product_meta(
+		int $id,
+		WP_Post $post,
+		bool $update
+	): void {
 		if ( true === $update ) {
 			$this->save_price_sync_meta( $id );
 			$this->save_stock_sync_meta( $id );

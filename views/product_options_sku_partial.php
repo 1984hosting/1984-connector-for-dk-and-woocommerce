@@ -13,7 +13,7 @@ declare(strict_types = 1);
 			'id'          => '1984_woo_dk_stock_sync',
 			'value'       => get_post_meta( $post->ID, '1984_woo_dk_stock_sync', true ) ? 'true' : 'false',
 			'label'       => 'Sync Inventory with DK',
-			'description' => 'Enables the 1984 DK Connection plugin to sync inventory status and stock quanity between WooCommerce and dkPlus.',
+			'description' => 'Enables the 1984 DK Connection plugin to sync inventory status and stock quanity between WooCommerce and DK.',
 			'desc_tip'    => true,
 			'cbvalue'     => 'true',
 		),
@@ -41,7 +41,7 @@ declare(strict_types = 1);
 			esc_html(
 				// Translators: %1$s stands for a opening and %2$s for a closing <strong> tag.
 				__(
-					'%1$sStock management%2$s needs to be enabled for Inventory Sync to work.',
+					'%1$sStock management%2$s needs to be enabled for Inventory Sync to work. This also applies to product variations.',
 					'NineteenEightyWoo'
 				)
 			),

@@ -9,6 +9,9 @@ use NineteenEightyFour\NineteenEightyWoo\Config;
 
 /**
  * The Service SKU class
+ *
+ * Service SKUs are pseudo products in DK used for representing invoice lines
+ * such as shipping and other cost items.
  */
 class ServiceSKU {
 	/**
@@ -40,7 +43,7 @@ class ServiceSKU {
 	 * specific SKU.
 	 *
 	 * @param string $sku The SKU.
-	 * @param string $type The type of service. Can be `shipping`, `cost` and `coupon`.
+	 * @param string $type The type of service. Can be `shipping` and `cost`.
 	 */
 	public static function create_in_dk(
 		string $sku,
@@ -72,7 +75,7 @@ class ServiceSKU {
 	 * Shipping SKU.
 	 *
 	 * @param string $sku The SKU.
-	 * @param string $type The type of service. Can be `shipping`, `cost` and `coupon`.
+	 * @param string $type The type of service. Can be `shipping` and `cost`.
 	 */
 	public static function post_body_for_dk(
 		string $sku,
@@ -84,9 +87,6 @@ class ServiceSKU {
 				break;
 			case 'cost':
 				$description = __( 'Cost', 'NineteenEightyWoo' );
-				break;
-			case 'coupon':
-				$description = __( 'Coupon', 'NineteenEightyWoo' );
 				break;
 			default:
 				return false;

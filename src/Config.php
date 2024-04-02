@@ -29,8 +29,6 @@ class Config {
 
 	const DEFAULT_WAREHOUSE = 'bg1';
 
-	const DEFAULT_GUEST_CUSTOMER_NUMBER = 'WCC999999999';
-
 	const DEFAULT_SALES_PERSON = 'WEBSALES';
 
 	/**
@@ -193,33 +191,6 @@ class Config {
 			( true === ServiceSKU::create_in_dk( $sku ) )
 		) {
 			return update_option( '1984_woo_dk_shipping_sku', $sku );
-		}
-
-		return false;
-	}
-
-	/**
-	 * Get the coupon SKU
-	 */
-	public static function get_coupon_sku(): string {
-		return (string) get_option(
-			'1984_woo_dk_coupon_sku',
-			self::DEFAULT_COUPON_SKU
-		);
-	}
-
-	/**
-	 * Set the coupon SKU
-	 *
-	 * @param string $sku The SKU for the coupon service SKU.
-	 */
-	public static function set_coupon_sku( string $sku ): bool {
-		if (
-			( self::get_coupon_sku() !== $sku ) &&
-			( false === ServiceSKU::is_in_dk( $sku ) ) &&
-			( true === ServiceSKU::create_in_dk( $sku, 'coupon' ) )
-		) {
-			return update_option( '1984_woo_dk_coupon_sku', $sku );
 		}
 
 		return false;

@@ -7,9 +7,11 @@ namespace NineteenEightyFour\NineteenEightyWoo\Export;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
 use NineteenEightyFour\NineteenEightyWoo\Config;
+use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 use WC_Order;
+use WC_Order_Item;
 use WC_Product_Variation;
-use WP_User;
+use WC_Order_Item_Product;
 use WP_Error;
 
 /**
@@ -90,21 +92,49 @@ class Order {
 	 * @param WC_Order $order The WooCommerce order object.
 	 */
 	public static function to_dk_order_body( WC_Order $order ): array {
-		if ( $order->get_user() instanceof WP_User ) {
-			$order_props['Customer'] = Customer::id_to_dk_customer_body(
+		$order_kennitala = KennitalaField::get_kennitala_from_order( $order );
+
+		$order_props['Customer'] = array();
+
+		if ( 0 === $order->get_customer_id() ) {
+			if ( true === empty( $order_kennitala ) ) {
+				$order_props['Customer']['SSNumber'] = $order_kennitala;
+			} else {
+				$order_props['Customer']['SSNumber'] = Config::get_default_kennitala();
+			}
+		} else {
+			$customer_record = Customer::id_to_dk_customer_body(
 				$order->get_customer_id()
 			);
-		} else {
-			$order_props['Customer'] = array(
-				'Number' => Config::get_guest_customer_number(),
-			);
+
+			$order_props['Customer']['Number']   = $customer_record['Number'];
+			$order_props['Customer']['SSNumber'] = $order_kennitala;
+		}
+
+		if ( false === empty( $order->get_billing_company() ) ) {
+			$order_props['Customer']['Company'] = $order->get_billing_company();
+		}
+
+		$order_props['Customer']['Name']     = $order->get_formatted_billing_full_name();
+		$order_props['Customer']['Address1'] = $order->get_billing_address_1();
+		$order_props['Customer']['Address2'] = $order->get_billing_address_2();
+		$order_props['Customer']['City']     = $order->get_billing_city();
+		$order_props['Customer']['ZipCode']  = $order->get_billing_postcode();
+		$order_props['Customer']['Phone']    = $order->get_billing_phone();
+		$order_props['Customer']['Email']    = $order->get_billing_email();
+
+		$store_location = wc_get_base_location();
+
+		if ( $order->get_billing_country() !== $store_location['country'] ) {
+			$order_props['Customer']['Country'] = $order->get_billing_country();
 		}
 
 		$order_props['Lines'] = array();
 
 		foreach ( $order->get_items() as $key => $item ) {
-			$product = $item->get_product();
-			$sku     = $product->get_sku();
+			$order_item_product = new WC_Order_Item_Product( $item->get_id() );
+			$product            = $order_item_product->get_product();
+			$sku                = $product->get_sku();
 
 			$order_line_item = array(
 				'ItemCode' => $sku,
@@ -114,20 +144,37 @@ class Order {
 			);
 
 			if ( $product instanceof WC_Product_Variation ) {
-				var_dump( $product->get_variation_attributes( false ) );
 				$order_line_item['Variation'] = array();
 
 				$variation_attributes = $product->get_variation_attributes(
 					false
 				);
 				foreach ( $variation_attributes as $key => $v ) {
-					$order_line_item['Variation'][] = array(
-						"$key" => "$v",
-					);
+					$order_line_item['Variation'][] = array( "$key" => "$v" );
 				}
 			}
 
 			$order_props['Lines'][] = $order_line_item;
+		}
+
+		if ( 0 < count( $order->get_fees() ) ) {
+			foreach ( $order->get_fees() as $fee ) {
+				$unit_price = (
+					(float) $fee->get_total() -
+					(float) $fee->get_total_tax()
+				);
+
+				$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
+
+				$order_props['Lines'][] = array(
+					'ItemCode'         => Config::get_cost_sku(),
+					'Text'             => __( 'Fee', 'NineteenEightyWoo' ),
+					'Text2'            => $sanitized_name,
+					'Quantity'         => 1,
+					'UnitPrice'        => $unit_price,
+					'UnitPriceWithTax' => (float) $fee->get_total(),
+				);
+			}
 		}
 
 		if ( 0 < count( $order->get_shipping_methods() ) ) {
@@ -158,16 +205,6 @@ class Order {
 		);
 
 		$order_props['TotalAmountWithTax'] = (float) $order->get_total();
-
-		// if ( true === $order->is_paid() ) {
-		// 	$payment_mapping = Config::get_payment_mapping( $order->get_payment_method() );
-
-		// 	$order_props['Payments'] = array(
-		// 		'ID'     => $payment_mapping->dk_id,
-		// 		'Name'   => $payment_mapping->dk_name,
-		// 		'Amount' => $order->get_total(),
-		// 	);
-		// }
 
 		return $order_props;
 	}
