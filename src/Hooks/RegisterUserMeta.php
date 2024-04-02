@@ -15,6 +15,9 @@ use WC_Data;
  * Registers the post_meta values and Product props needed for the plugin to work.
  */
 class RegisterUserMeta {
+	/**
+	 * The class constructor
+	 */
 	public function __construct() {
 		register_meta(
 			'user',

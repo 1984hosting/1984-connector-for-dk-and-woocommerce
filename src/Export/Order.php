@@ -9,7 +9,6 @@ use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 use WC_Order;
-use WC_Order_Item;
 use WC_Product_Variation;
 use WC_Order_Item_Product;
 use WP_Error;
@@ -20,7 +19,17 @@ use WP_Error;
  * Provides functions for exporting WooCommerce orders as orders to the DK API.
  **/
 class Order {
-	public static function create_in_dk( WC_Order $order ): bool|WP_Error {
+	/**
+	 * Create an order record in DK based on a WooCommerce order
+	 *
+	 * @param WC_Order $order The WooCommerce order.
+	 *
+	 * @return int|false|WP_Error An integer representing the order number on
+	 *                            success, false of connection was established
+	 *                            but there was an error, or WP_Error on
+	 *                            connection error.
+	 */
+	public static function create_in_dk( WC_Order $order ): int|false|WP_Error {
 		$api_request  = new DKApiRequest();
 		$request_body = self::to_dk_order_body( $order );
 
@@ -39,9 +48,17 @@ class Order {
 
 		self::assign_dk_order_number( $order, $result->data->OrderNumber );
 
-		return true;
+		return $result->data->OrderNumber;
 	}
 
+	/**
+	 * Check if an order is in DK
+	 *
+	 * @param WC_Order $order The WooCommerce order.
+	 *
+	 * @return bool|WP_Error True if an order exists in DK, false if not,
+	 *                       WP_Error if here was a connection error.
+	 */
 	public static function is_in_dk( WC_Order $order ): bool|WP_Error {
 		if ( true === empty( self::get_dk_order_number( $order ) ) ) {
 			return false;
@@ -64,6 +81,12 @@ class Order {
 		return true;
 	}
 
+	/**
+	 * Assign a DK order number to an order
+	 *
+	 * @param WC_Order $order The WooCommerce order.
+	 * @param int      $dk_order_number The order number.
+	 */
 	public static function assign_dk_order_number(
 		WC_Order $order,
 		int $dk_order_number
@@ -78,6 +101,11 @@ class Order {
 		return $dk_order_number;
 	}
 
+	/**
+	 * Get the DK order number of an order from metadata
+	 *
+	 * @param WC_Order $order The WooCommerce order.
+	 */
 	public static function get_dk_order_number(
 		WC_Order $order
 	): int|string {
