@@ -96,7 +96,7 @@ class Order {
 			$dk_order_number
 		);
 
-		$order->save();
+		$order->save_meta_data();
 
 		return $dk_order_number;
 	}

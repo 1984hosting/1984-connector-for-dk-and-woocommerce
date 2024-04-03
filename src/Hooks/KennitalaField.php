@@ -179,7 +179,7 @@ class KennitalaField {
 				$sanitized_kennitala,
 			);
 
-			$order->save();
+			$order->save_meta_data();
 		}
 	}
 
@@ -478,7 +478,7 @@ class KennitalaField {
 				$sanitized_kennitala
 			);
 
-			$order->save();
+			$order->save_meta_data();
 		}
 	}
 

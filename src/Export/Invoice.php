@@ -154,7 +154,7 @@ class Invoice {
 			$dk_invoice_number
 		);
 
-		$order->save();
+		$order->save_meta_data();
 
 		return $dk_invoice_number;
 	}
@@ -187,7 +187,7 @@ class Invoice {
 			$dk_credit_invoice_number
 		);
 
-		$order->save();
+		$order->save_meta_data();
 
 		return $dk_credit_invoice_number;
 	}
