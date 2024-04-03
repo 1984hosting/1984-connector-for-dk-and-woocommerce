@@ -51,6 +51,15 @@ class Customer {
 		return true;
 	}
 
+	/**
+	 * Update the DK customer record for a WooCommerce costumer
+	 *
+	 * @param WC_Customer $customer The WooCommerce customer.
+	 *
+	 * @return bool|WP_Error True on success, false if connection was
+	 *                       established but the request was rejected, WC_Error
+	 *                       if there was a connection error.
+	 */
 	public static function update_in_dk( WC_Customer $customer ): bool|WP_Error {
 		$api_request  = new DKApiRequest();
 		$request_body = self::to_dk_customer_body( $customer );
