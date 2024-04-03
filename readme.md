@@ -73,6 +73,9 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 #### Prices
 - [ ] Assign a *price group* (1, 2 , 3) for products
 
+#### Error handling
+- [ ] Improve error handling and validation (Possibly replace `false` return values in Export classes with WP_Error, and then doing `wp_die()` on failure).
+
 ### Future Features (after the first release)
 - [ ] Sync WooCommerce orders with the *DK Sales Order* module
 
