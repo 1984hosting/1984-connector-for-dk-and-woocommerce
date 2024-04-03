@@ -16,6 +16,9 @@ use WP_Error;
  * updated.
  */
 class UpdateUser {
+	/**
+	 * The class constructor
+	 */
 	public function __construct() {
 		/**
 		 * The class constructor
