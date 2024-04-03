@@ -18,6 +18,8 @@ use WP_Error;
  * @see https://api.dkplus.is/swagger/ui/index#/Sales32Invoice
  **/
 class Customer {
+	const API_PATH = '/Customer/';
+
 	/**
 	 * Create a customer record in DK respresenting a WooCommerce customer record
 	 *
@@ -32,7 +34,7 @@ class Customer {
 		$request_body = self::to_dk_customer_body( $customer );
 
 		$result = $api_request->request_result(
-			'/Customer/',
+			self::API_PATH,
 			wp_json_encode( $request_body ),
 		);
 
@@ -45,6 +47,30 @@ class Customer {
 		}
 
 		self::assign_dk_customer_number( $customer );
+
+		return true;
+	}
+
+	public static function update_in_dk( WC_Customer $customer ): bool|WP_Error {
+		$api_request  = new DKApiRequest();
+		$request_body = self::to_dk_customer_body( $customer );
+
+		$customer_number = $request_body['Number'];
+		unset( $request_body['Number'] );
+
+		$result = $api_request->request_result(
+			self::API_PATH . $customer_number,
+			wp_json_encode( $request_body ),
+			'PUT'
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( 200 !== $result->response_code ) {
+			return false;
+		}
 
 		return true;
 	}
@@ -125,7 +151,7 @@ class Customer {
 			$dk_customer_number
 		);
 
-		$customer->save();
+		$customer->save_meta_data();
 
 		return $dk_customer_number;
 	}

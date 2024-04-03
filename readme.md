@@ -50,8 +50,8 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 
 #### Customers
 - [x] Let customers add a kennitala to their billing address
-- [ ] Create a corresponding *customer* record in DK when a WooCommerce customer is created
-- [ ] Sync changes to *customer* records upstream from WooCommerce on update
+- [x] Create a corresponding *customer* record in DK when a WooCommerce customer is created
+- [x] Sync changes to *customer* records upstream from WooCommerce on update
 - [ ] Sync changes to *customer* records downstream from DK on regular intervals or using web hooks
 
 #### Orders and invoices
