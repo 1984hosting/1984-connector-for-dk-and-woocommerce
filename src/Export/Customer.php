@@ -141,6 +141,32 @@ class Customer {
 	}
 
 	/**
+	 * Make up a DK customer number for a customer
+	 *
+	 * This uses the kennitala if it is set, otherwise, it will create one based
+	 * on the customer number prefix and the WordPress user ID.
+	 *
+	 * @see Config::get_customer_number_prefix()
+	 *
+	 * @param WC_Customer $customer The customer.
+	 *
+	 * @return string The assumed customer number.
+	 */
+	public static function assume_dk_customer_number(
+		WC_Customer $customer
+	): string {
+		$kennitala = (string) $customer->get_meta( 'kennitala', true, 'edit' );
+		if ( false === empty( $kennitala ) ) {
+			return $kennitala;
+		}
+
+		return (
+			Config::get_customer_number_prefix() .
+			$customer->get_id()
+		);
+	}
+
+	/**
 	 * Assign DK customer number to a WooCommerce customer
 	 *
 	 * @param WC_Customer $customer The WooCommerce customer.
@@ -157,7 +183,7 @@ class Customer {
 
 		$customer->update_meta_data(
 			'1984_woo_dk_customer_number',
-			$dk_customer_number
+			self::assume_dk_customer_number( $customer )
 		);
 
 		$customer->save_meta_data();
@@ -195,7 +221,7 @@ class Customer {
 		);
 
 		$customer_props = array(
-			'Number'   => Config::get_customer_number_prefix() . $customer->get_id(),
+			'Number'   => self::assume_dk_customer_number( $customer ),
 			'Name'     => $full_name,
 			'Address1' => $customer->get_billing_address_1(),
 			'Address2' => $customer->get_billing_address_2(),
@@ -207,10 +233,6 @@ class Customer {
 
 		if ( get_option( 'woocommerce_default_country' ) !== $customer->get_billing_country() ) {
 			$customer_props['CountryCode'] = $customer->get_billing_country();
-		}
-
-		if ( false === empty( $customer->get_meta( 'kennitala', true ) ) ) {
-			$customer_props['SSNumber'] = $customer->get_meta( 'kennitala', true );
 		}
 
 		return $customer_props;
