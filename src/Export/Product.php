@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
+use NineteenEightyFour\NineteenEightyWoo\Config;
 use WC_Product;
 use WP_Error;
 use WC_Tax;
@@ -138,9 +139,19 @@ class Product {
 		);
 
 		if ( true === $new_product ) {
-			$product_props['ItemCode']               = $product->get_sku();
-			$product_props['AllowNegativeInventory'] = true;
-			$product_props['AllowDiscount']          = true;
+			$product_props['ItemCode'] = $product->get_sku();
+
+			$product_props['AllowDiscount'] = true;
+
+			if ( 'reduced-rate' === $product->get_tax_class( 'edit' ) ) {
+				$product_props['SalesLedgerCode'] = Config::get_ledger_code(
+					'reduced'
+				);
+			} else {
+				$product_props['SalesLedgerCode'] = Config::get_ledger_code(
+					'standard'
+				);
+			}
 		}
 
 		if ( $product instanceof WC_Product_Variation ) {

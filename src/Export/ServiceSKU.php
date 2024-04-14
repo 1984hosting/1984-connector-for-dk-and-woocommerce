@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
+use NineteenEightyFour\NineteenEightyWoo\Config;
 
 /**
  * The Service SKU class
@@ -83,9 +84,11 @@ class ServiceSKU {
 		switch ( $type ) {
 			case 'shipping':
 				$description = __( 'Shipping', 'NineteenEightyWoo' );
+				$ledger_code = Config::get_ledger_code( 'shipping' );
 				break;
 			case 'cost':
 				$description = __( 'Cost', 'NineteenEightyWoo' );
+				$ledger_code = Config::get_ledger_code( 'costs' );
 				break;
 			default:
 				return false;
@@ -96,6 +99,7 @@ class ServiceSKU {
 			'ShowItemInWebShop' => false,
 			'Description'       => $description,
 			'ItemClass'         => 'ServiceItem',
+			'SalesLedgerCode'   => $ledger_code,
 		);
 	}
 }

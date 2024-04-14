@@ -49,6 +49,10 @@ class NineteenEightyWoo {
 		let defaultSalesPerson     = formData.get( 'default_sales_person' ).trim();
 		let defaultWarehouse       = formData.get( 'default_warehouse' ).trim();
 		let paymentIds             = formData.getAll( 'payment_id' );
+		let ledgerCodeStandard     = formData.get( 'ledger_code_standard' ).trim();
+		let ledgerCodeReduced      = formData.get( 'ledger_code_reduced' ).trim();
+		let ledgerCodeShipping     = formData.get( 'ledger_code_shipping' ).trim();
+		let ledgerCodeCosts        = formData.get( 'ledger_code_costs' ).trim();
 		let paymentMethods         = [];
 		let paymentsLength         = paymentIds.length;
 
@@ -78,7 +82,11 @@ class NineteenEightyWoo {
 			enable_kennitala_in_block: enableKennitalaInBlock,
 			default_sales_person: defaultSalesPerson,
 			default_warehouse: defaultWarehouse,
-			payment_methods: paymentMethods
+			payment_methods: paymentMethods,
+			ledger_code_standard: ledgerCodeStandard,
+			ledger_code_reduced: ledgerCodeReduced,
+			ledger_code_shipping: ledgerCodeShipping,
+			ledger_code_costs: ledgerCodeCosts
 		}
 
 		NineteenEightyWoo.postSettingsData( formDataObject );
