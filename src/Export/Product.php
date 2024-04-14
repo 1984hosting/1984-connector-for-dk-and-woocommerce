@@ -38,7 +38,7 @@ class Product {
 		}
 
 		$api_request  = new DKApiRequest();
-		$request_body = self::to_dk_product_body( $product );
+		$request_body = self::to_dk_product_body( $product, true );
 
 		$result = $api_request->request_result(
 			self::API_PATH,
@@ -70,10 +70,9 @@ class Product {
 	 */
 	public static function update_in_dk( WC_Product $product ): bool|WP_Error {
 		$api_request  = new DKApiRequest();
-		$request_body = self::to_dk_product_body( $product );
+		$request_body = self::to_dk_product_body( $product, false );
 
-		$item_code = $request_body['ItemCode'];
-		unset( $request_body['ItemCode'] );
+		$item_code = $product->get_sku();
 
 		$result = $api_request->request_result(
 			self::API_PATH . $item_code,
@@ -126,14 +125,23 @@ class Product {
 	 * Export a WooCommerce product to a DK API POST body
 	 *
 	 * @param WC_Product $product The WooCommerce product.
+	 * @param bool       $new_product Wether the product is new.
+	 *                                False if updating only.
 	 */
-	public static function to_dk_product_body( WC_Product $product ): array {
+	public static function to_dk_product_body(
+		WC_Product $product,
+		bool $new_product = true
+	): array {
 		$product_props = array(
-			'ItemCode'          => $product->get_sku(),
-			'Description'       => $product->get_title(),
-			'ShowItemInWebShop' => true,
-			'CurrencyCode'      => get_woocommerce_currency(),
+			'Description'  => $product->get_title(),
+			'CurrencyCode' => get_woocommerce_currency(),
 		);
+
+		if ( true === $new_product ) {
+			$product_props['ItemCode']               = $product->get_sku();
+			$product_props['AllowNegativeInventory'] = true;
+			$product_props['AllowDiscount']          = true;
+		}
 
 		if ( $product instanceof WC_Product_Variation ) {
 			$product_props['Description2'] = $product->get_attribute_summary();

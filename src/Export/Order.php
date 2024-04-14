@@ -5,16 +5,17 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
+use NineteenEightyFour\NineteenEightyWoo\Export\Customer as ExportCustomer;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
+use WC_Customer;
 use WC_Order;
 use WC_Product_Variation;
 use WC_Order_Item_Product;
 use WP_Error;
 
 /**
- * The order Export class
+ * The Order Export class
  *
  * Provides functions for exporting WooCommerce orders as orders to the DK API.
  **/
@@ -22,16 +23,18 @@ class Order {
 	/**
 	 * Create an order record in DK based on a WooCommerce order
 	 *
-	 * @param WC_Order $order The WooCommerce order.
+	 * @param WC_Order $wc_order The WooCommerce order.
 	 *
 	 * @return int|false|WP_Error An integer representing the order number on
 	 *                            success, false of connection was established
 	 *                            but there was an error, or WP_Error on
 	 *                            connection error.
 	 */
-	public static function create_in_dk( WC_Order $order ): int|false|WP_Error {
+	public static function create_in_dk(
+		WC_Order $wc_order
+	): int|false|WP_Error {
 		$api_request  = new DKApiRequest();
-		$request_body = self::to_dk_order_body( $order );
+		$request_body = self::to_dk_order_body( $wc_order );
 
 		$result = $api_request->request_result(
 			'/Sales/Order/',
@@ -46,28 +49,28 @@ class Order {
 			return false;
 		}
 
-		self::assign_dk_order_number( $order, $result->data->OrderNumber );
+		self::assign_dk_order_number( $wc_order, $result->data->OrderNumber );
 
 		return $result->data->OrderNumber;
 	}
 
 	/**
-	 * Check if an order is in DK
+	 * Check if an wc_order is in DK
 	 *
-	 * @param WC_Order $order The WooCommerce order.
+	 * @param WC_Order $wc_order The WooCommerce order.
 	 *
 	 * @return bool|WP_Error True if an order exists in DK, false if not,
 	 *                       WP_Error if here was a connection error.
 	 */
-	public static function is_in_dk( WC_Order $order ): bool|WP_Error {
-		if ( true === empty( self::get_dk_order_number( $order ) ) ) {
+	public static function is_in_dk( WC_Order $wc_order ): bool|WP_Error {
+		if ( true === empty( self::get_dk_order_number( $wc_order ) ) ) {
 			return false;
 		}
 
 		$api_request = new DKApiRequest();
 
 		$result = $api_request->get_result(
-			'/Sales/Order/' . self::get_dk_order_number( $order )
+			'/Sales/Order/' . self::get_dk_order_number( $wc_order )
 		);
 
 		if ( $result instanceof WP_Error ) {
@@ -84,19 +87,19 @@ class Order {
 	/**
 	 * Assign a DK order number to an order
 	 *
-	 * @param WC_Order $order The WooCommerce order.
+	 * @param WC_Order $wc_order The WooCommerce order.
 	 * @param int      $dk_order_number The order number.
 	 */
 	public static function assign_dk_order_number(
-		WC_Order $order,
+		WC_Order $wc_order,
 		int $dk_order_number
 	): int {
-		$order->update_meta_data(
+		$wc_order->update_meta_data(
 			'1984_woo_dk_order_number',
 			$dk_order_number
 		);
 
-		$order->save_meta_data();
+		$wc_order->save_meta_data();
 
 		return $dk_order_number;
 	}
@@ -104,62 +107,57 @@ class Order {
 	/**
 	 * Get the DK order number of an order from metadata
 	 *
-	 * @param WC_Order $order The WooCommerce order.
+	 * @param WC_Order $wc_order The WooCommerce order.
 	 */
 	public static function get_dk_order_number(
-		WC_Order $order
+		WC_Order $wc_order
 	): int|string {
-		return $order->get_meta(
+		return $wc_order->get_meta(
 			'1984_woo_dk_order_number'
 		);
 	}
 
 	/**
-	 * Export a WooCommerce order to a DK API order POST body
+	 * Export a WooCommerce wc_order to a DK API wc_order POST body
 	 *
-	 * @param WC_Order $order The WooCommerce order object.
+	 * @param WC_Order $wc_order The WooCommerce order object.
 	 */
-	public static function to_dk_order_body( WC_Order $order ): array {
-		$order_kennitala = KennitalaField::get_kennitala_from_order( $order );
+	public static function to_dk_order_body( WC_Order $wc_order ): array {
+		$customer_array  = array();
+		$recipient_array = array();
 
-		$order_props['Customer'] = array();
+		$customer_array['Number']   = self::assume_dk_customer_number( $wc_order );
+		$customer_array['Name']     = $wc_order->get_formatted_billing_full_name();
+		$customer_array['Address1'] = $wc_order->get_billing_address_1();
+		$customer_array['Address2'] = $wc_order->get_billing_address_2();
+		$customer_array['City']     = $wc_order->get_billing_city();
+		$customer_array['ZipCode']  = $wc_order->get_billing_postcode();
+		$customer_array['Phone']    = $wc_order->get_billing_phone();
+		$customer_array['Email']    = $wc_order->get_billing_email();
 
-		if ( 0 === $order->get_customer_id() ) {
-			if ( true === empty( $order_kennitala ) ) {
-				$order_props['Customer']['SSNumber'] = $order_kennitala;
-			} else {
-				$order_props['Customer']['SSNumber'] = Config::get_default_kennitala();
-			}
-		} else {
-			$customer_record = Customer::id_to_dk_customer_body(
-				$order->get_customer_id()
-			);
-
-			$order_props['Customer']['Number']   = $customer_record['Number'];
-			$order_props['Customer']['SSNumber'] = $order_kennitala;
-		}
-
-		if ( false === empty( $order->get_billing_company() ) ) {
-			$order_props['Customer']['Company'] = $order->get_billing_company();
-		}
-
-		$order_props['Customer']['Name']     = $order->get_formatted_billing_full_name();
-		$order_props['Customer']['Address1'] = $order->get_billing_address_1();
-		$order_props['Customer']['Address2'] = $order->get_billing_address_2();
-		$order_props['Customer']['City']     = $order->get_billing_city();
-		$order_props['Customer']['ZipCode']  = $order->get_billing_postcode();
-		$order_props['Customer']['Phone']    = $order->get_billing_phone();
-		$order_props['Customer']['Email']    = $order->get_billing_email();
+		$recipient_array['Name']     = $wc_order->get_formatted_billing_full_name();
+		$recipient_array['Address1'] = $wc_order->get_shipping_address_1();
+		$recipient_array['Address2'] = $wc_order->get_shipping_address_2();
+		$recipient_array['City']     = $wc_order->get_shipping_city();
+		$recipient_array['ZipCode']  = $wc_order->get_shipping_postcode();
+		$recipient_array['Phone']    = $wc_order->get_shipping_phone();
 
 		$store_location = wc_get_base_location();
 
-		if ( $order->get_billing_country() !== $store_location['country'] ) {
-			$order_props['Customer']['Country'] = $order->get_billing_country();
+		if ( $wc_order->get_billing_country() !== $store_location['country'] ) {
+			$customer_array['Country'] = $wc_order->get_billing_country();
 		}
+
+		if ( $wc_order->get_shipping_country() !== $store_location['country'] ) {
+			$recipient_array['Country'] = $wc_order->get_shipping_country();
+		}
+
+		$order_props['Customer']    = $customer_array;
+		$order_props['ItemReciver'] = $recipient_array;
 
 		$order_props['Lines'] = array();
 
-		foreach ( $order->get_items() as $key => $item ) {
+		foreach ( $wc_order->get_items() as $key => $item ) {
 			$order_item_product = new WC_Order_Item_Product( $item->get_id() );
 			$product            = $order_item_product->get_product();
 			$sku                = $product->get_sku();
@@ -168,7 +166,7 @@ class Order {
 				'ItemCode' => $sku,
 				'Text'     => $item->get_name(),
 				'Quantity' => $item->get_quantity(),
-				'Price'    => $order->get_item_total( $item ),
+				'Price'    => $wc_order->get_item_total( $item ),
 			);
 
 			if ( $product instanceof WC_Product_Variation ) {
@@ -185,8 +183,8 @@ class Order {
 			$order_props['Lines'][] = $order_line_item;
 		}
 
-		if ( 0 < count( $order->get_fees() ) ) {
-			foreach ( $order->get_fees() as $fee ) {
+		if ( 0 < count( $wc_order->get_fees() ) ) {
+			foreach ( $wc_order->get_fees() as $fee ) {
 				$unit_price = (
 					(float) $fee->get_total() -
 					(float) $fee->get_total_tax()
@@ -205,8 +203,8 @@ class Order {
 			}
 		}
 
-		if ( 0 < count( $order->get_shipping_methods() ) ) {
-			foreach ( $order->get_shipping_methods() as $shipping_method ) {
+		if ( 0 < count( $wc_order->get_shipping_methods() ) ) {
+			foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
 				$unit_price = (
 					(float) $shipping_method->get_total() -
 					(float) $shipping_method->get_total_tax()
@@ -223,27 +221,66 @@ class Order {
 			}
 		}
 
-		if ( 0 < $order->get_total_discount() ) {
-			$order_props['Discount'] = $order->get_total_discount();
+		if ( 0 < $wc_order->get_total_discount() ) {
+			$order_props['Discount'] = $wc_order->get_total_discount();
 		}
 
 		$order_props['TotalAmount'] = (
-			(float) $order->get_total() -
-			(float) $order->get_total_tax()
+			(float) $wc_order->get_total() -
+			(float) $wc_order->get_total_tax()
 		);
 
-		$order_props['TotalAmountWithTax'] = (float) $order->get_total();
+		$order_props['TotalAmountWithTax'] = (float) $wc_order->get_total();
 
 		return $order_props;
 	}
 
 	/**
-	 * Export a WooCommerce order to a valid HTTP body based on its Id.
+	 * Export a WooCommerce wc_order to a valid HTTP body based on its Id.
 	 *
 	 * @param int $order_id The Order ID.
 	 */
 	public static function id_to_dk_order_body( int $order_id ): array {
-		$order = new WC_Order( $order_id );
-		return self::to_dk_order_body( $order );
+		$order_object = new WC_Order( $order_id );
+		return self::to_dk_order_body( $order_object );
+	}
+
+	/**
+	 * Assume the DK customer number for an order
+	 *
+	 * Starts by checking if a billing kennitala has been set for the order and
+	 * uses that as the main kennitala.
+	 *
+	 * If it can't find a billing kennitala, it will check if the customer for
+	 * the order has a kennitala and uses that as the customer number in DK.
+	 *
+	 * If that does not work out, the default kennitala will be used for the
+	 * customer.
+	 *
+	 * @see NineteenEightyFour\NineteenEightyWoo\Config::get_default_kennitala()
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 *
+	 * @return string The kennitala or customer number used.
+	 */
+	public static function assume_dk_customer_number(
+		WC_Order $wc_order
+	): string {
+		$billing_kennitala = KennitalaField::get_kennitala_from_order(
+			$wc_order
+		);
+
+		$customer_id = $wc_order->get_customer_id();
+
+		if ( true === empty( $billing_kennitala ) ) {
+			if ( 0 === $customer_id ) {
+				return Config::get_default_kennitala();
+			} else {
+				$customer = new WC_Customer( $customer_id );
+				return ExportCustomer::assume_dk_customer_number( $customer );
+			}
+		}
+
+		return $billing_kennitala;
 	}
 }

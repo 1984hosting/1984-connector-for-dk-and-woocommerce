@@ -21,10 +21,12 @@ require plugin_dir_path( __FILE__ ) . './vendor/autoload.php';
 
 new NineteenEightyFour\NineteenEightyWoo\Admin();
 
-new NineteenEightyFour\NineteenEightyWoo\Hooks\RegisterPostMeta();
 new NineteenEightyFour\NineteenEightyWoo\Rest\Settings();
-new NineteenEightyFour\NineteenEightyWoo\Hooks\WooMetaboxes();
+
 new NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField();
+new NineteenEightyFour\NineteenEightyWoo\Hooks\RegisterPostMeta();
+new NineteenEightyFour\NineteenEightyWoo\Hooks\UpdateUser();
+new NineteenEightyFour\NineteenEightyWoo\Hooks\WooMetaboxes();
+new \NineteenEightyFour\NineteenEightyWoo\Hooks\WooOrderStatusChanges();
 new NineteenEightyFour\NineteenEightyWoo\Hooks\WooProductVariations();
 new NineteenEightyFour\NineteenEightyWoo\Hooks\WooUpdateProduct();
-new NineteenEightyFour\NineteenEightyWoo\Hooks\UpdateUser();

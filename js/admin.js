@@ -121,6 +121,17 @@ window.addEventListener(
 					NineteenEightyWoo.onSettingsFormSubmit
 				);
 			}
+
+			if (
+				document.body.classList.contains(
+					'post-type-product'
+				)
+			) {
+				NineteenEightyWoo.settingsForm().addEventListener(
+					'submit',
+					NineteenEightyWoo.onSettingsFormSubmit
+				);
+			}
 		}
 	}
 );

@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
 use NineteenEightyFour\NineteenEightyWoo\Export\Product as ExportProduct;
-use NineteenEightyFour\NineteenEightyWoo\Export\Inventory as ExportInventory;
 
 use WC_Product;
 
@@ -21,47 +20,11 @@ class WooUpdateProduct {
 	 */
 	public function __construct() {
 		add_action(
-			'woocommerce_variation_set_stock',
-			array( __CLASS__, 'on_variation_set_stock' ),
-			10,
-			2
-		);
-
-		add_action(
-			'woocommerce_product_set_stock',
-			array( __CLASS__, 'on_product_set_stock' ),
-			10,
-			2
-		);
-
-		add_action(
 			'woocommerce_update_product',
 			array( __CLASS__, 'on_product_update' ),
 			10,
 			2
 		);
-	}
-
-	/**
-	 * Update inventory count in DK when a variation stock count is changed manually
-	 *
-	 * @param WC_Product $product The WooCommerce product.
-	 */
-	public static function on_variation_set_stock(
-		WC_Product $product
-	): void {
-		ExportInventory::add_or_update_count_in_dk( $product );
-	}
-
-	/**
-	 * Update inventory count in DK when a product stock count is changed manually
-	 *
-	 * @param WC_Product $product The WooCommerce product.
-	 */
-	public static function on_product_set_stock(
-		WC_Product $product
-	): void {
-		ExportInventory::add_or_update_count_in_dk( $product );
 	}
 
 	/**

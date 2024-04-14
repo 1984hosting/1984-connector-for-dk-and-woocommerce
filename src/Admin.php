@@ -14,29 +14,20 @@ class Admin {
 	/**
 	 * Constructor for the Admin interface class
 	 *
+	 * Nonce verification is disabled here as we are not processing the GET
+	 * superglobals beyond checking if they are set to a certain value.
+	 *
 	 * Initiates any wp-admin related actions, .
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu_page' ) );
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		// Superlobal is not passed into anything.
+		// phpcs:ignore WordPress.Security.NonceVerification
 		if ( ( isset( $_GET['page'] ) ) && ( 'NineteenEightyWoo' === $_GET['page'] ) ) {
 			add_action(
 				'admin_init',
 				array( __CLASS__, 'enqueue_styles_and_scripts' )
-			);
-		}
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( ( isset( $_GET['page'] ) ) && ( 'wc-orders' === $_GET['page'] ) ) {
-			add_action(
-				'admin_init',
-				function (): void {
-					wp_enqueue_style(
-						handle: 'nineteen-eighty-woo-wc-orders',
-						src: plugins_url( 'style/wc-orders.css', __DIR__ ),
-						ver: '0.1'
-					);
-				}
 			);
 		}
 	}

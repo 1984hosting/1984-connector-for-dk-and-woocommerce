@@ -96,14 +96,7 @@ class Customer {
 	public static function is_in_dk( WC_Customer $customer ): bool|WP_Error {
 		$api_request = new DKApiRequest();
 
-		if ( true === empty( self::get_dk_customer_number( $customer ) ) ) {
-			$dk_customer_number = (
-				Config::get_customer_number_prefix() .
-				$customer->get_id()
-			);
-		} else {
-			$dk_customer_number = self::get_dk_customer_number( $customer );
-		}
+		$dk_customer_number = self::assume_dk_customer_number( $customer );
 
 		$result = $api_request->get_result(
 			'/Customer/' . $dk_customer_number
@@ -133,7 +126,9 @@ class Customer {
 	public static function has_dk_customer_number(
 		WC_Customer $customer
 	): bool {
-		if ( true === empty( $customer->get_meta( '1984_woo_dk_customer_number' ) ) ) {
+		if ( true === empty(
+			$customer->get_meta( '1984_woo_dk_customer_number' )
+		) ) {
 			return false;
 		}
 

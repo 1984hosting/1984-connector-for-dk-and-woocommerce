@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Config;
 
 /**
  * The Service SKU class

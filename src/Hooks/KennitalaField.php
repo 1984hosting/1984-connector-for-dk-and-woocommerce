@@ -159,27 +159,29 @@ class KennitalaField {
 	 * meta is being processed.
 	 *
 	 * @param int      $post_id The order ID (unused).
-	 * @param WC_Order $order The order object.
+	 * @param WC_Order $wc_order The order object.
 	 */
 	public static function update_order_meta(
 		int $post_id,
-		WC_Order $order
+		WC_Order $wc_order
 	): void {
+		// Nonce check is handled by WooCommerce.
 		// phpcs:ignore WordPress.Security.NonceVerification
 		if ( isset( $_POST['_billing_kennitala'] ) ) {
 			$kennitala = sanitize_text_field(
+				// Nonce check is handled by WooCommerce.
 				// phpcs:ignore WordPress.Security.NonceVerification
 				wp_unslash( $_POST['_billing_kennitala'] )
 			);
 
 			$sanitized_kennitala = self::sanitize_kennitala( $kennitala );
 
-			$order->update_meta_data(
+			$wc_order->update_meta_data(
 				'billing_kennitala',
 				$sanitized_kennitala,
 			);
 
-			$order->save_meta_data();
+			$wc_order->save_meta_data();
 		}
 	}
 
@@ -189,13 +191,13 @@ class KennitalaField {
 	 * This is for hooking into the `woocommerce_admin_billing_fields` filter.
 	 *
 	 * @param array    $fields The fields array as it arrives.
-	 * @param WC_Order $order The current order object.
+	 * @param WC_Order $wc_order The current order object.
 	 */
 	public static function add_billing_field_to_order_editor(
 		array $fields,
-		WC_Order $order
+		WC_Order $wc_order
 	): array {
-		$additional_fields = $order->get_meta( '_additional_billing_fields' );
+		$additional_fields = $wc_order->get_meta( '_additional_billing_fields' );
 		if (
 			true === is_array( $additional_fields ) &&
 			true === array_key_exists( '1984_woo_dk/kennitala', $additional_fields ) &&
@@ -205,7 +207,7 @@ class KennitalaField {
 		}
 
 		$formatted_kennitala = self::format_kennitala(
-			$order->get_meta( 'billing_kennitala', true )
+			$wc_order->get_meta( 'billing_kennitala', true )
 		);
 
 		$first_bit = array_slice( $fields, 0, 2 );
@@ -258,7 +260,7 @@ class KennitalaField {
 	 *
 	 * @param int      $order_id The order id (unused).
 	 * @param array    $posted_data The default set of posted order data (unused).
-	 * @param WC_Order $order The order object we are working with.
+	 * @param WC_Order $wc_order The order object we are working with.
 	 *
 	 * @return bool True if the kennitala has been assigned to a user record,
 	 *              false if it hasn't (for any reason).
@@ -266,15 +268,15 @@ class KennitalaField {
 	public static function add_order_kennitala_to_the_customer(
 		int $order_id,
 		array $posted_data,
-		WC_Order $order
+		WC_Order $wc_order
 	): bool {
-		$customer_id = $order->get_customer_id();
+		$customer_id = $wc_order->get_customer_id();
 
 		if ( 0 === $customer_id ) {
 			return false;
 		}
 
-		$order_kennitala = $order->get_meta( 'billing_kennitala', true );
+		$order_kennitala = $wc_order->get_meta( 'billing_kennitala', true );
 
 		if ( false === empty( $order_kennitala ) ) {
 			$customer = new WC_Customer( $customer_id );
@@ -300,18 +302,18 @@ class KennitalaField {
 	 * `add_order_kennitala_to_the_customer()` function and uses the
 	 * `woocommerce_store_api_checkout_order_processed` hook.
 	 *
-	 * @param WC_Order $order The order being submitted.
+	 * @param WC_Order $wc_order The order being submitted.
 	 */
 	public static function add_order_kennitala_to_the_customer_from_api(
-		WC_Order $order
+		WC_Order $wc_order
 	): bool {
-		$customer_id = $order->get_customer_id();
+		$customer_id = $wc_order->get_customer_id();
 
 		if ( 0 === $customer_id ) {
 			return false;
 		}
 
-		$additional_fields = $order->get_meta(
+		$additional_fields = $wc_order->get_meta(
 			'_additional_billing_fields',
 			true
 		);
@@ -357,18 +359,18 @@ class KennitalaField {
 	 * @param string   $address_data The original string containing the
 	 *                               formatted address.
 	 * @param array    $raw_address The address elements as an array (unused).
-	 * @param WC_Order $order The order object we pick the kennitala meta from.
+	 * @param WC_Order $wc_order The order object we pick the kennitala meta from.
 	 */
 	public static function add_kennitala_to_formatted_billing_address(
 		string $address_data,
 		array $raw_address,
-		WC_Order $order
+		WC_Order $wc_order
 	): string {
 		if ( true === is_admin() ) {
 			return $address_data;
 		}
 
-		$kennitala = $order->get_meta( 'billing_kennitala', true );
+		$kennitala = $wc_order->get_meta( 'billing_kennitala', true );
 
 		if ( true === empty( $kennitala ) ) {
 			return $address_data;
@@ -426,10 +428,12 @@ class KennitalaField {
 	 * taken care of that for us at this point.
 	 */
 	public static function check_classic_checkout_field(): void {
+		// Nonce check is handled by WooCommerce.
 		// phpcs:ignore WordPress.Security.NonceVerification
 		if ( true === isset( $_POST['kennitala'] ) ) {
 
 			$kennitala = sanitize_text_field(
+				// Nonce check is handled by WooCommerce.
 				// phpcs:ignore WordPress.Security.NonceVerification
 				wp_unslash( $_POST['kennitala'] )
 			);
@@ -462,23 +466,25 @@ class KennitalaField {
 	 * @param int $order_id The order id.
 	 */
 	public static function save_classic_checkout_field( int $order_id ): void {
-		$order = new WC_Order( $order_id );
+		$order_object = new WC_Order( $order_id );
 
+		// Nonce check is handled by WooCommerce.
 		// phpcs:ignore WordPress.Security.NonceVerification
 		if ( true === isset( $_POST['billing_kennitala'] ) ) {
 			$kennitala = sanitize_text_field(
+				// Nonce check is handled by WooCommerce.
 				// phpcs:ignore WordPress.Security.NonceVerification
 				wp_unslash( $_POST['billing_kennitala'] )
 			);
 
 			$sanitized_kennitala = self::sanitize_kennitala( $kennitala );
 
-			$order->update_meta_data(
+			$order_object->update_meta_data(
 				'billing_kennitala',
 				$sanitized_kennitala
 			);
 
-			$order->save_meta_data();
+			$order_object->save_meta_data();
 		}
 	}
 
@@ -593,22 +599,51 @@ class KennitalaField {
 	/**
 	 * Get the billing kennital from an order
 	 *
-	 * @param WC_Order $order The WooCommerce order.
+	 * @param WC_Order $wc_order The order.
 	 */
-	public static function get_kennitala_from_order( WC_Order $order ): string {
-		$additional_fields = $order->get_meta(
+	public static function get_kennitala_from_order(
+		WC_Order $wc_order,
+	): string {
+		$additional_fields = $wc_order->get_meta(
 			'_additional_billing_fields',
 			true
 		);
 
 		if (
 			true === is_array( $additional_fields ) &&
-			true === array_key_exists( '1984_woo_dk/kennitala', $additional_fields ) &&
+			true === array_key_exists(
+				'1984_woo_dk/kennitala',
+				$additional_fields
+			) &&
 			false === empty( $additional_fields['1984_woo_dk/kennitala'] )
 		) {
 			return (string) $additional_fields['1984_woo_dk/kennitala'];
 		}
 
-		return (string) $order->get_meta( 'billing_kennitala', true );
+		$customer_id = $wc_order->get_customer_id();
+		if ( 0 !== $customer_id ) {
+			$customer           = new WC_Customer( $customer_id );
+			$customer_kennitala = $customer->get_meta(
+				'kennitala',
+				true,
+				'edit'
+			);
+
+			if ( false === empty( $customer_kennitala ) ) {
+				return $customer_kennitala;
+			}
+		}
+
+		$billing_kennitala = $wc_order->get_meta(
+			'billing_kennitala',
+			true,
+			'edit'
+		);
+
+		if ( false === empty( $billing_kennitala ) ) {
+			return $billing_kennitala;
+		}
+
+		return Config::get_default_kennitala();
 	}
 }
