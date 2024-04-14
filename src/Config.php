@@ -422,7 +422,7 @@ class Config {
 	 */
 	public static function set_ledger_code(
 		string $key = 'standard',
-		string $value
+		string $value = 's002'
 	): bool {
 		return update_option( '1984_woo_dk_ledger_code_' . $key, $value );
 	}
