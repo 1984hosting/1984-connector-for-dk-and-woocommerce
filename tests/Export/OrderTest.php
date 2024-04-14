@@ -4,8 +4,6 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Tests\Export;
 
-use NineteenEightyFour\NineteenEightyWoo\Export\Order;
-use WC_Order;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;

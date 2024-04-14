@@ -111,10 +111,6 @@ class Settings {
 			Config::set_shipping_sku( $rest_json->shipping_sku );
 		}
 
-		if ( true === property_exists( $rest_json, 'coupon_sku' ) ) {
-			Config::set_coupon_sku( $rest_json->coupon_sku );
-		}
-
 		if ( true === property_exists( $rest_json, 'cost_sku' ) ) {
 			Config::set_cost_sku( $rest_json->cost_sku );
 		}

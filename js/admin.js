@@ -41,7 +41,6 @@ class NineteenEightyWoo {
 
 		let apiKey                 = formData.get( 'api_key' ).trim();
 		let shippingSku            = formData.get( 'shipping_sku' ).trim();
-		let couponSku              = formData.get( 'coupon_sku' ).trim();
 		let costSku                = formData.get( 'cost_sku' ).trim();
 		let customerNumberPrefix   = formData.get( 'customer_number_prefix' ).trim();
 		let defaultKennitala       = formData.get( 'default_kennitala' ).trim();
@@ -72,7 +71,6 @@ class NineteenEightyWoo {
 		const formDataObject = {
 			api_key: apiKey,
 			shipping_sku: shippingSku,
-			coupon_sku: couponSku,
 			cost_sku: costSku,
 			customer_number_prefix: customerNumberPrefix,
 			default_kennitala: defaultKennitala,
@@ -116,6 +114,17 @@ window.addEventListener(
 			if (
 				document.body.classList.contains(
 					'woocommerce_page_NineteenEightyWoo'
+				)
+			) {
+				NineteenEightyWoo.settingsForm().addEventListener(
+					'submit',
+					NineteenEightyWoo.onSettingsFormSubmit
+				);
+			}
+
+			if (
+				document.body.classList.contains(
+					'post-type-product'
 				)
 			) {
 				NineteenEightyWoo.settingsForm().addEventListener(

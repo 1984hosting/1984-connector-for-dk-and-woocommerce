@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo;
 
-use NineteenEightyFour\NineteenEightyWoo\Export\Employee;
-use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson;
-use NineteenEightyFour\NineteenEightyWoo\Export\ServiceSKU;
-use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
+use NineteenEightyFour\NineteenEightyWoo\Export\Employee as ExportEmployee;
+use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson as ExportSalesPerson;
+use NineteenEightyFour\NineteenEightyWoo\Export\ServiceSKU as ExportServiceSKU;
+use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments as ImportSalesPayments;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 use stdClass;
 
@@ -27,9 +27,9 @@ class Config {
 	const DEFAULT_COUPON_SKU   = 'COUPON';
 	const DEFAULT_COST_SKU     = 'COST';
 
-	const DEFAULT_SALES_PERSON = 'WEBSALES';
-
 	const DEFAULT_WAREHOUSE = 'bg1';
+
+	const DEFAULT_SALES_PERSON = 'WEBSALES';
 
 	/**
 	 * Get the DK API key
@@ -79,7 +79,7 @@ class Config {
 		string $woo_id,
 		int $dk_id,
 	): bool {
-		$dk_payment_method = SalesPayments::find_by_id( $dk_id );
+		$dk_payment_method = ImportSalesPayments::find_by_id( $dk_id );
 
 		if ( false === $dk_payment_method ) {
 			return false;
@@ -187,37 +187,10 @@ class Config {
 	public static function set_shipping_sku( string $sku ): bool {
 		if (
 			( self::get_shipping_sku() !== $sku ) &&
-			( false === ServiceSKU::is_in_dk( $sku ) ) &&
-			( true === ServiceSKU::create_in_dk( $sku ) )
+			( false === ExportServiceSKU::is_in_dk( $sku ) ) &&
+			( true === ExportServiceSKU::create_in_dk( $sku ) )
 		) {
 			return update_option( '1984_woo_dk_shipping_sku', $sku );
-		}
-
-		return false;
-	}
-
-	/**
-	 * Get the coupon SKU
-	 */
-	public static function get_coupon_sku(): string {
-		return (string) get_option(
-			'1984_woo_dk_coupon_sku',
-			self::DEFAULT_COUPON_SKU
-		);
-	}
-
-	/**
-	 * Set the coupon SKU
-	 *
-	 * @param string $sku The SKU for the coupon service SKU.
-	 */
-	public static function set_coupon_sku( string $sku ): bool {
-		if (
-			( self::get_coupon_sku() !== $sku ) &&
-			( false === ServiceSKU::is_in_dk( $sku ) ) &&
-			( true === ServiceSKU::create_in_dk( $sku, 'coupon' ) )
-		) {
-			return update_option( '1984_woo_dk_coupon_sku', $sku );
 		}
 
 		return false;
@@ -244,8 +217,8 @@ class Config {
 	public static function set_cost_sku( string $sku ): bool {
 		if (
 			( self::get_cost_sku() !== $sku ) &&
-			( false === ServiceSKU::is_in_dk( $sku ) ) &&
-			( false === ServiceSKU::create_in_dk( $sku, 'cost' ) )
+			( false === ExportServiceSKU::is_in_dk( $sku ) ) &&
+			( false === ExportServiceSKU::create_in_dk( $sku, 'cost' ) )
 		) {
 			return false;
 		}
@@ -352,7 +325,7 @@ class Config {
 			return false;
 		}
 
-		if ( false === SalesPerson::is_in_dk( $sales_person_number ) ) {
+		if ( false === ExportSalesPerson::is_in_dk( $sales_person_number ) ) {
 			$random_string = base_convert(
 				(string) random_int( 65_536, 131_072 ),
 				10,
@@ -360,11 +333,11 @@ class Config {
 			);
 
 			$employee_number = 'WEBSALES' . $random_string;
-			if ( true !== Employee::create_in_dk( $employee_number ) ) {
+			if ( true !== ExportEmployee::create_in_dk( $employee_number ) ) {
 				return false;
 			}
 
-			if ( true !== SalesPerson::create_in_dk(
+			if ( true !== ExportSalesPerson::create_in_dk(
 				$sales_person_number,
 				$employee_number
 			) ) {

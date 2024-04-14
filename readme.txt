@@ -2,7 +2,7 @@
 Stable tag: trunk
 Contributors: @1984cto, @aldavigdis, @drupalviking
 Tags: DK, dkPlus, Iceland, WooCommerce, Accounting, Inventory, Invoicing
-Requires at least: 6.1.5
+Requires at least: 6.2.4
 Tested up to: 6.5
 Requires PHP: 8.1
 License: GPLv3 or later

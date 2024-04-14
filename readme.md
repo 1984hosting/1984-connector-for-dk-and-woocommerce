@@ -40,8 +40,8 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 - [ ] Add Icelandic locale files
 
 #### Products
-- [ ] Create a corresponding *product* record in DK when a WooCommerce product is created
-- [ ] Sync changes to *product* records upstream from WooCommerce on update
+- [x] Create a corresponding *product* record in DK when a WooCommerce product is created
+- [x] Sync changes to *product* records upstream from WooCommerce on update
 - [ ] Sync changes to *product* records downstream from DK on regular intervals or using web hooks
 
 #### Product Inventory
@@ -50,8 +50,8 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 
 #### Customers
 - [x] Let customers add a kennitala to their billing address
-- [ ] Create a corresponding *customer* record in DK when a WooCommerce customer is created
-- [ ] Sync changes to *customer* records upstream from WooCommerce on update
+- [x] Create a corresponding *customer* record in DK when a WooCommerce customer is created
+- [x] Sync changes to *customer* records upstream from WooCommerce on update
 - [ ] Sync changes to *customer* records downstream from DK on regular intervals or using web hooks
 
 #### Orders and invoices
@@ -71,7 +71,10 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 - [x] Assign a *salesperson* in DK for sales in WooCommerce
 
 #### Prices
-- [ ] Assign a *price group* (1, 2 , 3) for products
+- [ ] Assign a *price group* (1, 2, 3) for products
+
+#### Error handling
+- [ ] Improve error handling and validation (Possibly replace `false` return values in Export classes with WP_Error, and then doing `wp_die()` on failure).
 
 ### Future Features (after the first release)
 - [ ] Sync WooCommerce orders with the *DK Sales Order* module
@@ -95,6 +98,8 @@ This means that it is difficult to write mockups or
 DK will cut off some string values that exceed its limits without warning. This is not well documented by them.
 
 * Product Codes (SKU): The DK API is unable to accept longer values than 20.
+* Product variations need to be treated as separate products
+* Product variation SKUs have to be unique and not the same as the parent.
 * Product descriptions: The DK API is unable to accept longer textual values than 40.
 
 This means that syncing product descriptions etc. may not be possible using orthodox methodologies and that string values should always be assumed to be either 20 or 40 characters long. (It may be possible to do so via "attachments" but the documentation for those remains questionable.)
