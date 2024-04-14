@@ -141,6 +141,11 @@ class Product {
 		if ( true === $new_product ) {
 			$product_props['ItemCode'] = $product->get_sku();
 
+			// I'm not kidding. DK left this typo in their API!
+			// The docs use `AllowNegativeInventory` but this is the key that
+			// actually works.
+			$product_props['AllowNegativeInventiry'] = true;
+
 			$product_props['AllowDiscount'] = true;
 
 			if ( 'reduced-rate' === $product->get_tax_class( 'edit' ) ) {
