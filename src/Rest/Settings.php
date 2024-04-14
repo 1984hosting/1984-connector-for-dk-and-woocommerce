@@ -97,6 +97,34 @@ class Settings {
 			);
 		}
 
+		if ( true === property_exists( $rest_json, 'ledger_code_standard' ) ) {
+			Config::set_ledger_code(
+				'standard',
+				$rest_json->ledger_code_standard
+			);
+		}
+
+		if ( true === property_exists( $rest_json, 'ledger_code_reduced' ) ) {
+			Config::set_ledger_code(
+				'reduced',
+				$rest_json->ledger_code_reduced
+			);
+		}
+
+		if ( true === property_exists( $rest_json, 'ledger_code_shipping' ) ) {
+			Config::set_ledger_code(
+				'shipping',
+				$rest_json->ledger_code_shipping
+			);
+		}
+
+		if ( true === property_exists( $rest_json, 'ledger_code_costs' ) ) {
+			Config::set_ledger_code(
+				'costs',
+				$rest_json->ledger_code_costs
+			);
+		}
+
 		if ( true === property_exists( $rest_json, 'api_key' ) ) {
 			Config::set_dk_api_key( $rest_json->api_key );
 		}

@@ -228,7 +228,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 							</label>
 						</td>
 					</tr>
-					<?php if ( function_exists( '__experimental_woocommerce_blocks_register_checkout_field' ) ): ?>
+					<?php if ( function_exists( '__experimental_woocommerce_blocks_register_checkout_field' ) ) : ?>
 					<tr>
 						<th span="row" class="column-title column-primary">
 						</th>
@@ -322,6 +322,74 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								</option>
 								<?php endforeach ?>
 							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section class="section">
+			<h2><?php esc_html_e( 'Ledger Codes', 'NineteenEightyWoo' ); ?></h2>
+			<table id="dk-ledger-codes-table" class="form-table">
+				<tbody>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="ledger_code_standard_field">
+								<?php esc_html_e( 'Products With Standard Tax Rate', 'NineteenEightyWoo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="ledger_code_standard_field"
+								name="ledger_code_standard"
+								type="text"
+								value="<?php echo esc_attr( Config::get_ledger_code( 'standard' ) ); ?>"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="ledger_code_reduced_field">
+								<?php esc_html_e( 'Products With Reduced Tax Rate', 'NineteenEightyWoo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="ledger_code_reduced_field"
+								name="ledger_code_reduced"
+								type="text"
+								value="<?php echo esc_attr( Config::get_ledger_code( 'reduced' ) ); ?>"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="ledger_code_shipping_field">
+								<?php esc_html_e( 'Shipping', 'NineteenEightyWoo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="ledger_code_shipping_field"
+								name="ledger_code_shipping"
+								type="text"
+								value="<?php echo esc_attr( Config::get_ledger_code( 'shipping' ) ); ?>"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="ledger_code_costs_field">
+								<?php esc_html_e( 'Costs', 'NineteenEightyWoo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="ledger_code_costs_field"
+								name="ledger_code_costs"
+								type="text"
+								value="<?php echo esc_attr( Config::get_ledger_code( 'costs' ) ); ?>"
+							/>
 						</td>
 					</tr>
 				</tbody>

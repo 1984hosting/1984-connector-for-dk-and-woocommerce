@@ -31,6 +31,11 @@ class Config {
 
 	const DEFAULT_SALES_PERSON = 'WEBSALES';
 
+	const DEFAULT_LEDGER_CODE_STANDARD = 's002';
+	const DEFAULT_LEDGER_CODE_REDUCED  = 's003';
+	const DEFAULT_LEDGER_CODE_SHIPPING = 's001';
+	const DEFAULT_LEDGER_CODE_COSTS    = 's001';
+
 	/**
 	 * Get the DK API key
 	 *
@@ -367,5 +372,58 @@ class Config {
 	 */
 	public static function set_default_warehouse( string $warehouse ): bool {
 		return update_option( '1984_woo_dk_default_warehouse', $warehouse );
+	}
+
+	/**
+	 * Get a ledger code by type
+	 *
+	 * Valid keys are `standard`, `reduced`, `shipping` and `costs`.
+	 *
+	 * @param string $key The ledger type. Defaults to `standard`.
+	 *
+	 * @return string The ledger code for the type.
+	 */
+	public static function get_ledger_code(
+		string $key = 'standard'
+	): string {
+		switch ( $key ) {
+			case 'standard':
+				$default_value = self::DEFAULT_LEDGER_CODE_STANDARD;
+				break;
+			case 'reduced':
+				$default_value = self::DEFAULT_LEDGER_CODE_REDUCED;
+				break;
+			case 'shipping':
+				$default_value = self::DEFAULT_LEDGER_CODE_SHIPPING;
+				break;
+			case 'costs':
+				$default_value = self::DEFAULT_LEDGER_CODE_COSTS;
+				break;
+			default:
+				$default_value = self::DEFAULT_LEDGER_CODE_STANDARD;
+				break;
+		}
+
+		return (string) get_option(
+			'1984_woo_dk_ledger_code_' . $key,
+			$default_value
+		);
+	}
+
+	/**
+	 * Set the ledger code
+	 *
+	 * Valid keys are `standard`, `reduced`, `shipping` and `costs`.
+	 *
+	 * @param string $key The ledger type. Defaults to `standard`.
+	 * @param string $value The ledger code in DK.
+	 *
+	 * @return bool True on success. False on failure.
+	 */
+	public static function set_ledger_code(
+		string $key = 'standard',
+		string $value
+	): bool {
+		return update_option( '1984_woo_dk_ledger_code_' . $key, $value );
 	}
 }
