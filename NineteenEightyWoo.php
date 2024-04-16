@@ -17,16 +17,27 @@
 
 declare(strict_types = 1);
 
-require plugin_dir_path( __FILE__ ) . './vendor/autoload.php';
+namespace NineteenEightyFour\NineteenEightyWoo;
 
-new NineteenEightyFour\NineteenEightyWoo\Admin();
+require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-new NineteenEightyFour\NineteenEightyWoo\Rest\Settings();
+new Admin();
+new Cron\Schedule();
+new Rest\Settings();
+new Hooks\KennitalaField();
+new Hooks\RegisterPostMeta();
+new Hooks\UpdateUser();
+new Hooks\WooMetaboxes();
+new Hooks\WooOrderStatusChanges();
+new Hooks\WooProductVariations();
+new Hooks\WooUpdateProduct();
 
-new NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField();
-new NineteenEightyFour\NineteenEightyWoo\Hooks\RegisterPostMeta();
-new NineteenEightyFour\NineteenEightyWoo\Hooks\UpdateUser();
-new NineteenEightyFour\NineteenEightyWoo\Hooks\WooMetaboxes();
-new \NineteenEightyFour\NineteenEightyWoo\Hooks\WooOrderStatusChanges();
-new NineteenEightyFour\NineteenEightyWoo\Hooks\WooProductVariations();
-new NineteenEightyFour\NineteenEightyWoo\Hooks\WooUpdateProduct();
+register_activation_hook(
+	__FILE__,
+	__NAMESPACE__ . '\Cron\Schedule::activate'
+);
+
+register_deactivation_hook(
+	__FILE__,
+	__NAMESPACE__ . '\Cron\Schedule::deactivate'
+);

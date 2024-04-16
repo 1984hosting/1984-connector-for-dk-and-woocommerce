@@ -23,6 +23,80 @@ class Product {
 	const API_PATH = '/Product/';
 
 	/**
+	 * Activate a product in DK
+	 *
+	 * Sets the `Inactive` paramter for the DK product record in DK to false.
+	 *
+	 * @param WC_Product $product The WooCommerce product.
+	 *
+	 * @return bool|WP_Error True on success, false on error from the DK API,
+	 *                       WP_Error on connection error.
+	 */
+	public static function activate_in_dk(
+		WC_Product $product
+	): bool|WP_Error {
+		if ( false === (bool) $product->get_sku() ) {
+			return false;
+		}
+
+		$api_request  = new DKApiRequest();
+		$request_body = array( 'Inactive' => false );
+
+		$result = $api_request->request_result(
+			self::API_PATH,
+			wp_json_encode( $request_body ),
+			'PUT'
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( 200 !== $result->response_code ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Deactivate a product in DK
+	 *
+	 * Sets the `Inactive` paramter for the DK product record in DK to true.
+	 *
+	 * @param WC_Product $product The WooCommerce product.
+	 *
+	 * @return bool|WP_Error True on success, false on error from the DK API,
+	 *                       WP_Error on connection error.
+	 */
+	public static function deactivate_in_dk(
+		WC_Product $product
+	): bool|WP_Error {
+		if ( false === (bool) $product->get_sku() ) {
+			return false;
+		}
+
+		$api_request  = new DKApiRequest();
+		$request_body = array( 'Inactive' => true );
+
+		$result = $api_request->request_result(
+			self::API_PATH,
+			wp_json_encode( $request_body ),
+			'PUT'
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( 200 !== $result->response_code ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Create a product record in DK representing a WooCommerce product
 	 *
 	 * Sends a POST request to the /Product endpoint with product information.
@@ -72,6 +146,12 @@ class Product {
 	public static function update_in_dk( WC_Product $product ): bool|WP_Error {
 		$api_request  = new DKApiRequest();
 		$request_body = self::to_dk_product_body( $product, false );
+
+		unset( $request_body['UnitPrice1'] );
+		unset( $request_body['UnitPrice1WithTax'] );
+		unset( $request_body['PropositionPrice'] );
+		unset( $request_body['PropositionDateTo'] );
+		unset( $request_body['PropositionDateTo'] );
 
 		$item_code = $product->get_sku();
 
@@ -178,21 +258,27 @@ class Product {
 
 		$product_props['TaxPercent'] = $tax_rate_p;
 
-		if ( true === wc_prices_include_tax() ) {
-			$product_props['UnitPrice1WithTax'] = $product->get_regular_price();
-			if ( false === empty( $product->get_sale_price() ) ) {
-				$product_props['PropositionPrice'] = (
-					$product->get_sale_price() / ( 1 + ( $tax_rate_p / 100 ) )
-				);
+		if ( true === (bool) $product->get_meta(
+			'1984_woo_dk_price_sync',
+			true,
+			'edit'
+		) ) {
+			if ( true === wc_prices_include_tax() ) {
+				$product_props['UnitPrice1WithTax'] = $product->get_regular_price();
+				if ( false === empty( $product->get_sale_price() ) ) {
+					$product_props['PropositionPrice'] = (
+						$product->get_sale_price() / ( 1 + ( $tax_rate_p / 100 ) )
+					);
+				} else {
+					$product_props['PropositionPrice'] = 0;
+				}
 			} else {
-				$product_props['PropositionPrice'] = 0;
-			}
-		} else {
-			$product_props['UnitPrice1'] = $product->get_regular_price();
-			if ( false === empty( $product->get_sale_price() ) ) {
-				$product_props['PropositionPrice'] = $product->get_sale_price();
-			} else {
-				$product_props['PropositionPrice'] = 0;
+				$product_props['UnitPrice1'] = $product->get_regular_price();
+				if ( false === empty( $product->get_sale_price() ) ) {
+					$product_props['PropositionPrice'] = $product->get_sale_price();
+				} else {
+					$product_props['PropositionPrice'] = 0;
+				}
 			}
 		}
 

@@ -37,6 +37,14 @@ class WooUpdateProduct {
 		int $id,
 		WC_Product $product
 	): void {
+		if ( defined( 'DOING_CRON' ) ) {
+			return;
+		}
+
+		if ( defined( 'DOING_DK_SYNC' ) ) {
+			return;
+		}
+
 		if ( false === self::should_sync( $product ) ) {
 			return;
 		}

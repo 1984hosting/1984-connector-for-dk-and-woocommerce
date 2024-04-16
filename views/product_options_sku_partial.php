@@ -24,7 +24,7 @@ declare(strict_types = 1);
 			esc_html(
 				// Translators: %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s stands for a opening and %4$s for a closing <strong> tag.
 				__(
-					'The %1$sSKU%2$s needs to be set to a unique value and must equal the intended %3$sItem Code%4$s in DK for any 1984 DK Sync functionality to work.%5$sEnabling this feature means that the setting below (quantity, backorders etc.) are %3$soverridden%4$s every time your WooCommerce shop syncs with DK.%5$sAs DK does not support initiating a product with a stock count other than zero, a stock count needs to be performed in DK for the quantity to work in WooCommerce.',
+					'The %1$sSKU%2$s needs to be set to a unique value and must equal the intended %3$sItem Code%4$s in DK for any 1984 DK Sync functionality to work.%5$sFurthermore, DK does not support setting an initial stock quantity for products when they are created in their system, so new products will have backorders in WooCommerce and negative stock count enabled in DK until a stock count is performed in DK.%5$sEnabling this feature means that some of the setting below (stock management, quantity and backorders) are %3$soverridden%4$s every time your WooCommerce shop syncs with DK.',
 					'NineteenEightyWoo'
 				)
 			),
