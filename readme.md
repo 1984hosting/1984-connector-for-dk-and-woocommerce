@@ -42,10 +42,10 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 #### Products
 - [x] Create a corresponding *product* record in DK when a WooCommerce product is created
 - [x] Sync changes to *product* records upstream from WooCommerce on update
-- [ ] Sync changes to *product* records downstream from DK on regular intervals or using web hooks
+- [x] Sync changes to *product* records downstream from DK on regular intervals or using web hooks
 
 #### Product Inventory
-- [ ] Sync and create product inventory when a product is created in DK
+- [x] Sync and create product inventory when a product is created in DK
 - [x] Assign a single *warehose* in DK for items in the WooCommerce store
 
 #### Customers
@@ -55,8 +55,8 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 - [ ] Sync changes to *customer* records downstream from DK on regular intervals or using web hooks
 
 #### Orders and invoices
-- [ ] Create and send *invoices* to customers via DK after a successful payment
-- [ ] Create and send *credit invoices* on returns
+- [x] Create and send *invoices* to customers via DK after a successful payment
+- [x] Create and send *credit invoices* on returns
 - [ ] Take over the WooCommerce *invoice email delivery mechanism* and use the same hooks to send invoices via DK
 
 #### Cost SKUs
@@ -73,8 +73,11 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 #### Prices
 - [ ] Assign a *price group* (1, 2, 3) for products
 
+#### Maths
+- [ ] Use a BigDecimal-like library to handle tax calculations and such instead of depending on PHP's decimal support
+
 #### Error handling
-- [ ] Improve error handling and validation (Possibly replace `false` return values in Export classes with WP_Error, and then doing `wp_die()` on failure).
+- [ ] Improve error handling and validation (Possibly replace `false` return values in Export classes with WP_Error, and then doing `wp_die()` on failure instead of failing softly).
 
 ### Future Features (after the first release)
 - [ ] Sync WooCommerce orders with the *DK Sales Order* module

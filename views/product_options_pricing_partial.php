@@ -12,9 +12,8 @@ declare(strict_types = 1);
 		array(
 			'id'          => '1984_woo_dk_price_sync',
 			'value'       => get_post_meta( $post->ID, '1984_woo_dk_price_sync', true ) ? 'true' : 'false',
-			'label'       => 'Sync Price with DK',
-			'description' => 'Enables the 1984 DK Connection plugin to sync the products\'s price between WooCommerce and dkPlus.',
-			'desc_tip'    => true,
+			'label'       => 'Sync prices with DK',
+			'description' => 'Enables the 1984 DK Connection plugin to sync the products\'s price between WooCommerce and DK.',
 			'cbvalue'     => 'true',
 		),
 	);

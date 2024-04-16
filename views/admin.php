@@ -330,6 +330,14 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 
 		<section class="section">
 			<h2><?php esc_html_e( 'Ledger Codes', 'NineteenEightyWoo' ); ?></h2>
+			<p>
+				<?php
+				esc_html_e(
+					'This only applies to products created in WooCommerce and is managed in DK after creation.',
+					'NineteenEightyWoo'
+				);
+				?>
+			</p>
 			<table id="dk-ledger-codes-table" class="form-table">
 				<tbody>
 					<tr>

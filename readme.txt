@@ -28,9 +28,11 @@ As of now, this is only supported in the plugin's WP-CLI interface and will end 
 
 == Frequently Asked Questions ==
 
-= What kind of products are supported by the plugin? =
+= Why can I not set a stock quantity in DK via this plugin? =
 
-During the current phase, we only officially support “Simple” products. However, it doesn't mean that other product types can't be used with the plugin, but you should expect quirks and caveats. If you use the plugin with other product types and would like to share your experience, you're welcome to contact us to share your experiences.
+The answer is that DK simply does not support setting an initial stock quantity for products. This requires initiating a stock count process for the product in DK to have a non-zero or non-negative stock count.
+
+We urge anyone who want initial stock quantity to work as expected, without resorting to going through an inventory count process to ask DK about implementing it.
 
 = Does the plugin support the new WooCommerce Product form? =
 
