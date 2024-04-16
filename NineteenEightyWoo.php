@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: 1984 DK Connection for WooCommerce
- * Plugin URI: https://dkplugin.1984.hosting
+ * Plugin URI: https://github.com/1984hosting/1984-dk-woo
  * Description: Sync your WooCommerce store with DK, including prices, inventory status and generate invoices for customers on checkout.
  * Version: 0.1.0
  * Requires at least: 6.1.5
