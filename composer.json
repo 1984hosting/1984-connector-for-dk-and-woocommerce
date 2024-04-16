@@ -1,5 +1,6 @@
 {
     "name": "1984/nineteeneightywoo",
+    "version": "0.1.0",
     "type": "wordpress-plugin",
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.0",
@@ -69,6 +70,7 @@
             "docker exec -it $(docker-compose ps -q | head -n 1) tail -f /tmp/wp-errors.log"
         ],
         "lint": "./vendor/bin/phpcs -s ./src/ ./js/ ./style/",
-        "lint:fix": "./vendor/bin/phpcbf -s ./src/ ./js/ ./style/"
+        "lint:fix": "./vendor/bin/phpcbf -s ./src/ ./js/ ./style/",
+        "zip:release": "zip -r 1984-dk-woo.zip js src style vendor views index.php NineteenEightyWoo.php readme.txt"
     }
 }
