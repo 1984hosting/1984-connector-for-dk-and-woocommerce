@@ -66,10 +66,11 @@ class Admin {
 		);
 
 		wp_enqueue_script(
-			handle: 'nineteen-eighty-woo',
-			src: plugins_url( 'js/admin.js', __DIR__ ),
-			deps: array( 'wp-api', 'wp-data' ),
-			ver: '0.1'
+			'nineteen-eighty-woo',
+			plugins_url( 'js/admin.js', __DIR__ ),
+			array( 'wp-api', 'wp-data' ),
+			'0.1',
+			false,
 		);
 	}
 
