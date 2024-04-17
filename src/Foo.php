@@ -14,6 +14,6 @@ class Foo {
 	 * Say hello
 	 */
 	public static function say_hello(): void {
-		esc_html_e( 'Hello!', 'NineteenEightyWoo' );
+		esc_html_e( 'Hello!', '1984-dk-woo' );
 	}
 }

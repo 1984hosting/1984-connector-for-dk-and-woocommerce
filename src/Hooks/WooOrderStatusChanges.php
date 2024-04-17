@@ -56,7 +56,7 @@ class WooOrderStatusChanges {
 					// Translators: %1$s is a placeholder for the invoice number generated in DK.
 					__(
 						'An invoice for this order has been created in DK. The invoice number is %1$s.',
-						'NineteenEightyWoo'
+						'1984-dk-woo'
 					),
 					$invoice_number
 				)
@@ -66,14 +66,14 @@ class WooOrderStatusChanges {
 				$wc_order->add_order_note(
 					__(
 						'An email containing the invoice as a PDF attachment was sent to the customer.',
-						'NineteenEightyWoo'
+						'1984-dk-woo'
 					)
 				);
 			} else {
 				$wc_order->add_order_note(
 					__(
 						'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-						'NineteenEightyWoo'
+						'1984-dk-woo'
 					)
 				);
 			}
@@ -81,14 +81,14 @@ class WooOrderStatusChanges {
 			$wc_order->add_order_note(
 				__(
 					'Connection was established to DK but an invoice was not created due to an error.',
-					'NineteenEightyWoo'
+					'1984-dk-woo'
 				)
 			);
 		} elseif ( $invoice_number instanceof WP_Error ) {
 			$wc_order->add_order_note(
 				__(
 					'Unable to establish a connection with DK to create an invoice.',
-					'NineteenEightyWoo'
+					'1984-dk-woo'
 				)
 			);
 		}
@@ -112,7 +112,7 @@ class WooOrderStatusChanges {
 					// Translators: %1$s is a placeholder for the invoice number generated in DK.
 					__(
 						'A credit invoice for the refund has been created in DK. The invoice number is %1$s.',
-						'NineteenEightyWoo'
+						'1984-dk-woo'
 					),
 					$credit_invoice_number
 				)
@@ -122,14 +122,14 @@ class WooOrderStatusChanges {
 				$wc_order->add_order_note(
 					__(
 						'An email containing the invoice as a PDF attachment was sent to the customer.',
-						'NineteenEightyWoo'
+						'1984-dk-woo'
 					)
 				);
 			} else {
 				$wc_order->add_order_note(
 					__(
 						'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-						'NineteenEightyWoo'
+						'1984-dk-woo'
 					)
 				);
 			}
@@ -137,14 +137,14 @@ class WooOrderStatusChanges {
 			$wc_order->add_order_note(
 				__(
 					'Connection was established to DK but a credit invoice was not created due to an error.',
-					'NineteenEightyWoo'
+					'1984-dk-woo'
 				)
 			);
 		} elseif ( $credit_invoice_number instanceof WP_Error ) {
 			$wc_order->add_order_note(
 				__(
 					'Unable to establish a connection with DK to create a credit invoice.',
-					'NineteenEightyWoo'
+					'1984-dk-woo'
 				)
 			);
 		}

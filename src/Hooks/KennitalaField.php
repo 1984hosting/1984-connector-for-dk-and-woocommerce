@@ -213,7 +213,7 @@ class KennitalaField {
 		$first_bit = array_slice( $fields, 0, 2 );
 
 		$first_bit['kennitala'] = array(
-			'label' => __( 'Kennitala', 'NineteenEightyWoo' ),
+			'label' => __( 'Kennitala', '1984-dk-woo' ),
 			'value' => $formatted_kennitala,
 		);
 
@@ -237,7 +237,7 @@ class KennitalaField {
 			array_slice( $fields['billing']['fields'], 0, 2 ),
 			array(
 				'kennitala' => array(
-					'label'       => __( 'Kennitala', 'NineteenEightyWoo' ),
+					'label'       => __( 'Kennitala', '1984-dk-woo' ),
 					'description' => '',
 				),
 			),
@@ -411,7 +411,7 @@ class KennitalaField {
 			'billing_kennitala',
 			array(
 				'type'              => 'text',
-				'label'             => __( 'Kennitala', 'NineteenEightyWoo' ),
+				'label'             => __( 'Kennitala', '1984-dk-woo' ),
 				'id'                => '1984_woo_dk_checkout_kennitala',
 				'custom_attributes' => array(
 					'pattern' => self::KENNITALA_PATTERN,
@@ -511,11 +511,11 @@ class KennitalaField {
 					'id'                => '1984_woo_dk/kennitala',
 					'label'             => __(
 						'Kennitala',
-						'NineteenEightyWoo'
+						'1984-dk-woo'
 					),
 					'optionalLabel'     => __(
 						'Kennitala (Optional)',
-						'NineteenEightyWoo'
+						'1984-dk-woo'
 					),
 					'location'          => 'address',
 					'type'              => 'text',
@@ -569,7 +569,7 @@ class KennitalaField {
 				'invalid_kennitala',
 				__(
 					'Invalid kennitala. A kennitala is a string of 10 numeric characters.',
-					'NineteenEightyWoo'
+					'1984-dk-woo'
 				),
 			);
 		}

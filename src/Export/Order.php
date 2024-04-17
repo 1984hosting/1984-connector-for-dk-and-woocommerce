@@ -194,7 +194,7 @@ class Order {
 
 				$order_props['Lines'][] = array(
 					'ItemCode'         => Config::get_cost_sku(),
-					'Text'             => __( 'Fee', 'NineteenEightyWoo' ),
+					'Text'             => __( 'Fee', '1984-dk-woo' ),
 					'Text2'            => $sanitized_name,
 					'Quantity'         => 1,
 					'UnitPrice'        => $unit_price,
@@ -212,7 +212,7 @@ class Order {
 
 				$order_props['Lines'][] = array(
 					'ItemCode'         => Config::get_shipping_sku(),
-					'Text'             => __( 'Shipping', 'NineteenEightyWoo' ),
+					'Text'             => __( 'Shipping', '1984-dk-woo' ),
 					'Text2'            => $shipping_method->get_method_title(),
 					'Quantity'         => 1,
 					'UnitPrice'        => $unit_price,

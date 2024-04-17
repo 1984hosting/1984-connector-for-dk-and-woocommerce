@@ -69,7 +69,7 @@ class Inventory {
 	public static function to_journal_body( WC_Product $product ): array {
 		$description = __(
 			'Inventory registration in WooCommerce',
-			'NineteenEightyWoo'
+			'1984-dk-woo'
 		);
 
 		$line = self::to_journal_line( $product );

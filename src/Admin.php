@@ -24,7 +24,7 @@ class Admin {
 
 		// Superlobal is not passed into anything.
 		// phpcs:ignore WordPress.Security.NonceVerification
-		if ( ( isset( $_GET['page'] ) ) && ( 'NineteenEightyWoo' === $_GET['page'] ) ) {
+		if ( ( isset( $_GET['page'] ) ) && ( '1984-dk-woo' === $_GET['page'] ) ) {
 			add_action(
 				'admin_init',
 				array( __CLASS__, 'enqueue_styles_and_scripts' )
@@ -38,10 +38,10 @@ class Admin {
 	public static function add_menu_page(): void {
 		add_submenu_page(
 			'woocommerce',
-			__( '1984 DK Connection', 'NineteenEightyWoo' ),
-			__( 'DK Connection', 'NineteenEightyWoo' ),
+			__( '1984 DK Connection', '1984-dk-woo' ),
+			__( 'DK Connection', '1984-dk-woo' ),
 			'manage_options',
-			'NineteenEightyWoo',
+			'1984-dk-woo',
 			array( __CLASS__, 'render_admin_page' )
 		);
 	}

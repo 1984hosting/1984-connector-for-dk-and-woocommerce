@@ -74,7 +74,7 @@ class DKApiRequest {
 		if ( true === empty( Config::get_dk_api_key() ) ) {
 			return new WP_Error(
 				'dk-api-key-missing',
-				__( 'The DK API key is missing.', 'NineteenEightyWoo' )
+				__( 'The DK API key is missing.', '1984-dk-woo' )
 			);
 		}
 
@@ -110,7 +110,7 @@ class DKApiRequest {
 		if ( true === empty( Config::get_dk_api_key() ) ) {
 			return new WP_Error(
 				'dk-api-key-missing',
-				__( 'The DK API key is missing.', 'NineteenEightyWoo' )
+				__( 'The DK API key is missing.', '1984-dk-woo' )
 			);
 		}
 

@@ -83,11 +83,11 @@ class ServiceSKU {
 	): array {
 		switch ( $type ) {
 			case 'shipping':
-				$description = __( 'Shipping', 'NineteenEightyWoo' );
+				$description = __( 'Shipping', '1984-dk-woo' );
 				$ledger_code = Config::get_ledger_code( 'shipping' );
 				break;
 			case 'cost':
-				$description = __( 'Cost', 'NineteenEightyWoo' );
+				$description = __( 'Cost', '1984-dk-woo' );
 				$ledger_code = Config::get_ledger_code( 'costs' );
 				break;
 			default:
