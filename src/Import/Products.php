@@ -206,7 +206,9 @@ class Products {
 			$wc_product = wc_get_product( $product_id );
 		}
 
-		$wc_product->set_name( $json_object->Description );
+		if ( true === property_exists( $json_object, 'Description' ) ) {
+			$wc_product->set_name( $json_object->Description );
+		}
 
 		// Sync stock status if that is enabled for the product.
 		if (
