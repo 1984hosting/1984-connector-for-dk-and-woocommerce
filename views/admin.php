@@ -26,16 +26,16 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		?>
 	>
 		<h1 class="wp-heading-inline">
-			<?php esc_html_e( '1984 DK Connection', 'NineteenEightyWoo' ); ?>
+			<?php esc_html_e( '1984 DK Connection', '1984-dk-woo' ); ?>
 		</h1>
 		<section class="section">
-			<h2><?php esc_html_e( 'Authentication', 'NineteenEightyWoo' ); ?></h2>
+			<h2><?php esc_html_e( 'Authentication', '1984-dk-woo' ); ?></h2>
 			<table id="api-key-form-table" class="form-table">
 				<tbody>
 					<tr>
 						<th scope="row">
 							<label for="nineteen-eighty-woo-key-input">
-								<?php esc_html_e( 'API Key', 'NineteenEightyWoo' ); ?>
+								<?php esc_html_e( 'API Key', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -49,14 +49,14 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								required
 							/>
 
-							<p class="validity valid"><?php esc_html_e( 'Valid', 'NineteenEightyWoo' ); ?><span class="dashicons dashicons-yes"></span></p>
-							<p class="validity invalid"><?php esc_html_e( 'This is a required field', 'NineteenEightyWoo' ); ?></p>
+							<p class="validity valid"><?php esc_html_e( 'Valid', '1984-dk-woo' ); ?><span class="dashicons dashicons-yes"></span></p>
+							<p class="validity invalid"><?php esc_html_e( 'This is a required field', '1984-dk-woo' ); ?></p>
 
 							<p class="description">
 								<?php
 								esc_html_e(
 									'The API key is provided by DK for use with the DK API. Do not share this key with anyone.',
-									'NineteenEightyWoo'
+									'1984-dk-woo'
 								)
 								?>
 							</p>
@@ -69,14 +69,14 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		<?php if ( false === empty( Config::get_dk_api_key() ) ) : ?>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'DK Record Prefixes', 'NineteenEightyWoo' ); ?></h2>
-			<p><?php esc_html_e( 'If you wish to use a different prefixes for your customer and order numbers, you can choose them here. You can even leave them empty if you like. This will not work retroactively.', 'NineteenEightyWoo' ); ?></p>
+			<h2><?php esc_html_e( 'DK Record Prefixes', '1984-dk-woo' ); ?></h2>
+			<p><?php esc_html_e( 'If you wish to use a different prefixes for your customer and order numbers, you can choose them here. You can even leave them empty if you like. This will not work retroactively.', '1984-dk-woo' ); ?></p>
 			<table id="dk-record-prefixes-table" class="form-table">
 				<tbody>
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="customer_number_prefix_field">
-								<?php esc_html_e( 'Customer Number Prefix', 'NineteenEightyWoo' ); ?>
+								<?php esc_html_e( 'Customer Number Prefix', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -93,8 +93,8 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'WooCommerce Payment Gateways and DK Payment Methods IDs', 'NineteenEightyWoo' ); ?></h2>
-			<p><?php esc_html_e( 'Please enter the Payment Method ID and Name for each payment gateway as it appears in DK:', 'NineteenEightyWoo' ); ?></p>
+			<h2><?php esc_html_e( 'WooCommerce Payment Gateways and DK Payment Methods IDs', '1984-dk-woo' ); ?></h2>
+			<p><?php esc_html_e( 'Please enter the Payment Method ID and Name for each payment gateway as it appears in DK:', '1984-dk-woo' ); ?></p>
 			<table id="payment-gateway-id-map-table" class="form-table">
 				<tbody>
 					<?php foreach ( $wc_payment_gateways->payment_gateways as $p ) : ?>
@@ -138,7 +138,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 				<?php
 				echo sprintf(
 					// Translators: %1$s stands for the opening and %2$s <a> tag in a hyperlink to the WooCommerce Payment Settings page.
-					esc_html( __( 'The payment gateways themselves are handled by your WooCommerce Settings, under %1$sthe Payments Section%2$s.', 'NineteenEightyWoo' ) ),
+					esc_html( __( 'The payment gateways themselves are handled by your WooCommerce Settings, under %1$sthe Payments Section%2$s.', '1984-dk-woo' ) ),
 					'<a href="' . esc_url( admin_url( '?page=wc-settings&tab=checkout ' ) ) . '">',
 					'</a>'
 				);
@@ -147,12 +147,12 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'SKUs for Costs and Fees', 'NineteenEightyWoo' ); ?></h2>
+			<h2><?php esc_html_e( 'SKUs for Costs and Fees', '1984-dk-woo' ); ?></h2>
 			<p>
 				<?php
 				esc_html_e(
 					'DK treats shipping and other costs as line items on invoices. In order for them to work, you need to assign a SKU to each of the following services. If any of them does not exsist, then it will be created in DK.',
-					'NineteenEightyWoo'
+					'1984-dk-woo'
 				);
 				?>
 			</p>
@@ -161,7 +161,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="shipping_sku_field">
-								<?php esc_html_e( 'Shipping SKU', 'NineteenEightyWoo' ); ?>
+								<?php esc_html_e( 'Shipping SKU', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -176,7 +176,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="cost_sku_field">
-								<?php esc_html_e( 'Cost SKU', 'NineteenEightyWoo' ); ?>
+								<?php esc_html_e( 'Cost SKU', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -193,7 +193,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'Kennitala Support and Orders Without Kennitala', 'NineteenEightyWoo' ); ?></h2>
+			<h2><?php esc_html_e( 'Kennitala Support and Orders Without Kennitala', '1984-dk-woo' ); ?></h2>
 			<table id="dk-kennitala-table" class="form-table">
 				<tbody>
 					<tr>
@@ -213,7 +213,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								<?php
 								esc_html_e(
 									'The default kennitala is used for identifying customers that don\'t have or supply a kennitala during checkout. This should correspond with a DK customer record called “Various Customers” etc.',
-									'NineteenEightyWoo'
+									'1984-dk-woo'
 								)
 								?>
 							</p>
@@ -233,7 +233,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								<?php
 								esc_html_e(
 									'Enable Kennitala Field in the “Classic” Shortcode Based Checkout Page',
-									'NineteenEightyWoo'
+									'1984-dk-woo'
 								);
 								?>
 							</label>
@@ -254,7 +254,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								<?php
 								esc_html_e(
 									'Enable Kennitala Field in the Block Based Checkout Page (Experimental)',
-									'NineteenEightyWoo'
+									'1984-dk-woo'
 								);
 								?>
 							</label>
@@ -262,7 +262,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								<?php
 								esc_html_e(
 									'WooCommerce 8.7 introduces a new block based checkout page. This uses a different approach to adding new fields, but it is still considered to be experimental by WooCommerce as of now. For instance, this does not automatically populate the field with the customer\'s kennitala, so it needs to be re-entered for each checkout.',
-									'NineteenEightyWoo'
+									'1984-dk-woo'
 								)
 								?>
 							</p>
@@ -274,12 +274,12 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'Default Sales Person', 'NineteenEightyWoo' ); ?></h2>
+			<h2><?php esc_html_e( 'Default Sales Person', '1984-dk-woo' ); ?></h2>
 			<p>
 				<?php
 				esc_html_e(
 					'DK requires a sales person to be assigned to every order and invoice. Generally, this would be a pseudo-person called “Web Sales” or something similar but can also be assigned to a specific sales person or employee.',
-					'NineteenEightyWoo'
+					'1984-dk-woo'
 				);
 				?>
 			</p>
@@ -287,7 +287,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 				<?php
 				esc_html_e(
 					'If no sales person or employee exsists in your DK environment with the identifier entered above, a new one will be created along with an associated employee record.',
-					'NineteenEightyWoo'
+					'1984-dk-woo'
 				);
 				?>
 			</p>
@@ -296,7 +296,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="default_sales_person_field">
-								<?php esc_html_e( 'Default Sales Person Number', 'NineteenEightyWoo' ); ?>
+								<?php esc_html_e( 'Default Sales Person Number', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -313,12 +313,12 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'Ledger Codes', 'NineteenEightyWoo' ); ?></h2>
+			<h2><?php esc_html_e( 'Ledger Codes', '1984-dk-woo' ); ?></h2>
 			<p>
 				<?php
 				esc_html_e(
 					'This only applies to products created in WooCommerce and is managed in DK after creation.',
-					'NineteenEightyWoo'
+					'1984-dk-woo'
 				);
 				?>
 			</p>
@@ -327,7 +327,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="ledger_code_standard_field">
-								<?php esc_html_e( 'Products With Standard Tax Rate', 'NineteenEightyWoo' ); ?>
+								<?php esc_html_e( 'Products With Standard Tax Rate', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -342,7 +342,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="ledger_code_reduced_field">
-								<?php esc_html_e( 'Products With Reduced Tax Rate', 'NineteenEightyWoo' ); ?>
+								<?php esc_html_e( 'Products With Reduced Tax Rate', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -357,7 +357,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="ledger_code_shipping_field">
-								<?php esc_html_e( 'Shipping', 'NineteenEightyWoo' ); ?>
+								<?php esc_html_e( 'Shipping', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -372,7 +372,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="ledger_code_costs_field">
-								<?php esc_html_e( 'Costs', 'NineteenEightyWoo' ); ?>
+								<?php esc_html_e( 'Costs', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -396,7 +396,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					<?php
 					echo sprintf(
 						// Translators: The %1$s and %2$s indicate an opening and closing <strong> tag.
-						esc_html( __( '%1$sError:%2$s Please check if all the information was entered correctly and try again.', 'NineteenEightyWoo' ) ),
+						esc_html( __( '%1$sError:%2$s Please check if all the information was entered correctly and try again.', '1984-dk-woo' ) ),
 						'<strong>',
 						'</strong>'
 					);
@@ -412,7 +412,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 			/>
 			<input
 				type="submit"
-				value="<?php esc_attr_e( 'Save', 'NineteenEightyWoo' ); ?>"
+				value="<?php esc_attr_e( 'Save', '1984-dk-woo' ); ?>"
 				class="button button-primary button-hero"
 				id="nineteen-eighty-woo-settings-submit"
 			/>
@@ -424,12 +424,12 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 			<?php
 			esc_html_e(
 				'The 1984 DK Connection Plugin for WooCommerce is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
-				'NineteenEightyWoo'
+				'1984-dk-woo'
 			);
 			?>
 		</p>
 		<img
-			alt="<?php esc_attr_e( 'Ninteen-Eighty-Four', 'NineteenEightyWoo' ); ?>"
+			alt="<?php esc_attr_e( 'Ninteen-Eighty-Four', '1984-dk-woo' ); ?>"
 			src="<?php echo esc_attr( Admin::logo_url() ); ?>"
 		/>
 	</div>

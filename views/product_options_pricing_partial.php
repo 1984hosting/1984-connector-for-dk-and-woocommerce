@@ -25,16 +25,16 @@ declare(strict_types = 1);
 				// Translators: %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s and %4$s stand for the opening and closing <strong> tags.
 				__(
 					'In order for price sync to work, the %1$sSKU%2$s needs to be set and must equal the Item Code in DK. It is set in the %3$sInventory Panel%4$s.',
-					'NineteenEightyWoo'
+					'1984-dk-woo'
 				)
 			),
-			'<abbr title="' . esc_attr( __( 'stock keeping unit', 'NineteenEightyWoo' ) ) . '">',
+			'<abbr title="' . esc_attr( __( 'stock keeping unit', '1984-dk-woo' ) ) . '">',
 			'</abbr>',
 			'<strong>',
 			'</strong>'
 		);
 		?>
 		<br />
-		<?php esc_html_e( 'Sale and discount prices are not synced.', 'NineteenEightyWoo' ); ?>
+		<?php esc_html_e( 'Sale and discount prices are not synced.', '1984-dk-woo' ); ?>
 	</p>
 </div>

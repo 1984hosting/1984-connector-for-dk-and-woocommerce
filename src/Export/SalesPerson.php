@@ -102,7 +102,7 @@ class SalesPerson {
 		return array(
 			'Number'            => $sales_person_number,
 			'Employee'          => $employee_number,
-			'NameOnSalesOrders' => __( 'Online Store', 'NineteenEightyWoo' ),
+			'NameOnSalesOrders' => __( 'Online Store', '1984-dk-woo' ),
 			'PriceGroup'        => 0,
 			'Price1Closed'      => false,
 			'Price2Closed'      => false,
