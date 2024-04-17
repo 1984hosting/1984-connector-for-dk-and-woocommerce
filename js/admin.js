@@ -37,59 +37,67 @@ class NineteenEightyWoo {
 		}
 		NineteenEightyWoo.settingsErrorIndicator().classList.add( 'hidden' );
 
-		const formData = new FormData( event.target );
+		if ( 'onlyApiKey' in NineteenEightyWoo.settingsForm().dataset ) {
+			const formData = new FormData( event.target );
 
-		let apiKey                 = formData.get( 'api_key' ).trim();
-		let shippingSku            = formData.get( 'shipping_sku' ).trim();
-		let costSku                = formData.get( 'cost_sku' ).trim();
-		let customerNumberPrefix   = formData.get( 'customer_number_prefix' ).trim();
-		let defaultKennitala       = formData.get( 'default_kennitala' ).trim();
-		let enableKennitala        = Boolean( formData.get( 'enable_kennitala' ) );
-		let enableKennitalaInBlock = Boolean( formData.get( 'enable_kennitala_in_block' ) );
-		let defaultSalesPerson     = formData.get( 'default_sales_person' ).trim();
-		let defaultWarehouse       = formData.get( 'default_warehouse' ).trim();
-		let paymentIds             = formData.getAll( 'payment_id' );
-		let ledgerCodeStandard     = formData.get( 'ledger_code_standard' ).trim();
-		let ledgerCodeReduced      = formData.get( 'ledger_code_reduced' ).trim();
-		let ledgerCodeShipping     = formData.get( 'ledger_code_shipping' ).trim();
-		let ledgerCodeCosts        = formData.get( 'ledger_code_costs' ).trim();
-		let paymentMethods         = [];
-		let paymentsLength         = paymentIds.length;
-
-		for (let i = 0; i < paymentsLength; i++) {
-			let wooId = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
-			let dkId  = parseInt( paymentIds[i] );
-
-			if (isNaN( dkId )) {
-				dkId = 0;
+			const formDataObject = {
+				api_key: formData.get( 'api_key' ).trim(),
 			}
 
-			paymentMethods.push(
-				{
-					woo_id: wooId,
-					dk_id: dkId,
+			NineteenEightyWoo.postSettingsData( formDataObject );
+		} else {
+			const formData = new FormData( event.target );
+
+			let apiKey                 = formData.get( 'api_key' ).trim();
+			let shippingSku            = formData.get( 'shipping_sku' ).trim();
+			let costSku                = formData.get( 'cost_sku' ).trim();
+			let customerNumberPrefix   = formData.get( 'customer_number_prefix' ).trim();
+			let defaultKennitala       = formData.get( 'default_kennitala' ).trim();
+			let enableKennitala        = Boolean( formData.get( 'enable_kennitala' ) );
+			let enableKennitalaInBlock = Boolean( formData.get( 'enable_kennitala_in_block' ) );
+			let defaultSalesPerson     = formData.get( 'default_sales_person' ).trim();
+			let paymentIds             = formData.getAll( 'payment_id' );
+			let ledgerCodeStandard     = formData.get( 'ledger_code_standard' ).trim();
+			let ledgerCodeReduced      = formData.get( 'ledger_code_reduced' ).trim();
+			let ledgerCodeShipping     = formData.get( 'ledger_code_shipping' ).trim();
+			let ledgerCodeCosts        = formData.get( 'ledger_code_costs' ).trim();
+			let paymentMethods         = [];
+			let paymentsLength         = paymentIds.length;
+
+			for (let i = 0; i < paymentsLength; i++) {
+				let wooId = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
+				let dkId  = parseInt( paymentIds[i] );
+
+				if (isNaN( dkId )) {
+					dkId = 0;
 				}
-			);
-		}
 
-		const formDataObject = {
-			api_key: apiKey,
-			shipping_sku: shippingSku,
-			cost_sku: costSku,
-			customer_number_prefix: customerNumberPrefix,
-			default_kennitala: defaultKennitala,
-			enable_kennitala: enableKennitala,
-			enable_kennitala_in_block: enableKennitalaInBlock,
-			default_sales_person: defaultSalesPerson,
-			default_warehouse: defaultWarehouse,
-			payment_methods: paymentMethods,
-			ledger_code_standard: ledgerCodeStandard,
-			ledger_code_reduced: ledgerCodeReduced,
-			ledger_code_shipping: ledgerCodeShipping,
-			ledger_code_costs: ledgerCodeCosts
-		}
+				paymentMethods.push(
+					{
+						woo_id: wooId,
+						dk_id: dkId,
+					}
+				);
+			}
 
-		NineteenEightyWoo.postSettingsData( formDataObject );
+			const formDataObject = {
+				api_key: apiKey,
+				shipping_sku: shippingSku,
+				cost_sku: costSku,
+				customer_number_prefix: customerNumberPrefix,
+				default_kennitala: defaultKennitala,
+				enable_kennitala: enableKennitala,
+				enable_kennitala_in_block: enableKennitalaInBlock,
+				default_sales_person: defaultSalesPerson,
+				payment_methods: paymentMethods,
+				ledger_code_standard: ledgerCodeStandard,
+				ledger_code_reduced: ledgerCodeReduced,
+				ledger_code_shipping: ledgerCodeShipping,
+				ledger_code_costs: ledgerCodeCosts
+			}
+
+			NineteenEightyWoo.postSettingsData( formDataObject );
+		}
 	}
 
 	static async postSettingsData(formDataObject) {
@@ -109,7 +117,11 @@ class NineteenEightyWoo {
 		NineteenEightyWoo.settingsLoader().classList.add( 'hidden' );
 		NineteenEightyWoo.settingsSubmit().disabled = false;
 
-		if ( ! response.ok ) {
+		if ( response.ok ) {
+			if ( 'onlyApiKey' in NineteenEightyWoo.settingsForm().dataset ) {
+				window.location.reload( true );
+			}
+		} else {
 			NineteenEightyWoo.settingsErrorIndicator().classList.remove( 'hidden' );
 		}
 	}

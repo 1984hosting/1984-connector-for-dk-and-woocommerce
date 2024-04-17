@@ -71,6 +71,13 @@ class DKApiRequest {
 	 *                           on failure.
 	 */
 	public function get_result( string $path ): WP_Error|stdClass {
+		if ( true === empty( Config::get_dk_api_key() ) ) {
+			return new WP_Error(
+				'dk-api-key-missing',
+				__( 'The DK API key is missing.', 'NineteenEightyWoo' )
+			);
+		}
+
 		$request = $this->wp_http->get(
 			self::DK_API_URL . $path,
 			array(
@@ -100,6 +107,13 @@ class DKApiRequest {
 		string $body = '',
 		string $method = 'POST'
 	): WP_Error|stdClass {
+		if ( true === empty( Config::get_dk_api_key() ) ) {
+			return new WP_Error(
+				'dk-api-key-missing',
+				__( 'The DK API key is missing.', 'NineteenEightyWoo' )
+			);
+		}
+
 		$request = $this->wp_http->request(
 			self::DK_API_URL . $path,
 			array(

@@ -6,6 +6,7 @@ namespace NineteenEightyFour\NineteenEightyWoo\Rest;
 
 use NineteenEightyFour\NineteenEightyWoo\Config;
 
+use NineteenEightyFour\NineteenEightyWoo\Import\Products as ImportProducts;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -129,7 +130,7 @@ class Settings {
 			Config::set_dk_api_key( $rest_json->api_key );
 		}
 
-		if ( true === property_exists( $rest_json, 'api_key' ) ) {
+		if ( true === property_exists( $rest_json, 'customer_number_prefix' ) ) {
 			Config::set_customer_number_prefix(
 				$rest_json->customer_number_prefix
 			);
@@ -180,6 +181,8 @@ class Settings {
 				$p->dk_id
 			);
 		}
+
+		ImportProducts::save_all_from_dk();
 
 		return new WP_REST_Response( array( 'status' => 200 ) );
 	}

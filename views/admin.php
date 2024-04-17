@@ -15,7 +15,16 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 	class="wrap nineteen-eighty-woo-wrap"
 	id="nineteen-eighty-woo-wrap"
 >
-	<form id="nineteen-eighty-woo-settings-form" class="type-form" novalidate>
+	<form
+		id="nineteen-eighty-woo-settings-form"
+		class="type-form"
+		novalidate
+		<?php
+		if ( true === empty( Config::get_dk_api_key() ) ) {
+			echo 'data-only-api-key="true"';
+		}
+		?>
+	>
 		<h1 class="wp-heading-inline">
 			<?php esc_html_e( '1984 DK Connection', 'NineteenEightyWoo' ); ?>
 		</h1>
@@ -56,6 +65,8 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 				</tbody>
 			</table>
 		</section>
+
+		<?php if ( false === empty( Config::get_dk_api_key() ) ) : ?>
 
 		<section class="section">
 			<h2><?php esc_html_e( 'DK Record Prefixes', 'NineteenEightyWoo' ); ?></h2>
@@ -302,33 +313,6 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'Warehouses', 'NineteenEightyWoo' ); ?></h2>
-			<table id="dk-warehouse-table" class="form-table">
-				<tbody>
-					<tr>
-						<th span="row" class="column-title column-primary">
-							<label for="default_warehouse_field">
-								<?php esc_html_e( 'Default Warehouse Code', 'NineteenEightyWoo' ); ?>
-							</label>
-						</th>
-						<td>
-							<select id="default_warehouse_field" name="default_warehouse">
-								<?php foreach ( Warehouses::get() as $warehouse ) : ?>
-								<option
-									value="<?php echo esc_attr( $warehouse->Code ); ?>"
-									<?php echo Config::get_default_warehouse() === $warehouse->Code ? 'selected' : ''; ?>
-								>
-									<?php echo esc_attr( $warehouse->Code ); ?>
-								</option>
-								<?php endforeach ?>
-							</select>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</section>
-
-		<section class="section">
 			<h2><?php esc_html_e( 'Ledger Codes', 'NineteenEightyWoo' ); ?></h2>
 			<p>
 				<?php
@@ -403,6 +387,8 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 				</tbody>
 			</table>
 		</section>
+
+		<?php endif ?>
 
 		<div class="submit-container">
 			<div id="nineteen-eighty-woo-settings-error" class="hidden" aria-live="polite">
