@@ -193,8 +193,15 @@ class Products {
 			) {
 				return false;
 			}
+
+			// Initiate the product if it does not exsist.
 			$wc_product = new WC_Product();
 			$wc_product->set_sku( $json_object->ItemCode );
+
+			// New products retreived from DK are assumed to have price and
+			// stock sync enabled. (We don't want this to be null).
+			$wc_product->update_meta_data( '1984_woo_dk_price_sync', true );
+			$wc_product->update_meta_data( '1984_woo_dk_stock_sync', true );
 		} else {
 			$wc_product = wc_get_product( $product_id );
 		}
