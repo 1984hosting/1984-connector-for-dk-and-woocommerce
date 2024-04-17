@@ -1,7 +1,7 @@
 === 1984 DK Connection for WooCommerce ===
-Stable tag: trunk
+Stable tag: 0.1.3
 Contributors: @1984cto, @aldavigdis, @drupalviking
-Tags: DK, dkPlus, Iceland, WooCommerce, Accounting, Inventory, Invoicing
+Tags: DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.2.4
 Tested up to: 6.5
 Requires PHP: 8.1
@@ -9,6 +9,8 @@ License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Sync your WooCommerce store with DK, including prices, inventory status and generate invoices for customers on checkout.
+
+== About ==
 
 Synchronise products, prices and inventory status between your WooCommerce store and your DK account. Have DK generate invoices automatically on checkout without worrying about setitng up an email connection for your WordPress site.
 
