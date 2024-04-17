@@ -1,3 +1,7 @@
+/.compose.yml
+/.dockpress-secrets/
+/.vscode/
+/dockpress-secrets
 *.swp
 /tmp
 /vendor/
