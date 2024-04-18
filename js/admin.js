@@ -133,7 +133,7 @@ window.addEventListener(
 		if (document.body) {
 			if (
 				document.body.classList.contains(
-					'woocommerce_page_NineteenEightyWoo'
+					'woocommerce_page_1984-dk-woo'
 				)
 			) {
 				NineteenEightyWoo.settingsForm().addEventListener(
