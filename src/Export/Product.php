@@ -10,6 +10,8 @@ use WC_Product;
 use WP_Error;
 use WC_Tax;
 use WC_Product_Variation;
+use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
+use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
 
 /**
  * The Product Export class
@@ -265,9 +267,26 @@ class Product {
 		) ) {
 			if ( true === wc_prices_include_tax() ) {
 				$product_props['UnitPrice1WithTax'] = $product->get_regular_price();
+
 				if ( false === empty( $product->get_sale_price() ) ) {
+					$sale_price_after_tax = BigDecimal::of(
+						$product->get_sale_price(),
+					);
+
+					$sale_tax_percentage = BigDecimal::of( $tax_rate_p );
+
+					$sale_tax_fraction = $sale_tax_percentage->dividedBy(
+						100,
+						4,
+						roundingMode: RoundingMode::HALF_UP
+					);
+
+					$sale_price_before_tax = $sale_price_after_tax->dividedBy(
+						$sale_tax_fraction->plus( 1 )
+					);
+
 					$product_props['PropositionPrice'] = (
-						$product->get_sale_price() / ( 1 + ( $tax_rate_p / 100 ) )
+						$sale_price_before_tax->toFloat()
 					);
 				} else {
 					$product_props['PropositionPrice'] = 0;

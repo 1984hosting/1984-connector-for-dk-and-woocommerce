@@ -11,6 +11,8 @@ use WC_DateTime;
 use WC_Product;
 use WP_Error;
 use WC_Tax;
+use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
+use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
 
 /**
  * The Products import class
@@ -250,11 +252,31 @@ class Products {
 					self::tax_class_from_rate( $json_object->TaxPercent )
 				);
 
-				$wc_product->set_regular_price( $json_object->UnitPrice1WithTax );
+				$wc_product->set_regular_price(
+					$json_object->UnitPrice1WithTax
+				);
 
-				if ( 0 > $json_object->PropositionPrice ) {
+				if ( 0 < $json_object->PropositionPrice ) {
+					$sale_price_before_tax = BigDecimal::of(
+						$json_object->PropositionPrice,
+					);
+
+					$sale_tax_percentage = BigDecimal::of(
+						$json_object->TaxPercent
+					);
+
+					$sale_tax_fraction = $sale_tax_percentage->dividedBy(
+						100,
+						4,
+						roundingMode: RoundingMode::HALF_UP
+					);
+
+					$sale_price_with_tax = $sale_price_before_tax->multipliedBy(
+						$sale_tax_fraction->plus( 1 )
+					);
+
 					$wc_product->set_sale_price(
-						$json_object->PropositionPrice * ( 1 + ( $json_object->TaxPercent / 100 ) )
+						$sale_price_with_tax->toFloat()
 					);
 				} else {
 					$wc_product->set_sale_price( '' );
@@ -263,7 +285,9 @@ class Products {
 				$wc_product->set_regular_price( $json_object->UnitPrice1 );
 
 				if ( 0 > $json_object->PropositionPrice ) {
-					$wc_product->set_sale_price( $json_object->PropositionPrice );
+					$wc_product->set_sale_price(
+						$json_object->PropositionPrice
+					);
 				} else {
 					$wc_product->set_sale_price( '' );
 				}
