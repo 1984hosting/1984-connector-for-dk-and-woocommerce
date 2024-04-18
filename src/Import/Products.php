@@ -328,13 +328,13 @@ class Products {
 	/**
 	 * Get a tax class from a VAT percentage rate
 	 *
-	 * @param float $rate The tax rate to look up.
+	 * @param float $percentage The tax rate to look up.
 	 *
 	 * @return string The matched tax class. Defaults to empty string, for the
 	 *                default rate.
 	 */
-	public static function tax_class_from_rate( float $rate ): string {
-		if ( 0.0 === $rate ) {
+	public static function tax_class_from_rate( float $percentage ): string {
+		if ( 0.0 === $percentage ) {
 			return 'Zero rate';
 		}
 
@@ -349,7 +349,7 @@ class Products {
 		}
 
 		foreach ( $tax_rates as $class => $r ) {
-			if ( $rate === $r['rate'] ) {
+			if ( $percentage === $r['rate'] ) {
 				return $class;
 			}
 		}
