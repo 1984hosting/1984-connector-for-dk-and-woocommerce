@@ -34,10 +34,10 @@ new Hooks\WooUpdateProduct();
 
 register_activation_hook(
 	__FILE__,
-	__NAMESPACE__ . '\Cron\Schedule::activate'
+	'NineteenEightyFour\NineteenEightyWoo\Cron\Schedule::activate'
 );
 
 register_deactivation_hook(
 	__FILE__,
-	__NAMESPACE__ . '\Cron\Schedule::deactivate'
+	'NineteenEightyFour\NineteenEightyWoo\Cron\Schedule::deactivate'
 );
