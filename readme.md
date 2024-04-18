@@ -1,8 +1,17 @@
-# NineteenEightyWoo
+# 1984 DK Connection for WooCommerce
+
+> [!CAUTION]
+> **Do not open an issue ticket if you are reporting a security vulnerability. Contact 1984 Hosting directly via 1984@1984.is or the WordPress Security Team.**
+
+> [!IMPORTANT]
+> This is a code repository used for the development of **1984 DK Connection for WooCommerce**, a WordPress plugin. Using the raw source files without installing dependencies will not work and the `main` branch is considered unstable.
+
+> [!NOTE]
+> To download a working version of the plugin, either visit the **[Releases Page](https://github.com/1984hosting/1984-dk-woo/releases)** and download the `1984-dk-woo.zip` file for a current version. In the future, you can visit [https://wordpress.org/plugins/1984-dk-woo/](https://wordpress.org/plugins/1984-dk-woo/) to get the currently stable release.
 
 ## Developer Documentation
 
-Please note that there are two readme files. This one (reamde.md) and the user-facing readme ([readme.txt](https://github.com/1984hosting/woocoo/blob/main/readme.txt)) used for providing metadata to the WordPress.org as well as a general introduction to the plugin.
+Please note that there are two readme files. This one (reamde.md) and the user-facing readme ([readme.txt](https://github.com/1984hosting/woocoo/blob/main/readme.txt)) used for providing metadata to the WordPress.org plugin repository as well as a general introduction to the plugin.
 
 This file is mainly intended for development and contribution purposes.
 
@@ -92,9 +101,7 @@ One version of it can be found at https://apidoc.dkplus.is/ and is generated usi
 
 The other version is generated using Swagger and is available at https://api.dkplus.is/swagger/ui/index.
 
-Either version documents certain endpoints at different states. Some features are missing and some of the specifics described seem to be documented ahead of time and don't actually exsist (as they may only be working internally, with the public version trailing behind).
-
-This means that it is difficult to write mockups or
+Either version documents certain endpoints at different states. Some features are missing and some of the specifics described seem to be documented ahead of time and don't actually exsist (as they may only be working internally, with the public version trailing behind). There are also spelling errors and other discrepencies in some JSON properties that are not reflected in the documentation.
 
 #### Caveats
 
@@ -106,3 +113,33 @@ DK will cut off some string values that exceed its limits without warning. This 
 * Product descriptions: The DK API is unable to accept longer textual values than 40.
 
 This means that syncing product descriptions etc. may not be possible using orthodox methodologies and that string values should always be assumed to be either 20 or 40 characters long. (It may be possible to do so via "attachments" but the documentation for those remains questionable.)
+
+## Contributing
+
+The main code repository for the plugin is at https://github.com/1984hosting/. The Subversion account for the WordPress plugin respository is used for "built" releases of the plugin.
+
+We are happy to receive patches and pull requests for new feature ideas, bug fixes, translations.
+
+If you are reporting a bug, please describe the steps needed to be taken so that we can replicate it, if possible.
+
+And last but not least, be nice to us and others.
+
+## Contact Us
+
+You can contact 1984 Hosting directly by email via 1984@1984.is. The communication lines are short, so you will reach the right person that way, even when it comes to security related issues.
+
+The main author can be contacted via aldavigdis@aldavigdis.is. She is available for hire, some of her previous work can be found at and she can be supported via Github Sponsors at https://github.com/sponsors/aldavigdis.
+
+## License
+
+This plugin is provided to you as free software under the GPLv3 license. Runtime dependencies are provided under the MIT and Apache licenses, which are compatible with the GPLv3.
+
+1984 DK Connection for WooCommerce
+
+Copyright (C) 2024 1984 Hosting, Alda Vigdís Skarphéðinsdóttir
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
