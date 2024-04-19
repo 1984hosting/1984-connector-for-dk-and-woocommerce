@@ -116,7 +116,7 @@ This means that syncing product descriptions etc. may not be possible using orth
 
 The main code repository for the plugin is at https://github.com/1984hosting/. The Subversion account for the WordPress plugin respository is used for "built" releases of the plugin.
 
-We are happy to receive patches and pull requests for new feature ideas, bug fixes, translations.
+We are happy to receive patches and pull requests for new feature ideas, bug fixes and translations. **Please contact us directly at 1984@1984.is or the WordPress Security Team in case of security voulnerabilities.**
 
 If you are reporting a bug, please describe the steps needed to be taken so that we can replicate it, if possible.
 
