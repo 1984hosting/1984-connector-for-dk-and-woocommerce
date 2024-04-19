@@ -145,5 +145,5 @@ You should have received a copy of the GNU General Public License along with thi
 ---
 
 <p align="right">
-<img src="https://raw.githubusercontent.com/1984hosting/1984-dk-woo/update-1984-logo/style/1984-logo-semitrans.svg" height="52" width="220" alt="1984 Hosting">
+<img src="https://raw.githubusercontent.com/1984hosting/1984-dk-woo/main/style/1984-logo-semitrans.svg" height="52" width="220" alt="1984 Hosting">
 </p>
