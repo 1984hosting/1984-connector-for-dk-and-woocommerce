@@ -89,6 +89,8 @@ class Admin {
 	/**
 	 * The url for the 1984 logo
 	 *
+	 * @param string $asset_version The asset version to use, to invalidate cache on update.
+	 *
 	 * @return string The full URL for the SVG version of the 1984 logo.
 	 */
 	public static function logo_url( string $asset_version = '0.1' ): string {
