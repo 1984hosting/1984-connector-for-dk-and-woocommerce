@@ -1,5 +1,5 @@
 === 1984 DK Connection for WooCommerce ===
-Stable tag: 0.1.3
+Stable tag: 0.1.4
 Contributors: @1984cto, @aldavigdis, @drupalviking
 Tags: DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.2.4
