@@ -70,7 +70,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 
 		<section class="section">
 			<h2><?php esc_html_e( 'DK Record Prefixes', '1984-dk-woo' ); ?></h2>
-			<p><?php esc_html_e( 'If you wish to use a different prefixes for your customer and order numbers, you can choose them here. You can even leave them empty if you like. This will not work retroactively.', '1984-dk-woo' ); ?></p>
+			<p><?php esc_html_e( 'If you wish to use a different prefix for your customer IDs, you can choose them here. You can even leave it empty if you like. This will not work retroactively.', '1984-dk-woo' ); ?></p>
 			<table id="dk-record-prefixes-table" class="form-table">
 				<tbody>
 					<tr>
@@ -199,7 +199,12 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="default_kennitala_field">
-								Default Customer Kennitala
+								<?php
+								esc_html_e(
+									'Default Customer Kennitala',
+									'1984-dk-woo'
+								);
+								?>
 							</label>
 						</th>
 						<td>

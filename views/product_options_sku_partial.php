@@ -12,9 +12,12 @@ declare(strict_types = 1);
 		array(
 			'id'          => '1984_woo_dk_stock_sync',
 			'value'       => (bool) get_post_meta( $post->ID, '1984_woo_dk_stock_sync', true ) ? 'true' : '',
-			'label'       => 'DK handles inventory',
-			'description' => 'Lets the 1984 DK Connection plugin to sync inventory status and stock quanity between WooCommerce and DK',
+			'label'       => __( 'DK handles inventory', '1984-dk-woo' ),
 			'cbvalue'     => 'true',
+			'description' => __(
+				'Lets the 1984 DK Connection plugin to sync inventory status and stock quanity between WooCommerce and DK',
+				'1984-dk-woo'
+			),
 		),
 	);
 	?>
