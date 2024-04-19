@@ -20,6 +20,8 @@ class Admin {
 	 * Initiates any wp-admin related actions, .
 	 */
 	public function __construct() {
+		add_action( 'init', array( __CLASS__, 'load_textdomain' ) );
+
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu_page' ) );
 
 		// Superlobal is not passed into anything.
@@ -30,6 +32,16 @@ class Admin {
 				array( __CLASS__, 'enqueue_styles_and_scripts' )
 			);
 		}
+	}
+
+	/**
+	 * Load the plugin text domain
+	 */
+	public static function load_textdomain(): void {
+		load_plugin_textdomain(
+			domain: '1984-dk-woo',
+			plugin_rel_path: '1984-dk-woo/languages'
+		);
 	}
 
 	/**

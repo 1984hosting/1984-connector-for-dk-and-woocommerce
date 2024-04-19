@@ -1,0 +1,363 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1984 DK Connection for WooCommerce\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-19 10:29+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.7; wp-6.5.2\n"
+"X-Domain: 1984-dk-woo"
+
+#. The %1$s and %2$s indicate an opening and closing <strong> tag.
+#: views/admin.php:404
+#, php-format
+msgid ""
+"%1$sError:%2$s Please check if all the information was entered correctly and "
+"try again."
+msgstr ""
+
+#: src/Admin.php:50 views/admin.php:29
+msgid "1984 DK Connection"
+msgstr ""
+
+#. Name of the plugin
+msgid "1984 DK Connection for WooCommerce"
+msgstr ""
+
+#. Author of the plugin
+msgid "1984 Hosting"
+msgstr ""
+
+#. %1$s is a placeholder for the invoice number generated in DK.
+#: src/Hooks/WooOrderStatusChanges.php:113
+#, php-format
+msgid ""
+"A credit invoice for the refund has been created in DK. The invoice number "
+"is %1$s."
+msgstr ""
+
+#: src/Hooks/WooOrderStatusChanges.php:67
+#: src/Hooks/WooOrderStatusChanges.php:123
+msgid ""
+"An email containing the invoice as a PDF attachment was sent to the customer."
+msgstr ""
+
+#. %1$s is a placeholder for the invoice number generated in DK.
+#: src/Hooks/WooOrderStatusChanges.php:57
+#, php-format
+msgid ""
+"An invoice for this order has been created in DK. The invoice number is %1$s."
+msgstr ""
+
+#: views/admin.php:38
+msgid "API Key"
+msgstr ""
+
+#: views/admin.php:32
+msgid "Authentication"
+msgstr ""
+
+#: src/Hooks/WooOrderStatusChanges.php:138
+msgid ""
+"Connection was established to DK but a credit invoice was not created due to "
+"an error."
+msgstr ""
+
+#: src/Hooks/WooOrderStatusChanges.php:82
+msgid ""
+"Connection was established to DK but an invoice was not created due to an "
+"error."
+msgstr ""
+
+#: src/Export/ServiceSKU.php:90
+msgid "Cost"
+msgstr ""
+
+#: views/admin.php:179
+msgid "Cost SKU"
+msgstr ""
+
+#: views/admin.php:380
+msgid "Costs"
+msgstr ""
+
+#: views/admin.php:79
+msgid "Customer Number Prefix"
+msgstr ""
+
+#: views/admin.php:203
+msgid "Default Customer Kennitala"
+msgstr ""
+
+#: views/admin.php:282
+msgid "Default Sales Person"
+msgstr ""
+
+#: views/admin.php:304
+msgid "Default Sales Person Number"
+msgstr ""
+
+#: src/Admin.php:51
+msgid "DK Connection"
+msgstr ""
+
+#: views/product_options_sku_partial.php:15
+msgid "DK handles inventory"
+msgstr ""
+
+#: views/admin.php:72
+msgid "DK Record Prefixes"
+msgstr ""
+
+#: views/admin.php:285
+msgid ""
+"DK requires a sales person to be assigned to every order and invoice. "
+"Generally, this would be a pseudo-person called “Web Sales” or something "
+"similar but can also be assigned to a specific sales person or employee."
+msgstr ""
+
+#: views/admin.php:153
+msgid ""
+"DK treats shipping and other costs as line items on invoices. In order for "
+"them to work, you need to assign a SKU to each of the following services. If "
+"any of them does not exsist, then it will be created in DK."
+msgstr ""
+
+#: views/admin.php:260
+msgid "Enable Kennitala Field in the Block Based Checkout Page (Experimental)"
+msgstr ""
+
+#: views/admin.php:239
+msgid "Enable Kennitala Field in the “Classic” Shortcode Based Checkout Page"
+msgstr ""
+
+#: views/product_options_pricing_partial.php:16
+msgid ""
+"Enables the 1984 DK Connection plugin to sync the products's price between "
+"WooCommerce and DK."
+msgstr ""
+
+#: src/Export/Order.php:197
+msgid "Fee"
+msgstr ""
+
+#: src/Foo.php:17
+msgid "Hello!"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://1984.hosting"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/1984hosting/1984-dk-woo"
+msgstr ""
+
+#: views/admin.php:293
+msgid ""
+"If no sales person or employee exsists in your DK environment with the "
+"identifier entered above, a new one will be created along with an associated "
+"employee record."
+msgstr ""
+
+#: views/admin.php:73
+msgid ""
+"If you wish to use a different prefix for your customer IDs, you can choose "
+"them here. You can even leave it empty if you like. This will not work "
+"retroactively."
+msgstr ""
+
+#. %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s and %4$s stand for the opening and closing <strong> tags.
+#: views/product_options_pricing_partial.php:26
+#, php-format
+msgid ""
+"In order for price sync to work, the %1$sSKU%2$s needs to be set and must "
+"equal the Item Code in DK. It is set in the %3$sInventory Panel%4$s."
+msgstr ""
+
+#: src/Hooks/KennitalaField.php:570
+msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
+msgstr ""
+
+#: src/Export/Inventory.php:70
+msgid "Inventory registration in WooCommerce"
+msgstr ""
+
+#: src/Hooks/WooOrderStatusChanges.php:74
+#: src/Hooks/WooOrderStatusChanges.php:130
+msgid ""
+"It was not possible to send an email to the customer containing the invoice "
+"as a PDF attachment."
+msgstr ""
+
+#: src/Hooks/KennitalaField.php:216 src/Hooks/KennitalaField.php:240
+#: src/Hooks/KennitalaField.php:414 src/Hooks/KennitalaField.php:512
+msgid "Kennitala"
+msgstr ""
+
+#: src/Hooks/KennitalaField.php:516
+msgid "Kennitala (Optional)"
+msgstr ""
+
+#: views/admin.php:196
+msgid "Kennitala Support and Orders Without Kennitala"
+msgstr ""
+
+#: views/admin.php:321
+msgid "Ledger Codes"
+msgstr ""
+
+#: views/product_options_sku_partial.php:17
+msgid ""
+"Lets the 1984 DK Connection plugin to sync inventory status and stock "
+"quanity between WooCommerce and DK"
+msgstr ""
+
+#: views/admin.php:437
+msgid "Ninteen-Eighty-Four"
+msgstr ""
+
+#: src/Export/SalesPerson.php:105
+msgid "Online Store"
+msgstr ""
+
+#: views/admin.php:97
+msgid ""
+"Please enter the Payment Method ID and Name for each payment gateway as it "
+"appears in DK:"
+msgstr ""
+
+#: views/admin.php:350
+msgid "Products With Reduced Tax Rate"
+msgstr ""
+
+#: views/admin.php:335
+msgid "Products With Standard Tax Rate"
+msgstr ""
+
+#: views/admin.php:420
+msgid "Save"
+msgstr ""
+
+#: views/admin.php:365 src/Export/Order.php:215 src/Export/ServiceSKU.php:86
+msgid "Shipping"
+msgstr ""
+
+#: views/admin.php:164
+msgid "Shipping SKU"
+msgstr ""
+
+#: views/admin.php:150
+msgid "SKUs for Costs and Fees"
+msgstr ""
+
+#: views/product_options_pricing_partial.php:31
+#: views/product_options_sku_partial.php:34
+msgid "stock keeping unit"
+msgstr ""
+
+#: views/product_options_pricing_partial.php:15
+msgid "Sync prices with DK"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Sync your WooCommerce store with DK, including prices, inventory status and "
+"generate invoices for customers on checkout."
+msgstr ""
+
+#. %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s stands for a opening and %4$s for a closing <strong> tag.
+#: views/product_options_sku_partial.php:29
+#, php-format
+msgid ""
+"The %1$sSKU%2$s needs to be set to a unique value and must equal the "
+"intended %3$sItem Code%4$s in DK for any 1984 DK Sync functionality to work."
+"%5$sFurthermore, DK does not support setting an initial stock quantity for "
+"products when they are created in their system, so new products will have "
+"backorders in WooCommerce and negative stock count enabled in DK until a "
+"stock count is performed in DK.%5$sEnabling this feature means that some of "
+"the setting below (stock management, quantity and backorders) are "
+"%3$soverridden%4$s every time your WooCommerce shop syncs with DK."
+msgstr ""
+
+#: views/admin.php:430
+msgid ""
+"The 1984 DK Connection Plugin for WooCommerce is developed, maintained and "
+"supported on goodwill basis by 1984 Hosting as free software without any "
+"guarantees or obligations and is not affiliated with or supported by DK "
+"hugbúnaður ehf."
+msgstr ""
+
+#: views/admin.php:57
+msgid ""
+"The API key is provided by DK for use with the DK API. Do not share this key "
+"with anyone."
+msgstr ""
+
+#: views/admin.php:219
+msgid ""
+"The default kennitala is used for identifying customers that don't have or "
+"supply a kennitala during checkout. This should correspond with a DK "
+"customer record called “Various Customers” etc."
+msgstr ""
+
+#: src/Service/DKApiRequest.php:77 src/Service/DKApiRequest.php:113
+msgid "The DK API key is missing."
+msgstr ""
+
+#. %1$s stands for the opening and %2$s <a> tag in a hyperlink to the WooCommerce Payment Settings page.
+#: views/admin.php:141
+#, php-format
+msgid ""
+"The payment gateways themselves are handled by your WooCommerce Settings, "
+"under %1$sthe Payments Section%2$s."
+msgstr ""
+
+#: views/admin.php:53
+msgid "This is a required field"
+msgstr ""
+
+#: views/admin.php:324
+msgid ""
+"This only applies to products created in WooCommerce and is managed in DK "
+"after creation."
+msgstr ""
+
+#: src/Hooks/WooOrderStatusChanges.php:145
+msgid "Unable to establish a connection with DK to create a credit invoice."
+msgstr ""
+
+#: src/Hooks/WooOrderStatusChanges.php:89
+msgid "Unable to establish a connection with DK to create an invoice."
+msgstr ""
+
+#: views/admin.php:52
+msgid "Valid"
+msgstr ""
+
+#: views/admin.php:268
+msgid ""
+"WooCommerce 8.7 introduces a new block based checkout page. This uses a "
+"different approach to adding new fields, but it is still considered to be "
+"experimental by WooCommerce as of now. For instance, this does not "
+"automatically populate the field with the customer's kennitala, so it needs "
+"to be re-entered for each checkout."
+msgstr ""
+
+#: views/admin.php:96
+msgid "WooCommerce Payment Gateways and DK Payment Methods IDs"
+msgstr ""
+
+#. The %1$s is a placeholder for the site's title.
+#: src/Export/Invoice.php:144
+#, php-format
+msgid "Your Invoice From %1$s"
+msgstr ""

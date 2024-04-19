@@ -12,8 +12,8 @@ declare(strict_types = 1);
 		array(
 			'id'          => '1984_woo_dk_price_sync',
 			'value'       => get_post_meta( $post->ID, '1984_woo_dk_price_sync', true ) ? 'true' : 'false',
-			'label'       => 'Sync prices with DK',
-			'description' => 'Enables the 1984 DK Connection plugin to sync the products\'s price between WooCommerce and DK.',
+			'label'       => __( 'Sync prices with DK', '1984-dk-woo' ),
+			'description' => __( 'Enables the 1984 DK Connection plugin to sync the products\'s price between WooCommerce and DK.', '1984-dk-woo' ),
 			'cbvalue'     => 'true',
 		),
 	);
@@ -34,7 +34,5 @@ declare(strict_types = 1);
 			'</strong>'
 		);
 		?>
-		<br />
-		<?php esc_html_e( 'Sale and discount prices are not synced.', '1984-dk-woo' ); ?>
 	</p>
 </div>
