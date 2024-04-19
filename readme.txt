@@ -14,27 +14,27 @@ Sync your WooCommerce store with DK, including prices, inventory status and gene
 
 Synchronise products, prices and inventory status between your WooCommerce store and your DK account. Have DK generate invoices automatically on checkout without worrying about setitng up an email connection for your WordPress site.
 
-Made by the largest WordPress hosting company in Iceland, this in a plugin that does its best to stay out of the way and can be used in a “set-it-and-forget-it” way.
-
 == Installation ==
 
 In order to get started, you need to set up an account with DK's dkPlus service, enter your API key into the plugin and correlate your WooCommerce Payment Gateways with the Payment Methods in your DK account.
 
+You will also need to finish setting up your WooCommerce shop, including tax rates, wether prices are VAT-inclusive etc.
+
 Once a connection has been established, the plugin will work right away and will register products and other records in DK on creation in WooCommerce.
 
-== WP-CLI and Pulling legacy data from DK ==
+== Screenshots ==
 
-If you are not starting a new store from scratch and need to have legacy data in your WooCommerce store; or if you are building a new version of your site, you are going to want to pull the information about things such as categories and products from DK and into your WooCommerce store.
-
-As of now, this is only supported in the plugin's WP-CLI interface and will end up in the user interface when that process as been refined.
+1. The admin interface for the plugin is located under the WooCommerce section in the sidebar and generally stays out of sight otherwise.
+2. You can set and synchronise prices, sale prices and sale dates between DK and WooCommerce with the plugin, directly from the WooCommerce product editor.
+3. The plugin also supports reading stock status from DK and displaying it in your WooCommerce shop.
 
 == Frequently Asked Questions ==
 
 = Why can I not set a stock quantity in DK via this plugin? =
 
-The answer is that DK simply does not support setting an initial stock quantity for products. This requires initiating a stock count process for the product in DK to have a non-zero or non-negative stock count.
+The answer is that DK simply does not support setting an initial stock quantity for products. To get stock status working properly, it requires initiating a stock count process for the product in DK to have a non-zero or non-negative stock count.
 
-We urge anyone who want initial stock quantity to work as expected, without resorting to going through an inventory count process to ask DK about implementing it.
+We urge anyone who wants initial stock quantity to work as expected, without resorting to going through an inventory count process to ask DK about implementing it in their API service, which is what this plugin uses.
 
 = Does the plugin support the new WooCommerce Product form? =
 
