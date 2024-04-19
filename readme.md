@@ -141,3 +141,9 @@ This program is free software: you can redistribute it and/or modify it under th
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+---
+
+<p align="right">
+<img src="https://raw.githubusercontent.com/1984hosting/1984-dk-woo/update-1984-logo/style/1984-logo-semitrans.svg" height="52" width="220" alt="1984 Hosting">
+</p>
