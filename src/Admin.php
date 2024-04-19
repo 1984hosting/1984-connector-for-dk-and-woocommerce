@@ -34,7 +34,10 @@ class Admin {
 		}
 	}
 
-	public static function load_textdomain() {
+	/**
+	 * Load the plugin text domain
+	 */
+	public static function load_textdomain(): void {
 		load_plugin_textdomain(
 			domain: '1984-dk-woo',
 			plugin_rel_path: '1984-dk-woo/languages'
