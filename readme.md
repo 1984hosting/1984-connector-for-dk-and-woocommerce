@@ -4,7 +4,7 @@
 > **Do not open an issue ticket if you are reporting a security vulnerability. Contact 1984 Hosting directly via 1984@1984.is or the WordPress Security Team.**
 
 > [!IMPORTANT]
-> This is a code repository used for the development of **1984 DK Connection for WooCommerce**, a WordPress plugin. Using the raw source files without installing dependencies will not work and the `main` branch is considered unstable.
+> This is a code repository used for the development of **1984 DK Connection for WooCommerce**, a WordPress plugin. Using the raw source files without installing dependencies using Composer will not work and the `main` branch is considered unstable.
 
 > [!NOTE]
 > To download a working version of the plugin, either visit the **[Releases Page](https://github.com/1984hosting/1984-dk-woo/releases)** and download the `1984-dk-woo.zip` file for a current version. In the future, you can visit [https://wordpress.org/plugins/1984-dk-woo/](https://wordpress.org/plugins/1984-dk-woo/) to get the currently stable release.
@@ -46,7 +46,7 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 - [x] Add a kennitala text field to the user profile editor
 
 #### Localisation/translation
-- [ ] Add Icelandic locale files
+- [x] Add Icelandic locale files
 
 #### Products
 - [x] Create a corresponding *product* record in DK when a WooCommerce product is created
@@ -79,17 +79,15 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 #### Salesperson
 - [x] Assign a *salesperson* in DK for sales in WooCommerce
 
-#### Prices
-- [ ] Assign a *price group* (1, 2, 3) for products
-
 #### Maths
-- [ ] Use a BigDecimal-like library to handle tax calculations and such instead of depending on PHP's decimal support
+- [x] Use a BigDecimal-like library to handle tax calculations and such instead of depending on PHP's decimal support
 
 #### Error handling
 - [ ] Improve error handling and validation (Possibly replace `false` return values in Export classes with WP_Error, and then doing `wp_die()` on failure instead of failing softly).
 
 ### Future Features (after the first release)
 - [ ] Sync WooCommerce orders with the *DK Sales Order* module
+- [ ] Assign a *price group* (1, 2, 3) for products
 
 ### The DK API
 
