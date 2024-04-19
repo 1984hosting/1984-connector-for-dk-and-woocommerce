@@ -74,14 +74,14 @@ class Admin {
 		wp_enqueue_style(
 			handle: 'nineteen-eighty-woo',
 			src: plugins_url( 'style/admin.css', __DIR__ ),
-			ver: '0.1'
+			ver: '0.1.5'
 		);
 
 		wp_enqueue_script(
 			'nineteen-eighty-woo',
 			plugins_url( 'js/admin.js', __DIR__ ),
 			array( 'wp-api', 'wp-data' ),
-			'0.1',
+			'0.1.5',
 			false,
 		);
 	}
@@ -91,9 +91,9 @@ class Admin {
 	 *
 	 * @return string The full URL for the SVG version of the 1984 logo.
 	 */
-	public static function logo_url(): string {
+	public static function logo_url( string $asset_version = '0.1' ): string {
 		return plugins_url(
-			'style/1984-logo-semitrans.svg',
+			'style/1984-logo-semitrans.svg?v=' . $asset_version,
 			__DIR__
 		);
 	}
