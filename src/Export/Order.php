@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
+use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use NineteenEightyFour\NineteenEightyWoo\Export\Customer as ExportCustomer;
 use NineteenEightyFour\NineteenEightyWoo\Config;
