@@ -118,7 +118,7 @@ class WooOrderStatusChanges {
 	public static function maybe_send_credit_invoice_on_refund( int $order_id ): void {
 		$wc_order = new WC_Order( $order_id );
 
-		if ( false === empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
+		if ( false === empty( ExportInvoice::get_dk_credit_invoice_number( $wc_order ) ) ) {
 			return;
 		}
 
