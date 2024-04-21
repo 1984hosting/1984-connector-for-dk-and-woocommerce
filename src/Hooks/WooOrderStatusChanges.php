@@ -139,7 +139,7 @@ class WooOrderStatusChanges {
 			if ( true === ExportInvoice::email_in_dk( $wc_order, 'credit' ) ) {
 				$wc_order->add_order_note(
 					__(
-						'An email containing the invoice as a PDF attachment was sent to the customer.',
+						'An email containing the credit invoice as a PDF attachment was sent to the customer.',
 						'1984-dk-woo'
 					)
 				);
