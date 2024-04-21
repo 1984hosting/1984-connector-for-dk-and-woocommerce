@@ -5,7 +5,6 @@ declare(strict_types = 1);
 use NineteenEightyFour\NineteenEightyWoo\Admin;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
-use NineteenEightyFour\NineteenEightyWoo\Import\Warehouses;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 
 $wc_payment_gateways = new WC_Payment_Gateways();
@@ -93,8 +92,8 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'WooCommerce Payment Gateways and DK Payment Methods IDs', '1984-dk-woo' ); ?></h2>
-			<p><?php esc_html_e( 'Please enter the Payment Method ID and Name for each payment gateway as it appears in DK:', '1984-dk-woo' ); ?></p>
+			<h2><?php esc_html_e( 'Payment Gateways', '1984-dk-woo' ); ?></h2>
+			<p><?php esc_html_e( 'Please select the payment method name for each payment gateway as it appears in DK as well as the payment mode:', '1984-dk-woo' ); ?></p>
 			<table id="payment-gateway-id-map-table" class="form-table">
 				<tbody>
 					<?php foreach ( $wc_payment_gateways->payment_gateways as $p ) : ?>
