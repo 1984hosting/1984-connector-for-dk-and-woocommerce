@@ -24,7 +24,7 @@ class WooOrderStatusChanges {
 	 */
 	public function __construct() {
 		add_action(
-			'woocommerce_order_status_completed',
+			'woocommerce_order_status_processing',
 			array( __CLASS__, 'send_invoice_on_payment' ),
 			10,
 			1
