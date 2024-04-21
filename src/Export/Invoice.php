@@ -34,6 +34,12 @@ class Invoice {
 	public static function create_in_dk(
 		WC_Order $wc_order
 	): string|false|WP_Error {
+		$invoice_number = self::get_dk_invoice_number( $wc_order );
+
+		if ( false === empty( $invoice_number ) ) {
+			return false;
+		}
+
 		$api_request  = new DKApiRequest();
 		$request_body = self::to_dk_invoice_body( $wc_order );
 
