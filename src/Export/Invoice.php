@@ -205,9 +205,9 @@ class Invoice {
 
 			$invoice_body['Payments'] = array(
 				array(
-				'ID'     => $payment_mapping->dk_id,
-				'Name'   => $payment_mapping->dk_name,
-				'Amount' => $wc_order->get_total(),
+					'ID'     => $payment_mapping->dk_id,
+					'Name'   => $payment_mapping->dk_name,
+					'Amount' => $wc_order->get_total(),
 				),
 			);
 		}
