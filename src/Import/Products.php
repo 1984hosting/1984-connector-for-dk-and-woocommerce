@@ -234,6 +234,10 @@ class Products {
 			}
 		}
 
+		if ( false === empty( $json_object->NetWeight ) ) {
+			$wc_product->set_weight( $json_object->NetWeight );
+		}
+
 		// Take in descriptions if they have been defined in DK.
 		if ( false === empty( $json_object->ExtraDesc1 ) ) {
 			$wc_product->set_description( $json_object->ExtraDesc1 );
