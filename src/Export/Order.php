@@ -155,6 +155,8 @@ class Order {
 		$order_props['Customer']    = $customer_array;
 		$order_props['ItemReciver'] = $recipient_array;
 
+		$order_props['Currency'] = $wc_order->get_currency();
+
 		$order_props['Lines'] = array();
 
 		foreach ( $wc_order->get_items() as $key => $item ) {
