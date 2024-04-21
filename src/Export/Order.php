@@ -185,10 +185,9 @@ class Order {
 
 		if ( 0 < count( $wc_order->get_fees() ) ) {
 			foreach ( $wc_order->get_fees() as $fee ) {
-				$unit_price = (
-					(float) $fee->get_total() -
-					(float) $fee->get_total_tax()
-				);
+				$fee_total     = BigDecimal::of( $fee->get_total() );
+				$fee_total_tax = BigDecimal::of( $fee->get_total_tax() );
+				$fee_price     = $fee_total->minus( $fee_total_tax );
 
 				$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
 
@@ -197,25 +196,33 @@ class Order {
 					'Text'             => __( 'Fee', '1984-dk-woo' ),
 					'Text2'            => $sanitized_name,
 					'Quantity'         => 1,
-					'UnitPrice'        => $unit_price,
-					'UnitPriceWithTax' => (float) $fee->get_total(),
+					'UnitPrice'        => $fee_price->toFloat(),
+					'UnitPriceWithTax' => $fee->get_total(),
 				);
 			}
 		}
 
 		if ( 0 < count( $wc_order->get_shipping_methods() ) ) {
 			foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
-				$unit_price = (
-					(float) $shipping_method->get_total() -
-					(float) $shipping_method->get_total_tax()
+				$shipping_total     = BigDecimal::of(
+					$shipping_method->get_total()
 				);
+				$shipping_total_tax = BigDecimal::of(
+					$shipping_method->get_total_tax()
+				);
+
+				$unit_price = $shipping_total->minus( $shipping_total_tax );
+
+				if ( 0.0 === $unit_price->toFloat() ) {
+					continue;
+				}
 
 				$order_props['Lines'][] = array(
 					'ItemCode'         => Config::get_shipping_sku(),
 					'Text'             => __( 'Shipping', '1984-dk-woo' ),
 					'Text2'            => $shipping_method->get_method_title(),
 					'Quantity'         => 1,
-					'UnitPrice'        => $unit_price,
+					'UnitPrice'        => $unit_price->toFloat(),
 					'UnitPriceWithTax' => (float) $shipping_method->get_total(),
 				);
 			}
@@ -225,12 +232,12 @@ class Order {
 			$order_props['Discount'] = $wc_order->get_total_discount();
 		}
 
-		$order_props['TotalAmount'] = (
-			(float) $wc_order->get_total() -
-			(float) $wc_order->get_total_tax()
-		);
+		$total        = BigDecimal::of( $wc_order->get_total() );
+		$total_tax    = BigDecimal::of( $wc_order->get_total_tax() );
+		$total_amount = $total->minus( $total_tax );
 
-		$order_props['TotalAmountWithTax'] = (float) $wc_order->get_total();
+		$order_props['TotalAmount']        = $total_amount->toFloat();
+		$order_props['TotalAmountWithTax'] = $total_tax->toFloat();
 
 		return $order_props;
 	}
