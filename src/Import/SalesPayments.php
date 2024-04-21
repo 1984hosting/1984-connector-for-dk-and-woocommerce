@@ -16,6 +16,40 @@ use WP_Error;
 class SalesPayments {
 	const TRANSIENT_EXPIRY = 600;
 
+	const DK_PAYMENT_MODES = array(
+		'ABG',
+		'BM',
+		'CG',
+		'GKR',
+		'GM',
+		'IB',
+		'STGR',
+		'TGR',
+	);
+
+	public static function get_payment_mode_name( $key ) {
+		switch ( $key ) {
+			case 'ABG':
+				return __( 'A or B Giro Request (ABG)', '1984-dk-woo' );
+			case 'BM':
+				return __( 'Bank Transfer (BM)', '1984-dk-woo' );
+			case 'CG':
+				return __( 'C Giro Request (CG)', '1984-dk-woo' );
+			case 'GKR':
+				return __( 'Card Payment (GKR)', '1984-dk-woo' );
+			case 'GM':
+				return __( 'Giro Transfer (GM)', '1984-dk-woo' );
+			case 'IB':
+				return __( 'Bank Collection Service (IB)', '1984-dk-woo' );
+			case 'STGR':
+				return __( 'Cash Payment (STGR)', '1984-dk-woo' );
+			case 'TGR':
+				return __( 'Cheque Payment (TGR)', '1984-dk-woo' );
+			default:
+				return false;
+		}
+	}
+
 	/**
 	 * Get payment methods
 	 *

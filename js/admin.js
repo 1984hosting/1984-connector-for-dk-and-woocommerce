@@ -57,6 +57,7 @@ class NineteenEightyWoo {
 			let enableKennitalaInBlock = Boolean( formData.get( 'enable_kennitala_in_block' ) );
 			let defaultSalesPerson     = formData.get( 'default_sales_person' ).trim();
 			let paymentIds             = formData.getAll( 'payment_id' );
+			let paymentModes           = formData.getAll( 'payment_mode' );
 			let ledgerCodeStandard     = formData.get( 'ledger_code_standard' ).trim();
 			let ledgerCodeReduced      = formData.get( 'ledger_code_reduced' ).trim();
 			let ledgerCodeShipping     = formData.get( 'ledger_code_shipping' ).trim();
@@ -65,8 +66,9 @@ class NineteenEightyWoo {
 			let paymentsLength         = paymentIds.length;
 
 			for (let i = 0; i < paymentsLength; i++) {
-				let wooId = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
-				let dkId  = parseInt( paymentIds[i] );
+				let wooId  = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
+				let dkId   = parseInt( paymentIds[i] );
+				let dkMode = paymentModes[i];
 
 				if (isNaN( dkId )) {
 					dkId = 0;
@@ -74,8 +76,9 @@ class NineteenEightyWoo {
 
 				paymentMethods.push(
 					{
-						woo_id: wooId,
-						dk_id: dkId,
+						woo_id:  wooId,
+						dk_id:   dkId,
+						dk_mode: dkMode,
 					}
 				);
 			}
