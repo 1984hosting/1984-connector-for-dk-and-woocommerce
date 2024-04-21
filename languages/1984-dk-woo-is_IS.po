@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: 1984 DK Connection for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-18 23:42+0000\n"
-"PO-Revision-Date: 2024-04-19 13:55+0000\n"
+"PO-Revision-Date: 2024-04-21 21:31+0000\n"
 "Last-Translator: \n"
-"Language-Team: Íslenska\n"
+"Language-Team: Icelandic\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Domain: 1984-dk-woo"
 
 #. The %1$s and %2$s indicate an opening and closing <strong> tag.
-#: views/admin.php:404
+#: views/admin.php:403
 #, php-format
 msgid ""
 "%1$sError:%2$s Please check if all the information was entered correctly and "
@@ -25,7 +25,7 @@ msgstr ""
 "%1$sVilla:%2$s Athugaðu hvort allar upplýsingarnar hafi verið slegnar rétt "
 "inn."
 
-#: src/Admin.php:50 views/admin.php:29
+#: src/Admin.php:53 views/admin.php:28
 msgid "1984 DK Connection"
 msgstr "DK-tenging frá 1984"
 
@@ -38,7 +38,7 @@ msgid "1984 Hosting"
 msgstr "1984 Ehf."
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Hooks/WooOrderStatusChanges.php:113
+#: src/Hooks/WooOrderStatusChanges.php:131
 #, php-format
 msgid ""
 "A credit invoice for the refund has been created in DK. The invoice number "
@@ -47,8 +47,15 @@ msgstr ""
 "Kreditreikningur fyrir þessa pöntun var búinn til í DK. Númer reikningsins "
 "er %1$s."
 
-#: src/Hooks/WooOrderStatusChanges.php:67
-#: src/Hooks/WooOrderStatusChanges.php:123
+#: src/Hooks/WooOrderStatusChanges.php:141
+msgid ""
+"An email containing the credit invoice as a PDF attachment was sent to the "
+"customer."
+msgstr ""
+"Tölvupóstur var sendur til viðskiptavinarins sem innihélt kreditreikninginn "
+"sem viðhengi á PDF-formi."
+
+#: src/Hooks/WooOrderStatusChanges.php:79
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer."
 msgstr ""
@@ -56,22 +63,22 @@ msgstr ""
 "viðhengi á PDF-formi."
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Hooks/WooOrderStatusChanges.php:57
+#: src/Hooks/WooOrderStatusChanges.php:69
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
 msgstr ""
 "Reikningur fyrir þessa pöntun var búinn til í DK. Númer reikningsins er %1$s."
 
-#: views/admin.php:38
+#: views/admin.php:37
 msgid "API Key"
 msgstr "API-lykill"
 
-#: views/admin.php:32
+#: views/admin.php:31
 msgid "Authentication"
 msgstr "Auðkenning"
 
-#: src/Hooks/WooOrderStatusChanges.php:138
+#: src/Hooks/WooOrderStatusChanges.php:156
 msgid ""
 "Connection was established to DK but a credit invoice was not created due to "
 "an error."
@@ -79,7 +86,7 @@ msgstr ""
 "Tenging náðist við DK en ekki var hægt að búa til kreditreikninginn út af "
 "villu."
 
-#: src/Hooks/WooOrderStatusChanges.php:82
+#: src/Hooks/WooOrderStatusChanges.php:94
 msgid ""
 "Connection was established to DK but an invoice was not created due to an "
 "error."
@@ -90,31 +97,31 @@ msgstr ""
 msgid "Cost"
 msgstr "Kostnaður eða gjald"
 
-#: views/admin.php:179
+#: views/admin.php:178
 msgid "Cost SKU"
 msgstr "SKU fyrir kostnað og gjöld"
 
-#: views/admin.php:380
+#: views/admin.php:379
 msgid "Costs"
 msgstr "Kostnaður og gjöld"
 
-#: views/admin.php:79
+#: views/admin.php:78
 msgid "Customer Number Prefix"
 msgstr "Forskeyti fyrir númer skuldunauta"
 
-#: views/admin.php:203
+#: views/admin.php:202
 msgid "Default Customer Kennitala"
 msgstr "Sjálfgefin kennitala fyrir viðskiptavini"
 
-#: views/admin.php:282
+#: views/admin.php:281
 msgid "Default Sales Person"
 msgstr "Sjálfgefinn sölumaður"
 
-#: views/admin.php:304
+#: views/admin.php:303
 msgid "Default Sales Person Number"
 msgstr "Númer sjálfgefins sölumanns"
 
-#: src/Admin.php:51
+#: src/Admin.php:54
 msgid "DK Connection"
 msgstr "DK-tenging"
 
@@ -122,11 +129,11 @@ msgstr "DK-tenging"
 msgid "DK handles inventory"
 msgstr "Sækja birgðastöðu frá DK"
 
-#: views/admin.php:72
+#: views/admin.php:71
 msgid "DK Record Prefixes"
 msgstr "Forskeyti fyrir skráningar í DK"
 
-#: views/admin.php:285
+#: views/admin.php:284
 msgid ""
 "DK requires a sales person to be assigned to every order and invoice. "
 "Generally, this would be a pseudo-person called “Web Sales” or something "
@@ -136,7 +143,7 @@ msgstr ""
 "gervimannesja sem heitir t.d. „Sala í vefverslun“ eða álíka en það er einnig "
 "hægt að skilgreina ákveðinn sölumann eða starfsmann."
 
-#: views/admin.php:153
+#: views/admin.php:152
 msgid ""
 "DK treats shipping and other costs as line items on invoices. In order for "
 "them to work, you need to assign a SKU to each of the following services. If "
@@ -146,13 +153,13 @@ msgstr ""
 "reikning. Til að láta það virka þarftu að skilgreina SKU fyrir eftirfarandi "
 "þjónustu. Ef vörunúmerinu er ekki til verða þau búin til í DK."
 
-#: views/admin.php:260
+#: views/admin.php:259
 msgid "Enable Kennitala Field in the Block Based Checkout Page (Experimental)"
 msgstr ""
 "Kveikja á kennitölureit í nýju útgáfu afgreiðsluformsins, sem byggir á "
 "blokkum (Tilraunastarfsemi)"
 
-#: views/admin.php:239
+#: views/admin.php:238
 msgid "Enable Kennitala Field in the “Classic” Shortcode Based Checkout Page"
 msgstr ""
 "Kveikja á kennitölureit í „gamla“ afgreiðsluforminu, sem byggir á stuttkóðum"
@@ -164,7 +171,7 @@ msgid ""
 msgstr ""
 "Leyfir DK-tengingunni frá 1984 að samstilla vöruverð milli WooCommerce og DK."
 
-#: src/Export/Order.php:197
+#: src/Export/Order.php:199
 msgid "Fee"
 msgstr "Gjald"
 
@@ -180,7 +187,7 @@ msgstr "https://1984.hosting"
 msgid "https://github.com/1984hosting/1984-dk-woo"
 msgstr "https://github.com/1984hosting/1984-dk-woo"
 
-#: views/admin.php:293
+#: views/admin.php:292
 msgid ""
 "If no sales person or employee exsists in your DK environment with the "
 "identifier entered above, a new one will be created along with an associated "
@@ -189,7 +196,7 @@ msgstr ""
 "Ef enginn sölumaður eða starfsmaður er til í DK-umhverfinu þínu með þetta "
 "númer, þá verður nýr sölumaður búinn til ásamt starfsmanni."
 
-#: views/admin.php:73
+#: views/admin.php:72
 #| msgid ""
 #| "If you wish to use a different prefixes for your customer and order "
 #| "numbers, you can choose them here. You can even leave them empty if you "
@@ -214,7 +221,7 @@ msgstr ""
 "to be set and must equal the Item Code in DK. Það er stillt undir "
 "%3$sInventory%4$s hér til vinstri."
 
-#: src/Hooks/KennitalaField.php:570
+#: src/Hooks/KennitalaField.php:559
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr "Ógild kennitala. Kennitölur eru runur af 10 tölustöfum."
 
@@ -222,8 +229,8 @@ msgstr "Ógild kennitala. Kennitölur eru runur af 10 tölustöfum."
 msgid "Inventory registration in WooCommerce"
 msgstr "Birgðaskráning í WooCommerce"
 
-#: src/Hooks/WooOrderStatusChanges.php:74
-#: src/Hooks/WooOrderStatusChanges.php:130
+#: src/Hooks/WooOrderStatusChanges.php:86
+#: src/Hooks/WooOrderStatusChanges.php:148
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
 "as a PDF attachment."
@@ -231,20 +238,20 @@ msgstr ""
 "Ekki var hægt að senda tölvupóst til viðskiptavinarins sem innihélt "
 "reikninginn sem viðhengi á PDF-formi"
 
-#: src/Hooks/KennitalaField.php:216 src/Hooks/KennitalaField.php:240
-#: src/Hooks/KennitalaField.php:414 src/Hooks/KennitalaField.php:512
+#: src/Hooks/KennitalaField.php:211 src/Hooks/KennitalaField.php:235
+#: src/Hooks/KennitalaField.php:409 src/Hooks/KennitalaField.php:502
 msgid "Kennitala"
 msgstr "Kennitala"
 
-#: src/Hooks/KennitalaField.php:516
+#: src/Hooks/KennitalaField.php:506
 msgid "Kennitala (Optional)"
 msgstr "Kennitala (Valfrjálst)"
 
-#: views/admin.php:196
+#: views/admin.php:195
 msgid "Kennitala Support and Orders Without Kennitala"
 msgstr "Kennitölustuðningur og pantanir án kennitölu"
 
-#: views/admin.php:321
+#: views/admin.php:320
 msgid "Ledger Codes"
 msgstr "Bókunarflokkar"
 
@@ -255,7 +262,7 @@ msgid ""
 msgstr ""
 "Lætur DK-tenginguna frá 1984 samstilla birgðastöðu milli WooCommerce og DK"
 
-#: views/admin.php:437
+#: views/admin.php:436
 msgid "Ninteen-Eighty-Four"
 msgstr "Nítjánhundruð-áttatíu-og-fjögur"
 
@@ -263,35 +270,39 @@ msgstr "Nítjánhundruð-áttatíu-og-fjögur"
 msgid "Online Store"
 msgstr "Vefverslun"
 
-#: views/admin.php:97
-msgid ""
-"Please enter the Payment Method ID and Name for each payment gateway as it "
-"appears in DK:"
-msgstr ""
-"Veldu greiðslutegund og nafn fyrir hverja greiðslugátt eins og hún kemur "
-"fram í DK:"
+#: views/admin.php:95
+msgid "Payment Gateways"
+msgstr "Greiðslugáttir"
 
-#: views/admin.php:350
+#: views/admin.php:96
+msgid ""
+"Please select the payment method name for each payment gateway as it appears "
+"in DK as well as the payment mode:"
+msgstr ""
+"Veldu nafn greiðslumáta fyrir hverja greiðslugátt eins og hann kemur fram í "
+"DK:"
+
+#: views/admin.php:349
 msgid "Products With Reduced Tax Rate"
 msgstr "Vörur í lægra skattþrepi"
 
-#: views/admin.php:335
+#: views/admin.php:334
 msgid "Products With Standard Tax Rate"
 msgstr "Vörur í almennu skattþrepi"
 
-#: views/admin.php:420
+#: views/admin.php:419
 msgid "Save"
 msgstr "Vista"
 
-#: views/admin.php:365 src/Export/Order.php:215 src/Export/ServiceSKU.php:86
+#: views/admin.php:364 src/Export/Order.php:225 src/Export/ServiceSKU.php:86
 msgid "Shipping"
 msgstr "Sendingar"
 
-#: views/admin.php:164
+#: views/admin.php:163
 msgid "Shipping SKU"
 msgstr "SKU fyrir sendingar"
 
-#: views/admin.php:150
+#: views/admin.php:149
 msgid "SKUs for Costs and Fees"
 msgstr "SKU fyrir kostnað og gjöld"
 
@@ -335,7 +346,7 @@ msgstr ""
 "stillingar hér fyrir neðan (brigðastjórnun, talning og frátaka) í hvert "
 "skipti sem WooCommerce-verslunin þín samstillir sig við DK."
 
-#: views/admin.php:430
+#: views/admin.php:429
 msgid ""
 "The 1984 DK Connection Plugin for WooCommerce is developed, maintained and "
 "supported on goodwill basis by 1984 Hosting as free software without any "
@@ -347,7 +358,7 @@ msgstr ""
 "notkun en engin loforð eru gefin um virkni eða villuleysi. DK Hugbúnaður ehf "
 "ber enga ábyrgð á viðbótinni."
 
-#: views/admin.php:57
+#: views/admin.php:56
 msgid ""
 "The API key is provided by DK for use with the DK API. Do not share this key "
 "with anyone."
@@ -355,7 +366,7 @@ msgstr ""
 "API-lykillinn er afhentur af DK og er ætlaður til notkunar með API-viðmóti "
 "DK. Ekki deila þessum lykli með öðrum."
 
-#: views/admin.php:219
+#: views/admin.php:218
 msgid ""
 "The default kennitala is used for identifying customers that don't have or "
 "supply a kennitala during checkout. This should correspond with a DK "
@@ -370,7 +381,7 @@ msgid "The DK API key is missing."
 msgstr "API-lykillinn fyrir DK vantar."
 
 #. %1$s stands for the opening and %2$s <a> tag in a hyperlink to the WooCommerce Payment Settings page.
-#: views/admin.php:141
+#: views/admin.php:140
 #, php-format
 msgid ""
 "The payment gateways themselves are handled by your WooCommerce Settings, "
@@ -378,11 +389,11 @@ msgid ""
 msgstr ""
 "Sjálfar greiðslugáttirnar eru stilltar í WooCommerce undir %1$sgreiðslum%2$s."
 
-#: views/admin.php:53
+#: views/admin.php:52
 msgid "This is a required field"
 msgstr "Það þarf að fylla þennan reit út"
 
-#: views/admin.php:324
+#: views/admin.php:323
 msgid ""
 "This only applies to products created in WooCommerce and is managed in DK "
 "after creation."
@@ -390,19 +401,19 @@ msgstr ""
 "Þetta gildir aðeins um vörur sem eru nýskráðar í WooCommerce og er stjórnað "
 "í DK eftir það."
 
-#: src/Hooks/WooOrderStatusChanges.php:145
+#: src/Hooks/WooOrderStatusChanges.php:163
 msgid "Unable to establish a connection with DK to create a credit invoice."
 msgstr "Gat ekki tengst DK til að búa til kreditreikning."
 
-#: src/Hooks/WooOrderStatusChanges.php:89
+#: src/Hooks/WooOrderStatusChanges.php:101
 msgid "Unable to establish a connection with DK to create an invoice."
 msgstr "Gat ekki tengst DK til að búa til reikning."
 
-#: views/admin.php:52
+#: views/admin.php:51
 msgid "Valid"
 msgstr "Gilt"
 
-#: views/admin.php:268
+#: views/admin.php:267
 msgid ""
 "WooCommerce 8.7 introduces a new block based checkout page. This uses a "
 "different approach to adding new fields, but it is still considered to be "
@@ -416,12 +427,8 @@ msgstr ""
 "með kennitölu notanda, þannig að það gæti þurft að slá hana inn við hverja "
 "afgreiðslu."
 
-#: views/admin.php:96
-msgid "WooCommerce Payment Gateways and DK Payment Methods IDs"
-msgstr "Greiðslugáttir í WooCommerce og greiðslutegundir í DK"
-
 #. The %1$s is a placeholder for the site's title.
-#: src/Export/Invoice.php:144
+#: src/Export/Invoice.php:150
 #, php-format
 msgid "Your Invoice From %1$s"
 msgstr "Reikningurinn þinn frá %1$s"
