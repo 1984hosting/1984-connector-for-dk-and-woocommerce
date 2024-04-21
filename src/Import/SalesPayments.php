@@ -27,7 +27,14 @@ class SalesPayments {
 		'TGR',
 	);
 
-	public static function get_payment_mode_name( $key ) {
+	/**
+	 * Get the name of a payment mode from key
+	 *
+	 * @param string $key The payment mode key from DK_PAYMENT_MODES.
+	 *
+	 * @return string The full name of the payment mode.
+	 */
+	public static function get_payment_mode_name( string $key ): string {
 		switch ( $key ) {
 			case 'ABG':
 				return __( 'A or B Giro Request (ABG)', '1984-dk-woo' );
