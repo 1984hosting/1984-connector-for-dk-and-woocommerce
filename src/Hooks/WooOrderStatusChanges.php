@@ -24,15 +24,22 @@ class WooOrderStatusChanges {
 	 */
 	public function __construct() {
 		add_action(
+			'woocommerce_order_status_completed',
+			array( __CLASS__, 'maybe_send_invoice_on_payment' ),
+			10,
+			1
+		);
+
+		add_action(
 			'woocommerce_order_status_processing',
-			array( __CLASS__, 'send_invoice_on_payment' ),
+			array( __CLASS__, 'maybe_send_invoice_on_payment' ),
 			10,
 			1
 		);
 
 		add_action(
 			'woocommerce_order_status_refunded',
-			array( __CLASS__, 'send_credit_invoice_on_refund' ),
+			array( __CLASS__, 'maybe_send_credit_invoice_on_refund' ),
 			10,
 			1
 		);
@@ -41,13 +48,18 @@ class WooOrderStatusChanges {
 	/**
 	 * Send invoice after a completed payment
 	 *
-	 * This is used for the `woocommerce_order_status_completed` hook and
-	 * creates an invoice in DK and sends an invoice to the user from there.
+	 * Creates an invoice in DK and sends an invoice to the user from there if
+	 * an invoice has not already been created.
 	 *
 	 * @param int $order_id The WooCommerce order ID.
 	 */
-	public static function send_invoice_on_payment( int $order_id ): void {
-		$wc_order       = new WC_Order( $order_id );
+	public static function maybe_send_invoice_on_payment( int $order_id ): void {
+		$wc_order = new WC_Order( $order_id );
+
+		if ( false === empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
+			return;
+		}
+
 		$invoice_number = ExportInvoice::create_in_dk( $wc_order );
 
 		if ( 'string' === gettype( $invoice_number ) ) {
@@ -98,12 +110,18 @@ class WooOrderStatusChanges {
 	 * Send a credit invoice after an order has been fully refunded
 	 *
 	 * Used for the `woocommerce_order_status_refunded` hook and creates a
-	 * credit invoice for an order in DK, finally sending it to the customer.
+	 * credit invoice for an order in DK, finally sending it to the customer, if
+	 * a credit invoice has not yet been created.
 	 *
 	 * @param int $order_id The WooCommerce order ID.
 	 */
-	public static function send_credit_invoice_on_refund( int $order_id ): void {
-		$wc_order              = new WC_Order( $order_id );
+	public static function maybe_send_credit_invoice_on_refund( int $order_id ): void {
+		$wc_order = new WC_Order( $order_id );
+
+		if ( false === empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
+			return;
+		}
+
 		$credit_invoice_number = ExportInvoice::reverse_in_dk( $wc_order );
 
 		if ( 'string' === gettype( $credit_invoice_number ) ) {
