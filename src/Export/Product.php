@@ -149,11 +149,7 @@ class Product {
 		$api_request  = new DKApiRequest();
 		$request_body = self::to_dk_product_body( $product, false );
 
-		unset( $request_body['UnitPrice1'] );
-		unset( $request_body['UnitPrice1WithTax'] );
-		unset( $request_body['PropositionPrice'] );
-		unset( $request_body['PropositionDateTo'] );
-		unset( $request_body['PropositionDateTo'] );
+		unset( $request_body['SalesLedgerCode'] );
 
 		$item_code = $product->get_sku();
 
@@ -260,6 +256,8 @@ class Product {
 
 		$product_props['TaxPercent'] = $tax_rate_p;
 
+		$product_props['NetWeight'] = $product->get_weight( 'edit' );
+
 		if ( true === (bool) $product->get_meta(
 			'1984_woo_dk_price_sync',
 			true,
@@ -298,6 +296,22 @@ class Product {
 				} else {
 					$product_props['PropositionPrice'] = 0;
 				}
+			}
+
+			if ( false === empty( $product->get_date_on_sale_from() ) ) {
+				$sale_from = $product->get_date_on_sale_from();
+
+				$product_props['PropositionDateFrom'] = $sale_from->format( 'c' );
+			} else {
+				$product_props['PropositionDateFrom'] = '';
+			}
+
+			if ( false === empty( $product->get_date_on_sale_to() ) ) {
+				$sale_to = $product->get_date_on_sale_to();
+
+				$product_props['PropositionDateTo'] = $sale_to->format( 'c' );
+			} else {
+				$product_props['PropositionDateTo'] = '';
 			}
 		}
 
