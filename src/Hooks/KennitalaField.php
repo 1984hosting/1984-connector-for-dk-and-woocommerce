@@ -77,12 +77,7 @@ class KennitalaField {
 			);
 		}
 
-		if (
-			true === function_exists(
-				'__experimental_woocommerce_blocks_register_checkout_field'
-			) &&
-			true === Config::get_kennitala_block_field_enabled()
-		) {
+		if ( true === Config::get_kennitala_block_field_enabled() ) {
 			add_action(
 				'woocommerce_blocks_loaded',
 				array( __CLASS__, 'register_block_checkout_field' ),
@@ -501,39 +496,33 @@ class KennitalaField {
 	 * @link https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce-blocks/docs/third-party-developers/extensibility/checkout-block/additional-checkout-fields.md
 	 */
 	public static function register_block_checkout_field(): void {
-		if (
-			true === function_exists(
-				'__experimental_woocommerce_blocks_register_checkout_field'
+		__experimental_woocommerce_blocks_register_checkout_field(
+			array(
+				'id'                => '1984_woo_dk/kennitala',
+				'label'             => __(
+					'Kennitala',
+					'1984-dk-woo'
+				),
+				'optionalLabel'     => __(
+					'Kennitala (Optional)',
+					'1984-dk-woo'
+				),
+				'location'          => 'address',
+				'type'              => 'text',
+				'sanitize_callback' => array(
+					__CLASS__,
+					'sanitize_kennitala',
+				),
+				'validate_callback' => array(
+					__CLASS__,
+					'validate_kennitala',
+				),
+				'attributes'        => array(
+					'autocomplete' => 'kennitala',
+					'pattern'      => self::KENNITALA_PATTERN,
+				),
 			)
-		) {
-			__experimental_woocommerce_blocks_register_checkout_field(
-				array(
-					'id'                => '1984_woo_dk/kennitala',
-					'label'             => __(
-						'Kennitala',
-						'1984-dk-woo'
-					),
-					'optionalLabel'     => __(
-						'Kennitala (Optional)',
-						'1984-dk-woo'
-					),
-					'location'          => 'address',
-					'type'              => 'text',
-					'sanitize_callback' => array(
-						__CLASS__,
-						'sanitize_kennitala',
-					),
-					'validate_callback' => array(
-						__CLASS__,
-						'validate_kennitala',
-					),
-					'attributes'        => array(
-						'autocomplete' => 'kennitala',
-						'pattern'      => self::KENNITALA_PATTERN,
-					),
-				)
-			);
-		}
+		);
 	}
 
 	/**
@@ -590,6 +579,9 @@ class KennitalaField {
 		string $kennitala,
 		string $divider = '-'
 	): string {
+		if ( true === empty( $kennitala ) ) {
+			return '';
+		}
 		$first_six = substr( $kennitala, 0, 6 );
 		$last_four = substr( $kennitala, 6, 4 );
 
