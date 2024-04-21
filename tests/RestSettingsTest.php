@@ -21,9 +21,9 @@ final class RestSettingstest extends TestCase {
 		'customer_number_prefix' => 'WCN',
 		'payment_methods'        => array(
 			array(
-				'woo_id'       => 'bacs',
-				'dk_id'        => 10,
-				'payment_mode' => 'GKR'
+				'woo_id'  => 'bacs',
+				'dk_id'   => 10,
+				'dk_mode' => 'GKR'
 			),
 		),
 	);
