@@ -16,16 +16,17 @@ use function PHPUnit\Framework\assertIsString;
 
 #[TestDox( 'The Rest Settings JSON API endpoint class' )]
 final class RestSettingstest extends TestCase {
-	const VALID_POST_BODY = [
+	const VALID_POST_BODY = array(
 		'api_key'                => '3541031f-baf2-4737-a7e8-c66396e5a5e3',
 		'customer_number_prefix' => 'WCN',
-		'payment_methods'        => [
-			[
+		'payment_methods'        => array(
+			array(
 				'woo_id'  => 'bacs',
-				'dk_id'   => 10
-			],
-		],
-	];
+				'dk_id'   => 10,
+				'dk_mode' => 'GKR'
+			),
+		),
+	);
 
 	/**
 	 * The WordPress administrator user

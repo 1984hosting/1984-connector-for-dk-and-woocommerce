@@ -178,7 +178,8 @@ class Settings {
 		foreach ( $rest_json->payment_methods as $p ) {
 			Config::set_payment_mapping(
 				$p->woo_id,
-				$p->dk_id
+				$p->dk_id,
+				$p->dk_mode,
 			);
 		}
 

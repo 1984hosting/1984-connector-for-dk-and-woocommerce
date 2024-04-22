@@ -128,6 +128,27 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 									<?php endforeach ?>
 								</select>
 							</td>
+							<td>
+								<select
+									id="payment_mode_input_<?php echo esc_attr( $p->id ); ?>"
+									name="payment_mode"
+								>
+									<?php foreach ( SalesPayments::DK_PAYMENT_MODES as $payment_mode ) : ?>
+										<option
+											value="<?php echo esc_attr( $payment_mode ); ?>"
+											<?php echo esc_attr( Config::payment_mode_matches( $p->id, $payment_mode ) ? 'selected="true"' : '' ); ?>
+										>
+											<?php
+											echo esc_attr(
+												SalesPayments::get_payment_mode_name(
+													$payment_mode
+												)
+											);
+											?>
+										</option>
+									<?php endforeach ?>
+								</select>
+							</td>
 						</tr>
 					<?php endforeach ?>
 				</tbody>

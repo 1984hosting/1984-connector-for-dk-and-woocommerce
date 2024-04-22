@@ -209,6 +209,10 @@ class Invoice {
 				$wc_order->get_payment_method()
 			);
 
+			$invoice_body['Mode'] = strtolower(
+				$payment_mapping->dk_mode
+			);
+
 			$invoice_body['Payments'] = array(
 				array(
 					'ID'     => $payment_mapping->dk_id,

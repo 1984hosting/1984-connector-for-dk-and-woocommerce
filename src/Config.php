@@ -77,12 +77,14 @@ class Config {
 	 *
 	 * @param string $woo_id The alphanumeric WooCommerce payment ID.
 	 * @param int    $dk_id The payment method ID in DK.
+	 * @param string $dk_mode The payment mode from DK.
 	 *
 	 * @return bool True if the mapping is saved in the wp_options table, false if not.
 	 */
 	public static function set_payment_mapping(
 		string $woo_id,
 		int $dk_id,
+		string $dk_mode,
 	): bool {
 		$dk_payment_method = ImportSalesPayments::find_by_id( $dk_id );
 
@@ -96,6 +98,7 @@ class Config {
 				'woo_id'  => $woo_id,
 				'dk_id'   => $dk_payment_method->dk_id,
 				'dk_name' => $dk_payment_method->dk_name,
+				'dk_mode' => $dk_mode,
 			)
 		);
 	}
@@ -119,6 +122,7 @@ class Config {
 				'woo_id'  => '',
 				'dk_id'   => '',
 				'dk_name' => '',
+				'dk_mode' => '',
 			);
 		} else {
 			$default = false;
@@ -146,6 +150,34 @@ class Config {
 		);
 
 		if ( $payment_mapping->dk_id === $dk_id ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if WooCommerce Payment Gateweay ID and DK Payment Mode match
+	 *
+	 * Even if we have payment methods per payment (and DK invoices can have
+	 * multiple payments applied), an overall payment mode seems to be added.
+	 *
+	 * This seems to default on IB, which is the Icelandic bank payment
+	 * processing and collection service.
+	 *
+	 * @param string $woo_id The WooCommrece gateway ID.
+	 * @param string $dk_mode The DK payment mode.
+	 */
+	public static function payment_mode_matches(
+		string $woo_id,
+		string $dk_mode
+	): bool {
+		$payment_mapping = self::get_payment_mapping(
+			$woo_id,
+			true
+		);
+
+		if ( $payment_mapping->dk_mode === $dk_mode ) {
 			return true;
 		}
 
