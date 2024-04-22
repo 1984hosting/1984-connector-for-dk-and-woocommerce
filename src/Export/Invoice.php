@@ -209,7 +209,7 @@ class Invoice {
 				$wc_order->get_payment_method()
 			);
 
-			$invoice_body['PaymentMode'] = strtolower(
+			$invoice_body['Mode'] = strtolower(
 				$payment_mapping->dk_mode
 			);
 
