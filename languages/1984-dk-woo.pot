@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1984 DK Connection for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-21 21:28+0000\n"
+"POT-Creation-Date: 2024-05-16 11:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Domain: 1984-dk-woo"
 
 #. The %1$s and %2$s indicate an opening and closing <strong> tag.
-#: views/admin.php:403
+#: views/admin.php:424
 #, php-format
 msgid ""
 "%1$sError:%2$s Please check if all the information was entered correctly and "
@@ -42,6 +42,10 @@ msgstr ""
 msgid ""
 "A credit invoice for the refund has been created in DK. The invoice number "
 "is %1$s."
+msgstr ""
+
+#: src/Import/SalesPayments.php:40
+msgid "A or B Giro Request (ABG)"
 msgstr ""
 
 #: src/Hooks/WooOrderStatusChanges.php:141
@@ -70,6 +74,30 @@ msgstr ""
 msgid "Authentication"
 msgstr ""
 
+#: src/Import/SalesPayments.php:50
+msgid "Bank Collection Service (IB)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:42
+msgid "Bank Transfer (BM)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:44
+msgid "C Giro Request (CG)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:46
+msgid "Card Payment (GKR)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:52
+msgid "Cash Payment (STGR)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:54
+msgid "Cheque Payment (TGR)"
+msgstr ""
+
 #: src/Hooks/WooOrderStatusChanges.php:156
 msgid ""
 "Connection was established to DK but a credit invoice was not created due to "
@@ -86,11 +114,11 @@ msgstr ""
 msgid "Cost"
 msgstr ""
 
-#: views/admin.php:178
+#: views/admin.php:199
 msgid "Cost SKU"
 msgstr ""
 
-#: views/admin.php:379
+#: views/admin.php:400
 msgid "Costs"
 msgstr ""
 
@@ -98,15 +126,15 @@ msgstr ""
 msgid "Customer Number Prefix"
 msgstr ""
 
-#: views/admin.php:202
+#: views/admin.php:223
 msgid "Default Customer Kennitala"
 msgstr ""
 
-#: views/admin.php:281
+#: views/admin.php:302
 msgid "Default Sales Person"
 msgstr ""
 
-#: views/admin.php:303
+#: views/admin.php:324
 msgid "Default Sales Person Number"
 msgstr ""
 
@@ -122,25 +150,25 @@ msgstr ""
 msgid "DK Record Prefixes"
 msgstr ""
 
-#: views/admin.php:284
+#: views/admin.php:305
 msgid ""
 "DK requires a sales person to be assigned to every order and invoice. "
 "Generally, this would be a pseudo-person called “Web Sales” or something "
 "similar but can also be assigned to a specific sales person or employee."
 msgstr ""
 
-#: views/admin.php:152
+#: views/admin.php:173
 msgid ""
 "DK treats shipping and other costs as line items on invoices. In order for "
 "them to work, you need to assign a SKU to each of the following services. If "
 "any of them does not exsist, then it will be created in DK."
 msgstr ""
 
-#: views/admin.php:259
+#: views/admin.php:280
 msgid "Enable Kennitala Field in the Block Based Checkout Page (Experimental)"
 msgstr ""
 
-#: views/admin.php:238
+#: views/admin.php:259
 msgid "Enable Kennitala Field in the “Classic” Shortcode Based Checkout Page"
 msgstr ""
 
@@ -152,6 +180,10 @@ msgstr ""
 
 #: src/Export/Order.php:199
 msgid "Fee"
+msgstr ""
+
+#: src/Import/SalesPayments.php:48
+msgid "Giro Transfer (GM)"
 msgstr ""
 
 #: src/Foo.php:17
@@ -166,7 +198,7 @@ msgstr ""
 msgid "https://github.com/1984hosting/1984-dk-woo"
 msgstr ""
 
-#: views/admin.php:292
+#: views/admin.php:313
 msgid ""
 "If no sales person or employee exsists in your DK environment with the "
 "identifier entered above, a new one will be created along with an associated "
@@ -212,11 +244,11 @@ msgstr ""
 msgid "Kennitala (Optional)"
 msgstr ""
 
-#: views/admin.php:195
+#: views/admin.php:216
 msgid "Kennitala Support and Orders Without Kennitala"
 msgstr ""
 
-#: views/admin.php:320
+#: views/admin.php:341
 msgid "Ledger Codes"
 msgstr ""
 
@@ -226,7 +258,7 @@ msgid ""
 "quanity between WooCommerce and DK"
 msgstr ""
 
-#: views/admin.php:436
+#: views/admin.php:457
 msgid "Ninteen-Eighty-Four"
 msgstr ""
 
@@ -244,32 +276,32 @@ msgid ""
 "in DK as well as the payment mode:"
 msgstr ""
 
-#: views/admin.php:349
+#: views/admin.php:370
 msgid "Products With Reduced Tax Rate"
 msgstr ""
 
-#: views/admin.php:334
+#: views/admin.php:355
 msgid "Products With Standard Tax Rate"
 msgstr ""
 
-#: views/admin.php:419
+#: views/admin.php:440
 msgid "Save"
 msgstr ""
 
-#: views/admin.php:364 src/Export/Order.php:225 src/Export/ServiceSKU.php:86
+#: views/admin.php:385 src/Export/ServiceSKU.php:86 src/Export/Order.php:225
 msgid "Shipping"
 msgstr ""
 
-#: views/admin.php:163
+#: views/admin.php:184
 msgid "Shipping SKU"
 msgstr ""
 
-#: views/admin.php:149
+#: views/admin.php:170
 msgid "SKUs for Costs and Fees"
 msgstr ""
 
-#: views/product_options_pricing_partial.php:31
 #: views/product_options_sku_partial.php:34
+#: views/product_options_pricing_partial.php:31
 msgid "stock keeping unit"
 msgstr ""
 
@@ -297,7 +329,7 @@ msgid ""
 "%3$soverridden%4$s every time your WooCommerce shop syncs with DK."
 msgstr ""
 
-#: views/admin.php:429
+#: views/admin.php:450
 msgid ""
 "The 1984 DK Connection Plugin for WooCommerce is developed, maintained and "
 "supported on goodwill basis by 1984 Hosting as free software without any "
@@ -311,7 +343,7 @@ msgid ""
 "with anyone."
 msgstr ""
 
-#: views/admin.php:218
+#: views/admin.php:239
 msgid ""
 "The default kennitala is used for identifying customers that don't have or "
 "supply a kennitala during checkout. This should correspond with a DK "
@@ -323,7 +355,7 @@ msgid "The DK API key is missing."
 msgstr ""
 
 #. %1$s stands for the opening and %2$s <a> tag in a hyperlink to the WooCommerce Payment Settings page.
-#: views/admin.php:140
+#: views/admin.php:161
 #, php-format
 msgid ""
 "The payment gateways themselves are handled by your WooCommerce Settings, "
@@ -334,7 +366,7 @@ msgstr ""
 msgid "This is a required field"
 msgstr ""
 
-#: views/admin.php:323
+#: views/admin.php:344
 msgid ""
 "This only applies to products created in WooCommerce and is managed in DK "
 "after creation."
@@ -352,7 +384,7 @@ msgstr ""
 msgid "Valid"
 msgstr ""
 
-#: views/admin.php:267
+#: views/admin.php:288
 msgid ""
 "WooCommerce 8.7 introduces a new block based checkout page. This uses a "
 "different approach to adding new fields, but it is still considered to be "
