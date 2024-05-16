@@ -201,6 +201,44 @@ class Product {
 	}
 
 	/**
+	 * Reflect WooCommerce product deletion in DK
+	 *
+	 * Reflects the product being deleted from WooCommerce by setting the
+	 * `ShowItemInWebShop` attribute for the product in DK to `false`.
+	 *
+	 * This means that the product will not be deleted from or deactivated in DK
+	 * as that would lead to unintended consequences.
+	 *
+	 * @param WC_Product $wc_product The WooCommerce product.
+	 *
+	 * @return bool|WP_Error WP_Error on connection error, true on success and
+	 *                       false on failure.
+	 */
+	public static function hide_in_dk( WC_Product $wc_product ): bool|WP_Error {
+		$api_request  = new DKApiRequest();
+		$request_body = self::to_dk_product_body( $wc_product, false );
+
+		unset( $request_body['SalesLedgerCode'] );
+		$request_body['ShowItemInWebShop'] = false;
+
+		$result = $api_request->request_result(
+			self::API_PATH . $wc_product->get_sku(),
+			wp_json_encode( $request_body ),
+			'PUT'
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( 200 !== $result->response_code ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Export a WooCommerce product to a DK API POST body
 	 *
 	 * @param WC_Product $product The WooCommerce product.
@@ -241,18 +279,22 @@ class Product {
 			$product_props['Description2'] = $product->get_attribute_summary();
 		}
 
+		$product_props['ShowItemInWebShop'] = true;
+
 		if ( 'publish' === $product->get_status() ) {
-			$product_props['Inactive']          = false;
-			$product_props['ShowItemInWebShop'] = true;
+			$product_props['Inactive'] = false;
 		} else {
-			$product_props['Inactive']          = true;
-			$product_props['ShowItemInWebShop'] = false;
+			$product_props['Inactive'] = true;
 		}
 
-		$taxes      = new WC_Tax();
-		$tax_class  = $product->get_tax_class();
-		$tax_rate_a = $taxes->get_rates( $tax_class );
-		$tax_rate_p = array_pop( $tax_rate_a )['rate'];
+		$taxes = new WC_Tax();
+		if ( true === is_null( WC()->countries ) ) {
+			$tax_rate_p = 0;
+		} else {
+			$tax_class  = $product->get_tax_class();
+			$tax_rate_a = $taxes->get_rates( $tax_class );
+			$tax_rate_p = array_pop( $tax_rate_a )['rate'];
+		}
 
 		$product_props['TaxPercent'] = $tax_rate_p;
 
