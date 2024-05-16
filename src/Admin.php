@@ -38,9 +38,10 @@ class Admin {
 	 * Load the plugin text domain
 	 */
 	public static function load_textdomain(): void {
+		$plugin_path = dirname( dirname( plugin_basename( __FILE__ ) ) );
 		load_plugin_textdomain(
 			domain: '1984-dk-woo',
-			plugin_rel_path: '1984-dk-woo/languages'
+			plugin_rel_path: $plugin_path . '/languages'
 		);
 	}
 

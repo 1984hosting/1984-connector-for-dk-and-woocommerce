@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: 1984 DK Connection for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-18 23:42+0000\n"
-"PO-Revision-Date: 2024-04-21 21:31+0000\n"
+"PO-Revision-Date: 2024-05-16 11:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: Icelandic\n"
 "Language: is_IS\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Domain: 1984-dk-woo"
 
 #. The %1$s and %2$s indicate an opening and closing <strong> tag.
-#: views/admin.php:403
+#: views/admin.php:424
 #, php-format
 msgid ""
 "%1$sError:%2$s Please check if all the information was entered correctly and "
@@ -46,6 +46,10 @@ msgid ""
 msgstr ""
 "Kreditreikningur fyrir þessa pöntun var búinn til í DK. Númer reikningsins "
 "er %1$s."
+
+#: src/Import/SalesPayments.php:40
+msgid "A or B Giro Request (ABG)"
+msgstr ""
 
 #: src/Hooks/WooOrderStatusChanges.php:141
 msgid ""
@@ -78,6 +82,30 @@ msgstr "API-lykill"
 msgid "Authentication"
 msgstr "Auðkenning"
 
+#: src/Import/SalesPayments.php:50
+msgid "Bank Collection Service (IB)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:42
+msgid "Bank Transfer (BM)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:44
+msgid "C Giro Request (CG)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:46
+msgid "Card Payment (GKR)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:52
+msgid "Cash Payment (STGR)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:54
+msgid "Cheque Payment (TGR)"
+msgstr ""
+
 #: src/Hooks/WooOrderStatusChanges.php:156
 msgid ""
 "Connection was established to DK but a credit invoice was not created due to "
@@ -97,11 +125,11 @@ msgstr ""
 msgid "Cost"
 msgstr "Kostnaður eða gjald"
 
-#: views/admin.php:178
+#: views/admin.php:199
 msgid "Cost SKU"
 msgstr "SKU fyrir kostnað og gjöld"
 
-#: views/admin.php:379
+#: views/admin.php:400
 msgid "Costs"
 msgstr "Kostnaður og gjöld"
 
@@ -109,15 +137,15 @@ msgstr "Kostnaður og gjöld"
 msgid "Customer Number Prefix"
 msgstr "Forskeyti fyrir númer skuldunauta"
 
-#: views/admin.php:202
+#: views/admin.php:223
 msgid "Default Customer Kennitala"
 msgstr "Sjálfgefin kennitala fyrir viðskiptavini"
 
-#: views/admin.php:281
+#: views/admin.php:302
 msgid "Default Sales Person"
 msgstr "Sjálfgefinn sölumaður"
 
-#: views/admin.php:303
+#: views/admin.php:324
 msgid "Default Sales Person Number"
 msgstr "Númer sjálfgefins sölumanns"
 
@@ -133,7 +161,7 @@ msgstr "Sækja birgðastöðu frá DK"
 msgid "DK Record Prefixes"
 msgstr "Forskeyti fyrir skráningar í DK"
 
-#: views/admin.php:284
+#: views/admin.php:305
 msgid ""
 "DK requires a sales person to be assigned to every order and invoice. "
 "Generally, this would be a pseudo-person called “Web Sales” or something "
@@ -143,7 +171,7 @@ msgstr ""
 "gervimannesja sem heitir t.d. „Sala í vefverslun“ eða álíka en það er einnig "
 "hægt að skilgreina ákveðinn sölumann eða starfsmann."
 
-#: views/admin.php:152
+#: views/admin.php:173
 msgid ""
 "DK treats shipping and other costs as line items on invoices. In order for "
 "them to work, you need to assign a SKU to each of the following services. If "
@@ -153,13 +181,13 @@ msgstr ""
 "reikning. Til að láta það virka þarftu að skilgreina SKU fyrir eftirfarandi "
 "þjónustu. Ef vörunúmerinu er ekki til verða þau búin til í DK."
 
-#: views/admin.php:259
+#: views/admin.php:280
 msgid "Enable Kennitala Field in the Block Based Checkout Page (Experimental)"
 msgstr ""
 "Kveikja á kennitölureit í nýju útgáfu afgreiðsluformsins, sem byggir á "
 "blokkum (Tilraunastarfsemi)"
 
-#: views/admin.php:238
+#: views/admin.php:259
 msgid "Enable Kennitala Field in the “Classic” Shortcode Based Checkout Page"
 msgstr ""
 "Kveikja á kennitölureit í „gamla“ afgreiðsluforminu, sem byggir á stuttkóðum"
@@ -175,6 +203,10 @@ msgstr ""
 msgid "Fee"
 msgstr "Gjald"
 
+#: src/Import/SalesPayments.php:48
+msgid "Giro Transfer (GM)"
+msgstr ""
+
 #: src/Foo.php:17
 msgid "Hello!"
 msgstr "Halló!"
@@ -187,7 +219,7 @@ msgstr "https://1984.hosting"
 msgid "https://github.com/1984hosting/1984-dk-woo"
 msgstr "https://github.com/1984hosting/1984-dk-woo"
 
-#: views/admin.php:292
+#: views/admin.php:313
 msgid ""
 "If no sales person or employee exsists in your DK environment with the "
 "identifier entered above, a new one will be created along with an associated "
@@ -247,11 +279,11 @@ msgstr "Kennitala"
 msgid "Kennitala (Optional)"
 msgstr "Kennitala (Valfrjálst)"
 
-#: views/admin.php:195
+#: views/admin.php:216
 msgid "Kennitala Support and Orders Without Kennitala"
 msgstr "Kennitölustuðningur og pantanir án kennitölu"
 
-#: views/admin.php:320
+#: views/admin.php:341
 msgid "Ledger Codes"
 msgstr "Bókunarflokkar"
 
@@ -262,7 +294,7 @@ msgid ""
 msgstr ""
 "Lætur DK-tenginguna frá 1984 samstilla birgðastöðu milli WooCommerce og DK"
 
-#: views/admin.php:436
+#: views/admin.php:457
 msgid "Ninteen-Eighty-Four"
 msgstr "Nítjánhundruð-áttatíu-og-fjögur"
 
@@ -282,32 +314,32 @@ msgstr ""
 "Veldu nafn greiðslumáta fyrir hverja greiðslugátt eins og hann kemur fram í "
 "DK:"
 
-#: views/admin.php:349
+#: views/admin.php:370
 msgid "Products With Reduced Tax Rate"
 msgstr "Vörur í lægra skattþrepi"
 
-#: views/admin.php:334
+#: views/admin.php:355
 msgid "Products With Standard Tax Rate"
 msgstr "Vörur í almennu skattþrepi"
 
-#: views/admin.php:419
+#: views/admin.php:440
 msgid "Save"
 msgstr "Vista"
 
-#: views/admin.php:364 src/Export/Order.php:225 src/Export/ServiceSKU.php:86
+#: views/admin.php:385 src/Export/ServiceSKU.php:86 src/Export/Order.php:225
 msgid "Shipping"
 msgstr "Sendingar"
 
-#: views/admin.php:163
+#: views/admin.php:184
 msgid "Shipping SKU"
 msgstr "SKU fyrir sendingar"
 
-#: views/admin.php:149
+#: views/admin.php:170
 msgid "SKUs for Costs and Fees"
 msgstr "SKU fyrir kostnað og gjöld"
 
-#: views/product_options_pricing_partial.php:31
 #: views/product_options_sku_partial.php:34
+#: views/product_options_pricing_partial.php:31
 msgid "stock keeping unit"
 msgstr ""
 
@@ -346,7 +378,7 @@ msgstr ""
 "stillingar hér fyrir neðan (brigðastjórnun, talning og frátaka) í hvert "
 "skipti sem WooCommerce-verslunin þín samstillir sig við DK."
 
-#: views/admin.php:429
+#: views/admin.php:450
 msgid ""
 "The 1984 DK Connection Plugin for WooCommerce is developed, maintained and "
 "supported on goodwill basis by 1984 Hosting as free software without any "
@@ -366,7 +398,7 @@ msgstr ""
 "API-lykillinn er afhentur af DK og er ætlaður til notkunar með API-viðmóti "
 "DK. Ekki deila þessum lykli með öðrum."
 
-#: views/admin.php:218
+#: views/admin.php:239
 msgid ""
 "The default kennitala is used for identifying customers that don't have or "
 "supply a kennitala during checkout. This should correspond with a DK "
@@ -381,7 +413,7 @@ msgid "The DK API key is missing."
 msgstr "API-lykillinn fyrir DK vantar."
 
 #. %1$s stands for the opening and %2$s <a> tag in a hyperlink to the WooCommerce Payment Settings page.
-#: views/admin.php:140
+#: views/admin.php:161
 #, php-format
 msgid ""
 "The payment gateways themselves are handled by your WooCommerce Settings, "
@@ -393,7 +425,7 @@ msgstr ""
 msgid "This is a required field"
 msgstr "Það þarf að fylla þennan reit út"
 
-#: views/admin.php:323
+#: views/admin.php:344
 msgid ""
 "This only applies to products created in WooCommerce and is managed in DK "
 "after creation."
@@ -413,7 +445,7 @@ msgstr "Gat ekki tengst DK til að búa til reikning."
 msgid "Valid"
 msgstr "Gilt"
 
-#: views/admin.php:267
+#: views/admin.php:288
 msgid ""
 "WooCommerce 8.7 introduces a new block based checkout page. This uses a "
 "different approach to adding new fields, but it is still considered to be "
