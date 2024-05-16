@@ -9,7 +9,7 @@
 		<env name="WP_VERSION" value="6.2.1" />
 		<env name="DK_API_KEY" value="3541031f-baf2-4737-a7e8-c66396e5a5e3" />
 		<env name="DB_USER" value="root" />
-		<env name="DB_PASSWORD" value="root" />
+		<env name="DB_PASSWORD" value="password" />
 	</php>
   <testsuites>
     <testsuite name="Project Test Suite">

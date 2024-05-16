@@ -25,6 +25,13 @@ class WooUpdateProduct {
 			10,
 			2
 		);
+
+		add_action(
+			'before_delete_post',
+			array( __CLASS__, 'before_post_delete' ),
+			10,
+			2
+		);
 	}
 
 	/**
@@ -53,6 +60,33 @@ class WooUpdateProduct {
 			ExportProduct::update_in_dk( $product );
 		} else {
 			ExportProduct::create_in_dk( $product );
+		}
+	}
+
+	/**
+	 * If the post that's going to be deleted is a WooCommerce product, a PUT
+	 * request is sent to DK on make sure that it does not appear in the store
+	 * until it is enabled again in DK.
+	 *
+	 * @param int $post_id The Post ID to check for.
+	 */
+	public static function before_post_delete( int $post_id ): void {
+		if ( defined( 'DOING_CRON' ) ) {
+			return;
+		}
+
+		if ( defined( 'DOING_DK_SYNC' ) ) {
+			return;
+		}
+
+		if ( 'product' === get_post_type( $post_id ) ) {
+			$wc_product = wc_get_product( $post_id );
+
+			if ( false === self::should_sync( $wc_product ) ) {
+				return;
+			}
+
+			ExportProduct::hide_in_dk( $wc_product );
 		}
 	}
 

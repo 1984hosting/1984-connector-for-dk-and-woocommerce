@@ -4,15 +4,16 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Import;
 
-use DateTime;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
+use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
+use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
+use DateTime;
 use stdClass;
 use WC_DateTime;
 use WC_Product;
 use WP_Error;
 use WC_Tax;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
+use WC_Product_Factory;
 
 /**
  * The Products import class
@@ -38,7 +39,9 @@ class Products {
 	 * This should be run at least nightly as a wp-cron job.
 	 */
 	public static function save_all_from_dk(): void {
-		define( 'DOING_DK_SYNC', true );
+		if ( false === defined( 'DOING_DK_SYNC' ) ) {
+			define( 'DOING_DK_SYNC', true );
+		}
 
 		$json_objects = self::get_all_from_dk();
 
@@ -111,11 +114,21 @@ class Products {
 		if (
 			0 === $wc_product->get_id() &&
 			(
-				true === $json_object->Inactive ||
-				true === property_exists( $json_object, 'Deleted' ) ||
-				false === $json_object->ShowItemInWebShop
+				false === $json_object->ShowItemInWebShop ||
+				(
+					property_exists( $json_object, 'Deleted' ) &&
+					true === $json_object->Deleted
+				)
 			)
 		) {
+			return false;
+		}
+
+		if (
+			property_exists( $json_object, 'Deleted' ) &&
+			true === $json_object->Deleted
+		) {
+			wp_delete_post( $wc_product->get_id() );
 			return false;
 		}
 
@@ -125,14 +138,6 @@ class Products {
 			$wc_product->set_status( 'Draft' );
 		} else {
 			$wc_product->set_status( 'Publish' );
-		}
-
-		if (
-			property_exists( $json_object, 'Deleted' ) &&
-			true === $json_object->Deleted
-		) {
-			wp_delete_post( $wc_product->get_id() );
-			return false;
 		}
 
 		$wc_product->save();
@@ -189,9 +194,7 @@ class Products {
 			// Products that are not in the WooCommerce shop already and are
 			// deleted, not for online shops or inactive are ditched here.
 			if (
-				true === property_exists( $json_object, 'Deleted' ) ||
-				false === $json_object->ShowItemInWebShop ||
-				true === $json_object->Inactive
+				false === $json_object->ShowItemInWebShop
 			) {
 				return false;
 			}
@@ -205,7 +208,12 @@ class Products {
 			$wc_product->update_meta_data( '1984_woo_dk_price_sync', true );
 			$wc_product->update_meta_data( '1984_woo_dk_stock_sync', true );
 		} else {
-			$wc_product = wc_get_product( $product_id );
+			$product_factory = new WC_Product_Factory();
+			$wc_product      = $product_factory->get_product( $product_id );
+
+			if ( false === ( $wc_product instanceof WC_Product ) ) {
+				return false;
+			}
 		}
 
 		if ( true === property_exists( $json_object, 'Description' ) ) {
@@ -271,7 +279,7 @@ class Products {
 
 					$sale_tax_fraction = $sale_tax_percentage->dividedBy(
 						100,
-						4,
+						12,
 						roundingMode: RoundingMode::HALF_UP
 					);
 
