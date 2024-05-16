@@ -11,7 +11,7 @@
 
 ## Developer Documentation
 
-Please note that there are two readme files. This one (reamde.md) and the user-facing readme ([readme.txt](https://github.com/1984hosting/woocoo/blob/main/readme.txt)) used for providing metadata to the WordPress.org plugin repository as well as a general introduction to the plugin.
+Please note that there are two readme files. This one (reamde.md) and the user-facing readme ([readme.txt](https://github.com/1984hosting/1984-dk-woo/blob/main/readme.txt)) used for providing metadata to the WordPress.org plugin repository as well as a general introduction to the plugin.
 
 This file is mainly intended for development and contribution purposes.
 
