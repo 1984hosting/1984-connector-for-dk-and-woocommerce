@@ -423,7 +423,7 @@
     "packages-dev": [
         {
             "name": "aldavigdis/wp-tests-strapon",
-            "version": "0.1.6",
+            "version": "0.1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aldavigdis/wp-tests-strapon.git",

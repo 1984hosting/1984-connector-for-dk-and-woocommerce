@@ -75,14 +75,14 @@ class Admin {
 		wp_enqueue_style(
 			handle: 'nineteen-eighty-woo',
 			src: plugins_url( 'style/admin.css', __DIR__ ),
-			ver: '0.1.6'
+			ver: '0.1.6.1'
 		);
 
 		wp_enqueue_script(
 			'nineteen-eighty-woo',
 			plugins_url( 'js/admin.js', __DIR__ ),
 			array( 'wp-api', 'wp-data' ),
-			'0.1.6',
+			'0.1.6.1',
 			false,
 		);
 	}

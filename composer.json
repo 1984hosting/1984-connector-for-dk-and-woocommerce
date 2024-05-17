@@ -1,6 +1,6 @@
 {
     "name": "1984/nineteeneightywoo",
-    "version": "0.1.6",
+    "version": "0.1.6.1",
     "type": "wordpress-plugin",
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.0",
