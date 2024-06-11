@@ -72,6 +72,6 @@
         ],
         "lint": "./vendor/bin/phpcs -s ./src/ ./js/ ./style/",
         "lint:fix": "./vendor/bin/phpcbf -s ./src/ ./js/ ./style/",
-        "zip:release": "rm -rf vendor/ && composer install --no-dev && cd .. && zip -r 1984-dk-woo.zip 1984-dk-woo -i 1984-dk-woo/src/\\* -i 1984-dk-woo/vendor/\\* -i 1984-dk-woo/views/\\* -i 1984-dk-woo/js/\\* -i 1984-dk-woo/style/\\* -i 1984-dk-woo/*.php -i 1984-dk-woo/*.txt -i 1984-dk-woo/assets/\\*"
+        "zip:release": "rm -rf vendor/ && composer install --no-dev && cd .. && zip -r 1984-dk-woo.zip 1984-dk-woo -i 1984-dk-woo/languages/\\*.php -i 1984-dk-woo/languages/\\*.mo -i 1984-dk-woo/languages/\\*.po -i 1984-dk-woo/languages/\\*.pot -i 1984-dk-woo/languages/\\*.json -i 1984-dk-woo/src/\\* -i 1984-dk-woo/vendor/\\* -i 1984-dk-woo/views/\\* -i 1984-dk-woo/js/\\* -i 1984-dk-woo/style/\\* -i 1984-dk-woo/*.php -i 1984-dk-woo/*.txt -i 1984-dk-woo/assets/\\*"
     }
 }
