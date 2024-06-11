@@ -7,6 +7,7 @@ namespace NineteenEightyFour\NineteenEightyWoo\Import;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
+use NineteenEightyFour\NineteenEightyWoo\Currency;
 use DateTime;
 use stdClass;
 use WC_DateTime;
@@ -31,7 +32,7 @@ class Products {
 		'UnitPrice1,UnitPrice1WithTax,Inactive,NetWeight,UnitVolume,' .
 		'TotalQuantityInWarehouse,UnitPrice1,TaxPercent,' .
 		'AllowNegativeInventiry,ExtraDesc1,ExtraDesc2,ShowItemInWebShop,' .
-		'Inactive,Deleted,PropositionDateTo,PropositionDateFrom';
+		'Inactive,Deleted,PropositionDateTo,PropositionDateFrom,CurrencyCode';
 
 	/**
 	 * Save all products from DK
@@ -259,19 +260,54 @@ class Products {
 			0 === $product_id ||
 			true === (bool) $wc_product->get_meta( '1984_woo_dk_price_sync' )
 		) {
+			$store_currency = get_woocommerce_currency();
+			$dk_currency    = $json_object->CurrencyCode;
+
+			if ( $store_currency === $dk_currency ) {
+				// Don't convert anything if the product's currency and the
+				// store currency are the same.
+				$price          = $json_object->UnitPrice1;
+				$price_with_tax = $json_object->UnitPrice1WithTax;
+				$sale_price     = $json_object->PropositionPrice;
+			} else {
+				// If the product's currency and store currency don't match,
+				// convert the prices to the store's currency.
+				$price = Currency::convert(
+					$json_object->UnitPrice1,
+					$dk_currency,
+					$store_currency
+				);
+
+				// If there is an error in the currency conversion (for example
+				// if the rate has not been set yet), we return false here,
+				// indicating that we are skipping the import of this specific
+				// product.
+				if ( $price instanceof WP_Error ) {
+					return false;
+				}
+
+				$price_with_tax = Currency::convert(
+					$json_object->UnitPrice1WithTax,
+					$dk_currency,
+					$store_currency
+				);
+
+				$sale_price = Currency::convert(
+					$json_object->PropositionPrice,
+					$dk_currency,
+					$store_currency
+				);
+			}
+
 			if ( true === wc_prices_include_tax() ) {
 				$wc_product->set_tax_class(
 					self::tax_class_from_rate( $json_object->TaxPercent )
 				);
 
-				$wc_product->set_regular_price(
-					$json_object->UnitPrice1WithTax
-				);
+				$wc_product->set_regular_price( $price_with_tax );
 
 				if ( 0 < $json_object->PropositionPrice ) {
-					$sale_price_before_tax = BigDecimal::of(
-						$json_object->PropositionPrice,
-					);
+					$sale_price_before_tax = BigDecimal::of( $sale_price );
 
 					$sale_tax_percentage = BigDecimal::of(
 						$json_object->TaxPercent
@@ -294,44 +330,32 @@ class Products {
 					$wc_product->set_sale_price( '' );
 				}
 			} else {
-				$wc_product->set_regular_price( $json_object->UnitPrice1 );
+				$wc_product->set_regular_price( $price );
 
 				if ( 0 > $json_object->PropositionPrice ) {
-					$wc_product->set_sale_price(
-						$json_object->PropositionPrice
-					);
+					$wc_product->set_sale_price( $sale_price );
 				} else {
 					$wc_product->set_sale_price( '' );
 				}
 			}
 
-			if (
-				true === property_exists(
-					$json_object,
-					'PropositionDateFrom'
-				)
-			) {
+			if ( property_exists( $json_object, 'PropositionDateFrom' ) ) {
 				$wc_product->set_date_on_sale_from(
 					new WC_DateTime( $json_object->PropositionDateFrom )
 				);
 			}
-			if (
-				true === property_exists(
-					$json_object,
-					'PropositionDateTo'
-				)
-			) {
+			if ( property_exists( $json_object, 'PropositionDateTo' ) ) {
 				$wc_product->set_date_on_sale_to(
 					new WC_DateTime( $json_object->PropositionDateTo )
 				);
 			}
 		}
 
-		$date_and_time = new DateTime();
+		$current_date_and_time = new DateTime();
 
 		$wc_product->update_meta_data(
 			'last_downstream_sync',
-			$date_and_time->format( 'U' )
+			$current_date_and_time->format( 'U' )
 		);
 
 		return $wc_product;
