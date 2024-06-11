@@ -278,6 +278,14 @@ class Products {
 					$store_currency
 				);
 
+				// If there is an error in the currency conversion (for example
+				// if the rate has not been set yet), we return false here,
+				// indicating that we are skipping the import of this specific
+				// product.
+				if ( $price instanceof WP_Error ) {
+					return false;
+				}
+
 				$price_with_tax = Currency::convert(
 					$json_object->UnitPrice1WithTax,
 					$dk_currency,
