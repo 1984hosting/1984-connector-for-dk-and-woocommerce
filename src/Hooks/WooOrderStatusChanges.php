@@ -92,7 +92,7 @@ class WooOrderStatusChanges {
 		} elseif ( false === $invoice_number ) {
 			$wc_order->add_order_note(
 				__(
-					'Connection was established to DK but an invoice was not created due to an error.',
+					'An invoice could not be created in DK due to an error. The most common reason is the SKU for the WooCommece product does not match the ‘Item Code’ for the corresponding product in DK.',
 					'1984-dk-woo'
 				)
 			);
