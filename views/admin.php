@@ -169,8 +169,6 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 			</table>
 		</section>
 
-		<?php if ( false === empty( Config::get_dk_api_key() ) ) : ?>
-
 		<section class="section">
 			<h2><?php esc_html_e( 'DK Record Prefixes', '1984-dk-woo' ); ?></h2>
 			<p><?php esc_html_e( 'If you wish to use a different prefix for your customer IDs, you can choose them here. You can even leave it empty if you like. This will not work retroactively.', '1984-dk-woo' ); ?></p>
@@ -470,8 +468,6 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 				</tbody>
 			</table>
 		</section>
-
-		<?php endif ?>
 
 		<div class="submit-container">
 			<div id="nineteen-eighty-woo-settings-error" class="hidden" aria-live="polite">
