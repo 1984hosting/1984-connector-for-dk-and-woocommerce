@@ -7,6 +7,7 @@ namespace NineteenEightyFour\NineteenEightyWoo\Rest;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 
 use NineteenEightyFour\NineteenEightyWoo\Import\Products as ImportProducts;
+use NineteenEightyFour\NineteenEightyWoo\Import\Currencies as ImportCurrencies;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -24,12 +25,16 @@ class Settings {
 		"type": "object",
 		"properties": {
 			"api_key": { "type": "string" },
+			"product_price_sync": { "type": "boolean" },
+			"product_quantity_sync": { "type": "boolean" },
+			"product_name_sync": { "type": "boolean" },
 			"shipping_sku": { "type": "string" },
 			"customer_number_prefix": { "type": "string" },
 			"default_kennitala": { "type": "string" },
 			"kennitala_classic_field_enabled": { "type": "boolean" },
 			"kennitala_block_field_enabled": { "type": "boolean" },
 			"default_sales_person": { "type": "string" },
+			"fetch_products": { "type": "boolean" },
 			"payment_methods": {
 				"type": "array",
 				"items": {
@@ -98,6 +103,24 @@ class Settings {
 			);
 		}
 
+		if ( true === property_exists( $rest_json, 'api_key' ) ) {
+			Config::set_dk_api_key( $rest_json->api_key );
+		}
+
+		ImportCurrencies::save_all_from_dk();
+
+		if ( property_exists( $rest_json, 'product_price_sync' ) ) {
+			Config::set_product_price_sync( $rest_json->product_price_sync );
+		}
+
+		if ( property_exists( $rest_json, 'product_quantity_sync' ) ) {
+			Config::set_product_quantity_sync( $rest_json->product_quantity_sync );
+		}
+
+		if ( property_exists( $rest_json, 'product_name_sync' ) ) {
+			Config::set_product_name_sync( $rest_json->product_name_sync );
+		}
+
 		if ( true === property_exists( $rest_json, 'ledger_code_standard' ) ) {
 			Config::set_ledger_code(
 				'standard',
@@ -124,10 +147,6 @@ class Settings {
 				'costs',
 				$rest_json->ledger_code_costs
 			);
-		}
-
-		if ( true === property_exists( $rest_json, 'api_key' ) ) {
-			Config::set_dk_api_key( $rest_json->api_key );
 		}
 
 		if ( true === property_exists( $rest_json, 'customer_number_prefix' ) ) {
@@ -183,7 +202,12 @@ class Settings {
 			);
 		}
 
-		ImportProducts::save_all_from_dk();
+		if (
+			property_exists( $rest_json, 'fetch_products' ) &&
+			( true === $rest_json->fetch_products )
+		) {
+			ImportProducts::save_all_from_dk();
+		}
 
 		return new WP_REST_Response( array( 'status' => 200 ) );
 	}

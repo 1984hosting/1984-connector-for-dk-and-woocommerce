@@ -34,15 +34,15 @@ final class ProductTest extends TestCase {
 
 		$draft_object = ExportProduct::to_dk_product_body( $wc_product, true );
 
-		assertEquals( true, $draft_object['Inactive'] );
-		assertEquals( true, $draft_object['ShowItemInWebShop'] );
+		assertEquals( true, $draft_object->Inactive );
+		assertEquals( true, $draft_object->ShowItemInWebShop );
 
 		$wc_product->set_status( 'publish' );
 		$wc_product->save();
 
 		$published_object = ExportProduct::to_dk_product_body( $wc_product, true );
 
-		assertEquals( false, $published_object['Inactive'] );
-		assertEquals( true, $published_object['ShowItemInWebShop'] );
+		assertEquals( false, $published_object->Inactive );
+		assertEquals( true, $published_object->ShowItemInWebShop );
 	}
 }

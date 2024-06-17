@@ -6,6 +6,7 @@ namespace NineteenEightyFour\NineteenEightyWoo\Tests;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
+use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Rest\Settings;
 use WP_REST_Request;
 use WP_UnitTest_Factory_For_User;
@@ -97,6 +98,8 @@ final class RestSettingstest extends TestCase {
 
 	#[TestDox( 'processes a valid settings endpoint when an admin user makes that request' )]
 	public function testEndpointProcessesValidRequest(): void {
+		Config::set_dk_api_key( '3541031f-baf2-4737-a7e8-c66396e5a5e3' );
+
 		// Start by setting the current user to our admin user and creating a nonce
 		// for that user for the REST API request.
 		wp_set_current_user( $this->admin_user_id );

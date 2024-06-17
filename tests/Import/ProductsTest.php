@@ -190,7 +190,7 @@ final class ProductsTest extends TestCase {
 		);
 
 		$post      = get_post( $product_id );
-		$post_meta = get_post_meta( $product_id );
+		$post_meta = get_post_meta( $post->ID );
 
 		assertEquals(
 			$product_json_object->ItemCode,

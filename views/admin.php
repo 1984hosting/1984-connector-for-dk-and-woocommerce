@@ -18,11 +18,6 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		id="nineteen-eighty-woo-settings-form"
 		class="type-form"
 		novalidate
-		<?php
-		if ( true === empty( Config::get_dk_api_key() ) ) {
-			echo 'data-only-api-key="true"';
-		}
-		?>
 	>
 		<h1 class="wp-heading-inline">
 			<?php esc_html_e( '1984 DK Connection', '1984-dk-woo' ); ?>
@@ -65,7 +60,114 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 			</table>
 		</section>
 
-		<?php if ( false === empty( Config::get_dk_api_key() ) ) : ?>
+		<section class="section">
+			<h2><?php esc_html_e( 'Product Sync Defaults', '1984-dk-woo' ); ?></h2>
+			<p><?php esc_html_e( 'This is where you set the default options for syncing your WooCommerce products. For example, if you do not want to overwrite the prices or names of your current WooCommerce products by default you do it here.', '1984-dk-woo' ); ?></p>
+			<table id="dk-product-defaults-table" class="form-table">
+				<tbody>
+					<tr>
+						<th span="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="product_price_sync_field"
+								name="product_price_sync"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_product_price_sync() ? 'checked' : '' ); ?>
+							/>
+							<label for="product_price_sync_field">
+								<?php esc_html_e( 'Sync Product Prices with DK', '1984-dk-woo' ); ?>
+							</label>
+							<p class="description">
+								<?php esc_html_e( 'If enabled, product prices and sales periods are synced by default between DK and WooCommerce. This can be overriden on a per-product basis. Prices based on foreign currency conversion are only synced ‘downstream’ from DK and into WooCommerce.', '1984-dk-woo' ); ?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="product_quantity_sync_field"
+								name="product_quantity_sync"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_product_quantity_sync() ? 'checked' : '' ); ?>
+							/>
+							<label for="product_quantity_sync_field">
+								<?php esc_html_e( 'Sync Stock Status and Quantity with DK', '1984-dk-woo' ); ?>
+							</label>
+							<p class="description">
+								<?php esc_html_e( 'If enabled, product stock status and quantity is synced between DK and WooCommerce by default. This can be overridden on a per-product basis. Note that stock status and quantity sync only works ‘downstream’ from DK and into WooCommerce, but not ‘upstream’ due to limitations in DK.', '1984-dk-woo' ); ?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="product_name_sync_field"
+								name="product_name_sync"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_product_name_sync() ? 'checked' : '' ); ?>
+							/>
+							<label for="product_name_sync_field">
+								<?php esc_html_e( 'Sync Product Names with DK', '1984-dk-woo' ); ?>
+							</label>
+							<p class="description">
+								<?php esc_html_e( 'If enabled, product names are synced between DK and WooCommerce. Disable this if you would like to be able to use separate product names in your WooCommerce shop from the ones in DK.', '1984-dk-woo' ); ?>
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section class="section">
+			<h2><?php esc_html_e( 'SKUs for Costs and Fees', '1984-dk-woo' ); ?></h2>
+			<p>
+				<?php
+				esc_html_e(
+					'DK treats shipping and other costs as line items on invoices. In order for them to work, you need to assign a SKU to each of the following services. If any of them does not exsist, then it will be created in DK.',
+					'1984-dk-woo'
+				);
+				?>
+			</p>
+			<table id="dk-service-sku-table" class="form-table">
+				<tbody>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="shipping_sku_field">
+								<?php esc_html_e( 'Shipping SKU', '1984-dk-woo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="shipping_sku_field"
+								name="shipping_sku"
+								type="text"
+								value="<?php echo esc_attr( Config::get_shipping_sku() ); ?>"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+							<label for="cost_sku_field">
+								<?php esc_html_e( 'Cost SKU', '1984-dk-woo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="cost_sku_field"
+								name="cost_sku"
+								type="text"
+								value="<?php echo esc_attr( Config::get_cost_sku() ); ?>"
+							/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
 
 		<section class="section">
 			<h2><?php esc_html_e( 'DK Record Prefixes', '1984-dk-woo' ); ?></h2>
@@ -164,52 +266,6 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 				);
 				?>
 			</p>
-		</section>
-
-		<section class="section">
-			<h2><?php esc_html_e( 'SKUs for Costs and Fees', '1984-dk-woo' ); ?></h2>
-			<p>
-				<?php
-				esc_html_e(
-					'DK treats shipping and other costs as line items on invoices. In order for them to work, you need to assign a SKU to each of the following services. If any of them does not exsist, then it will be created in DK.',
-					'1984-dk-woo'
-				);
-				?>
-			</p>
-			<table id="dk-service-sku-table" class="form-table">
-				<tbody>
-					<tr>
-						<th span="row" class="column-title column-primary">
-							<label for="shipping_sku_field">
-								<?php esc_html_e( 'Shipping SKU', '1984-dk-woo' ); ?>
-							</label>
-						</th>
-						<td>
-							<input
-								id="shipping_sku_field"
-								name="shipping_sku"
-								type="text"
-								value="<?php echo esc_attr( Config::get_shipping_sku() ); ?>"
-							/>
-						</td>
-					</tr>
-					<tr>
-						<th span="row" class="column-title column-primary">
-							<label for="cost_sku_field">
-								<?php esc_html_e( 'Cost SKU', '1984-dk-woo' ); ?>
-							</label>
-						</th>
-						<td>
-							<input
-								id="cost_sku_field"
-								name="cost_sku"
-								type="text"
-								value="<?php echo esc_attr( Config::get_cost_sku() ); ?>"
-							/>
-						</td>
-					</tr>
-				</tbody>
-			</table>
 		</section>
 
 		<section class="section">
@@ -412,8 +468,6 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 				</tbody>
 			</table>
 		</section>
-
-		<?php endif ?>
 
 		<div class="submit-container">
 			<div id="nineteen-eighty-woo-settings-error" class="hidden" aria-live="polite">
