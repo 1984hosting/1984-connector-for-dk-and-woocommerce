@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: 1984 DK Connection for WooCommerce\n"
+"Project-Id-Version: 1984 Connector for DK and WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-18 23:42+0000\n"
-"PO-Revision-Date: 2024-06-17 22:14+0000\n"
+"PO-Revision-Date: 2024-06-17 22:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -25,13 +25,17 @@ msgstr ""
 "%1$sVilla:%2$s Athugaðu hvort allar upplýsingarnar hafi verið slegnar rétt "
 "inn."
 
-#: views/admin.php:23 src/Hooks/Admin.php:56
+#: views/admin.php:23
+msgid "1984 Connector for DK and WooCommerce"
+msgstr "DK-tenging fyrir WooCommerce frá 1984"
+
+#: src/Hooks/Admin.php:56
 msgid "1984 DK Connection"
 msgstr "DK-tenging frá 1984"
 
 #. Name of the plugin
 msgid "1984 DK Connection for WooCommerce"
-msgstr "DK-tenging fyrir WooCommerce frá 1984"
+msgstr "DK-tenging frá 1984 fyrir WooCommerce"
 
 #. Author of the plugin
 msgid "1984 Hosting"

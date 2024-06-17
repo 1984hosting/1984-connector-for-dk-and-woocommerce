@@ -1,9 +1,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1984 DK Connection for WooCommerce\n"
+"Project-Id-Version: 1984 Connector for DK and WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-17 21:46+0000\n"
+"POT-Creation-Date: 2024-06-17 22:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -24,7 +24,11 @@ msgid ""
 "try again."
 msgstr ""
 
-#: views/admin.php:23 src/Hooks/Admin.php:56
+#: views/admin.php:23
+msgid "1984 Connector for DK and WooCommerce"
+msgstr ""
+
+#: src/Hooks/Admin.php:56
 msgid "1984 DK Connection"
 msgstr ""
 
