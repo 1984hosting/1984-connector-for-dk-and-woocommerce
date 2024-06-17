@@ -12,6 +12,7 @@ use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
 use NineteenEightyFour\NineteenEightyWoo\Opis\JsonSchema\Validator;
+use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 
 /**
  * The REST API Settings endpoint class
@@ -105,6 +106,25 @@ class Settings {
 
 		if ( true === property_exists( $rest_json, 'api_key' ) ) {
 			Config::set_dk_api_key( $rest_json->api_key );
+		}
+
+		$authentication_request = new DKApiRequest();
+		$company_result         = $authentication_request->get_result( '/company/' );
+
+		if ( $company_result instanceof WP_Error ) {
+			return new WP_Error(
+				'bad_gateway',
+				'Bad Gateway',
+				array( 'status' => '502' ),
+			);
+		}
+
+		if ( 200 !== $company_result->response_code ) {
+			return new WP_Error(
+				'unauthorized',
+				'Unauthorized',
+				array( 'status' => '401' ),
+			);
 		}
 
 		ImportCurrencies::save_all_from_dk();
