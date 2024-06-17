@@ -20,7 +20,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		novalidate
 	>
 		<h1 class="wp-heading-inline">
-			<?php esc_html_e( '1984 DK Connection', '1984-dk-woo' ); ?>
+			<?php esc_html_e( '1984 Connector for DK and WooCommerce', '1984-dk-woo' ); ?>
 		</h1>
 		<section class="section">
 			<h2><?php esc_html_e( 'Authentication', '1984-dk-woo' ); ?></h2>

@@ -1,4 +1,4 @@
-=== 1984 DK Connection for WooCommerce ===
+=== 1984 Connector for DK and WooCommerce ===
 Stable tag: 0.2.0
 Contributors: @1984cto, @aldavigdis, @drupalviking
 Tags: DK, dkPlus, Accounting, Inventory, Invoicing
