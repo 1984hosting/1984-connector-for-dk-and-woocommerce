@@ -425,7 +425,11 @@ class Product {
 			$product_props = array_merge( $product_props, $name_props );
 		}
 
-		$product_dk_currency = $wc_product->get_meta( '1984_woo_dk_dk_currency', true, 'edit' );
+		$product_dk_currency = $wc_product->get_meta(
+			'1984_woo_dk_dk_currency',
+			true,
+			'edit'
+		);
 
 		if (
 			( get_woocommerce_currency() === $product_dk_currency ) &&
@@ -438,6 +442,12 @@ class Product {
 				'PropositionDateFrom' => ProductHelper::format_date_on_sale_for_dk( 'from', $wc_product ),
 				'PropositionDateTo'   => ProductHelper::format_date_on_sale_for_dk( 'to', $wc_product ),
 			);
+
+			if ( true === wc_prices_include_tax() ) {
+				$price_props['UnitPrice1WithTax'] = $wc_product->get_regular_price();
+			} else {
+				$price_props['UnitPrice1'] = $wc_product->get_regular_price();
+			}
 
 			$product_props = array_merge( $product_props, $price_props );
 		}

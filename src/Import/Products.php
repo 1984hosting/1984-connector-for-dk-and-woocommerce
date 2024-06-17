@@ -235,6 +235,7 @@ class Products {
 			$wc_product->set_sale_price( $price->sale_price );
 			$wc_product->set_date_on_sale_from( $price->date_on_sale_from );
 			$wc_product->set_date_on_sale_to( $price->date_on_sale_to );
+			$wc_product->set_tax_class( $price->tax_class );
 
 			$wc_product->update_meta_data(
 				'1984_woo_dk_dk_currency',
@@ -331,6 +332,7 @@ class Products {
 				$wc_product->set_sale_price( $price->sale_price );
 				$wc_product->set_date_on_sale_from( $price->date_on_sale_from );
 				$wc_product->set_date_on_sale_to( $price->date_on_sale_to );
+				$wc_product->set_tax_class( $price->tax_class );
 
 				$wc_product->update_meta_data(
 					'1984_woo_dk_dk_currency',
@@ -381,9 +383,7 @@ class Products {
 		$store_currency = get_woocommerce_currency();
 		$dk_currency    = $json_object->CurrencyCode;
 
-		$result = array();
-
-		$result['tax_class'] = self::tax_class_from_rate(
+		$tax_class = self::tax_class_from_rate(
 			$json_object->TaxPercent
 		);
 
@@ -455,6 +455,7 @@ class Products {
 			'date_on_sale_from' => $date_on_sale_from,
 			'date_on_sale_to'   => $date_on_sale_to,
 			'currency'          => $dk_currency,
+			'tax_class'         => $tax_class,
 		);
 	}
 
