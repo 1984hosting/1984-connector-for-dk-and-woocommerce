@@ -25,10 +25,10 @@ class RegisterPostMeta {
 			'product',
 			'1984_woo_dk_price_sync',
 			array(
-				'type'        => 'boolean',
+				'type'        => 'string',
 				'description' => 'Wether to enable price sync with DK',
 				'single'      => true,
-				'default'     => true,
+				'default'     => '',
 			),
 		);
 
@@ -36,10 +36,21 @@ class RegisterPostMeta {
 			'product',
 			'1984_woo_dk_stock_sync',
 			array(
-				'type'        => 'boolean',
+				'type'        => 'string',
 				'description' => 'Wether to enable stock sync with DK',
 				'single'      => true,
-				'default'     => true,
+				'default'     => '',
+			),
+		);
+
+		register_post_meta(
+			'product',
+			'1984_woo_dk_dk_currency',
+			array(
+				'type'        => 'string',
+				'description' => 'The original currency from DK',
+				'single'      => true,
+				'default'     => '',
 			),
 		);
 

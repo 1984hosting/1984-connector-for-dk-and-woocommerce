@@ -2,19 +2,51 @@
 
 declare(strict_types = 1);
 
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
+use NineteenEightyFour\NineteenEightyWoo\Config;
+
+global $post;
+
+$wc_product       = new WC_Product( $post );
+$product_currency = ProductHelper::get_currency( $wc_product );
+
 ?>
 
 <div class="options_group">
+	<?php if ( get_woocommerce_currency() !== $product_currency ) : ?>
+	<p class="form-field forex-notice">
+		<?php
+			echo sprintf(
+				// Translators: The %1$s is the product's original currency code and %2$s is the shop's currency.
+				esc_html__(
+					'As the product price is converted from ‘%1$s’ or is set manually to ‘%2$s’ using the ‘Foreign Prices’ feature in DK, changes to the product price in WooCommerce will not be reflected in DK due to current limitations and will be overwritten on sync. You can change the price and currency in DK.',
+					'1984-dk-woo'
+				),
+				esc_html( $product_currency ),
+				esc_html( get_woocommerce_currency() )
+			);
+		?>
+	</p>
+	<?php endif ?>
+
 	<?php
-	global $post;
+	$price_sync_meta = $wc_product->get_meta( '1984_woo_dk_price_sync', true, 'edit' );
 	wp_nonce_field( 'set_1984_woo_dk_price_sync', 'set_1984_woo_dk_price_sync_nonce' );
-	woocommerce_wp_checkbox(
+	woocommerce_wp_radio(
 		array(
-			'id'          => '1984_woo_dk_price_sync',
-			'value'       => get_post_meta( $post->ID, '1984_woo_dk_price_sync', true ) ? 'true' : 'false',
-			'label'       => __( 'Sync prices with DK', '1984-dk-woo' ),
-			'description' => __( 'Enables the 1984 DK Connection plugin to sync the products\'s price between WooCommerce and DK.', '1984-dk-woo' ),
-			'cbvalue'     => 'true',
+			'id'      => '1984_woo_dk_price_sync',
+			'name'    => '1984_woo_dk_price_sync',
+			'label'   => __( 'Sync Price with DK', '1984-dk-woo' ),
+			'value'   => $price_sync_meta,
+			'options' => array(
+				''      => sprintf(
+					// Translators: %1$s is the current yes/no value.
+					__( 'Use Default (Currently ‘%1$s’)', '1984-dk-woo' ),
+					( Config::get_product_price_sync() ? __( 'Yes', '1984-dk-woo' ) : __( 'No', '1984-dk-woo' ) )
+				),
+				'true'  => __( 'Yes', '1984-dk-woo' ),
+				'false' => __( 'No', '1984-dk-woo' ),
+			),
 		),
 	);
 	?>

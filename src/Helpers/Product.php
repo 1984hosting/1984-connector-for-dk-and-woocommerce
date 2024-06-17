@@ -34,11 +34,14 @@ class Product {
 			'edit'
 		);
 
-		if ( empty( $meta_value ) ) {
-			return Config::get_product_name_sync();
+		switch ( $meta_value ) {
+			case 'true':
+				return true;
+			case 'false':
+				return false;
 		}
 
-		return boolval( $meta_value );
+		return Config::get_product_name_sync();
 	}
 
 	/**
@@ -58,11 +61,14 @@ class Product {
 			'edit'
 		);
 
-		if ( empty( $meta_value ) ) {
-			return Config::get_product_price_sync();
+		switch ( $meta_value ) {
+			case 'true':
+				return true;
+			case 'false':
+				return false;
 		}
 
-		return boolval( $meta_value );
+		return Config::get_product_price_sync();
 	}
 
 	/**
@@ -84,11 +90,14 @@ class Product {
 			'edit'
 		);
 
-		if ( empty( $meta_value ) ) {
-			return Config::get_product_quantity_sync();
+		switch ( $meta_value ) {
+			case 'true':
+				return true;
+			case 'false':
+				return false;
 		}
 
-		return boolval( $meta_value );
+		return Config::get_product_quantity_sync();
 	}
 
 	/**
@@ -181,15 +190,36 @@ class Product {
 	/**
 	 * Check if the product should sync with DK
 	 *
-	 * @param WC_Product $product The WooCommrece product.
+	 * @param WC_Product $wc_product The WooCommrece product.
 	 *
 	 * @return bool True if it should sync, false if not.
 	 */
-	public static function should_sync( WC_Product $product ): bool {
-		if ( false === (bool) $product->get_sku() ) {
+	public static function should_sync( WC_Product $wc_product ): bool {
+		if ( false === (bool) $wc_product->get_sku() ) {
 			return false;
 		}
 
 		return true;
+	}
+
+	/**
+	 * Get the original (DK) currency for a product
+	 *
+	 * @param WC_Product $wc_product The WooCommrece product.
+	 *
+	 * @return string The 3-digit ISO currency code.
+	 */
+	public static function get_currency( WC_Product $wc_product ): string {
+		$product_currency = $wc_product->get_meta(
+			'1984_woo_dk_dk_currency',
+			true,
+			'edit'
+		);
+
+		if ( empty( $product_currency ) ) {
+			return get_woocommerce_currency();
+		}
+
+		return $product_currency;
 	}
 }

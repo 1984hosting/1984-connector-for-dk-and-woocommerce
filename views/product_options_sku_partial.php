@@ -2,21 +2,32 @@
 
 declare(strict_types = 1);
 
+use NineteenEightyFour\NineteenEightyWoo\Config;
+
+global $post;
+
+$wc_product = new WC_Product( $post );
+
 ?>
 
 <div class="options_group">
 	<?php
-	global $post;
+	$stock_sync_meta = $wc_product->get_meta( '1984_woo_dk_stock_sync', true, 'edit' );
 	wp_nonce_field( 'set_1984_woo_dk_stock_sync', 'set_1984_woo_dk_stock_sync_nonce' );
-	woocommerce_wp_checkbox(
+	woocommerce_wp_radio(
 		array(
-			'id'          => '1984_woo_dk_stock_sync',
-			'value'       => (bool) get_post_meta( $post->ID, '1984_woo_dk_stock_sync', true ) ? 'true' : '',
-			'label'       => __( 'DK handles inventory', '1984-dk-woo' ),
-			'cbvalue'     => 'true',
-			'description' => __(
-				'Lets the 1984 DK Connection plugin to sync inventory status and stock quanity between WooCommerce and DK',
-				'1984-dk-woo'
+			'id'      => '1984_woo_dk_stock_sync',
+			'name'    => '1984_woo_dk_stock_sync',
+			'label'   => __( 'Sync Inventory with DK', '1984-dk-woo' ),
+			'value'   => $stock_sync_meta,
+			'options' => array(
+				''      => sprintf(
+					// Translators: %1$s is the current yes/no value.
+					__( 'Use Default (Currently ‘%1$s’)', '1984-dk-woo' ),
+					( Config::get_product_quantity_sync() ? __( 'Yes', '1984-dk-woo' ) : __( 'No', '1984-dk-woo' ) )
+				),
+				'true'  => __( 'Yes', '1984-dk-woo' ),
+				'false' => __( 'No', '1984-dk-woo' ),
 			),
 		),
 	);
@@ -27,7 +38,7 @@ declare(strict_types = 1);
 			esc_html(
 				// Translators: %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s stands for a opening and %4$s for a closing <strong> tag.
 				__(
-					'The %1$sSKU%2$s needs to be set to a unique value and must equal the intended %3$sItem Code%4$s in DK for any 1984 DK Sync functionality to work.%5$sFurthermore, DK does not support setting an initial stock quantity for products when they are created in their system, so new products will have backorders in WooCommerce and negative stock count enabled in DK until a stock count is performed in DK.%5$sEnabling this feature means that some of the setting below (stock management, quantity and backorders) are %3$soverridden%4$s every time your WooCommerce shop syncs with DK.',
+					'The %1$sSKU%2$s needs to be set to a unique value and must equal the intended %3$sItem Code%4$s in DK for any 1984 DK Sync functionality to work.%5$sAs it only works downstream, if this feature is enabled, setting product stock quantity and status in WooCommerce will not result in it being reflected in DK and it will be overwritten next time information is fetched from DK.',
 					'1984-dk-woo'
 				)
 			),

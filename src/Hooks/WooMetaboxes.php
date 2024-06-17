@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
-use NineteenEightyFour\NineteenEightyWoo\Export\Product as ExportProduct;
 use WC_Product;
 
 /**
@@ -14,6 +13,14 @@ use WC_Product;
  * handle properties facilitating price and inventory sync with DK.
  */
 class WooMetaboxes {
+	const PROTECTED_META = array(
+		'1984_woo_dk_price_sync',
+		'1984_woo_dk_stock_sync',
+		'1984_woo_dk_name_sync',
+		'1984_woo_dk_dk_currency',
+		'last_downstream_sync',
+	);
+
 	/**
 	 * The constructor for the WooMetaboxes class
 	 */
@@ -21,6 +28,11 @@ class WooMetaboxes {
 		add_action(
 			'woocommerce_product_options_pricing',
 			array( $this, 'render_product_options_pricing_partial' )
+		);
+
+		add_action(
+			'woocommerce_product_options_advanced',
+			array( $this, 'render_product_options_advanced_partial' )
 		);
 
 		add_action(
@@ -47,14 +59,22 @@ class WooMetaboxes {
 	 * Render the pricing metabox partial
 	 */
 	public static function render_product_options_pricing_partial(): void {
-		require __DIR__ . '/../../views/product_options_pricing_partial.php';
+		require dirname( __DIR__, 2 ) . '/views/product_options_pricing_partial.php';
+	}
+
+	/**
+	 * Render the advanced partial
+	 */
+	public static function render_product_options_advanced_partial(): void {
+		require dirname( __DIR__, 2 ) .
+			'/views/product_options_advanced_partial.php';
 	}
 
 	/**
 	 * Render the SKU metabox partial
 	 */
 	public static function render_product_options_sku_partial(): void {
-		require __DIR__ . '/../../views/product_options_sku_partial.php';
+		require dirname( __DIR__, 2 ) . '/views/product_options_sku_partial.php';
 	}
 
 	/**
@@ -70,11 +90,7 @@ class WooMetaboxes {
 		bool $protected,
 		string $meta_key
 	): bool {
-		if ( '1984_woo_dk_price_sync' === $meta_key ) {
-			return true;
-		}
-
-		if ( '1984_woo_dk_stock_sync' === $meta_key ) {
+		if ( in_array( $meta_key, self::PROTECTED_META, true ) ) {
 			return true;
 		}
 
@@ -87,11 +103,11 @@ class WooMetaboxes {
 	 * Fired during the `save_post_product` hook.
 	 *
 	 * @param int        $id The post ID for the product.
-	 * @param WC_Product $product The post object (unused).
+	 * @param WC_Product $wc_product The post object (unused).
 	 */
 	public function save_product_meta(
 		int $id,
-		WC_Product $product
+		WC_Product $wc_product
 	): void {
 		// As the hook seems to be run twice for some reason, this should
 		// prevent the function to run twice during the same HTTP request.
@@ -100,77 +116,53 @@ class WooMetaboxes {
 			return;
 		}
 
-		if ( false === isset( $_POST['set_1984_woo_dk_price_sync_nonce'] ) ) {
-			return;
-		}
-		if (
-			false === wp_verify_nonce(
-				sanitize_text_field(
-					wp_unslash( $_POST['set_1984_woo_dk_price_sync_nonce'] )
-				),
-				'set_1984_woo_dk_price_sync'
-			)
-		) {
-			return;
-		}
-
-		if ( isset( $_POST['1984_woo_dk_price_sync'] ) ) {
-			$product->update_meta_data( '1984_woo_dk_price_sync', true );
-			$product->save_meta_data();
-		} else {
-			$product->update_meta_data( '1984_woo_dk_price_sync', false );
-			$product->save_meta_data();
-		}
-
-		if ( isset( $_POST['1984_woo_dk_stock_sync'] ) ) {
-			$product->update_meta_data( '1984_woo_dk_stock_sync', true );
-			$product->save_meta_data();
-		} else {
-			$product->update_meta_data( '1984_woo_dk_stock_sync', false );
-			$product->save_meta_data();
-		}
+		self::set_product_sync_meta_from_post( $wc_product, 'price' );
+		self::set_product_sync_meta_from_post( $wc_product, 'stock' );
+		self::set_product_sync_meta_from_post( $wc_product, 'name' );
 
 		$nineteen_eighty_four_woo_dk_meta_update_has_run = true;
 		global $nineteen_eighty_four_woo_dk_meta_update_has_run;
 	}
 
 	/**
-	 * Toggle the "DK Handles Inventory" meta as needed when a product is saved
+	 * Set a product sync meta value from a POST superglobal
 	 *
-	 * Nonce verification is handled by WooCommerce already when this is run.
+	 * Checks the relevant nonces and sets the `1984_woo_dk_` product meta from
+	 * a $_POST superglobal.
 	 *
-	 * @param WC_Product $product The WooCommrece product.
+	 * @param WC_Product $wc_product The WooCommerce product.
+	 * @param string     $meta_key The relevant meta key such as price, stock or name.
 	 */
-	public static function update_dk_meta_on_update(
-		WC_Product $product
+	public static function set_product_sync_meta_from_post(
+		WC_Product $wc_product,
+		string $meta_key
 	): void {
-		if ( false === isset( $_POST['set_1984_woo_dk_stock_sync_nonce'] ) ) {
-			return;
-		}
+		$nonce_superglobal = "set_1984_woo_dk_{$meta_key}_sync_nonce";
+		$wc_meta_key       = "1984_woo_dk_{$meta_key}_sync";
 
 		if (
-			false ===
+			! empty( $_POST[ $nonce_superglobal ] ) &&
 			wp_verify_nonce(
 				sanitize_text_field(
-					wp_unslash( $_POST['set_1984_woo_dk_stock_sync_nonce'] )
+					wp_unslash( $_POST[ $nonce_superglobal ] )
 				),
-				'set_1984_woo_dk_stock_sync'
+				"set_1984_woo_dk_{$meta_key}_sync"
 			)
 		) {
-			return;
-		}
+			if ( isset( $_POST[ $wc_meta_key ] ) ) {
+				switch ( $_POST[ $wc_meta_key ] ) {
+					case 'true':
+						$wc_product->update_meta_data( $wc_meta_key, 'true' );
+						break;
+					case 'false':
+						$wc_product->update_meta_data( $wc_meta_key, 'false' );
+						break;
+					default:
+						$wc_product->update_meta_data( $wc_meta_key, '' );
+				}
 
-		$set_status = isset( $_POST['1984_woo_dk_stock_sync'] );
-
-		if ( true === $set_status ) {
-			$product->update_meta_data( '1984_woo_dk_stock_sync', true );
-			$product->set_stock_quantity( 0 );
-			$product->set_stock_status( 'instock' );
-			$product->set_backorders( 'yes' );
-			$product->save_meta_data();
-		} else {
-			$product->update_meta_data( '1984_woo_dk_stock_sync', false );
-			$product->save_meta_data();
+				$wc_product->save_meta_data();
+			}
 		}
 	}
 }
