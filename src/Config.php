@@ -458,4 +458,61 @@ class Config {
 	): bool {
 		return update_option( '1984_woo_dk_ledger_code_' . $key, $value );
 	}
+
+	/**
+	 * Get wether product price sync is enabled by default
+	 *
+	 * @return bool True if enabled, false if disabled.
+	 */
+	public static function get_product_price_sync(): bool {
+		return (bool) get_option( '1984_woo_dk_product_price_sync', true );
+	}
+
+	/**
+	 * Set wether prodct price sync is enabled by default
+	 *
+	 * @param bool $value True to enable product name sync by default,
+	 *                    false to disable.
+	 */
+	public static function set_product_price_sync( bool $value ): bool {
+		return update_option( '1984_woo_dk_product_price_sync', $value );
+	}
+
+	/**
+	 * Get wether product quantity sync is enabled by default
+	 *
+	 * @return bool True if enabled, false if disabled.
+	 */
+	public static function get_product_quantity_sync(): bool {
+		return (bool) get_option( '1984_woo_dk_product_quantity_sync', true );
+	}
+
+	/**
+	 * Set wether prodct quantity sync is enabled by default
+	 *
+	 * @param bool $value True to enable product quantity sync by default,
+	 *                    false to disable.
+	 */
+	public static function set_product_quantity_sync( bool $value ): bool {
+		return update_option( '1984_woo_dk_product_quantity_sync', $value );
+	}
+
+	/**
+	 * Get wether product name sync is enabled by default
+	 *
+	 * @return bool True if enabled, false if disabled.
+	 */
+	public static function get_product_name_sync(): bool {
+		return (bool) get_option( '1984_woo_dk_product_name_sync', true );
+	}
+
+	/**
+	 * Set wether prodct price sync is enabled by default
+	 *
+	 * @param bool $value True to enable product sync by default,
+	 *                    false to disable.
+	 */
+	public static function set_product_name_sync( bool $value ): bool {
+		return update_option( '1984_woo_dk_product_name_sync', $value );
+	}
 }

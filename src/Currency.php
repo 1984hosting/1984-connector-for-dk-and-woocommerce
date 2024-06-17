@@ -88,6 +88,10 @@ class Currency {
 		string $from,
 		string $to = self::BASE_CURRENCY
 	): float|WP_Error {
+		if ( $from === $to ) {
+			return (float) $amount;
+		}
+
 		if ( 1 !== preg_match( self::CURRENCY_CODE_REGEX, $from ) ) {
 			return self::invalid_currency_code_error( $from );
 		}
