@@ -1,10 +1,10 @@
-# 1984 DK Connection for WooCommerce
+# 1984 Connector for DK and WooCommerce
 
 > [!CAUTION]
 > **Do not open an issue ticket if you are reporting a security vulnerability. Contact 1984 Hosting directly via 1984@1984.is or the WordPress Security Team instead.**
 
 > [!IMPORTANT]
-> This is a code repository used for the development of **1984 DK Connection for WooCommerce**, a WordPress plugin. Using the raw source files without installing dependencies using Composer will not work and the `main` branch is considered unstable.
+> This is a code repository used for the development of **1984 Connector for DK and WooCommerce**, a WordPress plugin. Using the raw source files without installing dependencies using Composer will not work and the `main` branch is considered unstable.
 
 > [!NOTE]
 > To download a working version of the plugin, please visit the **[Releases Page](https://github.com/1984hosting/1984-dk-woo/releases)** and download the `1984-dk-woo.zip` file for a current version. In the future, you will be able visit [https://wordpress.org/plugins/1984-dk-woo/](https://wordpress.org/plugins/1984-dk-woo/) to get the currently stable release and get automatic updates.
@@ -132,7 +132,7 @@ The main author can be contacted via aldavigdis@aldavigdis.is. She is available 
 
 This plugin is provided to you as free software under the GPLv3 license. Runtime dependencies are provided under the MIT and Apache licenses, which are compatible with the GPLv3.
 
-1984 DK Connection for WooCommerce
+1984 Connector for DK and WooCommerce
 
 Copyright (C) 2024 1984 Hosting and contributors
 
