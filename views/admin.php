@@ -509,7 +509,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 		</p>
 		<img
 			alt="<?php esc_attr_e( 'Ninteen-Eighty-Four', '1984-dk-woo' ); ?>"
-			src="<?php echo esc_attr( Admin::logo_url( '0.1.6' ) ); ?>"
+			src="<?php echo esc_attr( Admin::logo_url() ); ?>"
 		/>
 	</div>
 </div>

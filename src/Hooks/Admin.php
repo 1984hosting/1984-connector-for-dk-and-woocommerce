@@ -11,7 +11,7 @@ namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION = '0.1.6';
+	const ASSET_VERSION = '0.2.0';
 
 	/**
 	 * Constructor for the Admin interface class
