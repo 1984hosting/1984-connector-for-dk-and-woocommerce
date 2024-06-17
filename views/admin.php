@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use NineteenEightyFour\NineteenEightyWoo\Admin;
+use NineteenEightyFour\NineteenEightyWoo\Hooks\Admin;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;

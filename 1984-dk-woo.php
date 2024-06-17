@@ -21,7 +21,7 @@ namespace NineteenEightyFour\NineteenEightyWoo;
 
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-new Admin();
+new Hooks\Admin();
 new Cron\Schedule();
 new Rest\Settings();
 new Hooks\KennitalaField();
