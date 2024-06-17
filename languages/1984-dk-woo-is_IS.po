@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: 1984 DK Connection for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-18 23:42+0000\n"
-"PO-Revision-Date: 2024-05-16 13:45+0000\n"
+"PO-Revision-Date: 2024-06-17 22:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -12,11 +12,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.9; wp-6.5.2\n"
+"X-Loco-Version: 2.6.10; wp-6.5.4\n"
 "X-Domain: 1984-dk-woo"
 
 #. The %1$s and %2$s indicate an opening and closing <strong> tag.
-#: views/admin.php:424
+#: views/admin.php:478
 #, php-format
 msgid ""
 "%1$sError:%2$s Please check if all the information was entered correctly and "
@@ -25,7 +25,7 @@ msgstr ""
 "%1$sVilla:%2$s Athugaðu hvort allar upplýsingarnar hafi verið slegnar rétt "
 "inn."
 
-#: src/Admin.php:53 views/admin.php:28
+#: views/admin.php:23 src/Hooks/Admin.php:56
 msgid "1984 DK Connection"
 msgstr "DK-tenging frá 1984"
 
@@ -66,6 +66,16 @@ msgstr ""
 "Tölvupóstur var sendur til viðskiptavinarins sem innihélt reikninginn sem "
 "viðhengi á PDF-formi."
 
+#: src/Hooks/WooOrderStatusChanges.php:94
+msgid ""
+"An invoice could not be created in DK due to an error. The most common "
+"reason is the SKU for the WooCommece product does not match the ‘Item Code’ "
+"for the corresponding product in DK."
+msgstr ""
+"Ekki var hægt að búa til reikning í DK út af villu. Algengasta ástæðan fyrir "
+"þessu er SKU er ekki skráð fyrir vöru í WooCommerce eða ef það stemmir ekki "
+"við vörunúmer í DK."
+
 #. %1$s is a placeholder for the invoice number generated in DK.
 #: src/Hooks/WooOrderStatusChanges.php:69
 #, php-format
@@ -74,11 +84,26 @@ msgid ""
 msgstr ""
 "Reikningur fyrir þessa pöntun var búinn til í DK. Númer reikningsins er %1$s."
 
-#: views/admin.php:37
+#: views/admin.php:32
 msgid "API Key"
 msgstr "API-lykill"
 
-#: views/admin.php:31
+#. The %1$s is the product's original currency code and %2$s is the shop's currency.
+#: views/product_options_pricing_partial.php:21
+#, php-format
+msgid ""
+"As the product price is converted from ‘%1$s’ or is set manually to ‘%2$s’ "
+"using the ‘Foreign Prices’ feature in DK, changes to the product price in "
+"WooCommerce will not be reflected in DK due to current limitations and will "
+"be overwritten on sync. You can change the price and currency in DK."
+msgstr ""
+"Þar sem verð vörunnar var breytt úr ‚%1$s‘ eða var fært inn handvirkt sem "
+"‚%2$s‘ undir ‚erlend verð‘ í DK, þá verða breytingar á vöruverði í "
+"WooCommerce ekki endurspeglaðar í DK vegna tæknilegra takmarkanna og það "
+"verður skrifað yfir það við næstu samstillingu. Þú getur breytt verði og "
+"gjaldmiðli vörunnar í DK."
+
+#: views/admin.php:26
 msgid "Authentication"
 msgstr "Auðkenning"
 
@@ -114,54 +139,43 @@ msgstr ""
 "Tenging náðist við DK en ekki var hægt að búa til kreditreikninginn út af "
 "villu."
 
-#: src/Hooks/WooOrderStatusChanges.php:94
-msgid ""
-"Connection was established to DK but an invoice was not created due to an "
-"error."
-msgstr ""
-"Tenging náðist við DK en ekki var hægt að búa til reikninginn út af villu."
-
 #: src/Export/ServiceSKU.php:90
 msgid "Cost"
 msgstr "Kostnaður eða gjald"
 
-#: views/admin.php:199
+#: views/admin.php:156
 msgid "Cost SKU"
 msgstr "SKU fyrir kostnað og gjöld"
 
-#: views/admin.php:400
+#: views/admin.php:456
 msgid "Costs"
 msgstr "Kostnaður og gjöld"
 
-#: views/admin.php:78
+#: views/admin.php:180
 msgid "Customer Number Prefix"
 msgstr "Forskeyti fyrir númer skuldunauta"
 
-#: views/admin.php:223
+#: views/admin.php:279
 msgid "Default Customer Kennitala"
 msgstr "Sjálfgefin kennitala fyrir viðskiptavini"
 
-#: views/admin.php:302
+#: views/admin.php:358
 msgid "Default Sales Person"
 msgstr "Sjálfgefinn sölumaður"
 
-#: views/admin.php:324
+#: views/admin.php:380
 msgid "Default Sales Person Number"
 msgstr "Númer sjálfgefins sölumanns"
 
-#: src/Admin.php:54
+#: src/Hooks/Admin.php:57
 msgid "DK Connection"
 msgstr "DK-tenging"
 
-#: views/product_options_sku_partial.php:15
-msgid "DK handles inventory"
-msgstr "Sækja birgðastöðu frá DK"
-
-#: views/admin.php:71
+#: views/admin.php:173
 msgid "DK Record Prefixes"
 msgstr "Forskeyti fyrir skráningar í DK"
 
-#: views/admin.php:305
+#: views/admin.php:361
 msgid ""
 "DK requires a sales person to be assigned to every order and invoice. "
 "Generally, this would be a pseudo-person called “Web Sales” or something "
@@ -171,7 +185,7 @@ msgstr ""
 "gervimannesja sem heitir t.d. „Sala í vefverslun“ eða álíka en það er einnig "
 "hægt að skilgreina ákveðinn sölumann eða starfsmann."
 
-#: views/admin.php:173
+#: views/admin.php:130
 msgid ""
 "DK treats shipping and other costs as line items on invoices. In order for "
 "them to work, you need to assign a SKU to each of the following services. If "
@@ -181,23 +195,16 @@ msgstr ""
 "reikning. Til að láta það virka þarftu að skilgreina SKU fyrir eftirfarandi "
 "þjónustu. Ef vörunúmerinu er ekki til verða þau búin til í DK."
 
-#: views/admin.php:280
+#: views/admin.php:336
 msgid "Enable Kennitala Field in the Block Based Checkout Page (Experimental)"
 msgstr ""
 "Kveikja á kennitölureit í nýju útgáfu afgreiðsluformsins, sem byggir á "
 "blokkum (Tilraunastarfsemi)"
 
-#: views/admin.php:259
+#: views/admin.php:315
 msgid "Enable Kennitala Field in the “Classic” Shortcode Based Checkout Page"
 msgstr ""
 "Kveikja á kennitölureit í „gamla“ afgreiðsluforminu, sem byggir á stuttkóðum"
-
-#: views/product_options_pricing_partial.php:16
-msgid ""
-"Enables the 1984 DK Connection plugin to sync the products's price between "
-"WooCommerce and DK."
-msgstr ""
-"Leyfir DK-tengingunni frá 1984 að samstilla vöruverð milli WooCommerce og DK."
 
 #: src/Export/Order.php:199
 msgid "Fee"
@@ -219,7 +226,41 @@ msgstr "https://1984.hosting"
 msgid "https://github.com/1984hosting/1984-dk-woo"
 msgstr "https://github.com/1984hosting/1984-dk-woo"
 
-#: views/admin.php:313
+#: views/admin.php:118
+msgid ""
+"If enabled, product names are synced between DK and WooCommerce. Disable "
+"this if you would like to be able to use separate product names in your "
+"WooCommerce shop from the ones in DK."
+msgstr ""
+"Ef það er kveikt á þessu, þá verða vöruheiti samstillt milli DK og "
+"WooCommerce. Slökktu á þessu ef þú vilt getað haft vöruheiti í WooCommerce-"
+"versluninni þinni aðskilin frá DK."
+
+#: views/admin.php:82
+msgid ""
+"If enabled, product prices and sales periods are synced by default between "
+"DK and WooCommerce. This can be overriden on a per-product basis. Prices "
+"based on foreign currency conversion are only synced ‘downstream’ from DK "
+"and into WooCommerce."
+msgstr ""
+"Ef það er kveikt á þessu verður verð og útsölutímabil vera samstillt milli "
+"DK og WooCommerce. Það er hægt að breyta þessu fyrir hverja vöru. Verð sem "
+"skráð eru í erlendum gjaldeyri í DK eru eingöngu samstilltar ‚niður‘ úr DK "
+"og inn í WooCommerce."
+
+#: views/admin.php:100
+msgid ""
+"If enabled, product stock status and quantity is synced between DK and "
+"WooCommerce by default. This can be overridden on a per-product basis. Note "
+"that stock status and quantity sync only works ‘downstream’ from DK and into "
+"WooCommerce, but not ‘upstream’ due to limitations in DK."
+msgstr ""
+"Ef það er kveikt á þessu verður það sjálfgefið að samstilla lagerstöðu og "
+"fjölda á lager milli DK og WooCommerce. Hægt er að breyta þessu fyrir hverja "
+"vöru. Athugið að lagerstaða og fjöldi er einöngu sóttur frá DK en ekki í "
+"hina áttina út af tæknilegum takmörkunum í DK."
+
+#: views/admin.php:369
 msgid ""
 "If no sales person or employee exsists in your DK environment with the "
 "identifier entered above, a new one will be created along with an associated "
@@ -228,7 +269,7 @@ msgstr ""
 "Ef enginn sölumaður eða starfsmaður er til í DK-umhverfinu þínu með þetta "
 "númer, þá verður nýr sölumaður búinn til ásamt starfsmanni."
 
-#: views/admin.php:72
+#: views/admin.php:174
 #| msgid ""
 #| "If you wish to use a different prefixes for your customer and order "
 #| "numbers, you can choose them here. You can even leave them empty if you "
@@ -243,7 +284,7 @@ msgstr ""
 "færslum aftur í tímann."
 
 #. %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s and %4$s stand for the opening and closing <strong> tags.
-#: views/product_options_pricing_partial.php:26
+#: views/product_options_pricing_partial.php:58
 #, php-format
 msgid ""
 "In order for price sync to work, the %1$sSKU%2$s needs to be set and must "
@@ -278,34 +319,36 @@ msgstr "Kennitala"
 msgid "Kennitala (Optional)"
 msgstr "Kennitala (Valfrjálst)"
 
-#: views/admin.php:216
+#: views/admin.php:272
 msgid "Kennitala Support and Orders Without Kennitala"
 msgstr "Kennitölustuðningur og pantanir án kennitölu"
 
-#: views/admin.php:341
+#: views/admin.php:397
 msgid "Ledger Codes"
 msgstr "Bókunarflokkar"
 
-#: views/product_options_sku_partial.php:17
-msgid ""
-"Lets the 1984 DK Connection plugin to sync inventory status and stock "
-"quanity between WooCommerce and DK"
-msgstr ""
-"Lætur DK-tenginguna frá 1984 samstilla birgðastöðu milli WooCommerce og DK"
-
-#: views/admin.php:457
+#: views/admin.php:511
 msgid "Ninteen-Eighty-Four"
 msgstr "Nítjánhundruð-áttatíu-og-fjögur"
+
+#: views/product_options_advanced_partial.php:29
+#: views/product_options_advanced_partial.php:32
+#: views/product_options_sku_partial.php:27
+#: views/product_options_sku_partial.php:30
+#: views/product_options_pricing_partial.php:45
+#: views/product_options_pricing_partial.php:48
+msgid "No"
+msgstr "Nei"
 
 #: src/Export/SalesPerson.php:105
 msgid "Online Store"
 msgstr "Vefverslun"
 
-#: views/admin.php:95
+#: views/admin.php:197
 msgid "Payment Gateways"
 msgstr "Greiðslugáttir"
 
-#: views/admin.php:96
+#: views/admin.php:198
 msgid ""
 "Please select the payment method name for each payment gateway as it appears "
 "in DK as well as the payment mode:"
@@ -313,38 +356,63 @@ msgstr ""
 "Veldu nafn greiðslumáta fyrir hverja greiðslugátt eins og hann kemur fram í "
 "DK:"
 
-#: views/admin.php:370
+#: views/admin.php:64
+msgid "Product Sync Defaults"
+msgstr "Sjálfgefnar stillingar fyrir samstillingu á vörum"
+
+#: views/admin.php:426
 msgid "Products With Reduced Tax Rate"
 msgstr "Vörur í lægra skattþrepi"
 
-#: views/admin.php:355
+#: views/admin.php:411
 msgid "Products With Standard Tax Rate"
 msgstr "Vörur í almennu skattþrepi"
 
-#: views/admin.php:440
+#: views/admin.php:494
 msgid "Save"
 msgstr "Vista"
 
-#: views/admin.php:385 src/Export/ServiceSKU.php:86 src/Export/Order.php:225
+#: views/admin.php:441 src/Export/ServiceSKU.php:86 src/Export/Order.php:225
 msgid "Shipping"
 msgstr "Sendingar"
 
-#: views/admin.php:184
+#: views/admin.php:141
 msgid "Shipping SKU"
 msgstr "SKU fyrir sendingar"
 
-#: views/admin.php:170
+#: views/admin.php:127
 msgid "SKUs for Costs and Fees"
 msgstr "SKU fyrir kostnað og gjöld"
 
-#: views/product_options_sku_partial.php:34
-#: views/product_options_pricing_partial.php:31
+#: views/product_options_sku_partial.php:45
+#: views/product_options_pricing_partial.php:63
 msgid "stock keeping unit"
 msgstr "stock keeping unit"
 
-#: views/product_options_pricing_partial.php:15
-msgid "Sync prices with DK"
+#: views/product_options_sku_partial.php:21
+msgid "Sync Inventory with DK"
+msgstr "Samstilla birgðastöðu við DK"
+
+#: views/product_options_advanced_partial.php:23
+msgid "Sync Name with DK"
+msgstr "Samstilla nöfn við DK"
+
+#: views/product_options_pricing_partial.php:39
+#| msgid "Sync prices with DK"
+msgid "Sync Price with DK"
 msgstr "Samstilla verð við DK"
+
+#: views/admin.php:115
+msgid "Sync Product Names with DK"
+msgstr "Samstilla vöruheiti við DK"
+
+#: views/admin.php:79
+msgid "Sync Product Prices with DK"
+msgstr "Samstilla vöruverð við DK"
+
+#: views/admin.php:97
+msgid "Sync Stock Status and Quantity with DK"
+msgstr "Samstilla birgðastöðu og fjölda við DK"
 
 #. Description of the plugin
 msgid ""
@@ -355,29 +423,22 @@ msgstr ""
 "greiðslu í WooCommerce gegn um DK-bókhaldskerfið."
 
 #. %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s stands for a opening and %4$s for a closing <strong> tag.
-#: views/product_options_sku_partial.php:29
+#: views/product_options_sku_partial.php:40
 #, php-format
 msgid ""
 "The %1$sSKU%2$s needs to be set to a unique value and must equal the "
 "intended %3$sItem Code%4$s in DK for any 1984 DK Sync functionality to work."
-"%5$sFurthermore, DK does not support setting an initial stock quantity for "
-"products when they are created in their system, so new products will have "
-"backorders in WooCommerce and negative stock count enabled in DK until a "
-"stock count is performed in DK.%5$sEnabling this feature means that some of "
-"the setting below (stock management, quantity and backorders) are "
-"%3$soverridden%4$s every time your WooCommerce shop syncs with DK."
+"%5$sAs it only works downstream, if this feature is enabled, setting product "
+"stock quantity and status in WooCommerce will not result in it being "
+"reflected in DK and it will be overwritten next time information is fetched "
+"from DK."
 msgstr ""
-"%1$sSKU%2$s fyrir vöruna má ekki vera fyrir það sama og á annari vöru og "
-"þarf að jafngilda því %3$svörunúmeri%4$s sem ætlunin er að nota í DK ef "
-"samstilling milli DK og WooCommerce á að virka.%5$sEnnfremur, þá styðjur DK "
-"ekki það að setja inn birgðastöðu fyrir vöru þegar hún er skáð í þeirra "
-"kerfi, þannig að leyft verður að taka vöru frá í WooCommerce kveikt verður á "
-"neikvæðri birgðastöðu í DK þar til vörutalning hefur farið fram þar inni."
-"%5$sEf kveikt er á þessu þýðir það líka að %3$sskrifað verður yfir%4$s sumar "
-"stillingar hér fyrir neðan (brigðastjórnun, talning og frátaka) í hvert "
-"skipti sem WooCommerce-verslunin þín samstillir sig við DK."
+"%1$sSKU%2$s þarf að vera einstakt og þarf að jafngilda %3$svörunúmeri%4$s í "
+"DK til að samstilling geti virkað.%5$sEf kveikt er á þessu munu breytingar á "
+"brigðarstöðu og fjölda eingöngu virka niður á við úr DK og endurspeglast því "
+"ekki þar og það verður skrifað yfir þær við næstu samstillingu úr DK."
 
-#: views/admin.php:450
+#: views/admin.php:504
 msgid ""
 "The 1984 DK Connection Plugin for WooCommerce is developed, maintained and "
 "supported on goodwill basis by 1984 Hosting as free software without any "
@@ -389,7 +450,7 @@ msgstr ""
 "notkun en engin loforð eru gefin um virkni eða villuleysi. DK Hugbúnaður ehf "
 "ber enga ábyrgð á viðbótinni."
 
-#: views/admin.php:56
+#: views/admin.php:51
 msgid ""
 "The API key is provided by DK for use with the DK API. Do not share this key "
 "with anyone."
@@ -397,7 +458,19 @@ msgstr ""
 "API-lykillinn er afhentur af DK og er ætlaður til notkunar með API-viðmóti "
 "DK. Ekki deila þessum lykli með öðrum."
 
-#: views/admin.php:239
+#. The %s stands for the currency code.
+#: src/Currency.php:151
+#, php-format
+msgid "The currency code ‘%s’ is invalid."
+msgstr "Gjaldmiðillinn ‚%s‘ er ógildur."
+
+#. The %s stands for the currency code.
+#: src/Currency.php:172
+#, php-format
+msgid "The currency rate for ‘%s’ has not been set."
+msgstr "Gengið fyrir gjaldmiðlilinn ‚%s‘ hefur ekki verið skráð."
+
+#: views/admin.php:295
 msgid ""
 "The default kennitala is used for identifying customers that don't have or "
 "supply a kennitala during checkout. This should correspond with a DK "
@@ -412,7 +485,7 @@ msgid "The DK API key is missing."
 msgstr "API-lykillinn fyrir DK vantar."
 
 #. %1$s stands for the opening and %2$s <a> tag in a hyperlink to the WooCommerce Payment Settings page.
-#: views/admin.php:161
+#: views/admin.php:263
 #, php-format
 msgid ""
 "The payment gateways themselves are handled by your WooCommerce Settings, "
@@ -420,11 +493,21 @@ msgid ""
 msgstr ""
 "Sjálfar greiðslugáttirnar eru stilltar í WooCommerce undir %1$sgreiðslum%2$s."
 
-#: views/admin.php:52
+#: views/admin.php:47
 msgid "This is a required field"
 msgstr "Það þarf að fylla þennan reit út"
 
-#: views/admin.php:344
+#: views/admin.php:65
+msgid ""
+"This is where you set the default options for syncing your WooCommerce "
+"products. For example, if you do not want to overwrite the prices or names "
+"of your current WooCommerce products by default you do it here."
+msgstr ""
+"Hér setur þú inn sjálfgefnar stillingar fyrir samstillingu á vörum í "
+"WooCommerce. Ef þú vilt ekki skrifa yfir verð og nöfn þeirra vara sem eru nú "
+"þegar í WooCommerce geturðu stillt það inn hér."
+
+#: views/admin.php:400
 msgid ""
 "This only applies to products created in WooCommerce and is managed in DK "
 "after creation."
@@ -440,11 +523,19 @@ msgstr "Gat ekki tengst DK til að búa til kreditreikning."
 msgid "Unable to establish a connection with DK to create an invoice."
 msgstr "Gat ekki tengst DK til að búa til reikning."
 
-#: views/admin.php:51
+#. %1$s is the current yes/no value.
+#: views/product_options_advanced_partial.php:28
+#: views/product_options_sku_partial.php:26
+#: views/product_options_pricing_partial.php:44
+#, php-format
+msgid "Use Default (Currently ‘%1$s’)"
+msgstr "Nota sjálfgefið gildi (Er núna ‚%1$s‘)"
+
+#: views/admin.php:46
 msgid "Valid"
 msgstr "Gilt"
 
-#: views/admin.php:288
+#: views/admin.php:344
 msgid ""
 "WooCommerce 8.7 introduces a new block based checkout page. This uses a "
 "different approach to adding new fields, but it is still considered to be "
@@ -457,6 +548,15 @@ msgstr ""
 "WooCommerce eins og er. Til dæmis er reiturinn ekki fylltur sjálfkrafa út "
 "með kennitölu notanda, þannig að það gæti þurft að slá hana inn við hverja "
 "afgreiðslu."
+
+#: views/product_options_advanced_partial.php:29
+#: views/product_options_advanced_partial.php:31
+#: views/product_options_sku_partial.php:27
+#: views/product_options_sku_partial.php:29
+#: views/product_options_pricing_partial.php:45
+#: views/product_options_pricing_partial.php:47
+msgid "Yes"
+msgstr "Já"
 
 #. The %1$s is a placeholder for the site's title.
 #: src/Export/Invoice.php:150
