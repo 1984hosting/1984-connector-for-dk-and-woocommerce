@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+define( 'TEST_ENV', true );
+
 use NineteenEightyFour\NineteenEightyWoo\Currency;
 
 require __DIR__ . '/../vendor/aldavigdis/wp-tests-strapon/bootstrap.php';
