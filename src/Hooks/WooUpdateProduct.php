@@ -5,7 +5,9 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
 use NineteenEightyFour\NineteenEightyWoo\Export\Product as ExportProduct;
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
 
+use WP_Post;
 use WC_Product;
 
 /**
@@ -32,6 +34,13 @@ class WooUpdateProduct {
 			10,
 			2
 		);
+
+		add_action(
+			'transition_post_status',
+			array( __CLASS__, 'post_status_change' ),
+			10,
+			3
+		);
 	}
 
 	/**
@@ -52,18 +61,17 @@ class WooUpdateProduct {
 			return;
 		}
 
-		if ( false === self::should_sync( $product ) ) {
+		if ( ! ProductHelper::should_sync( $product ) ) {
 			return;
 		}
 
-		if ( true === ExportProduct::is_in_dk( $product ) ) {
-			ExportProduct::update_in_dk( $product );
-		} else {
-			ExportProduct::create_in_dk( $product );
-		}
+		// Create or update the product in DK.
+		ExportProduct::create_in_dk( $product );
 	}
 
 	/**
+	 * Post deletion hook
+	 *
 	 * If the post that's going to be deleted is a WooCommerce product, a PUT
 	 * request is sent to DK on make sure that it does not appear in the store
 	 * until it is enabled again in DK.
@@ -82,7 +90,7 @@ class WooUpdateProduct {
 		if ( 'product' === get_post_type( $post_id ) ) {
 			$wc_product = wc_get_product( $post_id );
 
-			if ( false === self::should_sync( $wc_product ) ) {
+			if ( ! ProductHelper::should_sync( $wc_product ) ) {
 				return;
 			}
 
@@ -91,17 +99,42 @@ class WooUpdateProduct {
 	}
 
 	/**
-	 * Check if the product should sync with DK
+	 * Post status change hook
 	 *
-	 * @param WC_Product $product The WooCommrece product.
-	 *
-	 * @return bool True if it should sync, false if not.
+	 * @param string  $new_status The new post status.
+	 * @param string  $old_status The new post status (unused).
+	 * @param WP_Post $post The WP post object.
 	 */
-	public static function should_sync( WC_Product $product ): bool {
-		if ( false === (bool) $product->get_sku() ) {
-			return false;
+	public static function post_status_change(
+		string $new_status,
+		string $old_status,
+		WP_Post $post
+	): void {
+
+		if ( defined( 'DOING_CRON' ) ) {
+			return;
 		}
 
-		return true;
+		if ( defined( 'DOING_DK_SYNC' ) ) {
+			return;
+		}
+
+		if ( 'product' !== get_post_type( $post ) ) {
+			return;
+		}
+
+		$wc_product = wc_get_product( $post );
+
+		if ( ! ProductHelper::should_sync( $wc_product ) ) {
+			return;
+		}
+
+		switch ( $new_status ) {
+			case 'draft':
+				ExportProduct::hide_from_webshop_in_dk( $wc_product );
+				break;
+			case 'publish':
+				ExportProduct::show_in_webshop_in_dk( $wc_product );
+		}
 	}
 }
