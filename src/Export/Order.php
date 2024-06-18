@@ -195,12 +195,11 @@ class Order {
 				$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
 
 				$order_props['Lines'][] = array(
-					'ItemCode'         => Config::get_cost_sku(),
-					'Text'             => __( 'Fee', '1984-dk-woo' ),
-					'Text2'            => $sanitized_name,
-					'Quantity'         => 1,
-					'UnitPrice'        => $fee_price->toFloat(),
-					'UnitPriceWithTax' => $fee->get_total(),
+					'ItemCode' => Config::get_cost_sku(),
+					'Text'     => __( 'Fee', '1984-dk-woo' ),
+					'Text2'    => $sanitized_name,
+					'Quantity' => 1,
+					'Price'    => $fee_price->toFloat(),
 				);
 			}
 		}
@@ -221,12 +220,11 @@ class Order {
 				}
 
 				$order_props['Lines'][] = array(
-					'ItemCode'         => Config::get_shipping_sku(),
-					'Text'             => __( 'Shipping', '1984-dk-woo' ),
-					'Text2'            => $shipping_method->get_method_title(),
-					'Quantity'         => 1,
-					'UnitPrice'        => $unit_price->toFloat(),
-					'UnitPriceWithTax' => (float) $shipping_method->get_total(),
+					'ItemCode' => Config::get_shipping_sku(),
+					'Text'     => __( 'Shipping', '1984-dk-woo' ),
+					'Text2'    => $shipping_method->get_method_title(),
+					'Quantity' => 1,
+					'Price'    => $unit_price->toFloat(),
 				);
 			}
 		}
