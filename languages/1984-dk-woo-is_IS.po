@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: 1984 Connector for DK and WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-18 23:42+0000\n"
-"PO-Revision-Date: 2024-06-17 22:31+0000\n"
+"PO-Revision-Date: 2024-06-18 02:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -25,6 +25,7 @@ msgstr ""
 "%1$sVilla:%2$s Athugaðu hvort allar upplýsingarnar hafi verið slegnar rétt "
 "inn."
 
+#. Name of the plugin
 #: views/admin.php:23
 msgid "1984 Connector for DK and WooCommerce"
 msgstr "DK-tenging fyrir WooCommerce frá 1984"
@@ -33,16 +34,12 @@ msgstr "DK-tenging fyrir WooCommerce frá 1984"
 msgid "1984 DK Connection"
 msgstr "DK-tenging frá 1984"
 
-#. Name of the plugin
-msgid "1984 DK Connection for WooCommerce"
-msgstr "DK-tenging frá 1984 fyrir WooCommerce"
-
 #. Author of the plugin
 msgid "1984 Hosting"
 msgstr "1984 Ehf."
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Hooks/WooOrderStatusChanges.php:131
+#: src/Hooks/WooOrderStatusChanges.php:143
 #, php-format
 msgid ""
 "A credit invoice for the refund has been created in DK. The invoice number "
@@ -55,7 +52,7 @@ msgstr ""
 msgid "A or B Giro Request (ABG)"
 msgstr "A- eða B-gíróseðill (ABG)"
 
-#: src/Hooks/WooOrderStatusChanges.php:141
+#: src/Hooks/WooOrderStatusChanges.php:153
 msgid ""
 "An email containing the credit invoice as a PDF attachment was sent to the "
 "customer."
@@ -63,14 +60,14 @@ msgstr ""
 "Tölvupóstur var sendur til viðskiptavinarins sem innihélt kreditreikninginn "
 "sem viðhengi á PDF-formi."
 
-#: src/Hooks/WooOrderStatusChanges.php:79
+#: src/Hooks/WooOrderStatusChanges.php:91
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer."
 msgstr ""
 "Tölvupóstur var sendur til viðskiptavinarins sem innihélt reikninginn sem "
 "viðhengi á PDF-formi."
 
-#: src/Hooks/WooOrderStatusChanges.php:94
+#: src/Hooks/WooOrderStatusChanges.php:106
 msgid ""
 "An invoice could not be created in DK due to an error. The most common "
 "reason is the SKU for the WooCommece product does not match the ‘Item Code’ "
@@ -80,8 +77,16 @@ msgstr ""
 "þessu er SKU er ekki skráð fyrir vöru í WooCommerce eða ef það stemmir ekki "
 "við vörunúmer í DK."
 
+#: src/Hooks/WooOrderStatusChanges.php:62
+msgid ""
+"An invoice could not be created in DK for this order as an item in this "
+"order does not have a SKU."
+msgstr ""
+"Ekki var hægt að gera reikning í DK fyrir þessa pöntun því það vantar SKU "
+"fyrir vöru."
+
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Hooks/WooOrderStatusChanges.php:69
+#: src/Hooks/WooOrderStatusChanges.php:81
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
@@ -135,7 +140,7 @@ msgstr "Staðgreiðsla (STGR)"
 msgid "Cheque Payment (TGR)"
 msgstr "Tékkagreiðsla (TGR)"
 
-#: src/Hooks/WooOrderStatusChanges.php:156
+#: src/Hooks/WooOrderStatusChanges.php:168
 msgid ""
 "Connection was established to DK but a credit invoice was not created due to "
 "an error."
@@ -210,7 +215,7 @@ msgid "Enable Kennitala Field in the “Classic” Shortcode Based Checkout Page
 msgstr ""
 "Kveikja á kennitölureit í „gamla“ afgreiðsluforminu, sem byggir á stuttkóðum"
 
-#: src/Export/Order.php:199
+#: src/Export/Order.php:196
 msgid "Fee"
 msgstr "Gjald"
 
@@ -305,8 +310,8 @@ msgstr "Ógild kennitala. Kennitölur eru runur af 10 tölustöfum."
 msgid "Inventory registration in WooCommerce"
 msgstr "Birgðaskráning í WooCommerce"
 
-#: src/Hooks/WooOrderStatusChanges.php:86
-#: src/Hooks/WooOrderStatusChanges.php:148
+#: src/Hooks/WooOrderStatusChanges.php:98
+#: src/Hooks/WooOrderStatusChanges.php:160
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
 "as a PDF attachment."
@@ -376,7 +381,7 @@ msgstr "Vörur í almennu skattþrepi"
 msgid "Save"
 msgstr "Vista"
 
-#: views/admin.php:441 src/Export/ServiceSKU.php:86 src/Export/Order.php:225
+#: views/admin.php:441 src/Export/ServiceSKU.php:86 src/Export/Order.php:212
 msgid "Shipping"
 msgstr "Sendingar"
 
@@ -519,11 +524,11 @@ msgstr ""
 "Þetta gildir aðeins um vörur sem eru nýskráðar í WooCommerce og er stjórnað "
 "í DK eftir það."
 
-#: src/Hooks/WooOrderStatusChanges.php:163
+#: src/Hooks/WooOrderStatusChanges.php:175
 msgid "Unable to establish a connection with DK to create a credit invoice."
 msgstr "Gat ekki tengst DK til að búa til kreditreikning."
 
-#: src/Hooks/WooOrderStatusChanges.php:101
+#: src/Hooks/WooOrderStatusChanges.php:113
 msgid "Unable to establish a connection with DK to create an invoice."
 msgstr "Gat ekki tengst DK til að búa til reikning."
 
