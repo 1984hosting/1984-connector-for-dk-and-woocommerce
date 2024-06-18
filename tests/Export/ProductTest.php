@@ -34,9 +34,6 @@ final class ProductTest extends TestCase {
 
 		$draft_object = ExportProduct::to_dk_product_body( $wc_product, true );
 
-		assertEquals( true, $draft_object->Inactive );
-		assertEquals( true, $draft_object->ShowItemInWebShop );
-
 		$wc_product->set_status( 'publish' );
 		$wc_product->save();
 

@@ -370,6 +370,7 @@ class Product {
 			'PropositionPrice'       => ProductHelper::format_sale_price_for_dk( $wc_product ),
 			'PropositionDateFrom'    => ProductHelper::format_date_on_sale_for_dk( 'from', $wc_product ),
 			'PropositionDateTo'      => ProductHelper::format_date_on_sale_for_dk( 'to', $wc_product ),
+			'Inactive'               => false,
 		);
 
 		if ( 'reduced-rate' === $wc_product->get_tax_class( 'edit' ) ) {
@@ -385,9 +386,9 @@ class Product {
 		}
 
 		if ( 'publish' === $wc_product->get_status() ) {
-			$product_props['Inactive'] = false;
+			$product_props['ShowItemInWebShop'] = true;
 		} else {
-			$product_props['Inactive'] = true;
+			$product_props['ShowItemInWebShop'] = false;
 		}
 
 		if ( $wc_product instanceof WC_Product_Variation ) {
