@@ -15,13 +15,6 @@ class Schedule {
 	 */
 	public function __construct() {
 		add_action(
-			'1984_dk_woo_every_minute',
-			array( 'NineteenEightyFour\NineteenEightyWoo\Cron\EveryMinute', 'run' ),
-			10,
-			0
-		);
-
-		add_action(
 			'1984_dk_woo_hourly',
 			array( 'NineteenEightyFour\NineteenEightyWoo\Cron\Hourly', 'run' ),
 			10,
@@ -33,7 +26,6 @@ class Schedule {
 	 * Activate scheduled events for the plugin
 	 */
 	public static function activate(): void {
-		wp_schedule_event( time(), 'every_minute', '1984_dk_woo_every_minute' );
 		wp_schedule_event( time(), 'hourly', '1984_dk_woo_hourly' );
 	}
 
