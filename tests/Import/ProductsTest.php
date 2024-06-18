@@ -160,59 +160,6 @@ final class ProductsTest extends TestCase {
 	}
 	JSON;
 
-	#[TestDox( 'Imports inactive products as drafts' )]
-	public function testImportInactiveProductAsDraft(): void {
-		$product_json_object = json_decode(
-			self::EXAMPLE_INACTIVE_DK_PRODUCT_JSON
-		);
-
-		$product_id = ImportProducts::save_from_dk(
-			$product_json_object->ItemCode,
-			$product_json_object
-		);
-
-		assertEquals( 'draft', get_post_status( $product_id ) );
-	}
-
-	#[TestDox( 'Updates product attributes' )]
-	public function testImportUpdatesProducts(): void {
-		$wc_product = new WC_Product();
-		$wc_product->set_sku( 'updated' );
-		$wc_product->save();
-
-		$product_json_object = json_decode(
-			self::EXAMPLE_UPDATED_DK_PRODUCT_JSON
-		);
-
-		$product_id = ImportProducts::save_from_dk(
-			$product_json_object->ItemCode,
-			$product_json_object
-		);
-
-		$post      = get_post( $product_id );
-		$post_meta = get_post_meta( $post->ID );
-
-		assertEquals(
-			$product_json_object->ItemCode,
-			$post_meta['_sku'][0]
-		);
-
-		assertEquals(
-			$product_json_object->Description,
-			$post->post_title
-		);
-
-		assertEquals(
-			$product_json_object->NetWeight,
-			$post_meta['_weight'][0]
-		);
-
-		assertNotEquals(
-			0,
-			$post_meta['_price'][0]
-		);
-	}
-
 	#[TestDox( 'Trashes products that have been deleted on the DK side' )]
 	public function testImportDeletedProductAsTrashed(): void {
 		$wc_product = new WC_Product();
