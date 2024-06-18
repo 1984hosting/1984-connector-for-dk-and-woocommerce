@@ -194,10 +194,6 @@ class Products {
 	public static function json_to_new_product(
 		stdClass $json_object
 	): WC_Product|false {
-		if ( ! $json_object->ShowItemInWebShop ) {
-			return false;
-		}
-
 		if (
 			property_exists( $json_object, 'Deleted' ) &&
 			true === $json_object->Deleted
@@ -205,10 +201,22 @@ class Products {
 			return false;
 		}
 
+		if ( $json_object->Inactive ) {
+			return false;
+		}
+
+		if ( strtolower( Config::get_shipping_sku() ) === strtolower( $json_object->ItemCode ) ) {
+			return false;
+		}
+
+		if ( strtolower( Config::get_cost_sku() ) === strtolower( $json_object->ItemCode ) ) {
+			return false;
+		}
+
 		$wc_product = new WC_Product();
 		$wc_product->set_sku( $json_object->ItemCode );
 
-		if ( $json_object->Inactive ) {
+		if ( ! $json_object->ShowItemInWebShop ) {
 			$wc_product->set_status( 'Draft' );
 		}
 
@@ -295,17 +303,17 @@ class Products {
 		}
 
 		if (
-			property_exists( $json_object, 'Deleted' ) &&
-			true === $json_object->Deleted
+			$json_object->Inactive ||
+			(
+				property_exists( $json_object, 'Deleted' ) &&
+				true === $json_object->Deleted
+			)
 		) {
 			wp_delete_post( $wc_product->get_id() );
 			return false;
 		}
 
-		if (
-			( false === $json_object->Inactive ) &&
-			( true === $json_object->ShowItemInWebShop )
-		) {
+		if ( true === $json_object->ShowItemInWebShop ) {
 			$wc_product->set_status( 'Publish' );
 		} else {
 			$wc_product->set_status( 'Draft' );
