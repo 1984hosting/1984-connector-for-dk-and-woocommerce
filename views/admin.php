@@ -320,7 +320,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 							</label>
 						</td>
 					</tr>
-					<?php if ( function_exists( '__experimental_woocommerce_blocks_register_checkout_field' ) ) : ?>
+					<?php if ( function_exists( 'woocommerce_register_additional_checkout_field' ) ) : ?>
 					<tr>
 						<th span="row" class="column-title column-primary">
 						</th>

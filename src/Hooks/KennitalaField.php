@@ -496,7 +496,7 @@ class KennitalaField {
 	 * @link https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce-blocks/docs/third-party-developers/extensibility/checkout-block/additional-checkout-fields.md
 	 */
 	public static function register_block_checkout_field(): void {
-		__experimental_woocommerce_blocks_register_checkout_field(
+		woocommerce_register_additional_checkout_field(
 			array(
 				'id'                => '1984_woo_dk/kennitala',
 				'label'             => __(
