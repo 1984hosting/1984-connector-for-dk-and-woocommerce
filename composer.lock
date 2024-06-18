@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "22f92adba103938904b3ac2a53e52405",
+    "content-hash": "0579e318e00299367b13bf6c1c9b2f58",
     "packages": [
         {
             "name": "brick/math",
@@ -3525,10 +3525,10 @@
         },
         {
             "name": "woocommerce/woocommerce",
-            "version": "8.7.0",
+            "version": "8.9.3",
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/woocommerce/woocommerce/releases/download/8.7.0/woocommerce.zip"
+                "url": "https://github.com/woocommerce/woocommerce/releases/download/8.9.3/woocommerce.zip"
             },
             "type": "library"
         },
