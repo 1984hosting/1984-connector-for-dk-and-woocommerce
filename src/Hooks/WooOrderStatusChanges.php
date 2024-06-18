@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
 use NineteenEightyFour\NineteenEightyWoo\Export\Invoice as ExportInvoice;
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
 use WC_Order;
 use WP_Error;
 
@@ -55,6 +56,17 @@ class WooOrderStatusChanges {
 	 */
 	public static function maybe_send_invoice_on_payment( int $order_id ): void {
 		$wc_order = new WC_Order( $order_id );
+
+		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
+			$wc_order->add_order_note(
+				__(
+					'An invoice could not be created in DK for this order as an item in this order does not have a SKU.',
+					'1984-dk-woo'
+				)
+			);
+
+			return;
+		}
 
 		if ( false === empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
 			return;
