@@ -27,29 +27,32 @@ $product_currency = ProductHelper::get_currency( $wc_product );
 			);
 		?>
 	</p>
+
+	<?php else : ?>
+
+		<?php
+		$price_sync_meta = $wc_product->get_meta( '1984_woo_dk_price_sync', true, 'edit' );
+		wp_nonce_field( 'set_1984_woo_dk_price_sync', 'set_1984_woo_dk_price_sync_nonce' );
+		woocommerce_wp_radio(
+			array(
+				'id'      => '1984_woo_dk_price_sync',
+				'name'    => '1984_woo_dk_price_sync',
+				'label'   => __( 'Sync Price with DK', '1984-dk-woo' ),
+				'value'   => $price_sync_meta,
+				'options' => array(
+					''      => sprintf(
+						// Translators: %1$s is the current yes/no value.
+						__( 'Use Default (Currently ‘%1$s’)', '1984-dk-woo' ),
+						( Config::get_product_price_sync() ? __( 'Yes', '1984-dk-woo' ) : __( 'No', '1984-dk-woo' ) )
+					),
+					'true'  => __( 'Yes', '1984-dk-woo' ),
+					'false' => __( 'No', '1984-dk-woo' ),
+				),
+			),
+		);
+		?>
 	<?php endif ?>
 
-	<?php
-	$price_sync_meta = $wc_product->get_meta( '1984_woo_dk_price_sync', true, 'edit' );
-	wp_nonce_field( 'set_1984_woo_dk_price_sync', 'set_1984_woo_dk_price_sync_nonce' );
-	woocommerce_wp_radio(
-		array(
-			'id'      => '1984_woo_dk_price_sync',
-			'name'    => '1984_woo_dk_price_sync',
-			'label'   => __( 'Sync Price with DK', '1984-dk-woo' ),
-			'value'   => $price_sync_meta,
-			'options' => array(
-				''      => sprintf(
-					// Translators: %1$s is the current yes/no value.
-					__( 'Use Default (Currently ‘%1$s’)', '1984-dk-woo' ),
-					( Config::get_product_price_sync() ? __( 'Yes', '1984-dk-woo' ) : __( 'No', '1984-dk-woo' ) )
-				),
-				'true'  => __( 'Yes', '1984-dk-woo' ),
-				'false' => __( 'No', '1984-dk-woo' ),
-			),
-		),
-	);
-	?>
 	<p class="form-field">
 		<?php
 		echo sprintf(
