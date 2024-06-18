@@ -385,9 +385,9 @@ class Product {
 		}
 
 		if ( 'publish' === $wc_product->get_status() ) {
-			$product_props['Inactive'] = false;
+			$product_props['ShowItemInWebShop'] = true;
 		} else {
-			$product_props['Inactive'] = true;
+			$product_props['ShowItemInWebShop'] = false;
 		}
 
 		if ( $wc_product instanceof WC_Product_Variation ) {
