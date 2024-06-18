@@ -166,10 +166,11 @@ class Order {
 			$sku                = $product->get_sku();
 
 			$order_line_item = array(
-				'ItemCode' => $sku,
-				'Text'     => $item->get_name(),
-				'Quantity' => $item->get_quantity(),
-				'Price'    => $wc_order->get_item_total( $item ),
+				'ItemCode'     => $sku,
+				'Text'         => $item->get_name(),
+				'Quantity'     => $item->get_quantity(),
+				'Price'        => $wc_order->get_item_total( $item, wc_prices_include_tax() ),
+				'IncludingVAT' => wc_prices_include_tax(),
 			);
 
 			if ( $product instanceof WC_Product_Variation ) {
@@ -188,43 +189,31 @@ class Order {
 
 		if ( 0 < count( $wc_order->get_fees() ) ) {
 			foreach ( $wc_order->get_fees() as $fee ) {
-				$fee_total     = BigDecimal::of( $fee->get_total() );
-				$fee_total_tax = BigDecimal::of( $fee->get_total_tax() );
-				$fee_price     = $fee_total->minus( $fee_total_tax );
-
 				$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
 
 				$order_props['Lines'][] = array(
-					'ItemCode' => Config::get_cost_sku(),
-					'Text'     => __( 'Fee', '1984-dk-woo' ),
-					'Text2'    => $sanitized_name,
-					'Quantity' => 1,
-					'Price'    => $fee_price->toFloat(),
+					'ItemCode'     => Config::get_cost_sku(),
+					'Text'         => __( 'Fee', '1984-dk-woo' ),
+					'Text2'        => $sanitized_name,
+					'Price'        => $fee->get_total(),
+					'IncludingVAT' => false,
 				);
 			}
 		}
 
 		if ( 0 < count( $wc_order->get_shipping_methods() ) ) {
 			foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
-				$shipping_total     = BigDecimal::of(
-					$shipping_method->get_total()
-				);
-				$shipping_total_tax = BigDecimal::of(
-					$shipping_method->get_total_tax()
-				);
-
-				$unit_price = $shipping_total->minus( $shipping_total_tax );
-
-				if ( 0.0 === $unit_price->toFloat() ) {
+				if ( 0.0 === floatval( $shipping_method->get_total() ) ) {
 					continue;
 				}
 
 				$order_props['Lines'][] = array(
-					'ItemCode' => Config::get_shipping_sku(),
-					'Text'     => __( 'Shipping', '1984-dk-woo' ),
-					'Text2'    => $shipping_method->get_method_title(),
-					'Quantity' => 1,
-					'Price'    => $unit_price->toFloat(),
+					'ItemCode'     => Config::get_shipping_sku(),
+					'Text'         => __( 'Shipping', '1984-dk-woo' ),
+					'Text2'        => $shipping_method->get_method_title(),
+					'Quantity'     => 1,
+					'Price'        => $shipping_method->get_total(),
+					'IncludingVAT' => false,
 				);
 			}
 		}
