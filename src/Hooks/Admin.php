@@ -127,7 +127,7 @@ class Admin {
 	 * }
 	 */
 	public static function info_for_service_sku( string $sku ): stdClass {
-		if ( empty( Config::get_dk_api_key() ) ) {
+		if ( false === Config::get_dk_api_key() ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant SKU.
 				__(
@@ -139,9 +139,7 @@ class Admin {
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		}
-
-		if ( true === Product::is_in_dk( $sku ) ) {
+		} elseif ( true === Product::is_in_dk( $sku ) ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant SKU.
 				__(
@@ -202,9 +200,7 @@ class Admin {
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		}
-
-		if ( true === SalesPerson::is_in_dk( $number ) ) {
+		} elseif ( true === SalesPerson::is_in_dk( $number ) ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant sales person number.
 				__(
@@ -263,9 +259,7 @@ class Admin {
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		}
-
-		if ( true === Customer::is_in_dk( Config::get_default_kennitala() ) ) {
+		} elseif ( true === Customer::is_in_dk( Config::get_default_kennitala() ) ) {
 			$text = sprintf(
 				// Translators: The %s stands for the kennitala.
 				__(
