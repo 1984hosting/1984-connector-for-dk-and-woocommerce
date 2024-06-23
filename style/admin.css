@@ -38,19 +38,24 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	border-color: #900;
 }
 
-#nineteen-eighty-woo-settings-form .validity {
+#nineteen-eighty-woo-settings-form .validity, #nineteen-eighty-woo-settings-form .infotext {
 	display: none;
 	font-weight: 600;
 }
 
-#nineteen-eighty-woo-settings-form input:valid ~ .valid {
+#nineteen-eighty-woo-settings-form input:valid ~ .valid, #nineteen-eighty-woo-settings-form .infotext.ok {
 	display: block;
 	color: #060;
 }
 
-#nineteen-eighty-woo-settings-form input:invalid ~ .invalid {
+#nineteen-eighty-woo-settings-form input:invalid ~ .invalid, #nineteen-eighty-woo-settings-form .infotext.error {
 	display: block;
 	color: #900;
+}
+
+#nineteen-eighty-woo-settings-form .infotext.info {
+	display: block;
+	color: #003eaa;
 }
 
 #nineteen-eighty-woo-wrap #api-key-form-table td {

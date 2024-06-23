@@ -8,7 +8,6 @@ use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Export\Order as ExportOrder;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use WC_Order;
-use WC_Email;
 use WP_Error;
 use DateTime;
 

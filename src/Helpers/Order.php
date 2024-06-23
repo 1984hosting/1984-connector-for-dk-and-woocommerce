@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Helpers;
 
+use NineteenEightyFour\NineteenEightyWoo\Config;
+use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;
 
@@ -29,5 +31,85 @@ class Order {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Get the kennitala from an order
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 *
+	 * @return string The kennitala on success. If none is found, the default
+	 *                kennitala is returned.
+	 */
+	public static function get_kennitala( WC_Order $wc_order ): string {
+		if (
+			Config::get_customer_requests_kennitala_invoice() &&
+			! self::get_kennitala_invoice_requested( $wc_order )
+		) {
+			return Config::get_default_kennitala();
+		}
+
+		$block_kennitala = $wc_order->get_meta(
+			'_wc_other/1984_woo_dk/kennitala',
+			true
+		);
+
+		if ( ! empty( $block_kennitala ) ) {
+			return (string) $block_kennitala;
+		}
+
+		$classic_kennitala = $wc_order->get_meta( 'billing_kennitala', true );
+
+		if ( ! empty( $classic_kennitala ) ) {
+			return (string) $classic_kennitala;
+		}
+
+		$customer_id = $wc_order->get_customer_id();
+
+		if ( 0 !== $customer_id ) {
+			$customer           = new WC_Customer( $customer_id );
+			$customer_kennitala = $customer->get_meta(
+				'kennitala',
+				true,
+				'edit'
+			);
+
+			if ( false === empty( $customer_kennitala ) ) {
+				return $customer_kennitala;
+			}
+		}
+
+		return Config::get_default_kennitala();
+	}
+
+	/**
+	 * Get wether the customer requested to have a kennitala on the invoice
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 *
+	 * @return bool True if it was requested, false if not.
+	 */
+	public static function get_kennitala_invoice_requested(
+		WC_Order $wc_order
+	): bool {
+		$block_value = $wc_order->get_meta(
+			'_wc_other/1984_woo_dk/kennitala_invoice_requested',
+			true
+		);
+
+		if ( ! empty( $block_value ) ) {
+			return (bool) $block_value;
+		}
+
+		$classic_value = $wc_order->get_meta(
+			'kennitala_invoice_requested',
+			true
+		);
+
+		if ( ! empty( $classic_value ) ) {
+			return (bool) $classic_value;
+		}
+
+		return false;
 	}
 }

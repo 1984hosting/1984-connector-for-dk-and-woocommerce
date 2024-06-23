@@ -4,9 +4,6 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo;
 
-use NineteenEightyFour\NineteenEightyWoo\Export\Employee as ExportEmployee;
-use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson as ExportSalesPerson;
-use NineteenEightyFour\NineteenEightyWoo\Export\ServiceSKU as ExportServiceSKU;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments as ImportSalesPayments;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 use stdClass;
@@ -23,13 +20,10 @@ class Config {
 	const DEFAULT_PRODUCT_NUMBER_PREFIX  = 'WCP';
 	const DEFAULT_INVOICE_NUMBER_PREFIX  = 'WCI';
 
-	const DEFAULT_SHIPPING_SKU = 'SHIPPING';
-	const DEFAULT_COUPON_SKU   = 'COUPON';
-	const DEFAULT_COST_SKU     = 'COST';
-
-	const DEFAULT_WAREHOUSE = 'bg1';
-
-	const DEFAULT_SALES_PERSON = 'WEBSALES';
+	const DEFAULT_SHIPPING_SKU = 'shipping';
+	const DEFAULT_COUPON_SKU   = 'coupon';
+	const DEFAULT_COST_SKU     = 'cost';
+	const DEFAULT_SALES_PERSON = 'websales';
 
 	const DEFAULT_LEDGER_CODE_STANDARD = 's002';
 	const DEFAULT_LEDGER_CODE_REDUCED  = 's003';
@@ -222,15 +216,7 @@ class Config {
 	 * @param string $sku The SKU.
 	 */
 	public static function set_shipping_sku( string $sku ): bool {
-		if (
-			( self::get_shipping_sku() !== $sku ) &&
-			( false === ExportServiceSKU::is_in_dk( $sku ) ) &&
-			( true === ExportServiceSKU::create_in_dk( $sku ) )
-		) {
-			return update_option( '1984_woo_dk_shipping_sku', $sku );
-		}
-
-		return false;
+		return update_option( '1984_woo_dk_shipping_sku', $sku );
 	}
 
 	/**
@@ -252,14 +238,6 @@ class Config {
 	 * @param string $sku The cost SKU.
 	 */
 	public static function set_cost_sku( string $sku ): bool {
-		if (
-			( self::get_cost_sku() !== $sku ) &&
-			( false === ExportServiceSKU::is_in_dk( $sku ) ) &&
-			( false === ExportServiceSKU::create_in_dk( $sku, 'cost' ) )
-		) {
-			return false;
-		}
-
 		return update_option( '1984_woo_dk_cost_sku', $sku );
 	}
 
@@ -272,7 +250,7 @@ class Config {
 	public static function get_default_kennitala(): string {
 		return (string) get_option(
 			'1984_woo_dk_default_kennitala',
-			'9999999999'
+			'0000000000'
 		);
 	}
 
@@ -358,52 +336,10 @@ class Config {
 	public static function set_default_sales_person_number(
 		string $sales_person_number
 	): bool {
-		if ( self::get_default_sales_person_number() !== $sales_person_number ) {
-			return false;
-		}
-
-		if ( false === ExportSalesPerson::is_in_dk( $sales_person_number ) ) {
-			$random_string = base_convert(
-				(string) random_int( 65_536, 131_072 ),
-				10,
-				36
-			);
-
-			$employee_number = 'WEBSALES' . $random_string;
-			if ( true !== ExportEmployee::create_in_dk( $employee_number ) ) {
-				return false;
-			}
-
-			if ( true !== ExportSalesPerson::create_in_dk(
-				$sales_person_number,
-				$employee_number
-			) ) {
-				return false;
-			}
-		}
 		return update_option(
 			'1984_woo_dk_default_sales_person_number',
 			$sales_person_number
 		);
-	}
-
-	/**
-	 * Get the default inventory warehouse
-	 */
-	public static function get_default_warehouse(): string {
-		return (string) get_option(
-			'1984_woo_dk_default_warehouse',
-			self::DEFAULT_WAREHOUSE
-		);
-	}
-
-	/**
-	 * Set the default inventory warehouse
-	 *
-	 * @param string $warehouse The warehouse code.
-	 */
-	public static function set_default_warehouse( string $warehouse ): bool {
-		return update_option( '1984_woo_dk_default_warehouse', $warehouse );
 	}
 
 	/**
@@ -475,7 +411,10 @@ class Config {
 	 *                    false to disable.
 	 */
 	public static function set_product_price_sync( bool $value ): bool {
-		return update_option( '1984_woo_dk_product_price_sync', $value );
+		return update_option(
+			'1984_woo_dk_product_price_sync',
+			(int) $value
+		);
 	}
 
 	/**
@@ -494,7 +433,10 @@ class Config {
 	 *                    false to disable.
 	 */
 	public static function set_product_quantity_sync( bool $value ): bool {
-		return update_option( '1984_woo_dk_product_quantity_sync', $value );
+		return update_option(
+			'1984_woo_dk_product_quantity_sync',
+			(int) $value
+		);
 	}
 
 	/**
@@ -507,12 +449,113 @@ class Config {
 	}
 
 	/**
-	 * Set wether prodct price sync is enabled by default
+	 * Set wether product name sync is enabled by default
 	 *
-	 * @param bool $value True to enable product sync by default,
-	 *                    false to disable.
+	 * @param bool $value True to enable product name sync, false to disable it.
 	 */
 	public static function set_product_name_sync( bool $value ): bool {
-		return update_option( '1984_woo_dk_product_name_sync', $value );
+		return (bool) update_option(
+			'1984_woo_dk_product_name_sync',
+			(int) $value
+		);
+	}
+
+	/**
+	 * Get wether invoices should be emailed to customers automatically
+	 *
+	 * @return bool True if enabled, false if disabled.
+	 */
+	public static function get_email_invoice(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_email_invoice',
+			true
+		);
+	}
+
+	/**
+	 * Set wether invoices should be emailed to customers automatically
+	 *
+	 * @param bool $value True to enable invoice emailing, false to disable it.
+	 */
+	public static function set_email_invoice( bool $value ): bool {
+		return update_option(
+			'1984_woo_dk_email_invoice',
+			(int) $value
+		);
+	}
+
+	/**
+	 * Get wether customers should request to have an invoice with a kennitala
+	 */
+	public static function get_customer_requests_kennitala_invoice(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_customer_requests_kennitala_invoice',
+			false
+		);
+	}
+
+	/**
+	 * Set wether customers should request to have an invoice with a kennitala
+	 *
+	 * @param bool $value True to make customers request having a kennitala on
+	 *                    their invoices, false to disable it.
+	 */
+	public static function set_customer_requests_kennitala_invoice(
+		bool $value
+	): bool {
+		return update_option(
+			'1984_woo_dk_customer_requests_kennitala_invoice',
+			(int) $value
+		);
+	}
+
+	/**
+	 * Get wether invoices should be made automatically if a kennitala is set for the order
+	 */
+	public static function get_make_invoice_if_kennitala_is_set(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_make_invoice_if_kennitala_is_set',
+			true
+		);
+	}
+
+	/**
+	 * Set wether invoices should be made automatically if a kennitala is set for the order
+	 *
+	 * @param bool $value True to enable automatic invoice generation if
+	 *                    kennitala is set for an order, false to disable it.
+	 */
+	public static function set_make_invoice_if_kennitala_is_set(
+		bool $value
+	): bool {
+		return (bool) update_option(
+			'1984_woo_dk_make_invoice_if_kennitala_is_set',
+			(int) $value
+		);
+	}
+
+	/**
+	 * Get wether an invoice should be made automatically for an orhder if a kennitala is missing
+	 */
+	public static function get_make_invoice_if_kennitala_is_missing(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_make_invoice_if_kennitala_is_missing',
+			true
+		);
+	}
+
+	/**
+	 * Set wether an invoice should be made automatically for an orhder if a kennitala is missing
+	 *
+	 * @param bool $value True to enable invoice generation if kennitala is
+	 *                    missing from an order, false if not.
+	 */
+	public static function set_make_invoice_if_kennitala_is_missing(
+		bool $value
+	): bool {
+		return (bool) update_option(
+			'1984_woo_dk_make_invoice_if_kennitala_is_missing',
+			(int) $value
+		);
 	}
 }

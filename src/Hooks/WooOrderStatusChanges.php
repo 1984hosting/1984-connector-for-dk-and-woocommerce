@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
+use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Export\Invoice as ExportInvoice;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
 use WC_Order;
@@ -54,13 +55,24 @@ class WooOrderStatusChanges {
 	 *
 	 * @param int $order_id The WooCommerce order ID.
 	 */
-	public static function maybe_send_invoice_on_payment( int $order_id ): void {
+	public static function maybe_send_invoice_on_payment(
+		int $order_id
+	): void {
 		$wc_order = new WC_Order( $order_id );
 
-		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
+		if ( false === empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
+			return;
+		}
+
+		$kennitala = OrderHelper::get_kennitala( $wc_order );
+
+		if (
+			( Config::get_default_kennitala() !== $kennitala ) &&
+			( ! Config::get_make_invoice_if_kennitala_is_set() )
+		) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice could not be created in DK for this order as an item in this order does not have a SKU.',
+					'An invoice was not created as the customer entered a kennitala. The invoice needs to be created manually in DK.',
 					'1984-dk-woo'
 				)
 			);
@@ -68,7 +80,28 @@ class WooOrderStatusChanges {
 			return;
 		}
 
-		if ( false === empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
+		if (
+			( Config::get_default_kennitala() === $kennitala ) &&
+			( ! Config::get_make_invoice_if_kennitala_is_missing() )
+		) {
+			$wc_order->add_order_note(
+				__(
+					'An invoice was not created as the customer did not enter a kennitala. The invoice needs to be created manually in DK.',
+					'1984-dk-woo'
+				)
+			);
+
+			return;
+		}
+
+		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
+			$wc_order->add_order_note(
+				__(
+					'An invoice could not be created in DK for this order as a line item in this order does not have a SKU.',
+					'1984-dk-woo'
+				)
+			);
+
 			return;
 		}
 
@@ -86,20 +119,22 @@ class WooOrderStatusChanges {
 				)
 			);
 
-			if ( true === ExportInvoice::email_in_dk( $wc_order ) ) {
-				$wc_order->add_order_note(
-					__(
-						'An email containing the invoice as a PDF attachment was sent to the customer.',
-						'1984-dk-woo'
-					)
-				);
-			} else {
-				$wc_order->add_order_note(
-					__(
-						'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-						'1984-dk-woo'
-					)
-				);
+			if ( Config::get_email_invoice() ) {
+				if ( true === ExportInvoice::email_in_dk( $wc_order ) ) {
+					$wc_order->add_order_note(
+						__(
+							'An email containing the invoice as a PDF attachment was sent to the customer.',
+							'1984-dk-woo'
+						)
+					);
+				} else {
+					$wc_order->add_order_note(
+						__(
+							'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
+							'1984-dk-woo'
+						)
+					);
+				}
 			}
 		} elseif ( false === $invoice_number ) {
 			$wc_order->add_order_note(
@@ -148,20 +183,22 @@ class WooOrderStatusChanges {
 				)
 			);
 
-			if ( true === ExportInvoice::email_in_dk( $wc_order, 'credit' ) ) {
-				$wc_order->add_order_note(
-					__(
-						'An email containing the credit invoice as a PDF attachment was sent to the customer.',
-						'1984-dk-woo'
-					)
-				);
-			} else {
-				$wc_order->add_order_note(
-					__(
-						'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-						'1984-dk-woo'
-					)
-				);
+			if ( Config::get_email_invoice() ) {
+				if ( true === ExportInvoice::email_in_dk( $wc_order, 'credit' ) ) {
+					$wc_order->add_order_note(
+						__(
+							'An email containing the credit invoice as a PDF attachment was sent to the customer.',
+							'1984-dk-woo'
+						)
+					);
+				} else {
+					$wc_order->add_order_note(
+						__(
+							'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
+							'1984-dk-woo'
+						)
+					);
+				}
 			}
 		} elseif ( false === $credit_invoice_number ) {
 			$wc_order->add_order_note(
