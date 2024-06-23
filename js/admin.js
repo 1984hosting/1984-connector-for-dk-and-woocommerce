@@ -43,6 +43,8 @@ class NineteenEightyWoo {
 		let productPriceSync    = Boolean( formData.get( 'product_price_sync' ) );
 		let productQuantitySync = Boolean( formData.get( 'product_quantity_sync' ) );
 		let productNameSync     = Boolean( formData.get( 'product_name_sync' ) );
+		let importNonwebProducts   = Boolean( formData.get( 'import_nonweb_products' ) );;
+		let deleteInactiveProducts = Boolean( formData.get( 'delete_inactive_products' ) );
 		let shippingSku         = formData.get( 'shipping_sku' ).trim();
 		let costSku             = formData.get( 'cost_sku' ).trim();
 		let defaultKennitala    = formData.get( 'default_kennitala' ).trim();
@@ -82,6 +84,8 @@ class NineteenEightyWoo {
 			product_price_sync: productPriceSync,
 			product_quantity_sync: productQuantitySync,
 			product_name_sync: productNameSync,
+			import_nonweb_products: importNonwebProducts,
+			delete_inactive_products: deleteInactiveProducts,
 			shipping_sku: shippingSku,
 			cost_sku: costSku,
 			default_kennitala: defaultKennitala,

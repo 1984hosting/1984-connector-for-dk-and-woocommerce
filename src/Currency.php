@@ -86,10 +86,14 @@ class Currency {
 	public static function convert(
 		int|float $amount,
 		string $from,
-		string $to = self::BASE_CURRENCY
+		string|null $to = null
 	): float|WP_Error {
 		if ( $from === $to ) {
 			return (float) $amount;
+		}
+
+		if ( is_null( $to ) ) {
+			$to = Config::get_dk_currency();
 		}
 
 		if ( 1 !== preg_match( self::CURRENCY_CODE_REGEX, $from ) ) {
