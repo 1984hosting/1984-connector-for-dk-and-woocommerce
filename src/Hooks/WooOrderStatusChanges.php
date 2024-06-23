@@ -55,31 +55,24 @@ class WooOrderStatusChanges {
 	 *
 	 * @param int $order_id The WooCommerce order ID.
 	 */
-	public static function maybe_send_invoice_on_payment( int $order_id ): void {
-		$wc_order  = new WC_Order( $order_id );
-		$kennitala = OrderHelper::get_kennitala( $wc_order );
+	public static function maybe_send_invoice_on_payment(
+		int $order_id
+	): void {
+		$wc_order = new WC_Order( $order_id );
 
-		if ( Config::get_default_kennitala() === $kennitala ) {
-			if ( ! Config::get_make_invoice_if_kennitala_is_missing() ) {
-				return;
-			}
-		} else {
-			if ( ! Config::get_make_invoice_if_kennitala_is_set() ) {
-				return;
-			}
-
-			if (
-				Config::get_customer_requests_kennitala_invoice() &&
-				! OrderHelper::get_kennitala_invoice_requested( $wc_order )
-			) {
-				return;
-			}
+		if ( false === empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
+			return;
 		}
 
-		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
+		$kennitala = OrderHelper::get_kennitala( $wc_order );
+
+		if (
+			( Config::get_default_kennitala() !== $kennitala ) &&
+			( ! Config::get_make_invoice_if_kennitala_is_set() )
+		) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice could not be created in DK for this order as an item in this order does not have a SKU.',
+					'An invoice was not created as the customer entered a kennitala. The invoice needs to be created manually in DK.',
 					'1984-dk-woo'
 				)
 			);
@@ -87,7 +80,28 @@ class WooOrderStatusChanges {
 			return;
 		}
 
-		if ( false === empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
+		if (
+			( Config::get_default_kennitala() === $kennitala ) &&
+			( ! Config::get_make_invoice_if_kennitala_is_missing() )
+		) {
+			$wc_order->add_order_note(
+				__(
+					'An invoice was not created as the customer did not enter a kennitala. The invoice needs to be created manually in DK.',
+					'1984-dk-woo'
+				)
+			);
+
+			return;
+		}
+
+		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
+			$wc_order->add_order_note(
+				__(
+					'An invoice could not be created in DK for this order as a line item in this order does not have a SKU.',
+					'1984-dk-woo'
+				)
+			);
+
 			return;
 		}
 
@@ -105,20 +119,22 @@ class WooOrderStatusChanges {
 				)
 			);
 
-			if ( true === ExportInvoice::email_in_dk( $wc_order ) ) {
-				$wc_order->add_order_note(
-					__(
-						'An email containing the invoice as a PDF attachment was sent to the customer.',
-						'1984-dk-woo'
-					)
-				);
-			} else {
-				$wc_order->add_order_note(
-					__(
-						'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-						'1984-dk-woo'
-					)
-				);
+			if ( Config::get_email_invoice() ) {
+				if ( true === ExportInvoice::email_in_dk( $wc_order ) ) {
+					$wc_order->add_order_note(
+						__(
+							'An email containing the invoice as a PDF attachment was sent to the customer.',
+							'1984-dk-woo'
+						)
+					);
+				} else {
+					$wc_order->add_order_note(
+						__(
+							'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
+							'1984-dk-woo'
+						)
+					);
+				}
 			}
 		} elseif ( false === $invoice_number ) {
 			$wc_order->add_order_note(
