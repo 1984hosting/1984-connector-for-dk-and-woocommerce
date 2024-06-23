@@ -464,6 +464,11 @@ class Config {
 		return (bool) get_option( '1984_woo_dk_product_name_sync', true );
 	}
 
+	/**
+	 * Get wether invoices should be emailed to customers automatically
+	 *
+	 * @return bool True if enabled, false if disabled.
+	 */
 	public static function get_email_invoice(): bool {
 		return (bool) get_option(
 			'1984_woo_dk_email_invoice',
@@ -471,6 +476,11 @@ class Config {
 		);
 	}
 
+	/**
+	 * Set wether invoices should be emailed to customers automatically
+	 *
+	 * @param bool $value True to enable invoice emailing, false to disable it.
+	 */
 	public static function set_email_invoice( bool $value ): bool {
 		return update_option(
 			'1984_woo_dk_email_invoice',
@@ -478,6 +488,9 @@ class Config {
 		);
 	}
 
+	/**
+	 * Get wether customers should request to have an invoice with a kennitala
+	 */
 	public static function get_customer_requests_kennitala_invoice(): bool {
 		return (bool) get_option(
 			'1984_woo_dk_customer_requests_kennitala_invoice',
@@ -485,6 +498,12 @@ class Config {
 		);
 	}
 
+	/**
+	 * Set wether customers should request to have an invoice with a kennitala
+	 *
+	 * @param bool $value True to make customers request having a kennitala on
+	 *                    their invoices, false to disable it.
+	 */
 	public static function set_customer_requests_kennitala_invoice(
 		bool $value
 	): bool {
@@ -494,6 +513,9 @@ class Config {
 		);
 	}
 
+	/**
+	 * Get wether invoices should be made automatically if a kennitala is set for the order
+	 */
 	public static function get_make_invoice_if_kennitala_is_set(): bool {
 		return (bool) get_option(
 			'1984_woo_dk_make_invoice_if_kennitala_is_set',
@@ -501,6 +523,12 @@ class Config {
 		);
 	}
 
+	/**
+	 * Set wether invoices should be made automatically if a kennitala is set for the order
+	 *
+	 * @param bool $value True to enable automatic invoice generation if
+	 *                    kennitala is set for an order, false to disable it.
+	 */
 	public static function set_make_invoice_if_kennitala_is_set(
 		bool $value
 	): bool {
@@ -510,6 +538,9 @@ class Config {
 		);
 	}
 
+	/**
+	 * Get wether an invoice should be made automatically for an orhder if a kennitala is missing
+	 */
 	public static function get_make_invoice_if_kennitala_is_missing(): bool {
 		return (bool) get_option(
 			'1984_woo_dk_make_invoice_if_kennitala_is_missing',
@@ -517,6 +548,12 @@ class Config {
 		);
 	}
 
+	/**
+	 * Set wether an invoice should be made automatically for an orhder if a kennitala is missing
+	 *
+	 * @param bool $value True to enable invoice generation if kennitala is
+	 *                    missing from an order, false if not.
+	 */
 	public static function set_make_invoice_if_kennitala_is_missing(
 		bool $value
 	): bool {

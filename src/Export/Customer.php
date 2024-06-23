@@ -85,7 +85,9 @@ class Customer {
 	/**
 	 * Check if a WooCommerce customer has a corresponding customer record in DK
 	 *
-	 * @param WC_Customer $customer The WooCommerce customer.
+	 * @param WC_Customer|string $customer The WooCommerce customer or the
+	 *                           associated kennitala or customer number as a
+	 *                           string.
 	 *
 	 * @return bool|WP_Error True if the customer exsists in DK, false if
 	 *                       connection was established but the request was

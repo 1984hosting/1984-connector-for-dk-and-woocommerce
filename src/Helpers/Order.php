@@ -33,6 +33,14 @@ class Order {
 		return true;
 	}
 
+	/**
+	 * Get the kennitala from an order
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 *
+	 * @return string The kennitala on success. If none is found, the default
+	 *                kennitala is returned.
+	 */
 	public static function get_kennitala( WC_Order $wc_order ): string {
 		$block_kennitala = $wc_order->get_meta(
 			'_wc_other/1984_woo_dk/kennitala',
@@ -67,6 +75,13 @@ class Order {
 		return Config::get_default_kennitala();
 	}
 
+	/**
+	 * Get wether the customer requested to have a kennitala on the invoice
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 *
+	 * @return bool True if it was requested, false if not.
+	 */
 	public static function get_kennitala_invoice_requested(
 		WC_Order $wc_order
 	): bool {
