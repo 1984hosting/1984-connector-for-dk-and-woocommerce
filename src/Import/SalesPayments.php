@@ -27,6 +27,40 @@ class SalesPayments {
 		'TGR',
 	);
 
+	const DK_PAYMENT_TERMS = array(
+		'D15',
+		'D20',
+		'D30',
+		'LM',
+		'M15',
+		'M20',
+		'POST',
+		'STGR',
+	);
+
+	public static function get_payment_term_name( string $key ): string {
+		switch ( $key ) {
+			case 'D15':
+				return __( '15 Day Payment Deadline (D15)', '1984-dk-woo' );
+			case 'D20':
+				return __( '30 Day Payment Deadline (D20)', '1984-dk-woo' );
+			case 'D30':
+				return __( '30 Day Payment Deadline (D30)', '1984-dk-woo' );
+			case 'LM':
+				return __( 'Current Month (LM)', '1984-dk-woo' );
+			case 'M15':
+				return __( 'Current Month + 15 Days (M15)', '1984-dk-woo' );
+			case 'M20':
+				return __( 'Current Month + 20 Days (M20)', '1984-dk-woo' );
+			case 'POST':
+				return __( 'Postal COD (POST)', '1984-dk-woo' );
+			case 'STGR':
+				return __( 'Cash Payment (STGR)', '1984-dk-woo' );
+		}
+
+		return $key;
+	}
+
 	/**
 	 * Get the name of a payment mode from key
 	 *
@@ -52,9 +86,9 @@ class SalesPayments {
 				return __( 'Cash Payment (STGR)', '1984-dk-woo' );
 			case 'TGR':
 				return __( 'Cheque Payment (TGR)', '1984-dk-woo' );
-			default:
-				return false;
 		}
+
+		return $key;
 	}
 
 	/**

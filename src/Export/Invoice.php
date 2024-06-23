@@ -204,14 +204,11 @@ class Invoice {
 
 		$invoice_body['SalesPerson'] = Config::get_default_sales_person_number();
 
-		if ( true === $wc_order->is_paid() ) {
-			$payment_mapping = Config::get_payment_mapping(
-				$wc_order->get_payment_method()
-			);
+		$payment_mapping = Config::get_payment_mapping(
+			$wc_order->get_payment_method()
+		);
 
-			$invoice_body['Mode'] = strtolower(
-				$payment_mapping->dk_mode
-			);
+		if ( true === $wc_order->is_paid() ) {
 
 			$invoice_body['Payments'] = array(
 				array(
@@ -221,6 +218,9 @@ class Invoice {
 				),
 			);
 		}
+
+		$invoice_body['Mode'] = $payment_mapping->dk_mode;
+		$invoice_body['Term'] = $payment_mapping->dk_term;
 
 		return $invoice_body;
 	}

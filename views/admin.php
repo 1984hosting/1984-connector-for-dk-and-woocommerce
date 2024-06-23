@@ -7,8 +7,6 @@ use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 
-$wc_payment_gateways = new WC_Payment_Gateways();
-
 ?>
 <div
 	class="wrap nineteen-eighty-woo-wrap"
@@ -197,8 +195,16 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 			<h2><?php esc_html_e( 'Payment Gateways', '1984-dk-woo' ); ?></h2>
 			<p><?php esc_html_e( 'Please select the payment method name for each payment gateway as it appears in DK as well as the payment mode:', '1984-dk-woo' ); ?></p>
 			<table id="payment-gateway-id-map-table" class="form-table">
+				<thead>
+					<tr>
+						<th span="col"></th>
+						<th span="col">Method ID in DK</th>
+						<th span="col">Payment Mode in DK</th>
+						<th span="col">Payment Terms in DK</th>
+					</tr>
+				</thead>
 				<tbody>
-					<?php foreach ( $wc_payment_gateways->payment_gateways as $p ) : ?>
+					<?php foreach ( ( new WC_Payment_Gateways() )->payment_gateways as $p ) : ?>
 						<?php
 						if ( 'no' === $p->enabled ) {
 							continue;
@@ -223,7 +229,7 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 									<?php foreach ( SalesPayments::get_methods() as $dk_method ) : ?>
 										<option
 											value="<?php echo esc_attr( $dk_method->dk_id ); ?>"
-											<?php echo esc_attr( Config::payment_mapping_matches( $p->id, $dk_method->dk_id ) ? 'selected="true"' : '' ); ?>
+											<?php echo esc_attr( Config::payment_mapping_matches( $p->id, $dk_method->dk_id ) ? 'selected=true' : '' ); ?>
 										>
 											<?php echo esc_attr( $dk_method->dk_name ); ?> (<?php echo esc_attr( $dk_method->dk_id ); ?>)
 										</option>
@@ -235,10 +241,11 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 									id="payment_mode_input_<?php echo esc_attr( $p->id ); ?>"
 									name="payment_mode"
 								>
+									<option></option>
 									<?php foreach ( SalesPayments::DK_PAYMENT_MODES as $payment_mode ) : ?>
 										<option
 											value="<?php echo esc_attr( $payment_mode ); ?>"
-											<?php echo esc_attr( Config::payment_mode_matches( $p->id, $payment_mode ) ? 'selected="true"' : '' ); ?>
+											<?php echo esc_attr( Config::payment_mode_matches( $p->id, $payment_mode ) ? 'selected=true' : '' ); ?>
 										>
 											<?php
 											echo esc_attr(
@@ -247,6 +254,22 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 												)
 											);
 											?>
+										</option>
+									<?php endforeach ?>
+								</select>
+							</td>
+							<td>
+								<select
+									id="payment_term_input_<?php echo esc_attr( $p->id ); ?>"
+									name="payment_term"
+								>
+									<option></option>
+									<?php foreach ( SalesPayments::DK_PAYMENT_TERMS as $payment_term ) : ?>
+										<option
+											value="<?php echo esc_attr( $payment_term ); ?>"
+											<?php echo esc_attr( Config::payment_term_matches( $p->id, $payment_term ) ? 'selected=true' : '' ); ?>
+										>
+											<?php echo esc_attr( SalesPayments::get_payment_term_name( $payment_term ) ); ?>
 										</option>
 									<?php endforeach ?>
 								</select>
