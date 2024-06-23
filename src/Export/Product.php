@@ -374,12 +374,6 @@ class Product {
 			'Inactive'               => false,
 		);
 
-		if ( 'reduced-rate' === $wc_product->get_tax_class( 'edit' ) ) {
-			$product_props['SalesLedgerCode'] = Config::get_ledger_code( 'reduced' );
-		} else {
-			$product_props['SalesLedgerCode'] = Config::get_ledger_code( 'standard' );
-		}
-
 		if ( true === wc_prices_include_tax() ) {
 			$product_props['UnitPrice1WithTax'] = $wc_product->get_regular_price();
 		} else {

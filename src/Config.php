@@ -4,9 +4,6 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo;
 
-use NineteenEightyFour\NineteenEightyWoo\Export\Employee as ExportEmployee;
-use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson as ExportSalesPerson;
-use NineteenEightyFour\NineteenEightyWoo\Export\ServiceSKU as ExportServiceSKU;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments as ImportSalesPayments;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 use stdClass;
