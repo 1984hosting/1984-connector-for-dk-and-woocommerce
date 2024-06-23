@@ -433,7 +433,10 @@ class Config {
 	 *                    false to disable.
 	 */
 	public static function set_product_price_sync( bool $value ): bool {
-		return update_option( '1984_woo_dk_product_price_sync', $value );
+		return update_option(
+			'1984_woo_dk_product_price_sync',
+			(int) $value
+		);
 	}
 
 	/**
@@ -452,7 +455,10 @@ class Config {
 	 *                    false to disable.
 	 */
 	public static function set_product_quantity_sync( bool $value ): bool {
-		return update_option( '1984_woo_dk_product_quantity_sync', $value );
+		return update_option(
+			'1984_woo_dk_product_quantity_sync',
+			(int) $value
+		);
 	}
 
 	/**
@@ -462,6 +468,13 @@ class Config {
 	 */
 	public static function get_product_name_sync(): bool {
 		return (bool) get_option( '1984_woo_dk_product_name_sync', true );
+	}
+
+	public static function set_product_name_sync( bool $value ): bool {
+		return (bool) update_option(
+			'1984_woo_dk_product_name_sync',
+			(int) $value
+		);
 	}
 
 	/**

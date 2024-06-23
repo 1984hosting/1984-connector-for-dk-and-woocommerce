@@ -154,26 +154,18 @@ class Settings {
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'ledger_code_shipping' ) ) {
-			Config::set_ledger_code(
-				'shipping',
-				$rest_json->ledger_code_shipping
-			);
-		}
-
-		if ( true === property_exists( $rest_json, 'ledger_code_costs' ) ) {
-			Config::set_ledger_code(
-				'costs',
-				$rest_json->ledger_code_costs
-			);
-		}
-
 		if ( true === property_exists( $rest_json, 'shipping_sku' ) ) {
 			Config::set_shipping_sku( $rest_json->shipping_sku );
 		}
 
 		if ( true === property_exists( $rest_json, 'cost_sku' ) ) {
 			Config::set_cost_sku( $rest_json->cost_sku );
+		}
+
+		if ( true === property_exists( $rest_json, 'default_sales_person' ) ) {
+			Config::set_default_sales_person_number(
+				$rest_json->default_sales_person
+			);
 		}
 
 		if ( true === property_exists( $rest_json, 'default_kennitala' ) ) {
@@ -208,10 +200,6 @@ class Settings {
 			Config::set_email_invoice(
 				$rest_json->email_invoice
 			);
-		}
-
-		if ( true === property_exists( $rest_json, 'default_warehouse' ) ) {
-			Config::set_default_warehouse( $rest_json->default_warehouse );
 		}
 
 		if (
