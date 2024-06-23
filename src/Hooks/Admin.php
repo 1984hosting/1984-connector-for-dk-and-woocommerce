@@ -111,6 +111,21 @@ class Admin {
 		);
 	}
 
+	/**
+	 * Generate text and attributes for service SKU info text
+	 *
+	 * Checks if a SKU exists in DK and generates an object containing the
+	 * attributes `text`, `class` and `dashicon` for displaying below the
+	 * relevant text input in the admin form.
+	 *
+	 * @param string $sku The SKU to check for in DK.
+	 *
+	 * @return stdClass{
+	 *     'text': string,
+	 *     'class': string,
+	 *     'dashicon': string
+	 * }
+	 */
 	public static function info_for_service_sku( string $sku ): stdClass {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			$text = sprintf(
@@ -159,7 +174,22 @@ class Admin {
 		);
 	}
 
-	public static function info_for_sales_person( string $sku ): stdClass {
+	/**
+	 * Generate text and attributes for the default sales person info text
+	 *
+	 * Checks if a sales person exsist with a specific number and generates an
+	 * object containing the information as properties for displaying below the
+	 * relevant text input in the admin form.
+	 *
+	 * @param string $number The sales person number to check for in DK.
+	 *
+	 * @return stdClass{
+	 *     'text': string,
+	 *     'class': string,
+	 *     'dashicon': string
+	 * }
+	 */
+	public static function info_for_sales_person( string $number ): stdClass {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant sales person number.
@@ -167,21 +197,21 @@ class Admin {
 					'Please make sure that a sales person with the number ‘%s’ exsists in DK before saving.',
 					'1984-dk-woo'
 				),
-				esc_html( $sku )
+				esc_html( $number )
 			);
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
 		}
 
-		if ( true === SalesPerson::is_in_dk( $sku ) ) {
+		if ( true === SalesPerson::is_in_dk( $number ) ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant sales person number.
 				__(
 					'A sales person with the number ‘%s’ was found in DK.',
 					'1984-dk-woo'
 				),
-				esc_html( $sku )
+				esc_html( $number )
 			);
 
 			$class    = 'ok';
@@ -193,7 +223,7 @@ class Admin {
 					'A sales person with the number ‘%s’ was not found in DK.',
 					'1984-dk-woo'
 				),
-				esc_html( $sku )
+				esc_html( $number )
 			);
 
 			$class    = 'error';
@@ -207,6 +237,19 @@ class Admin {
 		);
 	}
 
+	/**
+	 * Generate text and attributes for the default kennitala infor text
+	 *
+	 * Checks if a customer record exsist using the default kennitala and
+	 * generates an object containing the information as properties for
+	 * displaying below the relevant text input in the admin form.
+	 *
+	 * @return stdClass{
+	 *     'text': string,
+	 *     'class': string,
+	 *     'dashicon': string
+	 * }
+	 */
 	public static function info_for_default_kennitala(): stdClass {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			$text = sprintf(
