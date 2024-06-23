@@ -448,6 +448,11 @@ class Config {
 		return (bool) get_option( '1984_woo_dk_product_name_sync', true );
 	}
 
+	/**
+	 * Set wether product name sync is enabled by default
+	 *
+	 * @param bool $value True to enable product name sync, false to disable it.
+	 */
 	public static function set_product_name_sync( bool $value ): bool {
 		return (bool) update_option(
 			'1984_woo_dk_product_name_sync',
