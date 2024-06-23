@@ -153,6 +153,11 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								type="text"
 								value="<?php echo esc_attr( KennitalaField::format_kennitala( Config::get_default_kennitala() ) ); ?>"
 							/>
+							<?php $info_for_default_kennitala = Admin::info_for_default_kennitala(); ?>
+							<p class="infotext <?php echo esc_attr( $info_for_default_kennitala->css_class ); ?>">
+								<span class="dashicons <?php echo esc_attr( $info_for_default_kennitala->dashicon ); ?>"></span>
+								<?php echo esc_html( $info_for_default_kennitala->text ); ?>
+							</p>
 							<p class="description">
 								<?php
 								esc_html_e(
@@ -308,6 +313,11 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								type="text"
 								value="<?php echo esc_attr( Config::get_shipping_sku() ); ?>"
 							/>
+							<?php $info_for_shipping_sku = Admin::info_for_service_sku( Config::get_shipping_sku() ); ?>
+							<p class="infotext <?php echo esc_attr( $info_for_shipping_sku->css_class ); ?>">
+								<span class="dashicons <?php echo esc_attr( $info_for_shipping_sku->dashicon ); ?>"></span>
+								<?php echo esc_html( $info_for_shipping_sku->text ); ?>
+							</p>
 						</td>
 					</tr>
 					<tr>
@@ -323,6 +333,11 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								type="text"
 								value="<?php echo esc_attr( Config::get_cost_sku() ); ?>"
 							/>
+							<?php $info_for_cost_sku = Admin::info_for_service_sku( Config::get_cost_sku() ); ?>
+							<p class="infotext <?php echo esc_attr( $info_for_cost_sku->css_class ); ?>">
+								<span class="dashicons <?php echo esc_attr( $info_for_cost_sku->dashicon ); ?>"></span>
+								<?php echo esc_html( $info_for_cost_sku->text ); ?>
+							</p>
 						</td>
 					</tr>
 					<tr>
@@ -338,6 +353,11 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 								type="text"
 								value="<?php echo esc_attr( Config::get_default_sales_person_number() ); ?>"
 							/>
+							<?php $info_for_sales_person = Admin::info_for_sales_person( Config::get_default_sales_person_number() ); ?>
+							<p class="infotext <?php echo esc_attr( $info_for_sales_person->css_class ); ?>">
+								<span class="dashicons <?php echo esc_attr( $info_for_sales_person->dashicon ); ?>"></span>
+								<?php echo esc_html( $info_for_sales_person->text ); ?>
+							</p>
 						</td>
 					</tr>
 

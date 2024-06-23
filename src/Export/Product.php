@@ -260,21 +260,27 @@ class Product {
 	 * Checks if a product record exsists in DK with a ProductCode attribute
 	 * that equals a WooCommerce product's SKU.
 	 *
-	 * @param WC_Product $wc_product The WooCommerce product.
+	 * @param WC_Product|sku $wc_product The WooCommerce product or its SKU.
 	 *
 	 * @return bool|WP_Error True on success, false if connection was
 	 *                       established but the request was rejected, WC_Error
 	 *                       if there was a connection error.
 	 */
-	public static function is_in_dk( WC_Product $wc_product ): bool|WP_Error {
-		if ( false === (bool) $wc_product->get_sku() ) {
-			return false;
+	public static function is_in_dk( WC_Product|string $wc_product ): bool|WP_Error {
+		if ( is_string( $wc_product ) ) {
+			$sku = $wc_product;
+		} else {
+			if ( false === (bool) $wc_product->get_sku() ) {
+				return false;
+			}
+
+			$sku = $wc_product->get_sku();
 		}
 
 		$api_request = new DKApiRequest();
 
 		$result = $api_request->get_result(
-			self::API_PATH . $wc_product->get_sku()
+			self::API_PATH . $sku
 		);
 
 		if ( $result instanceof WP_Error ) {
