@@ -72,6 +72,7 @@ class Config {
 	 * @param string $woo_id The alphanumeric WooCommerce payment ID.
 	 * @param int    $dk_id The payment method ID in DK.
 	 * @param string $dk_mode The payment mode from DK.
+	 * @param string $dk_term The payment term code from DK.
 	 *
 	 * @return bool True if the mapping is saved in the wp_options table, false if not.
 	 */
@@ -181,6 +182,12 @@ class Config {
 		return false;
 	}
 
+	/**
+	 * Check if WooCommerce Payment Gateway ID and DK Payment Mode match
+	 *
+	 * @param string $woo_id The WooCommrece gateway ID.
+	 * @param string $dk_term The DK payment term code.
+	 */
 	public static function payment_term_matches(
 		string $woo_id,
 		string $dk_term

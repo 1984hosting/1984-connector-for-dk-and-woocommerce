@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Import;
 
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
+use NineteenEightyFour\NineteenEightyWoo\Config;
 use stdClass;
 use WP_Error;
 
@@ -38,6 +39,34 @@ class SalesPayments {
 		'STGR',
 	);
 
+	/**
+	 * Get payment terms from the DK API
+	 */
+	public static function get_payment_terms_from_dk(): array|WP_Error|false {
+		$request = new DKApiRequest();
+		$result  = $request->get_result(
+			'/general/table/ARPTERM.DAT/records?legacy=true&fields=CODE,DESCRIPTION'
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( 200 !== $result->response_code ) {
+			return false;
+		}
+
+		return $result->data;
+	}
+
+	/**
+	 * Get the name of a payment term from key
+	 *
+	 * @param string $key The payment term key from DK_PAYMENT_TERMS.
+	 *
+	 * @return string A "translated" name for the key, or just the key itself if
+	 *                it is not defined in DK_PAYMENT_TERMS.
+	 */
 	public static function get_payment_term_name( string $key ): string {
 		switch ( $key ) {
 			case 'D15':
@@ -62,11 +91,57 @@ class SalesPayments {
 	}
 
 	/**
+	 * Get payment term codes
+	 *
+	 * If the API key has been set, returns the payment term codes from the
+	 * relevant database table in DK.
+	 *
+	 * If the API key has not been set, or if there is a connection error, the
+	 * contents of DK_PAYMENT_TERMS will be returned.
+	 *
+	 * @return array<string>
+	 */
+	public static function get_payment_terms(): array {
+		if ( ! empty( Config::get_dk_api_key() ) ) {
+			$terms = self::get_payment_terms_from_dk();
+			if ( is_array( $terms ) ) {
+				return array_column( $terms, 'CODE' );
+			}
+		}
+
+		return self::DK_PAYMENT_TERMS;
+	}
+
+	/**
+	 * Get payment modes form the DK API
+	 *
+	 * @return array<string>
+	 */
+	public static function get_payment_modes_from_dk(): array {
+		$request = new DKApiRequest();
+		$result  = $request->get_result(
+			'/general/table/ARPMODE.DAT/records?legacy=true&fields=CODE,DESCRIPTION'
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( 200 !== $result->response_code ) {
+			return false;
+		}
+
+		return $result->data;
+	}
+
+	/**
 	 * Get the name of a payment mode from key
 	 *
 	 * @param string $key The payment mode key from DK_PAYMENT_MODES.
 	 *
-	 * @return string The full name of the payment mode.
+	 * @return string The full name of the payment mode. If the key is not
+	 *                defined in DK_PAYMENT_MODES, only the key itself is
+	 *                returned.
 	 */
 	public static function get_payment_mode_name( string $key ): string {
 		switch ( $key ) {
@@ -89,6 +164,24 @@ class SalesPayments {
 		}
 
 		return $key;
+	}
+
+	/**
+	 * Get payment modes
+	 *
+	 * If the API key has been set, returns the payment mode codes from the
+	 * relevant database table in DK.
+	 *
+	 * If the API has not been set, or if there is a connection error, the
+	 * contents of DK_PAYMENT_MODES will be returned.
+	 */
+	public static function get_payment_modes(): array {
+		if ( ! empty( Config::get_dk_api_key() ) ) {
+			$modes = self::get_payment_modes_from_dk();
+			return array_column( $modes, 'CODE' );
+		}
+
+		return self::DK_PAYMENT_MODES;
 	}
 
 	/**
@@ -130,7 +223,7 @@ class SalesPayments {
 			return false;
 		}
 
-		return self::convert_json_response( $result->data );
+		return self::convert_json_response_for_methods( $result->data );
 	}
 
 	/**
@@ -156,7 +249,7 @@ class SalesPayments {
 	 * @param array $json_response The already-decoded JSON data as it comes
 	 *                             from the API.
 	 */
-	public static function convert_json_response(
+	public static function convert_json_response_for_methods(
 		array $json_response
 	): array {
 		$methods = array();

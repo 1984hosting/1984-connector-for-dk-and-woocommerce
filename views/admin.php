@@ -415,7 +415,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 									name="payment_mode"
 								>
 									<option></option>
-									<?php foreach ( SalesPayments::DK_PAYMENT_MODES as $payment_mode ) : ?>
+									<?php foreach ( SalesPayments::get_payment_modes() as $payment_mode ) : ?>
 										<option
 											value="<?php echo esc_attr( $payment_mode ); ?>"
 											<?php echo esc_attr( Config::payment_mode_matches( $p->id, $payment_mode ) ? 'selected=true' : '' ); ?>
@@ -437,7 +437,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 									name="payment_term"
 								>
 									<option></option>
-									<?php foreach ( SalesPayments::DK_PAYMENT_TERMS as $payment_term ) : ?>
+									<?php foreach ( SalesPayments::get_payment_terms() as $payment_term ) : ?>
 										<option
 											value="<?php echo esc_attr( $payment_term ); ?>"
 											<?php echo esc_attr( Config::payment_term_matches( $p->id, $payment_term ) ? 'selected=true' : '' ); ?>
