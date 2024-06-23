@@ -6,9 +6,10 @@ namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Export\Customer as ExportCustomer;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
+use NineteenEightyFour\NineteenEightyWoo\Export\Customer as ExportCustomer;
 use WC_Customer;
 use WC_Order;
 use WC_Product_Variation;
@@ -124,17 +125,23 @@ class Order {
 	 * @param WC_Order $wc_order The WooCommerce order object.
 	 */
 	public static function to_dk_order_body( WC_Order $wc_order ): array {
+		$order_props     = array();
 		$customer_array  = array();
 		$recipient_array = array();
 
-		$customer_array['Number']   = self::assume_dk_customer_number( $wc_order );
-		$customer_array['Name']     = $wc_order->get_formatted_billing_full_name();
-		$customer_array['Address1'] = $wc_order->get_billing_address_1();
-		$customer_array['Address2'] = $wc_order->get_billing_address_2();
-		$customer_array['City']     = $wc_order->get_billing_city();
-		$customer_array['ZipCode']  = $wc_order->get_billing_postcode();
-		$customer_array['Phone']    = $wc_order->get_billing_phone();
-		$customer_array['Email']    = $wc_order->get_billing_email();
+		$order_props['Reference'] = 'WC-' . $wc_order->get_id();
+
+		$customer_array['Number'] = OrderHelper::get_kennitala( $wc_order );
+
+		if ( ! ExportCustomer::is_in_dk( OrderHelper::get_kennitala( $wc_order ) ) ) {
+			$customer_array['Name']     = $wc_order->get_formatted_billing_full_name();
+			$customer_array['Address1'] = $wc_order->get_billing_address_1();
+			$customer_array['Address2'] = $wc_order->get_billing_address_2();
+			$customer_array['City']     = $wc_order->get_billing_city();
+			$customer_array['ZipCode']  = $wc_order->get_billing_postcode();
+			$customer_array['Phone']    = $wc_order->get_billing_phone();
+			$customer_array['Email']    = $wc_order->get_billing_email();
+		}
 
 		$recipient_array['Name']     = $wc_order->get_formatted_billing_full_name();
 		$recipient_array['Address1'] = $wc_order->get_shipping_address_1();
@@ -169,7 +176,10 @@ class Order {
 				'ItemCode'     => $sku,
 				'Text'         => $item->get_name(),
 				'Quantity'     => $item->get_quantity(),
-				'Price'        => $wc_order->get_item_total( $item, wc_prices_include_tax() ),
+				'Price'        => $wc_order->get_item_total(
+					$item,
+					wc_prices_include_tax()
+				),
 				'IncludingVAT' => wc_prices_include_tax(),
 			);
 
@@ -207,13 +217,18 @@ class Order {
 					continue;
 				}
 
+				$shipping_price_with_tax = (
+					$shipping_method->get_total() +
+					$shipping_method->get_total_tax()
+				);
+
 				$order_props['Lines'][] = array(
 					'ItemCode'     => Config::get_shipping_sku(),
 					'Text'         => __( 'Shipping', '1984-dk-woo' ),
 					'Text2'        => $shipping_method->get_method_title(),
 					'Quantity'     => 1,
 					'Price'        => $shipping_method->get_total(),
-					'IncludingVAT' => false,
+					'IncludingVAT' => $shipping_price_with_tax,
 				);
 			}
 		}
@@ -263,21 +278,12 @@ class Order {
 	public static function assume_dk_customer_number(
 		WC_Order $wc_order
 	): string {
-		$billing_kennitala = KennitalaField::get_kennitala_from_order(
-			$wc_order
-		);
+		$billing_kennitala = OrderHelper::get_kennitala( $wc_order );
 
-		$customer_id = $wc_order->get_customer_id();
-
-		if ( true === empty( $billing_kennitala ) ) {
-			if ( 0 === $customer_id ) {
-				return Config::get_default_kennitala();
-			} else {
-				$customer = new WC_Customer( $customer_id );
-				return ExportCustomer::assume_dk_customer_number( $customer );
-			}
+		if ( ! empty( $billing_kennitala ) ) {
+			return $billing_kennitala;
 		}
 
-		return $billing_kennitala;
+		return Config::get_default_kennitala();
 	}
 }
