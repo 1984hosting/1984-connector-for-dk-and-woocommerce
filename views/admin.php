@@ -193,34 +193,6 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 						</th>
 						<td>
 							<input
-								id="customer_requests_kennitala_invoice_field"
-								name="customer_requests_kennitala_invoice"
-								type="checkbox"
-								<?php echo esc_attr( Config::get_customer_requests_kennitala_invoice() ? 'checked' : '' ); ?>
-							/>
-							<label for="customer_requests_kennitala_invoice_field">
-								<?php
-								esc_html_e(
-									'Customers Need to Request to have a Kennitala on Invoices',
-									'1984-dk-woo'
-								);
-								?>
-							</label>
-							<p class="description">
-								<?php
-								esc_html_e(
-									'If this is enabled, a checkbox is added to the checkout form, that the customer needs to tick in order to have a kennitala assigned to their invoice.',
-									'1984-dk-woo'
-								);
-								?>
-							</p>
-						</td>
-					</tr>
-					<tr>
-						<th span="row" class="column-title column-primary">
-						</th>
-						<td>
-							<input
 								id="make_invoice_if_kennitala_is_set_field"
 								name="make_invoice_if_kennitala_is_set"
 								type="checkbox"
@@ -300,6 +272,35 @@ $wc_payment_gateways = new WC_Payment_Gateways();
 							</p>
 						</td>
 					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="customer_requests_kennitala_invoice_field"
+								name="customer_requests_kennitala_invoice"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_customer_requests_kennitala_invoice() ? 'checked' : '' ); ?>
+							/>
+							<label for="customer_requests_kennitala_invoice_field">
+								<?php
+								esc_html_e(
+									'Customers Need to Request to have a Kennitala on Invoices',
+									'1984-dk-woo'
+								);
+								?>
+							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'If this is enabled, a checkbox is added to the checkout form, that the customer needs to tick in order to have a kennitala assigned to their invoice, or the invoice will be treated like one with out a kennitala.',
+									'1984-dk-woo'
+								);
+								?>
+							</p>
+						</td>
+					</tr>
+
 					<tr>
 						<th span="row" class="column-title column-primary">
 							<label for="shipping_sku_field">
