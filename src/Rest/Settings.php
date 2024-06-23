@@ -41,7 +41,8 @@ class Settings {
 					"type": "object",
 					"properties": {
 						"woo_id": { "type": "string" },
-						"dk_id": { "type": "number" }
+						"dk_id": { "type": "number" },
+						"dk_term": { "type": "string" }
 					},
 					"required": ["woo_id", "dk_id" ]
 				}
@@ -218,6 +219,7 @@ class Settings {
 				$p->woo_id,
 				$p->dk_id,
 				$p->dk_mode,
+				$p->dk_term,
 			);
 		}
 

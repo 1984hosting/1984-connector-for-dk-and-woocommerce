@@ -50,6 +50,7 @@ class NineteenEightyWoo {
 		let defaultSalesPerson  = formData.get( 'default_sales_person' ).trim();
 		let paymentIds          = formData.getAll( 'payment_id' );
 		let paymentModes        = formData.getAll( 'payment_mode' );
+		let paymentTerms        = formData.getAll( 'payment_term' );
 		let ledgerCodeStandard  = formData.get( 'ledger_code_standard' ).trim();
 		let ledgerCodeReduced   = formData.get( 'ledger_code_reduced' ).trim();
 
@@ -60,6 +61,7 @@ class NineteenEightyWoo {
 			let wooId  = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
 			let dkId   = parseInt( paymentIds[i] );
 			let dkMode = paymentModes[i];
+			let dkTerm = paymentTerms[i];
 
 			if (isNaN( dkId )) {
 				dkId = 0;
@@ -70,6 +72,7 @@ class NineteenEightyWoo {
 					woo_id:  wooId,
 					dk_id:   dkId,
 					dk_mode: dkMode,
+					dk_term: dkTerm,
 				}
 			);
 		}

@@ -72,6 +72,7 @@ class Config {
 	 * @param string $woo_id The alphanumeric WooCommerce payment ID.
 	 * @param int    $dk_id The payment method ID in DK.
 	 * @param string $dk_mode The payment mode from DK.
+	 * @param string $dk_term The payment term code from DK.
 	 *
 	 * @return bool True if the mapping is saved in the wp_options table, false if not.
 	 */
@@ -79,6 +80,7 @@ class Config {
 		string $woo_id,
 		int $dk_id,
 		string $dk_mode,
+		string $dk_term = '',
 	): bool {
 		$dk_payment_method = ImportSalesPayments::find_by_id( $dk_id );
 
@@ -93,6 +95,7 @@ class Config {
 				'dk_id'   => $dk_payment_method->dk_id,
 				'dk_name' => $dk_payment_method->dk_name,
 				'dk_mode' => $dk_mode,
+				'dk_term' => $dk_term,
 			)
 		);
 	}
@@ -117,6 +120,7 @@ class Config {
 				'dk_id'   => '',
 				'dk_name' => '',
 				'dk_mode' => '',
+				'dk_term' => '',
 			);
 		} else {
 			$default = false;
@@ -179,25 +183,25 @@ class Config {
 	}
 
 	/**
-	 * Get the prefix used for customer records from WooCommerce in DK
+	 * Check if WooCommerce Payment Gateway ID and DK Payment Mode match
 	 *
-	 * If a customer's ID in WC/WP is `5885522`, their "customer number" in DK
-	 * becomes `WCC5885522` if the prefix is set to `WCC`.
+	 * @param string $woo_id The WooCommrece gateway ID.
+	 * @param string $dk_term The DK payment term code.
 	 */
-	public static function get_customer_number_prefix(): string {
-		return get_option(
-			'1984_woo_dk_customer_number_prefix',
-			self::DEFAULT_CUSTOMER_NUMBER_PREFIX
+	public static function payment_term_matches(
+		string $woo_id,
+		string $dk_term
+	): bool {
+		$payment_mapping = self::get_payment_mapping(
+			$woo_id,
+			true
 		);
-	}
 
-	/**
-	 * Set the prefix used for customer records from WooCommerce in DK
-	 *
-	 * @param string $prefix The prefix.
-	 */
-	public static function set_customer_number_prefix( string $prefix ): bool {
-		return update_option( '1984_woo_dk_customer_number_prefix', $prefix );
+		if ( $payment_mapping->dk_term === $dk_term ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
