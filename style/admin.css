@@ -24,6 +24,14 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	padding: 20px 10px 20px 10px;
 }
 
+#nineteen-eighty-woo-wrap table th[span=col] {
+	padding: 10px 10px 0px 10px;
+}
+
+#nineteen-eighty-woo-wrap table select {
+	max-width: 12em;
+}
+
 #payment-gateway-id-map-table .payment-id {
 	width: 10em;
 }
@@ -157,5 +165,9 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	}
 	#payment-gateway-id-map-table label {
 		padding-top: 0;
+	}
+
+	#nineteen-eighty-woo-wrap .form-table thead {
+		display: none;
 	}
 }
