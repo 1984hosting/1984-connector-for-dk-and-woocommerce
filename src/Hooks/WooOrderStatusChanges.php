@@ -183,20 +183,22 @@ class WooOrderStatusChanges {
 				)
 			);
 
-			if ( true === ExportInvoice::email_in_dk( $wc_order, 'credit' ) ) {
-				$wc_order->add_order_note(
-					__(
-						'An email containing the credit invoice as a PDF attachment was sent to the customer.',
-						'1984-dk-woo'
-					)
-				);
-			} else {
-				$wc_order->add_order_note(
-					__(
-						'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-						'1984-dk-woo'
-					)
-				);
+			if ( Config::get_email_invoice() ) {
+				if ( true === ExportInvoice::email_in_dk( $wc_order, 'credit' ) ) {
+					$wc_order->add_order_note(
+						__(
+							'An email containing the credit invoice as a PDF attachment was sent to the customer.',
+							'1984-dk-woo'
+						)
+					);
+				} else {
+					$wc_order->add_order_note(
+						__(
+							'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
+							'1984-dk-woo'
+						)
+					);
+				}
 			}
 		} elseif ( false === $credit_invoice_number ) {
 			$wc_order->add_order_note(
