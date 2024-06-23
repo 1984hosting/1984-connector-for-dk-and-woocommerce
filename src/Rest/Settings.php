@@ -29,9 +29,8 @@ class Settings {
 			"product_price_sync": { "type": "boolean" },
 			"product_quantity_sync": { "type": "boolean" },
 			"product_name_sync": { "type": "boolean" },
-			"shipping_sku": { "type": "string" },
-			"customer_number_prefix": { "type": "string" },
 			"default_kennitala": { "type": "string" },
+			"shipping_sku": { "type": "string" },
 			"kennitala_classic_field_enabled": { "type": "boolean" },
 			"kennitala_block_field_enabled": { "type": "boolean" },
 			"default_sales_person": { "type": "string" },
@@ -169,12 +168,6 @@ class Settings {
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'customer_number_prefix' ) ) {
-			Config::set_customer_number_prefix(
-				$rest_json->customer_number_prefix
-			);
-		}
-
 		if ( true === property_exists( $rest_json, 'shipping_sku' ) ) {
 			Config::set_shipping_sku( $rest_json->shipping_sku );
 		}
@@ -193,9 +186,27 @@ class Settings {
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'default_sales_person' ) ) {
-			Config::set_default_sales_person_number(
-				$rest_json->default_sales_person
+		if ( true === property_exists( $rest_json, 'customer_requests_kennitala_invoice' ) ) {
+			Config::set_customer_requests_kennitala_invoice(
+				$rest_json->customer_requests_kennitala_invoice
+			);
+		}
+
+		if ( true === property_exists( $rest_json, 'make_invoice_if_kennitala_is_set' ) ) {
+			Config::set_make_invoice_if_kennitala_is_set(
+				$rest_json->make_invoice_if_kennitala_is_set
+			);
+		}
+
+		if ( true === property_exists( $rest_json, 'make_invoice_if_kennitala_is_missing' ) ) {
+			Config::set_make_invoice_if_kennitala_is_missing(
+				$rest_json->make_invoice_if_kennitala_is_missing
+			);
+		}
+
+		if ( true === property_exists( $rest_json, 'email_invoice' ) ) {
+			Config::set_email_invoice(
+				$rest_json->email_invoice
 			);
 		}
 

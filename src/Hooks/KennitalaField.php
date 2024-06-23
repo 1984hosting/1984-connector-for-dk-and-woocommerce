@@ -9,6 +9,7 @@ use WP_Error;
 use WC_Checkout;
 use WC_Customer;
 use WC_Order;
+use WP_Post;
 
 /**
  * The Kennitala Field hook class
@@ -49,7 +50,7 @@ class KennitalaField {
 	public function __construct() {
 		if ( true === Config::get_kennitala_classic_field_enabled() ) {
 			add_action(
-				'woocommerce_before_checkout_billing_form',
+				'woocommerce_after_checkout_billing_form',
 				array( __CLASS__, 'render_classic_checkout_field' ),
 				10,
 				1
@@ -77,21 +78,19 @@ class KennitalaField {
 			);
 		}
 
-		if ( true === Config::get_kennitala_block_field_enabled() ) {
-			add_action(
-				'woocommerce_blocks_loaded',
-				array( __CLASS__, 'register_block_checkout_field' ),
-				10,
-				0
-			);
+		add_action(
+			'woocommerce_blocks_loaded',
+			array( __CLASS__, 'register_block_checkout_field' ),
+			10,
+			0
+		);
 
-			add_action(
-				'woocommerce_store_api_checkout_order_processed',
-				array( __CLASS__, 'add_order_kennitala_to_the_customer_from_api' ),
-				10,
-				1
-			);
-		}
+		add_action(
+			'woocommerce_store_api_checkout_order_processed',
+			array( __CLASS__, 'add_order_kennitala_to_the_customer_from_api' ),
+			10,
+			1
+		);
 
 		add_action(
 			'woocommerce_checkout_order_processed',
@@ -144,6 +143,10 @@ class KennitalaField {
 			return true;
 		}
 
+		if ( 'kennitala_invoice_requested' === $meta_key ) {
+			return true;
+		}
+
 		return $protected;
 	}
 
@@ -153,12 +156,12 @@ class KennitalaField {
 	 * Used for the `woocommerce_process_shop_order_meta` hook, as the order
 	 * meta is being processed.
 	 *
-	 * @param int      $post_id The order ID (unused).
-	 * @param WC_Order $wc_order The order object.
+	 * @param int              $post_id The order ID (unused).
+	 * @param WP_Post|WC_Order $wc_order The order object.
 	 */
 	public static function update_order_meta(
 		int $post_id,
-		WC_Order $wc_order
+		WP_Post|WC_Order $wc_order
 	): void {
 		// Nonce check is handled by WooCommerce.
 		// phpcs:ignore WordPress.Security.NonceVerification
@@ -171,12 +174,22 @@ class KennitalaField {
 
 			$sanitized_kennitala = self::sanitize_kennitala( $kennitala );
 
-			$wc_order->update_meta_data(
-				'billing_kennitala',
-				$sanitized_kennitala,
-			);
+			if ( $wc_order instanceof WC_Order ) {
+				$wc_order->update_meta_data(
+					'billing_kennitala',
+					$sanitized_kennitala,
+				);
 
-			$wc_order->save_meta_data();
+				$wc_order->save_meta_data();
+			}
+
+			if ( $wc_order instanceof WP_Post ) {
+				update_post_meta(
+					$wc_order->ID,
+					'billing_kennitala',
+					$sanitized_kennitala
+				);
+			}
 		}
 	}
 
@@ -192,10 +205,15 @@ class KennitalaField {
 		array $fields,
 		WC_Order $wc_order
 	): array {
-		$additional_fields = $wc_order->get_meta( '_additional_billing_fields' );
+		$additional_fields = $wc_order->get_meta(
+			'_additional_billing_fields'
+		);
 		if (
 			true === is_array( $additional_fields ) &&
-			true === array_key_exists( '1984_woo_dk/kennitala', $additional_fields ) &&
+			true === array_key_exists(
+				'1984_woo_dk/kennitala',
+				$additional_fields
+			) &&
 			false === empty( $additional_fields['1984_woo_dk/kennitala'] )
 		) {
 			return $fields;
@@ -308,21 +326,7 @@ class KennitalaField {
 			return false;
 		}
 
-		$additional_fields = $wc_order->get_meta(
-			'_additional_billing_fields',
-			true
-		);
-
-		if (
-			false === array_key_exists(
-				'1984_woo_dk/kennitala',
-				$additional_fields,
-			)
-		) {
-			return false;
-		}
-
-		$order_kennitala = $additional_fields['1984_woo_dk/kennitala'];
+		$order_kennitala = self::get_kennitala_from_order( $wc_order );
 
 		if ( false === empty( $order_kennitala ) ) {
 			$customer = new WC_Customer( $customer_id );
@@ -405,14 +409,27 @@ class KennitalaField {
 		woocommerce_form_field(
 			'billing_kennitala',
 			array(
+				'id'                => '1984_woo_dk_checkout_kennitala',
 				'type'              => 'text',
 				'label'             => __( 'Kennitala', '1984-dk-woo' ),
-				'id'                => '1984_woo_dk_checkout_kennitala',
 				'custom_attributes' => array(
 					'pattern' => self::KENNITALA_PATTERN,
 				),
 			),
 			self::format_kennitala( $kennitala )
+		);
+
+		woocommerce_form_field(
+			'kennitala_invoice_requested',
+			array(
+				'id'    => '1984_woo_dk_checkout_kennitala_invoice_requested',
+				'type'  => 'checkbox',
+				'label' => __(
+					'Request an Invoice with Kennitala',
+					'1984-dk-woo'
+				),
+			),
+			1
 		);
 	}
 
@@ -478,9 +495,17 @@ class KennitalaField {
 				'billing_kennitala',
 				$sanitized_kennitala
 			);
-
-			$order_object->save_meta_data();
 		}
+
+		// Nonce check is handled by WooCommerce.
+		// phpcs:ignore WordPress.Security.NonceVerification
+		if ( true === isset( $_POST['kennitala_invoice_requested'] ) ) {
+			$order_object->update_meta_data( 'kennitala_invoice_requested', 1 );
+		} else {
+			$order_object->update_meta_data( 'kennitala_invoice_requested', 0 );
+		}
+
+		$order_object->save_meta_data();
 	}
 
 	/**
@@ -507,22 +532,34 @@ class KennitalaField {
 					'Kennitala (Optional)',
 					'1984-dk-woo'
 				),
-				'location'          => 'address',
+				'location'          => 'order',
 				'type'              => 'text',
-				'sanitize_callback' => array(
-					__CLASS__,
-					'sanitize_kennitala',
-				),
-				'validate_callback' => array(
-					__CLASS__,
-					'validate_kennitala',
-				),
+				'sanitize_callback' => array( __CLASS__, 'sanitize_kennitala' ),
+				'validate_callback' => array( __CLASS__, 'validate_kennitala' ),
 				'attributes'        => array(
 					'autocomplete' => 'kennitala',
 					'pattern'      => self::KENNITALA_PATTERN,
 				),
 			)
 		);
+
+		if ( Config::get_customer_requests_kennitala_invoice() ) {
+			woocommerce_register_additional_checkout_field(
+				array(
+					'id'            => '1984_woo_dk/kennitala_invoice_requested',
+					'label'         => __(
+						'Request an Invoice with Kennitala',
+						'1984-dk-woo'
+					),
+					'optionalLabel' => __(
+						'Request an Invoice with Kennitala (optional)',
+						'1984-dk-woo'
+					),
+					'location'      => 'order',
+					'type'          => 'checkbox',
+				)
+			);
+		}
 	}
 
 	/**
@@ -596,20 +633,16 @@ class KennitalaField {
 	public static function get_kennitala_from_order(
 		WC_Order $wc_order,
 	): string {
-		$additional_fields = $wc_order->get_meta(
-			'_additional_billing_fields',
-			true
-		);
+		$block_kennitala = $wc_order->get_meta( '_wc_other/1984_woo_dk/kennitala', true );
 
-		if (
-			true === is_array( $additional_fields ) &&
-			true === array_key_exists(
-				'1984_woo_dk/kennitala',
-				$additional_fields
-			) &&
-			false === empty( $additional_fields['1984_woo_dk/kennitala'] )
-		) {
-			return (string) $additional_fields['1984_woo_dk/kennitala'];
+		if ( ! empty( $block_kennitala ) ) {
+			return (string) $block_kennitala;
+		}
+
+		$classic_kennitala = $wc_order->get_meta( 'billing_kennitala', true );
+
+		if ( ! empty( $classic_kennitala ) ) {
+			return (string) $classic_kennitala;
 		}
 
 		$customer_id = $wc_order->get_customer_id();
@@ -636,6 +669,6 @@ class KennitalaField {
 			return $billing_kennitala;
 		}
 
-		return Config::get_default_kennitala();
+		return '';
 	}
 }

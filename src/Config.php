@@ -222,15 +222,7 @@ class Config {
 	 * @param string $sku The SKU.
 	 */
 	public static function set_shipping_sku( string $sku ): bool {
-		if (
-			( self::get_shipping_sku() !== $sku ) &&
-			( false === ExportServiceSKU::is_in_dk( $sku ) ) &&
-			( true === ExportServiceSKU::create_in_dk( $sku ) )
-		) {
-			return update_option( '1984_woo_dk_shipping_sku', $sku );
-		}
-
-		return false;
+		return update_option( '1984_woo_dk_shipping_sku', $sku );
 	}
 
 	/**
@@ -252,14 +244,6 @@ class Config {
 	 * @param string $sku The cost SKU.
 	 */
 	public static function set_cost_sku( string $sku ): bool {
-		if (
-			( self::get_cost_sku() !== $sku ) &&
-			( false === ExportServiceSKU::is_in_dk( $sku ) ) &&
-			( false === ExportServiceSKU::create_in_dk( $sku, 'cost' ) )
-		) {
-			return false;
-		}
-
 		return update_option( '1984_woo_dk_cost_sku', $sku );
 	}
 
@@ -272,7 +256,7 @@ class Config {
 	public static function get_default_kennitala(): string {
 		return (string) get_option(
 			'1984_woo_dk_default_kennitala',
-			'9999999999'
+			'0000000000'
 		);
 	}
 
@@ -358,29 +342,6 @@ class Config {
 	public static function set_default_sales_person_number(
 		string $sales_person_number
 	): bool {
-		if ( self::get_default_sales_person_number() !== $sales_person_number ) {
-			return false;
-		}
-
-		if ( false === ExportSalesPerson::is_in_dk( $sales_person_number ) ) {
-			$random_string = base_convert(
-				(string) random_int( 65_536, 131_072 ),
-				10,
-				36
-			);
-
-			$employee_number = 'WEBSALES' . $random_string;
-			if ( true !== ExportEmployee::create_in_dk( $employee_number ) ) {
-				return false;
-			}
-
-			if ( true !== ExportSalesPerson::create_in_dk(
-				$sales_person_number,
-				$employee_number
-			) ) {
-				return false;
-			}
-		}
 		return update_option(
 			'1984_woo_dk_default_sales_person_number',
 			$sales_person_number
@@ -513,6 +474,66 @@ class Config {
 	 *                    false to disable.
 	 */
 	public static function set_product_name_sync( bool $value ): bool {
-		return update_option( '1984_woo_dk_product_name_sync', $value );
+
+	public static function get_email_invoice(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_email_invoice',
+			true
+		);
+	}
+
+	public static function set_email_invoice( bool $value ): bool {
+		return update_option(
+			'1984_woo_dk_email_invoice',
+			(int) $value
+		);
+	}
+
+	public static function get_customer_requests_kennitala_invoice(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_customer_requests_kennitala_invoice',
+			false
+		);
+	}
+
+	public static function set_customer_requests_kennitala_invoice(
+		bool $value
+	): bool {
+		return update_option(
+			'1984_woo_dk_customer_requests_kennitala_invoice',
+			(int) $value
+		);
+	}
+
+	public static function get_make_invoice_if_kennitala_is_set(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_make_invoice_if_kennitala_is_set',
+			true
+		);
+	}
+
+	public static function set_make_invoice_if_kennitala_is_set(
+		bool $value
+	): bool {
+		return (bool) update_option(
+			'1984_woo_dk_make_invoice_if_kennitala_is_set',
+			(int) $value
+		);
+	}
+
+	public static function get_make_invoice_if_kennitala_is_missing(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_make_invoice_if_kennitala_is_missing',
+			true
+		);
+	}
+
+	public static function set_make_invoice_if_kennitala_is_missing(
+		bool $value
+	): bool {
+		return (bool) update_option(
+			'1984_woo_dk_make_invoice_if_kennitala_is_missing',
+			(int) $value
+		);
 	}
 }

@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Helpers;
 
+use NineteenEightyFour\NineteenEightyWoo\Config;
+use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;
 
@@ -29,5 +31,63 @@ class Order {
 			}
 		}
 		return true;
+	}
+
+	public static function get_kennitala( WC_Order $wc_order ): string {
+		$block_kennitala = $wc_order->get_meta(
+			'_wc_other/1984_woo_dk/kennitala',
+			true
+		);
+
+		if ( ! empty( $block_kennitala ) ) {
+			return (string) $block_kennitala;
+		}
+
+		$classic_kennitala = $wc_order->get_meta( 'billing_kennitala', true );
+
+		if ( ! empty( $classic_kennitala ) ) {
+			return (string) $classic_kennitala;
+		}
+
+		$customer_id = $wc_order->get_customer_id();
+
+		if ( 0 !== $customer_id ) {
+			$customer           = new WC_Customer( $customer_id );
+			$customer_kennitala = $customer->get_meta(
+				'kennitala',
+				true,
+				'edit'
+			);
+
+			if ( false === empty( $customer_kennitala ) ) {
+				return $customer_kennitala;
+			}
+		}
+
+		return Config::get_default_kennitala();
+	}
+
+	public static function get_kennitala_invoice_requested(
+		WC_Order $wc_order
+	): bool {
+		$block_value = $wc_order->get_meta(
+			'_wc_other/1984_woo_dk/kennitala_invoice_requested',
+			true
+		);
+
+		if ( ! empty( $block_value ) ) {
+			return (bool) $block_value;
+		}
+
+		$classic_value = $wc_order->get_meta(
+			'kennitala_invoice_requested',
+			true
+		);
+
+		if ( ! empty( $classic_value ) ) {
+			return (bool) $classic_value;
+		}
+
+		return false;
 	}
 }

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
+use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Export\Invoice as ExportInvoice;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
 use WC_Order;
@@ -55,7 +56,25 @@ class WooOrderStatusChanges {
 	 * @param int $order_id The WooCommerce order ID.
 	 */
 	public static function maybe_send_invoice_on_payment( int $order_id ): void {
-		$wc_order = new WC_Order( $order_id );
+		$wc_order  = new WC_Order( $order_id );
+		$kennitala = OrderHelper::get_kennitala( $wc_order );
+
+		if ( Config::get_default_kennitala() === $kennitala ) {
+			if ( ! Config::get_make_invoice_if_kennitala_is_missing() ) {
+				return;
+			}
+		} else {
+			if ( ! Config::get_make_invoice_if_kennitala_is_set() ) {
+				return;
+			}
+
+			if (
+				Config::get_customer_requests_kennitala_invoice() &&
+				! OrderHelper::get_kennitala_invoice_requested( $wc_order )
+			) {
+				return;
+			}
+		}
 
 		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
 			$wc_order->add_order_note(

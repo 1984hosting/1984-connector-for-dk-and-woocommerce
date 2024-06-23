@@ -46,8 +46,6 @@ class Customer {
 			return false;
 		}
 
-		self::assign_dk_customer_number( $customer );
-
 		return true;
 	}
 
@@ -93,10 +91,14 @@ class Customer {
 	 *                       connection was established but the request was
 	 *                       rejected, WC_Error if there was a connection error.
 	 */
-	public static function is_in_dk( WC_Customer $customer ): bool|WP_Error {
+	public static function is_in_dk( WC_Customer|string $customer ): bool|WP_Error {
 		$api_request = new DKApiRequest();
 
-		$dk_customer_number = self::assume_dk_customer_number( $customer );
+		if ( is_string( $customer ) ) {
+			$dk_customer_number = $customer;
+		} else {
+			$dk_customer_number = self::assume_dk_customer_number( $customer );
+		}
 
 		$result = $api_request->get_result(
 			'/Customer/' . $dk_customer_number
@@ -155,50 +157,7 @@ class Customer {
 			return $kennitala;
 		}
 
-		return (
-			Config::get_customer_number_prefix() .
-			$customer->get_id()
-		);
-	}
-
-	/**
-	 * Assign DK customer number to a WooCommerce customer
-	 *
-	 * @param WC_Customer $customer The WooCommerce customer.
-	 *
-	 * @return string The customer number that was set.
-	 */
-	public static function assign_dk_customer_number(
-		WC_Customer $customer
-	): string {
-		$dk_customer_number = (
-			Config::get_customer_number_prefix() .
-			$customer->get_id()
-		);
-
-		$customer->update_meta_data(
-			'1984_woo_dk_customer_number',
-			self::assume_dk_customer_number( $customer )
-		);
-
-		$customer->save_meta_data();
-
-		return $dk_customer_number;
-	}
-
-	/**
-	 * Get the DK Customer number of a WooCommerce customer.
-	 *
-	 * @param WC_Customer $customer The WooCommerce customer.
-	 *
-	 * @return string The DK customer number.
-	 */
-	public static function get_dk_customer_number(
-		WC_Customer $customer
-	): string {
-		return $customer->get_meta(
-			'1984_woo_dk_customer_number'
-		);
+		return Config::get_default_kennitala();
 	}
 
 	/**

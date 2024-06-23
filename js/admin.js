@@ -45,17 +45,14 @@ class NineteenEightyWoo {
 		let productNameSync        = Boolean( formData.get( 'product_name_sync' ) );
 		let shippingSku            = formData.get( 'shipping_sku' ).trim();
 		let costSku                = formData.get( 'cost_sku' ).trim();
-		let customerNumberPrefix   = formData.get( 'customer_number_prefix' ).trim();
 		let defaultKennitala       = formData.get( 'default_kennitala' ).trim();
 		let enableKennitala        = Boolean( formData.get( 'enable_kennitala' ) );
-		let enableKennitalaInBlock = Boolean( formData.get( 'enable_kennitala_in_block' ) );
 		let defaultSalesPerson     = formData.get( 'default_sales_person' ).trim();
 		let paymentIds             = formData.getAll( 'payment_id' );
 		let paymentModes           = formData.getAll( 'payment_mode' );
 		let ledgerCodeStandard     = formData.get( 'ledger_code_standard' ).trim();
 		let ledgerCodeReduced      = formData.get( 'ledger_code_reduced' ).trim();
-		let ledgerCodeShipping     = formData.get( 'ledger_code_shipping' ).trim();
-		let ledgerCodeCosts        = formData.get( 'ledger_code_costs' ).trim();
+
 		let paymentMethods         = [];
 		let paymentsLength         = paymentIds.length;
 
@@ -92,8 +89,10 @@ class NineteenEightyWoo {
 			payment_methods: paymentMethods,
 			ledger_code_standard: ledgerCodeStandard,
 			ledger_code_reduced: ledgerCodeReduced,
-			ledger_code_shipping: ledgerCodeShipping,
-			ledger_code_costs: ledgerCodeCosts,
+			customer_requests_kennitala_invoice: Boolean( formData.get( 'customer_requests_kennitala_invoice' ) ),
+			make_invoice_if_kennitala_is_set: Boolean( formData.get( 'make_invoice_if_kennitala_is_set' ) ),
+			make_invoice_if_kennitala_is_missing: Boolean( formData.get( 'make_invoice_if_kennitala_is_missing' ) ),
+			email_invoice: Boolean( formData.get( 'email_invoice' ) ),
 			fetch_products: true
 		}
 
