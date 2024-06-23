@@ -39,22 +39,22 @@ class NineteenEightyWoo {
 
 		const formData = new FormData( event.target );
 
-		let apiKey                 = formData.get( 'api_key' ).trim();
-		let productPriceSync       = Boolean( formData.get( 'product_price_sync' ) );
-		let productQuantitySync    = Boolean( formData.get( 'product_quantity_sync' ) );
-		let productNameSync        = Boolean( formData.get( 'product_name_sync' ) );
-		let shippingSku            = formData.get( 'shipping_sku' ).trim();
-		let costSku                = formData.get( 'cost_sku' ).trim();
-		let defaultKennitala       = formData.get( 'default_kennitala' ).trim();
-		let enableKennitala        = Boolean( formData.get( 'enable_kennitala' ) );
-		let defaultSalesPerson     = formData.get( 'default_sales_person' ).trim();
-		let paymentIds             = formData.getAll( 'payment_id' );
-		let paymentModes           = formData.getAll( 'payment_mode' );
-		let ledgerCodeStandard     = formData.get( 'ledger_code_standard' ).trim();
-		let ledgerCodeReduced      = formData.get( 'ledger_code_reduced' ).trim();
+		let apiKey              = formData.get( 'api_key' ).trim();
+		let productPriceSync    = Boolean( formData.get( 'product_price_sync' ) );
+		let productQuantitySync = Boolean( formData.get( 'product_quantity_sync' ) );
+		let productNameSync     = Boolean( formData.get( 'product_name_sync' ) );
+		let shippingSku         = formData.get( 'shipping_sku' ).trim();
+		let costSku             = formData.get( 'cost_sku' ).trim();
+		let defaultKennitala    = formData.get( 'default_kennitala' ).trim();
+		let enableKennitala     = Boolean( formData.get( 'enable_kennitala' ) );
+		let defaultSalesPerson  = formData.get( 'default_sales_person' ).trim();
+		let paymentIds          = formData.getAll( 'payment_id' );
+		let paymentModes        = formData.getAll( 'payment_mode' );
+		let ledgerCodeStandard  = formData.get( 'ledger_code_standard' ).trim();
+		let ledgerCodeReduced   = formData.get( 'ledger_code_reduced' ).trim();
 
-		let paymentMethods         = [];
-		let paymentsLength         = paymentIds.length;
+		let paymentMethods = [];
+		let paymentsLength = paymentIds.length;
 
 		for (let i = 0; i < paymentsLength; i++) {
 			let wooId  = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
