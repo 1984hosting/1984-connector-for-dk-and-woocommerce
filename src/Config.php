@@ -20,13 +20,10 @@ class Config {
 	const DEFAULT_PRODUCT_NUMBER_PREFIX  = 'WCP';
 	const DEFAULT_INVOICE_NUMBER_PREFIX  = 'WCI';
 
-	const DEFAULT_SHIPPING_SKU = 'SHIPPING';
-	const DEFAULT_COUPON_SKU   = 'COUPON';
-	const DEFAULT_COST_SKU     = 'COST';
-
-	const DEFAULT_WAREHOUSE = 'bg1';
-
-	const DEFAULT_SALES_PERSON = 'WEBSALES';
+	const DEFAULT_SHIPPING_SKU = 'shipping';
+	const DEFAULT_COUPON_SKU   = 'coupon';
+	const DEFAULT_COST_SKU     = 'cost';
+	const DEFAULT_SALES_PERSON = 'websales';
 
 	const DEFAULT_LEDGER_CODE_STANDARD = 's002';
 	const DEFAULT_LEDGER_CODE_REDUCED  = 's003';
@@ -343,25 +340,6 @@ class Config {
 			'1984_woo_dk_default_sales_person_number',
 			$sales_person_number
 		);
-	}
-
-	/**
-	 * Get the default inventory warehouse
-	 */
-	public static function get_default_warehouse(): string {
-		return (string) get_option(
-			'1984_woo_dk_default_warehouse',
-			self::DEFAULT_WAREHOUSE
-		);
-	}
-
-	/**
-	 * Set the default inventory warehouse
-	 *
-	 * @param string $warehouse The warehouse code.
-	 */
-	public static function set_default_warehouse( string $warehouse ): bool {
-		return update_option( '1984_woo_dk_default_warehouse', $warehouse );
 	}
 
 	/**
