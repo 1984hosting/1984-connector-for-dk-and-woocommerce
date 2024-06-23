@@ -24,7 +24,8 @@ final class RestSettingstest extends TestCase {
 			array(
 				'woo_id'  => 'bacs',
 				'dk_id'   => 10,
-				'dk_mode' => 'GKR'
+				'dk_mode' => 'GKR',
+				'dk_term' => 'STGR'
 			),
 		),
 	);
