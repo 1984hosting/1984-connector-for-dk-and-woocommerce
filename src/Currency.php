@@ -76,9 +76,9 @@ class Currency {
 	/**
 	 * Convert an amount between two different currencies
 	 *
-	 * @param int|float $amount The currency amount.
-	 * @param string    $from The 3 digit ISO code for the currency to convert from.
-	 * @param string    $to The 3 digit ISO code for the currency to convert to.
+	 * @param int|float   $amount The currency amount.
+	 * @param string      $from The 3 digit ISO code for the currency to convert from.
+	 * @param string|null $to The 3 digit ISO code for the currency to convert to.
 	 *
 	 * @return float|WP_Error A floating point representation of the converted
 	 *                        amount, or WP_Error in case of error.

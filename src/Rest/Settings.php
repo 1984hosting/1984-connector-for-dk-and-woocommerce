@@ -127,8 +127,8 @@ class Settings {
 			);
 		}
 
-		if ( true === $company_result->General->CurrencyEnabled ) {
-			Config::set_dk_currency( $company_result->General->DefaultCurrency );
+		if ( true === $company_result->data->General->CurrencyEnabled ) {
+			Config::set_dk_currency( $company_result->data->General->DefaultCurrency );
 		} else {
 			Config::set_dk_currency( Currency::BASE_CURRENCY );
 		}

@@ -562,4 +562,77 @@ class Config {
 			(int) $value
 		);
 	}
+
+	/**
+	 * Get the DK currency
+	 *
+	 * Facilitates the currency conversion functionality by indicating the
+	 * currency product prices are set in DK.
+	 *
+	 * @return string The currency code.
+	 */
+	public static function get_dk_currency(): string {
+		return (string) get_option(
+			'1984_woo_dk_dk_currency',
+			'ISK'
+		);
+	}
+
+	/**
+	 * Set the DK currency
+	 *
+	 * @param string $currency The currency code.
+	 */
+	public static function set_dk_currency( string $currency ): bool {
+		return update_option(
+			'1984_woo_dk_dk_currency',
+			$currency
+		);
+	}
+
+	/**
+	 * Get wether products that are not for online store should be imported as drafts
+	 */
+	public static function get_import_nonweb_products(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_import_nonweb_products',
+			true
+		);
+	}
+
+	/**
+	 * Set wether products that are not for online store should be imported as drafts
+	 *
+	 * @param bool $value True to enable non-web product import, false to
+	 *                    disalbe it.
+	 */
+	public static function set_import_nonweb_products( bool $value ): bool {
+		return update_option(
+			'1984_woo_dk_import_nonweb_products',
+			(int) $value
+		);
+	}
+
+	/**
+	 * Get wether to delete inactive products on sync
+	 */
+	public static function get_delete_inactive_products(): bool {
+		return (bool) get_option(
+			'1984_woo_dk_delete_inactive_products',
+			true
+		);
+	}
+
+	/**
+	 * Set wether to delete inactive products on sync
+	 *
+	 * @param bool $value True to enable deletion of inactive products on sync,
+	 *             false to disable it.
+	 */
+	public static function set_delete_inactive_products( bool $value ): bool {
+		return update_option(
+			'1984_woo_dk_delete_inactive_products',
+			(int) $value
+		);
+	}
 }
