@@ -467,14 +467,6 @@ class Config {
 		return (bool) get_option( '1984_woo_dk_product_name_sync', true );
 	}
 
-	/**
-	 * Set wether prodct price sync is enabled by default
-	 *
-	 * @param bool $value True to enable product sync by default,
-	 *                    false to disable.
-	 */
-	public static function set_product_name_sync( bool $value ): bool {
-
 	public static function get_email_invoice(): bool {
 		return (bool) get_option(
 			'1984_woo_dk_email_invoice',
