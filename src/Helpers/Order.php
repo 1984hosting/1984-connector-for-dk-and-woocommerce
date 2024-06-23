@@ -42,6 +42,13 @@ class Order {
 	 *                kennitala is returned.
 	 */
 	public static function get_kennitala( WC_Order $wc_order ): string {
+		if (
+			Config::get_customer_requests_kennitala_invoice() &&
+			! self::get_kennitala_invoice_requested( $wc_order )
+		) {
+			return Config::get_default_kennitala();
+		}
+
 		$block_kennitala = $wc_order->get_meta(
 			'_wc_other/1984_woo_dk/kennitala',
 			true
