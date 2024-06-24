@@ -39,20 +39,21 @@ class NineteenEightyWoo {
 
 		const formData = new FormData( event.target );
 
-		let apiKey              = formData.get( 'api_key' ).trim();
-		let productPriceSync    = Boolean( formData.get( 'product_price_sync' ) );
-		let productQuantitySync = Boolean( formData.get( 'product_quantity_sync' ) );
-		let productNameSync     = Boolean( formData.get( 'product_name_sync' ) );
-		let shippingSku         = formData.get( 'shipping_sku' ).trim();
-		let costSku             = formData.get( 'cost_sku' ).trim();
-		let defaultKennitala    = formData.get( 'default_kennitala' ).trim();
-		let enableKennitala     = Boolean( formData.get( 'enable_kennitala' ) );
-		let defaultSalesPerson  = formData.get( 'default_sales_person' ).trim();
-		let paymentIds          = formData.getAll( 'payment_id' );
-		let paymentModes        = formData.getAll( 'payment_mode' );
-		let paymentTerms        = formData.getAll( 'payment_term' );
-		let ledgerCodeStandard  = formData.get( 'ledger_code_standard' ).trim();
-		let ledgerCodeReduced   = formData.get( 'ledger_code_reduced' ).trim();
+		let apiKey               = formData.get( 'api_key' ).trim();
+		let productPriceSync     = Boolean( formData.get( 'product_price_sync' ) );
+		let productQuantitySync  = Boolean( formData.get( 'product_quantity_sync' ) );
+		let productNameSync      = Boolean( formData.get( 'product_name_sync' ) );
+		let importNonwebProducts = Boolean( formData.get( 'import_nonweb_products' ) );;
+		let deleteInactiveProducts = Boolean( formData.get( 'delete_inactive_products' ) );
+		let shippingSku            = formData.get( 'shipping_sku' ).trim();
+		let costSku                = formData.get( 'cost_sku' ).trim();
+		let defaultKennitala       = formData.get( 'default_kennitala' ).trim();
+		let enableKennitala        = Boolean( formData.get( 'enable_kennitala' ) );
+		let defaultSalesPerson     = formData.get( 'default_sales_person' ).trim();
+		let paymentIds             = formData.getAll( 'payment_id' );
+		let paymentModes           = formData.getAll( 'payment_mode' );
+		let ledgerCodeStandard     = formData.get( 'ledger_code_standard' ).trim();
+		let ledgerCodeReduced      = formData.get( 'ledger_code_reduced' ).trim();
 
 		let paymentMethods = [];
 		let paymentsLength = paymentIds.length;
@@ -82,6 +83,8 @@ class NineteenEightyWoo {
 			product_price_sync: productPriceSync,
 			product_quantity_sync: productQuantitySync,
 			product_name_sync: productNameSync,
+			import_nonweb_products: importNonwebProducts,
+			delete_inactive_products: deleteInactiveProducts,
 			shipping_sku: shippingSku,
 			cost_sku: costSku,
 			default_kennitala: defaultKennitala,

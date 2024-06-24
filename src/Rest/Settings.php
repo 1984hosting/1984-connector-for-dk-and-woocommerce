@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Rest;
 
 use NineteenEightyFour\NineteenEightyWoo\Config;
-
+use NineteenEightyFour\NineteenEightyWoo\Currency;
 use NineteenEightyFour\NineteenEightyWoo\Import\Products as ImportProducts;
 use NineteenEightyFour\NineteenEightyWoo\Import\Currencies as ImportCurrencies;
 use WP_Error;
@@ -127,6 +127,12 @@ class Settings {
 			);
 		}
 
+		if ( true === $company_result->data->General->CurrencyEnabled ) {
+			Config::set_dk_currency( $company_result->data->General->DefaultCurrency );
+		} else {
+			Config::set_dk_currency( Currency::BASE_CURRENCY );
+		}
+
 		ImportCurrencies::save_all_from_dk();
 
 		if ( property_exists( $rest_json, 'product_price_sync' ) ) {
@@ -139,6 +145,18 @@ class Settings {
 
 		if ( property_exists( $rest_json, 'product_name_sync' ) ) {
 			Config::set_product_name_sync( $rest_json->product_name_sync );
+		}
+
+		if ( property_exists( $rest_json, 'import_nonweb_products' ) ) {
+			Config::set_import_nonweb_products(
+				$rest_json->import_nonweb_products
+			);
+		}
+
+		if ( property_exists( $rest_json, 'delete_inactive_products' ) ) {
+			Config::set_delete_inactive_products(
+				$rest_json->delete_inactive_products
+			);
 		}
 
 		if ( true === property_exists( $rest_json, 'ledger_code_standard' ) ) {

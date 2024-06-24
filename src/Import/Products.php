@@ -67,10 +67,18 @@ class Products {
 	public static function get_all_from_dk(): false|WP_Error|array {
 		$api_request = new DKApiRequest();
 
+		$query_string = '?include=' . self::INCLUDE_PROPERTIES;
+
+		if ( ! Config::get_delete_inactive_products() ) {
+			$query_string .= '&inactive=false';
+		}
+
+		if ( ! Config::get_import_nonweb_products() ) {
+			$query_string .= '&onweb=true';
+		}
+
 		$result = $api_request->get_result(
-			self::API_PATH
-			.
-			'?include=' . self::INCLUDE_PROPERTIES,
+			self::API_PATH . $query_string,
 		);
 
 		if ( $result instanceof WP_Error ) {
@@ -213,7 +221,12 @@ class Products {
 			return false;
 		}
 
+		if ( ! $json_object->ShowItemInWebShop && ! Config::get_import_nonweb_products() ) {
+			return false;
+		}
+
 		$wc_product = new WC_Product();
+
 		$wc_product->set_sku( $json_object->ItemCode );
 
 		if ( ! $json_object->ShowItemInWebShop ) {
@@ -389,7 +402,7 @@ class Products {
 		stdClass $json_object
 	): stdClass|false {
 		$store_currency = get_woocommerce_currency();
-		$dk_currency    = $json_object->CurrencyCode;
+		$dk_currency    = Config::get_dk_currency();
 
 		$tax_class = self::tax_class_from_rate(
 			$json_object->TaxPercent
@@ -516,7 +529,7 @@ class Products {
 		stdClass $json_object
 	): float|WP_Error {
 		$store_currency = get_woocommerce_currency();
-		$dk_currency    = $json_object->CurrencyCode;
+		$dk_currency    = Config::get_dk_currency();
 
 		foreach ( $json_object->CurrencyPrices as $currency_price ) {
 			if ( $store_currency === $currency_price->CurrencyCode ) {

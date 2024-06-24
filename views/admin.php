@@ -74,7 +74,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 								<?php echo esc_attr( Config::get_product_price_sync() ? 'checked' : '' ); ?>
 							/>
 							<label for="product_price_sync_field">
-								<?php esc_html_e( 'Sync Product Prices with DK', '1984-dk-woo' ); ?>
+								<?php esc_html_e( 'Sync Product Prices', '1984-dk-woo' ); ?>
 							</label>
 							<p class="description">
 								<?php esc_html_e( 'If enabled, product prices and sales periods are synced by default between DK and WooCommerce. This can be overriden on a per-product basis. Prices based on foreign currency conversion are only synced ‘downstream’ from DK and into WooCommerce.', '1984-dk-woo' ); ?>
@@ -92,7 +92,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 								<?php echo esc_attr( Config::get_product_quantity_sync() ? 'checked' : '' ); ?>
 							/>
 							<label for="product_quantity_sync_field">
-								<?php esc_html_e( 'Sync Stock Status and Quantity with DK', '1984-dk-woo' ); ?>
+								<?php esc_html_e( 'Sync Stock Status and Quantity from DK', '1984-dk-woo' ); ?>
 							</label>
 							<p class="description">
 								<?php esc_html_e( 'If enabled, product stock status and quantity is synced between DK and WooCommerce by default. This can be overridden on a per-product basis. Note that stock status and quantity sync only works ‘downstream’ from DK and into WooCommerce, but not ‘upstream’ due to limitations in DK.', '1984-dk-woo' ); ?>
@@ -114,6 +114,42 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 							</label>
 							<p class="description">
 								<?php esc_html_e( 'If enabled, product names are synced between DK and WooCommerce. Disable this if you would like to be able to use separate product names in your WooCommerce shop from the ones in DK.', '1984-dk-woo' ); ?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="import_nonweb_products_field"
+								name="import_nonweb_products"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_import_nonweb_products() ? 'checked' : '' ); ?>
+							/>
+							<label for="import_nonweb_products_field">
+								<?php esc_html_e( 'Import New Non-Web Products from DK as Drafts', '1984-dk-woo' ); ?>
+							</label>
+							<p class="description">
+								<?php esc_html_e( 'If enabled, products that are not labelled for online sales are imported into WooCommerce as drafts. Changing their status to ‘Published’ labels them for online sale in DK. This is not recommended if you have a lot of products in DK.', '1984-dk-woo' ); ?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th span="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="delete_inactive_products_field"
+								name="delete_inactive_products"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_delete_inactive_products() ? 'checked' : '' ); ?>
+							/>
+							<label for="delete_inactive_products_field">
+								<?php esc_html_e( 'Delete Inactive Products from WooCommerce', '1984-dk-woo' ); ?>
+							</label>
+							<p class="description">
+								<?php esc_html_e( 'If enabled, products that have been made inactive in DK are automatically deleted from WooCommerce.', '1984-dk-woo' ); ?>
 							</p>
 						</td>
 					</tr>
