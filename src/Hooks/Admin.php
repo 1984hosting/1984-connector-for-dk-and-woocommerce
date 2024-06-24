@@ -17,7 +17,7 @@ use stdClass;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION = '0.2.3';
+	const ASSET_VERSION = '0.3.0';
 
 	/**
 	 * Constructor for the Admin interface class

@@ -1,5 +1,5 @@
 === 1984 Connector for DK and WooCommerce ===
-Stable tag: 0.2.3
+Stable tag: 0.3.0
 Contributors: @1984cto, @aldavigdis, @drupalviking
 Tags: DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.2.4
@@ -20,7 +20,7 @@ In order to get started, you need to set up an account with DK's dkPlus service,
 
 You will also need to finish setting up your WooCommerce shop, including tax rates, wether prices are VAT-inclusive etc.
 
-Once a connection has been established, the plugin will work right away and will register products and other records in DK on creation in WooCommerce.
+Once a connection has been established, the plugin will work right away and will register products and other records in DK on creation in WooCommerce, as long as the correct inventory codes are set and a correct SKU is set for each item.
 
 == Screenshots ==
 
@@ -30,9 +30,9 @@ Once a connection has been established, the plugin will work right away and will
 
 == Frequently Asked Questions ==
 
-= Why can I not set a stock quantity in DK via this plugin? =
+= Why can I not set a stock quantity in DK for a product? =
 
-The answer is that DK simply does not support setting an initial stock quantity for products. To get stock status working properly, it requires initiating a stock count process for the product in DK to have a non-zero or non-negative stock count.
+The answer is that DK does not support setting a stock quantity manually from 3rd party software.
 
 We urge anyone who wants initial stock quantity to work as expected, without resorting to going through an inventory count process to ask DK about implementing it in their API service, which is what this plugin uses.
 
