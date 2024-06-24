@@ -160,8 +160,8 @@ class Order {
 			$recipient_array['Country'] = $wc_order->get_shipping_country();
 		}
 
-		$order_props['Customer']    = $customer_array;
-		$order_props['ItemReciver'] = $recipient_array;
+		$order_props['Customer'] = $customer_array;
+		$order_props['Receiver'] = $recipient_array;
 
 		$order_props['Currency'] = $wc_order->get_currency();
 
