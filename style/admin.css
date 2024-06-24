@@ -24,7 +24,7 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	padding: 20px 10px 20px 10px;
 }
 
-#nineteen-eighty-woo-wrap table th[span=col] {
+#nineteen-eighty-woo-wrap table th[scope=col] {
 	padding: 10px 10px 0px 10px;
 }
 
@@ -148,6 +148,26 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	margin-left: 5em;
 }
 
+#nineteen-eighty-woo-wrap h2 {
+	font-size: 1.5rem;
+}
+
+#dk-ledger-codes-table {
+	width: auto;
+}
+
+#dk-ledger-codes-table td, #dk-ledger-codes-table th[scope=col] {
+	width: 6em;
+}
+
+#dk-ledger-codes-table input {
+	width: 4em;
+}
+
+#dk-ledger-codes-table label {
+	display: none;
+}
+
 @media screen and (max-width: 782px) {
 	#nineteen-eighty-woo-wrap h1 {
 		margin-left: 21px;
@@ -169,5 +189,13 @@ body.woocommerce_page_1984-dk-woo .wrap {
 
 	#nineteen-eighty-woo-wrap .form-table thead {
 		display: none;
+	}
+
+	#dk-ledger-codes-table label {
+		display: block;
+	}
+
+	#dk-ledger-codes-table td, #dk-ledger-codes-table th[scope=col] {
+		width: auto;
 	}
 }

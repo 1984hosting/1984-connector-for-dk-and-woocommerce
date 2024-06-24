@@ -39,22 +39,9 @@ class NineteenEightyWoo {
 
 		const formData = new FormData( event.target );
 
-		let apiKey               = formData.get( 'api_key' ).trim();
-		let productPriceSync     = Boolean( formData.get( 'product_price_sync' ) );
-		let productQuantitySync  = Boolean( formData.get( 'product_quantity_sync' ) );
-		let productNameSync      = Boolean( formData.get( 'product_name_sync' ) );
-		let importNonwebProducts = Boolean( formData.get( 'import_nonweb_products' ) );;
-		let deleteInactiveProducts = Boolean( formData.get( 'delete_inactive_products' ) );
-		let shippingSku            = formData.get( 'shipping_sku' ).trim();
-		let costSku                = formData.get( 'cost_sku' ).trim();
-		let defaultKennitala       = formData.get( 'default_kennitala' ).trim();
-		let enableKennitala        = Boolean( formData.get( 'enable_kennitala' ) );
-		let defaultSalesPerson     = formData.get( 'default_sales_person' ).trim();
-		let paymentIds             = formData.getAll( 'payment_id' );
-		let paymentModes           = formData.getAll( 'payment_mode' );
-		let paymentTerms           = formData.getAll( 'payment_term' );
-		let ledgerCodeStandard     = formData.get( 'ledger_code_standard' ).trim();
-		let ledgerCodeReduced      = formData.get( 'ledger_code_reduced' ).trim();
+		let paymentIds   = formData.getAll( 'payment_id' );
+		let paymentModes = formData.getAll( 'payment_mode' );
+		let paymentTerms = formData.getAll( 'payment_term' );
 
 		let paymentMethods = [];
 		let paymentsLength = paymentIds.length;
@@ -80,20 +67,22 @@ class NineteenEightyWoo {
 		}
 
 		const formDataObject = {
-			api_key: apiKey,
-			product_price_sync: productPriceSync,
-			product_quantity_sync: productQuantitySync,
-			product_name_sync: productNameSync,
-			import_nonweb_products: importNonwebProducts,
-			delete_inactive_products: deleteInactiveProducts,
-			shipping_sku: shippingSku,
-			cost_sku: costSku,
-			default_kennitala: defaultKennitala,
-			enable_kennitala: enableKennitala,
-			default_sales_person: defaultSalesPerson,
+			api_key: formData.get( 'api_key' ).trim(),
+			product_price_sync: Boolean( formData.get( 'product_price_sync' ) ),
+			product_quantity_sync: Boolean( formData.get( 'product_quantity_sync' ) ),
+			product_name_sync: Boolean( formData.get( 'product_name_sync' ) ),
+			import_nonweb_products: Boolean( formData.get( 'import_nonweb_products' ) ),
+			delete_inactive_products: Boolean( formData.get( 'delete_inactive_products' ) ),
+			shipping_sku: formData.get( 'shipping_sku' ).trim(),
+			cost_sku: formData.get( 'cost_sku' ).trim(),
+			default_kennitala: formData.get( 'default_kennitala' ).trim(),
+			enable_kennitala: Boolean( formData.get( 'enable_kennitala' ) ),
+			default_sales_person: formData.get( 'default_sales_person' ).trim(),
 			payment_methods: paymentMethods,
-			ledger_code_standard: ledgerCodeStandard,
-			ledger_code_reduced: ledgerCodeReduced,
+			ledger_code_standard: formData.get( 'ledger_code_standard' ).trim(),
+			ledger_code_standard_purchase: formData.get( 'ledger_code_standard_purchase' ).trim(),
+			ledger_code_reduced: formData.get( 'ledger_code_reduced' ).trim(),
+			ledger_code_reduced_purchase: formData.get( 'ledger_code_reduced_purchase' ).trim(),
 			customer_requests_kennitala_invoice: Boolean( formData.get( 'customer_requests_kennitala_invoice' ) ),
 			make_invoice_if_kennitala_is_set: Boolean( formData.get( 'make_invoice_if_kennitala_is_set' ) ),
 			make_invoice_if_kennitala_is_missing: Boolean( formData.get( 'make_invoice_if_kennitala_is_missing' ) ),
@@ -119,7 +108,8 @@ class NineteenEightyWoo {
 		);
 
 		NineteenEightyWoo.settingsLoader().classList.add( 'hidden' );
-		NineteenEightyWoo.settingsSubmit().disabled = false;
+
+		window.location.reload();
 
 		if ( response.ok ) {
 			if ( 'onlyApiKey' in NineteenEightyWoo.settingsForm().dataset ) {

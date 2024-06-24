@@ -25,10 +25,10 @@ class Config {
 	const DEFAULT_COST_SKU     = 'cost';
 	const DEFAULT_SALES_PERSON = 'websales';
 
-	const DEFAULT_LEDGER_CODE_STANDARD = 's002';
-	const DEFAULT_LEDGER_CODE_REDUCED  = 's003';
-	const DEFAULT_LEDGER_CODE_SHIPPING = 's001';
-	const DEFAULT_LEDGER_CODE_COSTS    = 's001';
+	const DEFAULT_LEDGER_CODE_STANDARD_SALE     = 's002';
+	const DEFAULT_LEDGER_CODE_STANDARD_PURCHASE = 'i001';
+	const DEFAULT_LEDGER_CODE_REDUCED_SALE      = 's003';
+	const DEFAULT_LEDGER_CODE_REDUCED_PURCHASE  = '';
 
 	/**
 	 * Get the DK API key
@@ -360,19 +360,19 @@ class Config {
 	): string {
 		switch ( $key ) {
 			case 'standard':
-				$default_value = self::DEFAULT_LEDGER_CODE_STANDARD;
+				$default_value = self::DEFAULT_LEDGER_CODE_STANDARD_SALE;
+				break;
+			case 'standard_purchase':
+				$default_value = self::DEFAULT_LEDGER_CODE_STANDARD_PURCHASE;
 				break;
 			case 'reduced':
-				$default_value = self::DEFAULT_LEDGER_CODE_REDUCED;
+				$default_value = self::DEFAULT_LEDGER_CODE_REDUCED_SALE;
 				break;
-			case 'shipping':
-				$default_value = self::DEFAULT_LEDGER_CODE_SHIPPING;
-				break;
-			case 'costs':
-				$default_value = self::DEFAULT_LEDGER_CODE_COSTS;
+			case 'reduced_purchase':
+				$default_value = self::DEFAULT_LEDGER_CODE_REDUCED_PURCHASE;
 				break;
 			default:
-				$default_value = self::DEFAULT_LEDGER_CODE_STANDARD;
+				$default_value = '';
 				break;
 		}
 

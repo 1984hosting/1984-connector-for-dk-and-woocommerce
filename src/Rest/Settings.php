@@ -166,10 +166,24 @@ class Settings {
 			);
 		}
 
+		if ( true === property_exists( $rest_json, 'ledger_code_standard_purchase' ) ) {
+			Config::set_ledger_code(
+				'standard_purchase',
+				$rest_json->ledger_code_standard_purchase
+			);
+		}
+
 		if ( true === property_exists( $rest_json, 'ledger_code_reduced' ) ) {
 			Config::set_ledger_code(
 				'reduced',
 				$rest_json->ledger_code_reduced
+			);
+		}
+
+		if ( true === property_exists( $rest_json, 'ledger_code_reduced_purchase' ) ) {
+			Config::set_ledger_code(
+				'reduced_purchase',
+				$rest_json->ledger_code_reduced_purchase
 			);
 		}
 
