@@ -72,7 +72,7 @@ class SalesPayments {
 			case 'D15':
 				return __( '15 Day Payment Deadline (D15)', '1984-dk-woo' );
 			case 'D20':
-				return __( '30 Day Payment Deadline (D20)', '1984-dk-woo' );
+				return __( '20 Day Payment Deadline (D20)', '1984-dk-woo' );
 			case 'D30':
 				return __( '30 Day Payment Deadline (D30)', '1984-dk-woo' );
 			case 'LM':
