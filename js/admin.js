@@ -39,11 +39,11 @@ class NineteenEightyWoo {
 
 		const formData = new FormData( event.target );
 
-		let apiKey               = formData.get( 'api_key' ).trim();
-		let productPriceSync     = Boolean( formData.get( 'product_price_sync' ) );
-		let productQuantitySync  = Boolean( formData.get( 'product_quantity_sync' ) );
-		let productNameSync      = Boolean( formData.get( 'product_name_sync' ) );
-		let importNonwebProducts = Boolean( formData.get( 'import_nonweb_products' ) );;
+		let apiKey                 = formData.get( 'api_key' ).trim();
+		let productPriceSync       = Boolean( formData.get( 'product_price_sync' ) );
+		let productQuantitySync    = Boolean( formData.get( 'product_quantity_sync' ) );
+		let productNameSync        = Boolean( formData.get( 'product_name_sync' ) );
+		let importNonwebProducts   = Boolean( formData.get( 'import_nonweb_products' ) );;
 		let deleteInactiveProducts = Boolean( formData.get( 'delete_inactive_products' ) );
 		let shippingSku            = formData.get( 'shipping_sku' ).trim();
 		let costSku                = formData.get( 'cost_sku' ).trim();
