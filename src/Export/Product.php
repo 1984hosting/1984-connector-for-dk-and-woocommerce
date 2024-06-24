@@ -396,6 +396,13 @@ class Product {
 			$product_props['Description2'] = $wc_product->get_attribute_summary();
 		}
 
+		$ledger_codes = ProductHelper::get_ledger_codes( $wc_product );
+
+		if ( false !== $ledger_codes ) {
+			$product_props['SalesLedgerCode']    = $ledger_codes->sales;
+			$product_props['PurchaseLedgerCode'] = $ledger_codes->purchase;
+		}
+
 		return (object) $product_props;
 	}
 
@@ -449,6 +456,13 @@ class Product {
 				$price_props['UnitPrice1WithTax'] = $wc_product->get_regular_price();
 			} else {
 				$price_props['UnitPrice1'] = $wc_product->get_regular_price();
+			}
+
+			$ledger_codes = ProductHelper::get_ledger_codes( $wc_product );
+
+			if ( false !== $ledger_codes ) {
+				$price_props['SalesLedgerCode']    = $ledger_codes->sales;
+				$price_props['PurchaseLedgerCode'] = $ledger_codes->purchase;
 			}
 
 			$product_props = array_merge( $product_props, $price_props );

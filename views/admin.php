@@ -22,6 +22,14 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 		</h1>
 		<section class="section">
 			<h2><?php esc_html_e( 'Authentication', '1984-dk-woo' ); ?></h2>
+			<p>
+				<?php
+				esc_html_e(
+					'For creating an API key, we recommend creating a separate user with full priveleges, not connected to an actual employee in dkPlus and then generating an API key for that user under ‘Tokens’ in that user’s Settings page.',
+					'1984-dk-woo'
+				);
+				?>
+			</p>
 			<table id="api-key-form-table" class="form-table">
 				<tbody>
 					<tr>
@@ -59,12 +67,13 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 		</section>
 
 		<section class="section">
-			<h2><?php esc_html_e( 'Product Sync Defaults', '1984-dk-woo' ); ?></h2>
-			<p><?php esc_html_e( 'This is where you set the default options for syncing your WooCommerce products. For example, if you do not want to overwrite the prices or names of your current WooCommerce products by default you do it here.', '1984-dk-woo' ); ?></p>
+			<h2><?php esc_html_e( 'Products', '1984-dk-woo' ); ?></h2>
+			<h3><?php esc_html_e( 'Product Sync Defaults', '1984-dk-woo' ); ?></h3>
+			<p><?php esc_html_e( 'This is where you set the default options for syncing your WooCommerce products. For example, if you do not want to overwrite the prices or names of your current WooCommerce products by default, or only fetch products labelled as ‘for online store’ you can do it here.', '1984-dk-woo' ); ?></p>
 			<table id="dk-product-defaults-table" class="form-table">
 				<tbody>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 						</th>
 						<td>
 							<input
@@ -82,7 +91,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 						</th>
 						<td>
 							<input
@@ -100,7 +109,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 						</th>
 						<td>
 							<input
@@ -118,7 +127,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 						</th>
 						<td>
 							<input
@@ -136,7 +145,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 						</th>
 						<td>
 							<input
@@ -155,22 +164,91 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 					</tr>
 				</tbody>
 			</table>
-		</section>
-
-		<section class="section">
-			<h2><?php esc_html_e( 'Invoices', '1984-dk-woo' ); ?></h2>
+			<h3><?php esc_html_e( 'Ledger Codes', '1984-dk-woo' ); ?></h3>
 			<p>
 				<?php
 				esc_html_e(
-					'DK treats shipping and other costs as line items on invoices. In order for them to work, you need to assign a SKU to each of the following services.',
+					'When a product is created and published in WooCommerce, a corrsponding product record is created in DK. Setting the values below correctly makes sure that this happens without discrepancies or errors.',
 					'1984-dk-woo'
 				);
 				?>
 			</p>
+			<table id="dk-ledger-codes-table" class="form-table">
+				<thead>
+					<tr>
+						<th></th>
+						<th id="dk-ledger-codes-table-th-sale" scope="col"><?php esc_html_e( 'Sale', '1984-dk-woo' ); ?></th>
+						<th id="dk-ledger-codes-table-th-purchase" scope="col"><?php esc_html_e( 'Purchase', '1984-dk-woo' ); ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+							<?php esc_html_e( 'Products with Standard tax rate', '1984-dk-woo' ); ?>
+						</th>
+						<td>
+							<label id="ledger_code_standard_field_label" for="ledger_code_standard_field">
+								<?php esc_html_e( 'Sale Booking Category', '1984-dk-woo' ); ?>
+							</label>
+							<input
+								aria-labelledby="dk-ledger-codes-table-th-sale"
+								id="ledger_code_standard_field"
+								name="ledger_code_standard"
+								type="text"
+								value="<?php echo esc_attr( Config::get_ledger_code( 'standard' ) ); ?>"
+							/>
+						</td>
+						<td>
+							<label id="ledger_code_standard_purchase_label" for="ledger_code_standard_purchase_field">
+								<?php esc_html_e( 'Purchase Booking Category', '1984-dk-woo' ); ?>
+							</label>
+							<input
+								aria-labelledby="dk-ledger-codes-table-th-sale-purchase"
+								id="ledger_code_standard_purchase_field"
+								name="ledger_code_standard_purchase"
+								type="text"
+								value="<?php echo esc_attr( Config::get_ledger_code( 'standard_purchase' ) ); ?>"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+							<?php esc_html_e( 'Products With Reduced Tax Rate', '1984-dk-woo' ); ?>
+						</th>
+						<td>
+							<label for="ledger_code_reduced_field">
+								<?php esc_html_e( 'Sale Booking Category', '1984-dk-woo' ); ?>
+							</label>
+							<input
+								id="ledger_code_reduced_field"
+								name="ledger_code_reduced"
+								type="text"
+								value="<?php echo esc_attr( Config::get_ledger_code( 'reduced' ) ); ?>"
+							/>
+						</td>
+						<td>
+							<label for="ledger_code_reduced_purchase_field">
+								<?php esc_html_e( 'Purchase Booking Category', '1984-dk-woo' ); ?>
+							</label>
+							<input
+								id="ledger_code_reduced_purchase_field"
+								name="ledger_code_reduced_purchase"
+								type="text"
+								value="<?php echo esc_attr( Config::get_ledger_code( 'reduced_purchase' ) ); ?>"
+							/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</section>
+
+		<section class="section">
+			<h2><?php esc_html_e( 'Invoices', '1984-dk-woo' ); ?></h2>
 			<table id="dk-invoices-table" class="form-table">
 				<tbody>
 				<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 							<label for="default_kennitala_field">
 								<?php
 								esc_html_e(
@@ -203,7 +281,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 						</th>
 						<td>
 							<input
@@ -223,7 +301,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 						</th>
 						<td>
 							<input
@@ -251,7 +329,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 						</th>
 						<td>
 							<input
@@ -279,7 +357,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 						</th>
 						<td>
 							<input
@@ -307,7 +385,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 						</th>
 						<td>
 							<input
@@ -334,9 +412,21 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 							</p>
 						</td>
 					</tr>
-
+				</tbody>
+			</table>
+			<h3><?php esc_html_e( 'Service SKUs', '1984-dk-woo' ); ?></h3>
+			<p>
+				<?php
+				esc_html_e(
+					'DK treats shipping and other costs as line items on invoices. In order for them to work, you need to assign a SKU to each of the following services.',
+					'1984-dk-woo'
+				);
+				?>
+			</p>
+			<table id="dk-service-sku-table" class="form-table">
+				<tbody>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 							<label for="shipping_sku_field">
 								<?php esc_html_e( 'Shipping SKU', '1984-dk-woo' ); ?>
 							</label>
@@ -356,7 +446,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 							<label for="cost_sku_field">
 								<?php esc_html_e( 'Cost SKU', '1984-dk-woo' ); ?>
 							</label>
@@ -376,7 +466,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						</td>
 					</tr>
 					<tr>
-						<th span="row" class="column-title column-primary">
+						<th scope="row" class="column-title column-primary">
 							<label for="default_sales_person_field">
 								<?php esc_html_e( 'Default Sales Person Number', '1984-dk-woo' ); ?>
 							</label>
@@ -406,10 +496,10 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 			<table id="payment-gateway-id-map-table" class="form-table">
 				<thead>
 					<tr>
-						<th span="col"></th>
-						<th span="col">Method ID in DK</th>
-						<th span="col">Payment Mode in DK</th>
-						<th span="col">Payment Terms in DK</th>
+						<th scope="col"></th>
+						<th scope="col">Method ID in DK</th>
+						<th scope="col">Payment Mode in DK</th>
+						<th scope="col">Payment Terms in DK</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -421,7 +511,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 						$payment_map = Config::get_payment_mapping( $p->id );
 						?>
 						<tr data-gateway-id="<?php echo esc_attr( $p->id ); ?>">
-							<th span="row" class="column-title column-primary">
+							<th scope="row" class="column-title column-primary">
 								<label
 									for="payment_id_input_<?php echo esc_attr( $p->id ); ?>"
 									class="payment-gateway-title"
@@ -498,52 +588,6 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 				);
 				?>
 			</p>
-		</section>
-
-		<section class="section">
-			<h2><?php esc_html_e( 'Ledger Codes', '1984-dk-woo' ); ?></h2>
-			<p>
-				<?php
-				esc_html_e(
-					'This only applies to products created in WooCommerce and is managed in DK after creation.',
-					'1984-dk-woo'
-				);
-				?>
-			</p>
-			<table id="dk-ledger-codes-table" class="form-table">
-				<tbody>
-					<tr>
-						<th span="row" class="column-title column-primary">
-							<label for="ledger_code_standard_field">
-								<?php esc_html_e( 'Products With Standard Tax Rate', '1984-dk-woo' ); ?>
-							</label>
-						</th>
-						<td>
-							<input
-								id="ledger_code_standard_field"
-								name="ledger_code_standard"
-								type="text"
-								value="<?php echo esc_attr( Config::get_ledger_code( 'standard' ) ); ?>"
-							/>
-						</td>
-					</tr>
-					<tr>
-						<th span="row" class="column-title column-primary">
-							<label for="ledger_code_reduced_field">
-								<?php esc_html_e( 'Products With Reduced Tax Rate', '1984-dk-woo' ); ?>
-							</label>
-						</th>
-						<td>
-							<input
-								id="ledger_code_reduced_field"
-								name="ledger_code_reduced"
-								type="text"
-								value="<?php echo esc_attr( Config::get_ledger_code( 'reduced' ) ); ?>"
-							/>
-						</td>
-					</tr>
-				</tbody>
-			</table>
 		</section>
 
 		<div class="submit-container">

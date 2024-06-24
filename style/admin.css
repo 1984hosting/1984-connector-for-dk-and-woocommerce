@@ -24,7 +24,7 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	padding: 20px 10px 20px 10px;
 }
 
-#nineteen-eighty-woo-wrap table th[span=col] {
+#nineteen-eighty-woo-wrap table th[scope=col] {
 	padding: 10px 10px 0px 10px;
 }
 
@@ -88,9 +88,13 @@ body.woocommerce_page_1984-dk-woo .wrap {
 #nineteen-eighty-woo-wrap h1 {
 	margin-bottom: 0.2em;
 	margin-top: 1em;
-	font-size: 2rem;
-	font-weight: 700;
+	margin-right: 1em;
+	font-size: 2.5rem;
+	font-weight: 900;
 	line-height: 1em;
+	color: #333;
+	text-shadow: 1px 1px 0 #fff;
+	max-width: 8em;
 }
 
 #nineteen-eighty-woo-wrap .submit-container {
@@ -148,9 +152,30 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	margin-left: 5em;
 }
 
+#nineteen-eighty-woo-wrap h2 {
+	font-size: 1.5rem;
+}
+
+#dk-ledger-codes-table {
+	width: auto;
+}
+
+#dk-ledger-codes-table td, #dk-ledger-codes-table th[scope=col] {
+	width: 6em;
+}
+
+#dk-ledger-codes-table input {
+	width: 4em;
+}
+
+#dk-ledger-codes-table label {
+	display: none;
+}
+
 @media screen and (max-width: 782px) {
 	#nineteen-eighty-woo-wrap h1 {
 		margin-left: 21px;
+		font-size: 2.5rem;
 	}
 	#nineteen-eighty-woo-wrap #api-key-form-table td {
 		max-width: calc(100vw - 10px - 6rem);
@@ -169,5 +194,13 @@ body.woocommerce_page_1984-dk-woo .wrap {
 
 	#nineteen-eighty-woo-wrap .form-table thead {
 		display: none;
+	}
+
+	#dk-ledger-codes-table label {
+		display: block;
+	}
+
+	#dk-ledger-codes-table td, #dk-ledger-codes-table th[scope=col] {
+		width: auto;
 	}
 }

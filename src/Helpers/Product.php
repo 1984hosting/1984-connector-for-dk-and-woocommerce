@@ -222,4 +222,30 @@ class Product {
 
 		return $product_currency;
 	}
+
+	/**
+	 * Get DK ledger codes for a WooCommerce product
+	 *
+	 * @param WC_Product $wc_product The WooCommrece product.
+	 *
+	 * @return false|object{
+	 *     sales: string,
+	 *     purchase: string
+	 * }
+	 */
+	public static function get_ledger_codes( WC_Product $wc_product ): false|object {
+		switch ( $wc_product->get_tax_class() ) {
+			case 'reduced-rate':
+				return (object) array(
+					'sales'    => Config::get_ledger_code( 'reduced' ),
+					'purchase' => Config::get_ledger_code( 'reduced_purchase' ),
+				);
+			case '':
+				return (object) array(
+					'sales'    => Config::get_ledger_code( 'standard' ),
+					'purchase' => Config::get_ledger_code( 'standard_purchase' ),
+				);
+		}
+		return false;
+	}
 }
