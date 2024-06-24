@@ -469,7 +469,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 							</td>
 							<td>
 								<select
-									id="payment_term_input_<?php echo esc_attr( $p->id ); ?>"
+									id="payment_term_input"
 									name="payment_term"
 								>
 									<option></option>

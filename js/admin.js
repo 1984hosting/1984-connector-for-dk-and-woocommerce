@@ -52,6 +52,7 @@ class NineteenEightyWoo {
 		let defaultSalesPerson     = formData.get( 'default_sales_person' ).trim();
 		let paymentIds             = formData.getAll( 'payment_id' );
 		let paymentModes           = formData.getAll( 'payment_mode' );
+		let paymentTerms           = formData.getAll( 'payment_term' );
 		let ledgerCodeStandard     = formData.get( 'ledger_code_standard' ).trim();
 		let ledgerCodeReduced      = formData.get( 'ledger_code_reduced' ).trim();
 
