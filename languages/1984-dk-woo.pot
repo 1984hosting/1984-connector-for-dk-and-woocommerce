@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1984 Connector for DK and WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-24 19:13+0000\n"
+"POT-Creation-Date: 2024-06-26 15:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Domain: 1984-dk-woo"
 
 #. The %1$s and %2$s indicate an opening and closing <strong> tag.
-#: views/admin.php:599
+#: views/admin.php:627
 #, php-format
 msgid ""
 "%1$sError:%2$s Please check if all the information was entered correctly and "
@@ -33,10 +33,6 @@ msgstr ""
 msgid "1984 Connector for DK and WooCommerce"
 msgstr ""
 
-#: src/Hooks/Admin.php:62
-msgid "1984 DK Connection"
-msgstr ""
-
 #. Author of the plugin
 msgid "1984 Hosting"
 msgstr ""
@@ -50,7 +46,7 @@ msgid "30 Day Payment Deadline (D30)"
 msgstr ""
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Hooks/WooOrderStatusChanges.php:178
+#: src/Hooks/WooOrderStatusChanges.php:182
 #, php-format
 msgid ""
 "A credit invoice for the refund has been created in DK. The invoice number "
@@ -69,7 +65,7 @@ msgstr ""
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr ""
 
-#: src/Import/SalesPayments.php:149
+#: src/Import/SalesPayments.php:163
 msgid "A or B Giro Request (ABG)"
 msgstr ""
 
@@ -85,7 +81,7 @@ msgstr ""
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:189
+#: src/Hooks/WooOrderStatusChanges.php:193
 msgid ""
 "An email containing the credit invoice as a PDF attachment was sent to the "
 "customer."
@@ -146,38 +142,46 @@ msgstr ""
 msgid "Authentication"
 msgstr ""
 
-#: src/Import/SalesPayments.php:159
+#: src/Import/SalesPayments.php:173
 msgid "Bank Collection Service (IB)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:151
+#: src/Import/SalesPayments.php:165
 msgid "Bank Transfer (BM)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:153
+#: src/Import/SalesPayments.php:167
 msgid "C Giro Request (CG)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:155
+#: src/Import/SalesPayments.php:169
 msgid "Card Payment (GKR)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:87 src/Import/SalesPayments.php:161
+#: src/Import/SalesPayments.php:87 src/Import/SalesPayments.php:175
 msgid "Cash Payment (STGR)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:163
+#: src/Import/SalesPayments.php:177
 msgid "Cheque Payment (TGR)"
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:205
+#: src/Hooks/WooOrderStatusChanges.php:209
 msgid ""
 "Connection was established to DK but a credit invoice was not created due to "
 "an error."
 msgstr ""
 
-#: views/admin.php:451
+#: src/Hooks/Admin.php:62 src/Hooks/Admin.php:63
+msgid "Connector for DK"
+msgstr ""
+
+#: views/admin.php:479
 msgid "Cost SKU"
+msgstr ""
+
+#: views/admin.php:427
+msgid "Create a credit invoice when an order is labelled as refunded"
 msgstr ""
 
 #: views/admin.php:315
@@ -208,7 +212,7 @@ msgstr ""
 msgid "Default Customer Kennitala"
 msgstr ""
 
-#: views/admin.php:471
+#: views/admin.php:499
 msgid "Default Sales Person Number"
 msgstr ""
 
@@ -216,11 +220,7 @@ msgstr ""
 msgid "Delete Inactive Products from WooCommerce"
 msgstr ""
 
-#: src/Hooks/Admin.php:63
-msgid "DK Connection"
-msgstr ""
-
-#: views/admin.php:420
+#: views/admin.php:448
 msgid ""
 "DK treats shipping and other costs as line items on invoices. In order for "
 "them to work, you need to assign a SKU to each of the following services."
@@ -242,7 +242,7 @@ msgid ""
 "page."
 msgstr ""
 
-#: src/Import/SalesPayments.php:157
+#: src/Import/SalesPayments.php:171
 msgid "Giro Transfer (GM)"
 msgstr ""
 
@@ -256,6 +256,12 @@ msgstr ""
 
 #. URI of the plugin
 msgid "https://github.com/1984hosting/1984-dk-woo"
+msgstr ""
+
+#: views/admin.php:435
+msgid ""
+"If enabled, a credit invoice is automatically created when an order is "
+"labelled as refunded in WooCommerce."
 msgstr ""
 
 #: views/admin.php:379
@@ -326,7 +332,7 @@ msgid ""
 "equal the Item Code in DK. It is set in the %3$sInventory Panel%4$s."
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:596
+#: src/Hooks/KennitalaField.php:597
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr ""
 
@@ -335,18 +341,18 @@ msgid "Invoices"
 msgstr ""
 
 #: src/Hooks/WooOrderStatusChanges.php:132
-#: src/Hooks/WooOrderStatusChanges.php:196
+#: src/Hooks/WooOrderStatusChanges.php:200
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
 "as a PDF attachment."
 msgstr ""
 
 #: src/Hooks/KennitalaField.php:229 src/Hooks/KennitalaField.php:253
-#: src/Hooks/KennitalaField.php:414 src/Hooks/KennitalaField.php:527
+#: src/Hooks/KennitalaField.php:414 src/Hooks/KennitalaField.php:528
 msgid "Kennitala"
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:531
+#: src/Hooks/KennitalaField.php:532
 msgid "Kennitala (Optional)"
 msgstr ""
 
@@ -354,7 +360,7 @@ msgstr ""
 msgid "Ledger Codes"
 msgstr ""
 
-#: views/admin.php:632
+#: views/admin.php:660
 msgid "Ninteen-Eighty-Four"
 msgstr ""
 
@@ -367,7 +373,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: views/admin.php:494
+#: views/admin.php:522
 msgid "Payment Gateways"
 msgstr ""
 
@@ -395,7 +401,7 @@ msgid ""
 "before saving."
 msgstr ""
 
-#: views/admin.php:495
+#: views/admin.php:523
 msgid ""
 "Please select the payment method name for each payment gateway as it appears "
 "in DK as well as the payment mode:"
@@ -429,11 +435,11 @@ msgstr ""
 msgid "Purchase Booking Category"
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:427 src/Hooks/KennitalaField.php:550
+#: src/Hooks/KennitalaField.php:428 src/Hooks/KennitalaField.php:551
 msgid "Request an Invoice with Kennitala"
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:554
+#: src/Hooks/KennitalaField.php:555
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr ""
 
@@ -445,7 +451,7 @@ msgstr ""
 msgid "Sale Booking Category"
 msgstr ""
 
-#: views/admin.php:615
+#: views/admin.php:643
 msgid "Save"
 msgstr ""
 
@@ -453,7 +459,7 @@ msgstr ""
 msgid "Send Invoices Automatically via Email"
 msgstr ""
 
-#: views/admin.php:417
+#: views/admin.php:445
 msgid "Service SKUs"
 msgstr ""
 
@@ -461,7 +467,7 @@ msgstr ""
 msgid "Shipping"
 msgstr ""
 
-#: views/admin.php:431
+#: views/admin.php:459
 msgid "Shipping SKU"
 msgstr ""
 
@@ -512,9 +518,9 @@ msgid ""
 "from DK."
 msgstr ""
 
-#: views/admin.php:625
+#: views/admin.php:653
 msgid ""
-"The 1984 DK Connection Plugin for WooCommerce is developed, maintained and "
+"The 1984 Connector for DK and WooCommerce is developed, maintained and "
 "supported on goodwill basis by 1984 Hosting as free software without any "
 "guarantees or obligations and is not affiliated with or supported by DK "
 "hugbúnaður ehf."
@@ -562,7 +568,7 @@ msgid "The Item Code ‘%s’ was not found in DK."
 msgstr ""
 
 #. %1$s stands for the opening and %2$s <a> tag in a hyperlink to the WooCommerce Payment Settings page.
-#: views/admin.php:585
+#: views/admin.php:613
 #, php-format
 msgid ""
 "The payment gateways themselves are handled by your WooCommerce Settings, "
@@ -581,7 +587,7 @@ msgid ""
 "labelled as ‘for online store’ you can do it here."
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:212
+#: src/Hooks/WooOrderStatusChanges.php:216
 msgid "Unable to establish a connection with DK to create a credit invoice."
 msgstr ""
 

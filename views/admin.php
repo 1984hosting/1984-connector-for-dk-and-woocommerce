@@ -651,7 +651,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 		<p>
 			<?php
 			esc_html_e(
-				'The 1984 DK Connection Plugin for WooCommerce is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
+				'The 1984 Connector for DK and WooCommerce is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
 				'1984-dk-woo'
 			);
 			?>
