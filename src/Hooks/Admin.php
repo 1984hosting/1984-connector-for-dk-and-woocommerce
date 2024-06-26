@@ -17,7 +17,7 @@ use stdClass;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION = '0.3.0';
+	const ASSET_VERSION = '0.3.1';
 
 	/**
 	 * Constructor for the Admin interface class
@@ -59,8 +59,8 @@ class Admin {
 	public static function add_menu_page(): void {
 		add_submenu_page(
 			'woocommerce',
-			__( '1984 DK Connection', '1984-dk-woo' ),
-			__( 'DK Connection', '1984-dk-woo' ),
+			__( 'Connector for DK', '1984-dk-woo' ),
+			__( 'Connector for DK', '1984-dk-woo' ),
 			'manage_options',
 			'1984-dk-woo',
 			array( __CLASS__, 'render_admin_page' )
