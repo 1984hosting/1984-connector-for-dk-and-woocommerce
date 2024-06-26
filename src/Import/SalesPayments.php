@@ -102,14 +102,28 @@ class SalesPayments {
 	 * @return array<string>
 	 */
 	public static function get_payment_terms(): array {
-		if ( ! empty( Config::get_dk_api_key() ) ) {
+		$terms_transient = get_transient( '1984_woo_dk_payment_terms' );
+
+		if ( is_array( $terms_transient ) ) {
+			return $terms_transient;
+		}
+
+		if ( is_string( Config::get_dk_api_key() ) ) {
 			$terms = self::get_payment_terms_from_dk();
 			if ( is_array( $terms ) ) {
-				return array_column( $terms, 'CODE' );
+				$plucked_terms = array_column( $terms, 'CODE' );
+
+				set_transient(
+					'1984_woo_dk_payment_terms',
+					$plucked_terms,
+					self::TRANSIENT_EXPIRY
+				);
+
+				return $plucked_terms;
 			}
 		}
 
-		return self::DK_PAYMENT_TERMS;
+		return array();
 	}
 
 	/**
@@ -176,9 +190,23 @@ class SalesPayments {
 	 * contents of DK_PAYMENT_MODES will be returned.
 	 */
 	public static function get_payment_modes(): array {
-		if ( ! empty( Config::get_dk_api_key() ) ) {
-			$modes = self::get_payment_modes_from_dk();
-			return array_column( $modes, 'CODE' );
+		$modes_transient = get_transient( '1984_woo_dk_payment_modes' );
+
+		if ( is_array( $modes_transient ) ) {
+			return $modes_transient;
+		}
+
+		if ( is_string( Config::get_dk_api_key() ) ) {
+			$modes         = self::get_payment_modes_from_dk();
+			$plucked_modes = array_column( $modes, 'CODE' );
+
+			set_transient(
+				'1984_woo_dk_payment_modes',
+				$plucked_modes,
+				self::TRANSIENT_EXPIRY
+			);
+
+			return $plucked_modes;
 		}
 
 		return self::DK_PAYMENT_MODES;
