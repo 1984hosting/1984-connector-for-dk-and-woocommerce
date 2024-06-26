@@ -26,7 +26,6 @@ new Cron\Schedule();
 new Rest\Settings();
 new Hooks\KennitalaField();
 new Hooks\RegisterPostMeta();
-new Hooks\UpdateUser();
 new Hooks\WooMetaboxes();
 new Hooks\WooOrderStatusChanges();
 new Hooks\WooProductVariations();
