@@ -422,9 +422,10 @@ class KennitalaField {
 		woocommerce_form_field(
 			'kennitala_invoice_requested',
 			array(
-				'id'    => '1984_woo_dk_checkout_kennitala_invoice_requested',
-				'type'  => 'checkbox',
-				'label' => __(
+				'id'            => '1984_woo_dk_checkout_kennitala_invoice_requested',
+				'type'          => 'checkbox',
+				'checked_value' => false,
+				'label'         => __(
 					'Request an Invoice with Kennitala',
 					'1984-dk-woo'
 				),
