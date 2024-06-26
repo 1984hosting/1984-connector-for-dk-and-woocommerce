@@ -635,4 +635,21 @@ class Config {
 			(int) $value
 		);
 	}
+
+	/**
+	 * Get wether to make a credit invoice when an order is labelled as refunded
+	 */
+	public static function get_make_credit_invoice(): bool {
+		return (bool) get_option( 'make_credit_invoice', false );
+	}
+
+	/**
+	 * Set wether to make a credit invoice when an order is labelled as refunded
+	 *
+	 * @param bool $value True to enable credit invoices,
+	 *             false to disable it.
+	 */
+	public static function set_make_credit_invoice( bool $value ): bool {
+		return update_option( 'make_credit_invoice', (int) $value );
+	}
 }

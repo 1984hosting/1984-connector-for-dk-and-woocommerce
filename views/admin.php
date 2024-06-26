@@ -412,6 +412,34 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 							</p>
 						</td>
 					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="make_credit_invoice_field"
+								name="make_credit_invoice"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_make_credit_invoice() ? 'checked' : '' ); ?>
+							/>
+							<label for="make_credit_invoice_field">
+								<?php
+								esc_html_e(
+									'Create a credit invoice when an order is labelled as refunded',
+									'1984-dk-woo'
+								);
+								?>
+							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'If enabled, a credit invoice is automatically created when an order is labelled as refunded in WooCommerce.',
+									'1984-dk-woo'
+								);
+								?>
+							</p>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<h3><?php esc_html_e( 'Service SKUs', '1984-dk-woo' ); ?></h3>

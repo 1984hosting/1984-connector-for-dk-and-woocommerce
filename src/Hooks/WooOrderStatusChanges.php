@@ -163,6 +163,10 @@ class WooOrderStatusChanges {
 	 * @param int $order_id The WooCommerce order ID.
 	 */
 	public static function maybe_send_credit_invoice_on_refund( int $order_id ): void {
+		if ( ! Config::get_make_credit_invoice() ) {
+			return;
+		}
+
 		$wc_order = new WC_Order( $order_id );
 
 		if ( false === empty( ExportInvoice::get_dk_credit_invoice_number( $wc_order ) ) ) {

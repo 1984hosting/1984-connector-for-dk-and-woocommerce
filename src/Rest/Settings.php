@@ -217,6 +217,10 @@ class Settings {
 			);
 		}
 
+		if ( true === property_exists( $rest_json, 'email_credit_invoice' ) ) {
+			Config::set_make_credit_invoice( $rest_json->make_credit_invoice );
+		}
+
 		if ( true === property_exists( $rest_json, 'make_invoice_if_kennitala_is_set' ) ) {
 			Config::set_make_invoice_if_kennitala_is_set(
 				$rest_json->make_invoice_if_kennitala_is_set
