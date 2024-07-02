@@ -121,6 +121,7 @@ class Admin {
 	 * @param string $sku The SKU to check for in DK.
 	 *
 	 * @return stdClass{
+	 *     'exsits': bool|null,
 	 *     'text': string,
 	 *     'class': string,
 	 *     'dashicon': string
@@ -149,6 +150,7 @@ class Admin {
 				esc_html( $sku )
 			);
 
+			$exsits   = true;
 			$class    = 'ok';
 			$dashicon = 'dashicons-yes';
 		} else {
@@ -161,11 +163,13 @@ class Admin {
 				esc_html( $sku )
 			);
 
+			$exsits   = false;
 			$class    = 'error';
 			$dashicon = 'dashicons-no';
 		}
 
 		return (object) array(
+			'exsits'    => $exsits,
 			'css_class' => $class,
 			'dashicon'  => $dashicon,
 			'text'      => $text,

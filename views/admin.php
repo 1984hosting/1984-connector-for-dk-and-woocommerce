@@ -184,6 +184,23 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 				<tbody>
 					<tr>
 						<th scope="row" class="column-title column-primary">
+							<?php esc_html_e( 'Services with Standard Tax Rate', '1984-dk-woo' ); ?>
+						</th>
+						<td>
+							<label id="ledger_code_standard_field_label" for="ledger_code_standard_field">
+								<?php esc_html_e( 'Sale Booking Category', '1984-dk-woo' ); ?>
+							</label>
+							<input
+								aria-labelledby="dk-ledger-codes-table-th-sale"
+								id="ledger_code_standard_field"
+								name="ledger_code_standard"
+								type="text"
+								value="<?php echo esc_attr( Config::get_ledger_code( 'service' ) ); ?>"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
 							<?php esc_html_e( 'Products with Standard tax rate', '1984-dk-woo' ); ?>
 						</th>
 						<td>
@@ -456,7 +473,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 					<tr>
 						<th scope="row" class="column-title column-primary">
 							<label for="shipping_sku_field">
-								<?php esc_html_e( 'Shipping SKU', '1984-dk-woo' ); ?>
+								<?php esc_html_e( 'Item Code for Shipping', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -471,12 +488,16 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 								<span class="dashicons <?php echo esc_attr( $info_for_shipping_sku->dashicon ); ?>"></span>
 								<?php echo esc_html( $info_for_shipping_sku->text ); ?>
 							</p>
+							<p>
+								<input type="checkbox" id="shipping_sku_create_field" />
+								<label for="shipping_sku_create_field">Create in DK if it does not exsist.</label>
+							</p>
 						</td>
 					</tr>
 					<tr>
 						<th scope="row" class="column-title column-primary">
 							<label for="cost_sku_field">
-								<?php esc_html_e( 'Cost SKU', '1984-dk-woo' ); ?>
+								<?php esc_html_e( 'Item Code for Costs and Fees', '1984-dk-woo' ); ?>
 							</label>
 						</th>
 						<td>
@@ -490,6 +511,10 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 							<p class="infotext <?php echo esc_attr( $info_for_cost_sku->css_class ); ?>">
 								<span class="dashicons <?php echo esc_attr( $info_for_cost_sku->dashicon ); ?>"></span>
 								<?php echo esc_html( $info_for_cost_sku->text ); ?>
+							</p>
+							<p>
+								<input type="checkbox" id="cost_sku_create_field" />
+								<label for="cost_sku_create_field">Create in DK if it does not exsist.</label>
 							</p>
 						</td>
 					</tr>

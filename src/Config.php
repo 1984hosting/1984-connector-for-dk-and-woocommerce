@@ -25,6 +25,7 @@ class Config {
 	const DEFAULT_COST_SKU     = 'cost';
 	const DEFAULT_SALES_PERSON = 'websales';
 
+	const DEFAULT_LEDGER_CODE_SERVICES_SALE     = 's001';
 	const DEFAULT_LEDGER_CODE_STANDARD_SALE     = 's002';
 	const DEFAULT_LEDGER_CODE_STANDARD_PURCHASE = 'i001';
 	const DEFAULT_LEDGER_CODE_REDUCED_SALE      = 's003';
@@ -359,6 +360,9 @@ class Config {
 		string $key = 'standard'
 	): string {
 		switch ( $key ) {
+			case 'service':
+				$default_value = self::DEFAULT_LEDGER_CODE_SERVICES_SALE;
+				break;
 			case 'standard':
 				$default_value = self::DEFAULT_LEDGER_CODE_STANDARD_SALE;
 				break;
