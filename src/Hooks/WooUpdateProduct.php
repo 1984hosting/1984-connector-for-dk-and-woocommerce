@@ -29,6 +29,13 @@ class WooUpdateProduct {
 		);
 
 		add_action(
+			'woocommerce_update_product_variation',
+			array( __CLASS__, 'on_product_update' ),
+			10,
+			2
+		);
+
+		add_action(
 			'before_delete_post',
 			array( __CLASS__, 'before_post_delete' ),
 			10,

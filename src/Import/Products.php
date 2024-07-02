@@ -309,7 +309,7 @@ class Products {
 		int $product_id,
 		stdClass $json_object
 	): WC_Product|false {
-		$wc_product = new WC_Product( $product_id );
+		$wc_product = wc_get_product( $product_id );
 
 		if ( ! ( $wc_product instanceof WC_Product ) ) {
 			return false;
