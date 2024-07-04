@@ -73,7 +73,7 @@ class Customer {
 
 		$result = $api_request->request_result(
 			self::API_PATH,
-			wp_json_encode( $request_body ),
+			$request_body,
 		);
 
 		if ( $result instanceof WP_Error ) {
