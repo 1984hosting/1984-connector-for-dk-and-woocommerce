@@ -4,8 +4,11 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
+use Automattic\WooCommerce\Admin\API\Customers;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Export\Order as ExportOrder;
+use NineteenEightyFour\NineteenEightyWoo\Export\Customer as ExportCustomer;
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use WC_Order;
 use WP_Error;
@@ -33,6 +36,10 @@ class Invoice {
 	public static function create_in_dk(
 		WC_Order $wc_order
 	): string|false|WP_Error {
+		if ( ! ExportCustomer::is_in_dk( OrderHelper::get_kennitala( $wc_order ) ) ) {
+			Customer::create_in_dk_from_order( $wc_order );
+		}
+
 		$invoice_number = self::get_dk_invoice_number( $wc_order );
 
 		if ( false === empty( $invoice_number ) ) {

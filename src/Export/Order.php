@@ -126,22 +126,13 @@ class Order {
 	 * @param WC_Order $wc_order The WooCommerce order object.
 	 */
 	public static function to_dk_order_body( WC_Order $wc_order ): array {
+		$kennitala = OrderHelper::get_kennitala( $wc_order );
+
 		$order_props     = array();
-		$customer_array  = array();
 		$recipient_array = array();
+		$customer_array  = array( 'Number' => $kennitala );
 
 		$order_props['Reference'] = 'WC-' . $wc_order->get_id();
-
-		$customer_array['Number'] = OrderHelper::get_kennitala( $wc_order );
-
-		if ( ! ExportCustomer::is_in_dk( OrderHelper::get_kennitala( $wc_order ) ) ) {
-			if ( 0 === $wc_order->get_customer_id() ) {
-				Customer::create_in_dk_from_order( $wc_order );
-			} else {
-				$wc_customer = new WC_Customer( $wc_order->get_customer_id() );
-				Customer::create_in_dk( $wc_customer );
-			}
-		}
 
 		$recipient_array['Name']     = $wc_order->get_formatted_billing_full_name();
 		$recipient_array['Address1'] = $wc_order->get_shipping_address_1();
@@ -238,7 +229,7 @@ class Order {
 		$total_amount = $total->minus( $total_tax );
 
 		$order_props['TotalAmount']        = $total_amount->toFloat();
-		$order_props['TotalAmountWithTax'] = $total_tax->toFloat();
+		$order_props['TotalAmountWithTax'] = $total->toFloat();
 
 		return $order_props;
 	}
