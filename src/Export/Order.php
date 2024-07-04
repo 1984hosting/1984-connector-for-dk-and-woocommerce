@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
+use Automattic\WooCommerce\Admin\API\Customers;
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use NineteenEightyFour\NineteenEightyWoo\Config;
@@ -125,23 +126,13 @@ class Order {
 	 * @param WC_Order $wc_order The WooCommerce order object.
 	 */
 	public static function to_dk_order_body( WC_Order $wc_order ): array {
+		$kennitala = OrderHelper::get_kennitala( $wc_order );
+
 		$order_props     = array();
-		$customer_array  = array();
 		$recipient_array = array();
+		$customer_array  = array( 'Number' => $kennitala );
 
 		$order_props['Reference'] = 'WC-' . $wc_order->get_id();
-
-		$customer_array['Number'] = OrderHelper::get_kennitala( $wc_order );
-
-		if ( ! ExportCustomer::is_in_dk( OrderHelper::get_kennitala( $wc_order ) ) ) {
-			$customer_array['Name']     = $wc_order->get_formatted_billing_full_name();
-			$customer_array['Address1'] = $wc_order->get_billing_address_1();
-			$customer_array['Address2'] = $wc_order->get_billing_address_2();
-			$customer_array['City']     = $wc_order->get_billing_city();
-			$customer_array['ZipCode']  = $wc_order->get_billing_postcode();
-			$customer_array['Phone']    = $wc_order->get_billing_phone();
-			$customer_array['Email']    = $wc_order->get_billing_email();
-		}
 
 		$recipient_array['Name']     = $wc_order->get_formatted_billing_full_name();
 		$recipient_array['Address1'] = $wc_order->get_shipping_address_1();
@@ -151,10 +142,6 @@ class Order {
 		$recipient_array['Phone']    = $wc_order->get_shipping_phone();
 
 		$store_location = wc_get_base_location();
-
-		if ( $wc_order->get_billing_country() !== $store_location['country'] ) {
-			$customer_array['Country'] = $wc_order->get_billing_country();
-		}
 
 		if ( $wc_order->get_shipping_country() !== $store_location['country'] ) {
 			$recipient_array['Country'] = $wc_order->get_shipping_country();
@@ -242,7 +229,7 @@ class Order {
 		$total_amount = $total->minus( $total_tax );
 
 		$order_props['TotalAmount']        = $total_amount->toFloat();
-		$order_props['TotalAmountWithTax'] = $total_tax->toFloat();
+		$order_props['TotalAmountWithTax'] = $total->toFloat();
 
 		return $order_props;
 	}

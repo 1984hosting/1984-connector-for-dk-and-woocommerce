@@ -173,7 +173,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 				);
 				?>
 			</p>
-			<table id="dk-ledger-codes-table" class="form-table">
+			<table id="dk-ledger-codes-table" class="form-table dk-ledger-codes-table">
 				<thead>
 					<tr>
 						<th></th>
@@ -513,7 +513,44 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 							</p>
 						</td>
 					</tr>
+				</tbody>
+			</table>
+		</section>
 
+		<section class="section">
+			<h2><?php esc_html_e( 'Customers', '1984-dk-woo' ); ?></h2>
+			<table id="customers-table" class="form-table dk-ledger-codes-table">
+				<tbody>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+							<label for="domestic_customer_ledger_code_field">
+								<?php esc_html_e( 'Ledger Code for Domestic Customers', '1984-dk-woo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="domestic_customer_ledger_code_field"
+								name="domestic_customer_ledger_code"
+								type="text"
+								value="<?php echo esc_attr( Config::get_domestic_customer_ledger_code() ); ?>"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+							<label for="international_customer_ledger_code_field">
+								<?php esc_html_e( 'Ledger Code for International Customers', '1984-dk-woo' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="international_customer_ledger_code_field"
+								name="international_customer_ledger_code"
+								type="text"
+								value="<?php echo esc_attr( Config::get_international_customer_ledger_code() ); ?>"
+							/>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</section>

@@ -6,8 +6,10 @@ namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use NineteenEightyFour\NineteenEightyWoo\Config;
-
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
+use stdClass;
 use WC_Customer;
+use WC_Order;
 use WP_Error;
 
 /**
@@ -36,6 +38,42 @@ class Customer {
 		$result = $api_request->request_result(
 			self::API_PATH,
 			wp_json_encode( $request_body ),
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( 200 !== $result->response_code ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Create a customer record in DK representing a WooCommerce order record
+	 *
+	 * This facilitates "guests", as instead of using a WC_Customer object
+	 * directly, this takes the customer information for the order itself.
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 *
+	 * @return bool|WP_Error True on success, false if connection was
+	 *                       established but the request was rejected, WC_Error
+	 *                       if there was a connection error.
+	 */
+	public static function create_in_dk_from_order(
+		WC_Order $wc_order
+	): bool|WP_Error {
+		$api_request  = new DKApiRequest();
+		$request_body = wp_json_encode(
+			self::to_dk_customer_body_from_order( $wc_order )
+		);
+
+		$result = $api_request->request_result(
+			self::API_PATH,
+			$request_body,
 		);
 
 		if ( $result instanceof WP_Error ) {
@@ -202,5 +240,43 @@ class Customer {
 	public static function id_to_dk_customer_body( int $customer_id ): array {
 		$customer = new WC_Customer( $customer_id );
 		return self::to_dk_customer_body( $customer );
+	}
+
+	/**
+	 * Generate a customer request body for DK from order information
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 *
+	 * @return stdClass An object representing the customer information for the order.
+	 */
+	public static function to_dk_customer_body_from_order(
+		WC_Order $wc_order
+	): stdClass {
+		$payment_mapping = Config::get_payment_mapping(
+			$wc_order->get_payment_method()
+		);
+
+		$store_location = wc_get_base_location();
+		if ( $wc_order->get_billing_country() === $store_location['country'] ) {
+			$ledger_code = Config::get_domestic_customer_ledger_code();
+		} else {
+			$ledger_code = Config::get_international_customer_ledger_code();
+		}
+
+		return (object) array(
+			'Number'      => OrderHelper::get_kennitala( $wc_order ),
+			'Name'        => $wc_order->get_formatted_billing_full_name(),
+			'Address1'    => $wc_order->get_billing_address_1(),
+			'Address2'    => $wc_order->get_billing_address_2(),
+			'Country'     => $wc_order->get_billing_country(),
+			'City'        => $wc_order->get_billing_city(),
+			'ZipCode'     => $wc_order->get_billing_postcode(),
+			'Phone'       => $wc_order->get_billing_phone(),
+			'Email'       => $wc_order->get_billing_email(),
+			'SalesPerson' => Config::get_default_sales_person_number(),
+			'PaymentMode' => $payment_mapping->dk_mode,
+			'PaymentTerm' => $payment_mapping->dk_term,
+			'LedgerCode'  => $ledger_code,
+		);
 	}
 }

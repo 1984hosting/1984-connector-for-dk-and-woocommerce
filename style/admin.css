@@ -156,15 +156,15 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	font-size: 1.5rem;
 }
 
-#dk-ledger-codes-table {
+.dk-ledger-codes-table {
 	width: auto;
 }
 
-#dk-ledger-codes-table td, #dk-ledger-codes-table th[scope=col] {
+.dk-ledger-codes-table td, .dk-ledger-codes-table th[scope=col] {
 	width: 6em;
 }
 
-#dk-ledger-codes-table input {
+.dk-ledger-codes-table input {
 	width: 4em;
 }
 
@@ -200,7 +200,7 @@ body.woocommerce_page_1984-dk-woo .wrap {
 		display: block;
 	}
 
-	#dk-ledger-codes-table td, #dk-ledger-codes-table th[scope=col] {
+	.dk-ledger-codes-table td, .dk-ledger-codes-table th[scope=col] {
 		width: auto;
 	}
 }

@@ -30,6 +30,9 @@ class Config {
 	const DEFAULT_LEDGER_CODE_REDUCED_SALE      = 's003';
 	const DEFAULT_LEDGER_CODE_REDUCED_PURCHASE  = '';
 
+	const DEFAULT_LEDGER_CODE_DOMESTIC_CUSTOMERS      = '0001';
+	const DEFAULT_LEDGER_CODE_INTERNATIONAL_CUSTOMERS = '0002';
+
 	/**
 	 * Get the DK API key
 	 *
@@ -651,5 +654,71 @@ class Config {
 	 */
 	public static function set_make_credit_invoice( bool $value ): bool {
 		return update_option( 'make_credit_invoice', (int) $value );
+	}
+
+	/**
+	 * Get the ledger code for domestic customers
+	 *
+	 * This is the ledger code that is used of the customer's country is the
+	 * same as the shop's country.
+	 *
+	 * @return string The ledger code.
+	 */
+	public static function get_domestic_customer_ledger_code(): string {
+		return (string) (
+			get_option(
+				'1984_woo_dk_domestic_customer_ledger_code',
+				self::DEFAULT_LEDGER_CODE_DOMESTIC_CUSTOMERS
+			)
+		);
+	}
+
+	/**
+	 * Set the ledger code for domestic customers
+	 *
+	 * @param string $value The ledger code to set.
+	 *
+	 * @return bool True on success, false on failure.
+	 */
+	public static function set_domestic_customer_ledger_code(
+		string $value
+	): bool {
+		return update_option(
+			'1984_woo_dk_domestic_customer_ledger_code',
+			(string) $value
+		);
+	}
+
+	/**
+	 * Get the ledger code for international customers
+	 *
+	 * This is the ledger code that is used of the customer's country is not the
+	 * same as the shop's country.
+	 *
+	 * @return string The ledger code.
+	 */
+	public static function get_international_customer_ledger_code(): string {
+		return (string) (
+			get_option(
+				'1984_woo_dk_international_customer_ledger_code',
+				self::DEFAULT_LEDGER_CODE_INTERNATIONAL_CUSTOMERS
+			)
+		);
+	}
+
+	/**
+	 * Set the ledger code for international customers
+	 *
+	 * @param string $value The ledger code to set.
+	 *
+	 * @return bool True on success, false on failure.
+	 */
+	public static function set_international_customer_ledger_code(
+		string $value
+	): bool {
+		return update_option(
+			'1984_woo_dk_international_customer_ledger_code',
+			(string) $value
+		);
 	}
 }

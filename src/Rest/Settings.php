@@ -239,12 +239,19 @@ class Settings {
 			);
 		}
 
-		if (
-			true === property_exists(
-				$rest_json,
-				'enable_kennitala_in_block'
-			)
-		) {
+		if ( property_exists( $rest_json, 'domestic_customer_ledger_code' ) ) {
+			Config::set_domestic_customer_ledger_code(
+				$rest_json->domestic_customer_ledger_code
+			);
+		}
+
+		if ( property_exists( $rest_json, 'international_customer_ledger_code' ) ) {
+			Config::set_international_customer_ledger_code(
+				$rest_json->international_customer_ledger_code
+			);
+		}
+
+		if ( property_exists( $rest_json, 'enable_kennitala_in_block' ) ) {
 			Config::set_kennitala_block_field_enabled(
 				$rest_json->enable_kennitala_in_block
 			);
