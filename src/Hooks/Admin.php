@@ -69,8 +69,13 @@ class Admin {
 	 * @param WP_Screen $current_screen The current screen. In our case it
 	 *                  should be the `edit-product` screen.
 	 */
-	public static function enqueue_products_styles_and_scripts( WP_Screen $current_screen ): void {
-		if ( 'edit-product' === $current_screen->id ) {
+	public static function enqueue_products_styles_and_scripts(
+		WP_Screen $current_screen
+	): void {
+		if (
+			current_user_can( 'edit_others_posts' ) &&
+			'edit-product' === $current_screen->id
+		) {
 			wp_enqueue_style(
 				handle: 'nineteen-eighty-woo-products',
 				src: plugins_url( 'style/products.css', dirname( __DIR__ ) ),
@@ -101,10 +106,12 @@ class Admin {
 	public static function register_product_to_variant_bulk_action(
 		array $bulk_actions
 	): array {
-		$bulk_actions['convert_to_variant'] = __(
-			'Convert to Product Variant',
-			'1984-dk-woo'
-		);
+		if ( current_user_can( 'edit_others_posts' ) ) {
+			$bulk_actions['convert_to_variant'] = __(
+				'Convert to Product Variant',
+				'1984-dk-woo'
+			);
+		}
 
 		return $bulk_actions;
 	}
@@ -123,6 +130,10 @@ class Admin {
 		string $doaction,
 		array $post_ids
 	): string {
+		if ( ! current_user_can( 'edit_others_posts' ) ) {
+			return $sendback;
+		}
+
 		if ( 'convert_to_variant' !== $doaction ) {
 			return $sendback;
 		}
