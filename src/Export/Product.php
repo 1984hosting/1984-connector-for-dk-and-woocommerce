@@ -424,7 +424,7 @@ class Product {
 
 		if ( ProductHelper::name_sync_enabled( $wc_product ) ) {
 			$name_props = array(
-				'Description' => $wc_product->get_title(),
+				'Description' => $wc_product->get_name(),
 			);
 
 			if ( $wc_product instanceof WC_Product_Variation ) {
@@ -434,16 +434,7 @@ class Product {
 			$product_props = array_merge( $product_props, $name_props );
 		}
 
-		$product_dk_currency = $wc_product->get_meta(
-			'1984_woo_dk_dk_currency',
-			true,
-			'edit'
-		);
-
-		if (
-			( get_woocommerce_currency() === $product_dk_currency ) &&
-			ProductHelper::price_sync_enabled( $wc_product )
-		) {
+		if ( ProductHelper::price_sync_enabled( $wc_product ) ) {
 			$price_props = array(
 				'CurrencyCode'        => get_woocommerce_currency(),
 				'TaxPercent'          => ProductHelper::tax_rate( $wc_product ),

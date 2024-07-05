@@ -8,7 +8,9 @@ use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Export\Product;
 use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson;
 use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
 use stdClass;
+use WP_Screen;
 
 /**
  * The NineteenEightyWoo Admin class
@@ -40,6 +42,118 @@ class Admin {
 				array( __CLASS__, 'enqueue_styles_and_scripts' )
 			);
 		}
+
+		add_action(
+			'current_screen',
+			array( __CLASS__, 'enqueue_products_styles_and_scripts' ),
+			10
+		);
+
+		add_filter(
+			'bulk_actions-edit-product',
+			array( __CLASS__, 'register_product_to_variant_bulk_action' ),
+			10
+		);
+
+		add_filter(
+			'handle_bulk_actions-edit-product',
+			array( __CLASS__, 'handle_product_to_variant_bulk_action' ),
+			10,
+			3
+		);
+	}
+
+	/**
+	 * Enqueue the styles and scripts for the products screen
+	 *
+	 * @param WP_Screen $current_screen The current screen. In our case it
+	 *                  should be the `edit-product` screen.
+	 */
+	public static function enqueue_products_styles_and_scripts( WP_Screen $current_screen ): void {
+		if ( 'edit-product' === $current_screen->id ) {
+			wp_enqueue_style(
+				handle: 'nineteen-eighty-woo-products',
+				src: plugins_url( 'style/products.css', dirname( __DIR__ ) ),
+				ver: self::ASSET_VERSION
+			);
+
+			wp_enqueue_script(
+				'nineteen-eighty-woo',
+				plugins_url( 'js/products.js', dirname( __DIR__ ) ),
+				array( 'wp-api', 'wp-data' ),
+				self::ASSET_VERSION,
+				false,
+			);
+		}
+	}
+
+	/**
+	 * Register the product-to-variant bulk action
+	 *
+	 * This enables a bulk action that changes products into variants of
+	 * another. This is useful when fetching products from DK as there is no
+	 * orhodox way for managing variant products in DK.
+	 *
+	 * @param array $bulk_actions The current bulk actions.
+	 *
+	 * @return array The modified array, with `convert_to_variant` added to it.
+	 */
+	public static function register_product_to_variant_bulk_action(
+		array $bulk_actions
+	): array {
+		$bulk_actions['convert_to_variant'] = __(
+			'Convert to Product Variant',
+			'1984-dk-woo'
+		);
+
+		return $bulk_actions;
+	}
+
+	/**
+	 * The handler for the product-to-variant bulk action
+	 *
+	 * @param string $sendback The original redirect URL.
+	 * @param string $doaction The name of the action; in our case `convert_to_variant`.
+	 * @param array  $post_ids An array containing the IDs for the posts/products selected.
+	 *
+	 * @return string The URL to redirect to.
+	 */
+	public static function handle_product_to_variant_bulk_action(
+		string $sendback,
+		string $doaction,
+		array $post_ids
+	): string {
+		if ( 'convert_to_variant' !== $doaction ) {
+			return $sendback;
+		}
+
+		// Nonce check is handled by the WP Core.
+		// phpcs:ignore WordPress.Security.NonceVerification
+		if ( ! isset( $_GET['action_post_id'] ) ) {
+			return $sendback;
+		}
+
+		$parent_id = intval(
+			sanitize_text_field(
+				// Nonce check is handled by the WP Core.
+				// phpcs:ignore WordPress.Security.NonceVerification
+				wp_unslash( $_GET['action_post_id'] )
+			)
+		);
+
+		if ( false === wc_get_product( $parent_id ) ) {
+			return $sendback;
+		}
+
+		foreach ( $post_ids as $p ) {
+			ProductHelper::convert_to_variant( $p, $parent_id );
+		}
+
+		return add_query_arg(
+			'bulk_emailed_posts',
+			count( $post_ids ),
+			$sendback
+		);
 	}
 
 	/**

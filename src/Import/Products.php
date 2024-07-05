@@ -16,6 +16,7 @@ use WC_DateTime;
 use WC_Product;
 use WP_Error;
 use WC_Tax;
+use WC_Product_Variation;
 
 /**
  * The Products import class
@@ -329,7 +330,11 @@ class Products {
 		if ( true === $json_object->ShowItemInWebShop ) {
 			$wc_product->set_status( 'Publish' );
 		} else {
-			$wc_product->set_status( 'Draft' );
+			if ( $wc_product instanceof WC_Product_Variation ) {
+				$wc_product->set_status( 'Private' );
+			} else {
+				$wc_product->set_status( 'Draft' );
+			}
 		}
 
 		if (

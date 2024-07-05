@@ -94,7 +94,13 @@ class WooUpdateProduct {
 			return;
 		}
 
-		if ( 'product' === get_post_type( $post_id ) ) {
+		if (
+			in_array(
+				get_post_type( $post_id ),
+				array( 'product', 'product_variation' ),
+				true
+			)
+		) {
 			$wc_product = wc_get_product( $post_id );
 
 			if ( ! ProductHelper::should_sync( $wc_product ) ) {
@@ -126,11 +132,18 @@ class WooUpdateProduct {
 			return;
 		}
 
-		if ( 'product' !== get_post_type( $post ) ) {
+		if (
+			false ===
+			in_array(
+				get_post_type( $post ),
+				array( 'product', 'product_variation' ),
+				true
+			)
+		) {
 			return;
 		}
 
-		$wc_product = wc_get_product( $post );
+		$wc_product = wc_get_product( $post->ID );
 
 		if ( ! ProductHelper::should_sync( $wc_product ) ) {
 			return;
@@ -138,6 +151,9 @@ class WooUpdateProduct {
 
 		switch ( $new_status ) {
 			case 'draft':
+				ExportProduct::hide_from_webshop_in_dk( $wc_product );
+				break;
+			case 'private':
 				ExportProduct::hide_from_webshop_in_dk( $wc_product );
 				break;
 			case 'publish':

@@ -122,7 +122,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 								<?php esc_html_e( 'Sync Product Names with DK', '1984-dk-woo' ); ?>
 							</label>
 							<p class="description">
-								<?php esc_html_e( 'If enabled, product names are synced between DK and WooCommerce. Disable this if you would like to be able to use separate product names in your WooCommerce shop from the ones in DK.', '1984-dk-woo' ); ?>
+								<?php esc_html_e( 'If enabled, product names are synced between DK and WooCommerce. Disable this if you would like to be able to use separate product names in your WooCommerce shop from the ones in DK or simply prevent WooCommerce from affecting product descriptions in DK.', '1984-dk-woo' ); ?>
 							</p>
 						</td>
 					</tr>
