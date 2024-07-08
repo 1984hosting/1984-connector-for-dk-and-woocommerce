@@ -302,6 +302,10 @@ class Product {
 		$post       = get_post( $product_id );
 		$post_title = $post->post_title;
 
+		if ( is_null( $post ) ) {
+			return false;
+		}
+
 		set_post_type( $product_id, 'product_variation' );
 
 		$wc_product = wc_get_product( $product_id );
