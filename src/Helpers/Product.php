@@ -294,7 +294,7 @@ class Product {
 	public static function convert_to_variant(
 		int $product_id,
 		int $parent_id
-	): bool {
+	): int|false {
 		if ( 'product' !== get_post_type( $product_id ) ) {
 			return false;
 		}
