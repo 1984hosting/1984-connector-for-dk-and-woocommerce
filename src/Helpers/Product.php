@@ -313,6 +313,8 @@ class Product {
 		$wc_product->set_parent_id( $parent_id );
 		$wc_product->set_name( $post_title );
 
+		// We indicate it here that this variant was originally a product.
+		$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
 
 		if ( 0 !== $wc_product->save() ) {
 			return $wc_product->get_id();
