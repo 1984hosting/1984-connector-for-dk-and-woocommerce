@@ -299,20 +299,23 @@ class Product {
 			return false;
 		}
 
+		$post       = get_post( $product_id );
+		$post_title = $post->post_title;
+
 		set_post_type( $product_id, 'product_variation' );
 
-		$wc_product    = wc_get_product( $product_id );
-		$original_name = $wc_product->get_name();
+		$wc_product = wc_get_product( $product_id );
 
 		if ( 'draft' === $wc_product->get_status( 'edit' ) ) {
 			$wc_product->set_status( 'private' );
 		}
 
 		$wc_product->set_parent_id( $parent_id );
-		$wc_product->set_name( $original_name );
+		$wc_product->set_name( $post_title );
+
 
 		if ( 0 !== $wc_product->save() ) {
-			return true;
+			return $wc_product->get_id();
 		}
 
 		return false;
