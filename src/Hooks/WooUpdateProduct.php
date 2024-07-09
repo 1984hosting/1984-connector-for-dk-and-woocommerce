@@ -68,6 +68,17 @@ class WooUpdateProduct {
 			return;
 		}
 
+		if ( is_null( $wc_product ) || false === $wc_product ) {
+			return;
+		}
+
+		if (
+			'product_variation' ===
+			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
+			return;
+		}
+
 		if ( ! ProductHelper::should_sync( $wc_product ) ) {
 			return;
 		}
@@ -97,6 +108,13 @@ class WooUpdateProduct {
 		$wc_product = wc_get_product( $post_id );
 
 		if ( is_null( $wc_product ) || false === $wc_product ) {
+			return;
+		}
+
+		if (
+			'product_variation' ===
+			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
 			return;
 		}
 
@@ -137,8 +155,7 @@ class WooUpdateProduct {
 		}
 
 		if (
-			false ===
-			in_array(
+			! in_array(
 				get_post_type( $post ),
 				array( 'product', 'product_variation' ),
 				true
@@ -150,6 +167,13 @@ class WooUpdateProduct {
 		$wc_product = wc_get_product( $post->ID );
 
 		if ( is_null( $wc_product ) || false === $wc_product ) {
+			return;
+		}
+
+		if (
+			'product_variation' ===
+			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
 			return;
 		}
 
