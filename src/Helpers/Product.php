@@ -233,6 +233,26 @@ class Product {
 			return false;
 		}
 
+		if ( 'product_variation' === $wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' ) ) {
+			return false;
+		}
+
+		$parent_id = $wc_product->get_parent_id();
+
+		if ( 0 !== $parent_id ) {
+			$parent = wc_get_product( $parent_id );
+
+			if (
+				'product_variation' === $parent->get_meta(
+					'1984_dk_woo_origin',
+					true,
+					'edit'
+				)
+			) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 

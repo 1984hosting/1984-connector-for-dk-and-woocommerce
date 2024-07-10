@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
+use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations;
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
 use WC_Product_Variation;
 
 /**
@@ -22,6 +24,27 @@ class WooProductVariations {
 			10,
 			2
 		);
+
+		add_action(
+			'woocommerce_new_product_variation',
+			array( __CLASS__, 'set_price_to_same_as_parent' ),
+			10,
+			2
+		);
+
+		add_action(
+			'woocommerce_new_product_variation',
+			array( __CLASS__, 'set_origin_to_same_as_parent' ),
+			10,
+			2
+		);
+
+		add_action(
+			'woocommerce_new_product_variation',
+			array( __CLASS__, 'set_stock_quantity_from_dk_variations' ),
+			10,
+			2
+		);
 	}
 
 	/**
@@ -37,9 +60,92 @@ class WooProductVariations {
 		$parent_id = $product_variation->get_parent_id();
 		$parent    = wc_get_product( $parent_id );
 
+		if ( empty( $parent->get_sku() ) ) {
+			return;
+		}
+
+		if (
+			'product_variation' ===
+			$product_variation->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
+			return;
+		}
+
+		if (
+			'product_variation' ===
+			$parent->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
+			return;
+		}
+
 		$product_variation->set_sku(
 			$parent->get_sku() . '-' . (string) $product_variation->get_id()
 		);
 		$product_variation->save();
+	}
+
+	public static function set_price_to_same_as_parent(
+		int $id,
+		WC_Product_Variation $product_variation
+	): void {
+		$parent_id = $product_variation->get_parent_id();
+		$parent    = wc_get_product( $parent_id );
+
+		$price = $parent->get_meta( '1984_dk_woo_price', true, 'edit' );
+
+		if ( is_object( $price ) ) {
+			$product_variation->set_regular_price( $price->price );
+			$product_variation->set_sale_price( $price->sale_price );
+			$product_variation->set_date_on_sale_from( $price->date_on_sale_from );
+			$product_variation->set_date_on_sale_to( $price->date_on_sale_to );
+
+			$product_variation->save();
+		}
+	}
+
+	public static function set_origin_to_same_as_parent(
+		int $id,
+		WC_Product_Variation $product_variation
+	): void {
+		$parent_id = $product_variation->get_parent_id();
+		$parent    = wc_get_product( $parent_id );
+
+		$product_variation->update_meta_data(
+			'1984_dk_woo_origin',
+			$parent->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		);
+
+		$product_variation->save();
+	}
+
+	public static function set_stock_quantity_from_dk_variations(
+		int $id,
+		WC_Product_Variation $product_variation
+	) {
+		$parent_id = $product_variation->get_parent_id();
+		$parent    = wc_get_product( $parent_id );
+
+		if ( ! ProductHelper::quantity_sync_enabled( $parent ) ) {
+			return;
+		}
+
+		$dk_variations        = $parent->get_meta( '1984_dk_woo_variations', true, 'edit' );
+		$dk_variant_code      = $parent->get_meta( '1984_dk_woo_variant_code', true, 'edit' );
+		$variation_attributes = ProductVariations::attributes_to_woocommerce_variation_attributes( $dk_variant_code );
+		$variation_codes      = array_keys( $variation_attributes );
+
+		if ( is_array( $dk_variations ) ) {
+			foreach ( $dk_variations as $dkv ) {
+				if (
+					strtolower( $product_variation->get_attribute( $variation_codes[0] ) ) === strtolower( $dkv->code_1 ) &&
+					strtolower( $product_variation->get_attribute( $variation_codes[1] ) ) === strtolower( $dkv->code_2 )
+				) {
+					$product_variation->set_manage_stock( $parent->get_manage_stock() );
+					$product_variation->set_stock_quantity( (float) $dkv->quantity );
+					$product_variation->save();
+					continue;
+				}
+			}
+		}
 	}
 }

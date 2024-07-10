@@ -79,6 +79,13 @@ class WooUpdateProduct {
 			return;
 		}
 
+		if (
+			'product_variation' ===
+			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
+			return;
+		}
+
 		if ( ! ProductHelper::should_sync( $wc_product ) ) {
 			return;
 		}

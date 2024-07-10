@@ -9,6 +9,7 @@ use NineteenEightyFour\NineteenEightyWoo\Export\Product;
 use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson;
 use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
+use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations;
 use stdClass;
 use WP_Screen;
 
@@ -61,6 +62,32 @@ class Admin {
 			10,
 			3
 		);
+
+		add_filter(
+			'woocommerce_variation_option_name',
+			array( __CLASS__, 'handle_variation_option_name' ),
+			10,
+			1
+		);
+
+		add_filter(
+			'woocommerce_attribute_label',
+			array( __CLASS__, 'handle_variation_label' ),
+			10,
+			3
+		);
+	}
+
+	public static function handle_variation_label( $label, $name, $product ) {
+		$variation_attribute = ProductVariations::get_attribute( $label );
+		if ( ! $variation_attribute ) {
+			return $label;
+		}
+		return $variation_attribute->description;
+	}
+
+	public static function handle_variation_option_name( $name ) {
+		return ProductVariations::get_attribute_name( $name );
 	}
 
 	/**

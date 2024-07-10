@@ -11,6 +11,7 @@ use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
 use NineteenEightyFour\NineteenEightyWoo\Export\Customer as ExportCustomer;
+use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations;
 use WC_Customer;
 use WC_Order;
 use WC_Product_Variation;
@@ -156,7 +157,8 @@ class Order {
 
 		foreach ( $wc_order->get_items() as $key => $item ) {
 			$order_item_product = new WC_Order_Item_Product( $item->get_id() );
-			$product            = $order_item_product->get_product();
+			$product_id         = $order_item_product->get_product_id();
+			$product            = wc_get_product( $product_id );
 			$sku                = $product->get_sku();
 
 			$order_line_item = array(
@@ -170,15 +172,31 @@ class Order {
 				'IncludingVAT' => wc_prices_include_tax(),
 			);
 
-			if ( $product instanceof WC_Product_Variation ) {
-				$order_line_item['Variation'] = array();
+			$origin       = $product->get_meta( '1984_dk_woo_origin', true, 'edit' );
+			$variant_code = $product->get_meta( '1984_dk_woo_variant_code', true, 'edit' );
+			$variation    = wc_get_product( $order_item_product->get_variation_id() );
 
-				$variation_attributes = $product->get_variation_attributes(
-					false
-				);
-				foreach ( $variation_attributes as $key => $v ) {
-					$order_line_item['Variation'][] = array( "$key" => "$v" );
+			if (
+				'product_variation' === $origin &&
+				false !== $variation
+			) {
+				$attributes = ProductVariations::attributes_to_woocommerce_variation_attributes( $variant_code );
+
+				$variation_attributes = array_keys( $attributes );
+
+				$variation_line = array();
+
+				if ( key_exists( 0, $variation_attributes ) ) {
+					$variation_line['Code'] = $variation->get_attribute( $variation_attributes[0] );
 				}
+
+				if ( key_exists( 1, $variation_attributes ) ) {
+					$variation_line['Code2'] = $variation->get_attribute( $variation_attributes[1] );;
+				}
+
+				$variation_line['Quantity'] = $item->get_quantity();
+
+				$order_line_item['Variations'] = array( (object) $variation_line );
 			}
 
 			$order_props['Lines'][] = $order_line_item;

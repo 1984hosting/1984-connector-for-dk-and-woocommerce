@@ -59,6 +59,7 @@ class Invoice {
 		}
 
 		if ( 200 !== $result->response_code ) {
+			var_dump( $result );
 			return false;
 		}
 

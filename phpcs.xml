@@ -16,6 +16,12 @@
 	<!-- Use WordPress as the basis of our ruleset -->
 	<rule ref="WordPress">
 		<!--
+		Absolutely ignoring that slow queries may occur when looking things up
+		by meta.
+		-->
+		<exclude name="WordPress.DB.SlowDBQuery" />
+
+		<!--
 		We are not limited by WordPress' naming constraints and are using PSR-4
 		autoloading, so we'll use that file naming convention.
 		-->
