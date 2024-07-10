@@ -352,19 +352,24 @@ class ProductVariations {
 		$variations = array();
 
 		foreach ( $variation_json as $vj ) {
+			$variation   = array();
 			$code        = $vj->CODE;
 			$description = $vj->DESCRIPTION;
-			$attribute_1 = $vj->SUBGROUP1;
-			$attribute_2 = $vj->SUBGROUP2;
 
-			$variations[ $code ] = (object) array(
+			$variations[ $code ] = array(
 				'code'        => $code,
 				'description' => $description,
-				'attributes'  => array(
-					$attribute_1 => self::get_attribute( $attribute_1 ),
-					$attribute_2 => self::get_attribute( $attribute_2 ),
-				),
 			);
+
+			if ( property_exists( $vj, 'SUBGROUP1' ) ) {
+				$variation['attributes'][ $vj->SUBGROUP1 ] = self::get_attribute( $vj->SUBGROUP1 );
+			}
+
+			if ( property_exists( $vj, 'SUBGROUP2' ) ) {
+				$variation['attributes'][ $vj->SUBGROUP2 ] = self::get_attribute( $vj->SUBGROUP2 );
+			}
+
+			$variations[ $code ] = (object) $variation;
 		}
 
 		return $variations;
