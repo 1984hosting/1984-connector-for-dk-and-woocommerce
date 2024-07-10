@@ -258,7 +258,6 @@ class Products {
 			$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
 			$wc_product->update_meta_data( '1984_dk_woo_variant_code', '' );
 			$wc_product->update_meta_data( '1984_dk_woo_variations', '' );
-			$wc_product->set_attributes( array() );
 		}
 
 		if ( ! $json_object->ShowItemInWebShop ) {
@@ -348,6 +347,21 @@ class Products {
 	): WC_Product|false {
 		$wc_product = wc_get_product( $product_id );
 
+		if ( ! ( $wc_product instanceof WC_Product ) ) {
+			return false;
+		}
+
+		if (
+			$json_object->Inactive ||
+			(
+				property_exists( $json_object, 'Deleted' ) &&
+				true === $json_object->Deleted
+			)
+		) {
+			wp_delete_post( $wc_product->get_id() );
+			return false;
+		}
+
 		if ( true === $json_object->IsVariation ) {
 			$variant_code = ProductVariations::get_product_variant_code_by_sku(
 				$json_object->ItemCode
@@ -373,23 +387,8 @@ class Products {
 			$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
 			$wc_product->update_meta_data( '1984_dk_woo_variant_code', '' );
 			$wc_product->update_meta_data( '1984_dk_woo_variations', '' );
-			$wc_product->set_attributes( array() );
 		}
 
-		if ( ! ( $wc_product instanceof WC_Product ) ) {
-			return false;
-		}
-
-		if (
-			$json_object->Inactive ||
-			(
-				property_exists( $json_object, 'Deleted' ) &&
-				true === $json_object->Deleted
-			)
-		) {
-			wp_delete_post( $wc_product->get_id() );
-			return false;
-		}
 
 		if ( true === $json_object->ShowItemInWebShop ) {
 			$wc_product->set_status( 'Publish' );
