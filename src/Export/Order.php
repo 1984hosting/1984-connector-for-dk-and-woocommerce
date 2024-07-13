@@ -191,7 +191,7 @@ class Order {
 				}
 
 				if ( key_exists( 1, $variation_attributes ) ) {
-					$variation_line['Code2'] = $variation->get_attribute( $variation_attributes[1] );;
+					$variation_line['Code2'] = $variation->get_attribute( $variation_attributes[1] );
 				}
 
 				$variation_line['Quantity'] = $item->get_quantity();
