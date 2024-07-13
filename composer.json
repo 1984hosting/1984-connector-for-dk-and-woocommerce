@@ -10,16 +10,16 @@
         "psy/psysh": "^0.12.0",
         "yoast/phpunit-polyfills": "^2.0",
         "aldavigdis/wp-tests-strapon": "^0.1",
-        "woocommerce/woocommerce": "9.0.2"
+        "woocommerce/woocommerce": "9.1.2"
     },
     "repositories": [
         {
             "type": "package",
             "package": {
                 "name": "woocommerce/woocommerce",
-                "version": "9.0.2",
+                "version": "9.1.2",
                 "dist": {
-                    "url": "https://github.com/woocommerce/woocommerce/releases/download/9.0.2/woocommerce.zip",
+                    "url": "https://github.com/woocommerce/woocommerce/releases/download/9.1.2/woocommerce.zip",
                     "type": "zip"
                 }
             }
@@ -72,6 +72,6 @@
         ],
         "lint": "./vendor/bin/phpcs -s ./src/ ./js/ ./style/",
         "lint:fix": "./vendor/bin/phpcbf -s ./src/ ./js/ ./style/",
-        "zip:release": "rm -rf vendor/ && composer install --no-dev && cd .. && zip -r 1984-connector-for-dk-and-woocommerce.zip 1984-connector-for-dk-and-woocommerce -i 1984-connector-for-dk-and-woocommerce/languages/\\*.php -i 1984-connector-for-dk-and-woocommerce/languages/\\*.mo -i 1984-connector-for-dk-and-woocommerce/languages/\\*.po -i 1984-connector-for-dk-and-woocommerce/languages/\\*.pot -i 1984-connector-for-dk-and-woocommerce/languages/\\*.json -i 1984-connector-for-dk-and-woocommerce/src/\\* -i 1984-connector-for-dk-and-woocommerce/vendor/\\* -i 1984-connector-for-dk-and-woocommerce/views/\\* -i 1984-connector-for-dk-and-woocommerce/js/\\* -i 1984-connector-for-dk-and-woocommerce/style/\\* -i 1984-connector-for-dk-and-woocommerce/*.php -i 1984-connector-for-dk-and-woocommerce/*.txt -i 1984-connector-for-dk-and-woocommerce/assets/\\*"
+        "zip:release": "rm -rf vendor/ && composer install --no-dev && cd .. && zip -r 1984-connector-for-dk-and-woocommerce.zip 1984-connector-for-dk-and-woocommerce -i 1984-connector-for-dk-and-woocommerce/languages/\\*.php -i 1984-connector-for-dk-and-woocommerce/languages/\\*.mo -i 1984-connector-for-dk-and-woocommerce/languages/\\*.po -i 1984-connector-for-dk-and-woocommerce/languages/\\*.pot -i 1984-connector-for-dk-and-woocommerce/languages/\\*.json -i 1984-connector-for-dk-and-woocommerce/src/\\* -i 1984-connector-for-dk-and-woocommerce/vendor/\\* -i 1984-connector-for-dk-and-woocommerce/views/\\* -i 1984-connector-for-dk-and-woocommerce/js/\\* -i 1984-connector-for-dk-and-woocommerce/style/\\* -i 1984-connector-for-dk-and-woocommerce/*.php -i 1984-connector-for-dk-and-woocommerce/*.txt -i 1984-connector-for-dk-and-woocommerce/assets/\\* -i 1984-connector-for-dk-and-woocommerce/composer.* -i 1984-connector-for-dk-and-woocommerce/*.xml -i 1984-connector-for-dk-and-woocommerce/readme.txt"
     }
 }
