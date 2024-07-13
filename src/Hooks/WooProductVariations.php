@@ -115,6 +115,10 @@ class WooProductVariations {
 		$parent_id = $product_variation->get_parent_id();
 		$parent    = wc_get_product( $parent_id );
 
+		if ( ! $parent ) {
+			return;
+		}
+
 		if ( empty( $parent->get_sku() ) ) {
 			return;
 		}
@@ -152,6 +156,10 @@ class WooProductVariations {
 		$parent_id = $product_variation->get_parent_id();
 		$parent    = wc_get_product( $parent_id );
 
+		if ( ! $parent ) {
+			return;
+		}
+
 		$price = $parent->get_meta( '1984_dk_woo_price', true, 'edit' );
 
 		if ( is_object( $price ) ) {
@@ -176,6 +184,10 @@ class WooProductVariations {
 	): void {
 		$parent_id = $product_variation->get_parent_id();
 		$parent    = wc_get_product( $parent_id );
+
+		if ( ! $parent ) {
+			return;
+		}
 
 		$product_variation->update_meta_data(
 			'1984_dk_woo_origin',
