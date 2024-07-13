@@ -172,35 +172,4 @@ class WooProductVariations {
 
 		$product_variation->save();
 	}
-
-	public static function set_stock_quantity_from_dk_variations(
-		int $id,
-		WC_Product_Variation $product_variation
-	) {
-		$parent_id = $product_variation->get_parent_id();
-		$parent    = wc_get_product( $parent_id );
-
-		if ( ! ProductHelper::quantity_sync_enabled( $parent ) ) {
-			return;
-		}
-
-		$dk_variations        = $parent->get_meta( '1984_dk_woo_variations', true, 'edit' );
-		$dk_variant_code      = $parent->get_meta( '1984_dk_woo_variant_code', true, 'edit' );
-		$variation_attributes = ProductVariations::attributes_to_woocommerce_variation_attributes( $dk_variant_code );
-		$variation_codes      = array_keys( $variation_attributes );
-
-		if ( is_array( $dk_variations ) ) {
-			foreach ( $dk_variations as $dkv ) {
-				if (
-					strtolower( $product_variation->get_attribute( $variation_codes[0] ) ) === strtolower( $dkv->code_1 ) &&
-					strtolower( $product_variation->get_attribute( $variation_codes[1] ) ) === strtolower( $dkv->code_2 )
-				) {
-					$product_variation->set_manage_stock( $parent->get_manage_stock() );
-					$product_variation->set_stock_quantity( (float) $dkv->quantity );
-					$product_variation->save();
-					continue;
-				}
-			}
-		}
-	}
 }
