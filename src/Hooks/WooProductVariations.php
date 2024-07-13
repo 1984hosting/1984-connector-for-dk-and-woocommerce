@@ -39,12 +39,67 @@ class WooProductVariations {
 			2
 		);
 
-		add_action(
-			'woocommerce_new_product_variation',
-			array( __CLASS__, 'set_stock_quantity_from_dk_variations' ),
+		add_filter(
+			'woocommerce_variation_option_name',
+			array( __CLASS__, 'filter_variation_option_name' ),
 			10,
-			2
+			1
 		);
+
+		add_filter(
+			'woocommerce_attribute_label',
+			array( __CLASS__, 'filter_variation_label' ),
+			10,
+			3
+		);
+
+		add_filter(
+			'woocommerce_order_item_display_meta_value',
+			array( __CLASS__, 'filter_woocommerce_order_meta_value' ),
+			10,
+			1
+		);
+	}
+
+	/**
+	 * Filter order meta values
+	 *
+	 * Filters displayed order meta, replacing attribute codes with their
+	 * names/descriptions.
+	 *
+	 * @param string $meta_value The meta value to filter.
+	 */
+	public static function filter_woocommerce_order_meta_value( string $meta_value ): string {
+		return ProductVariations::get_attribute_name( $meta_value );
+	}
+
+	/**
+	 * Filter variation labels
+	 *
+	 * Filters variation labels, replacing the reference code in DK with their
+	 * name/description if available.
+	 *
+	 * @param string $label The variation label.
+	 */
+	public static function filter_variation_label( string $label ): string {
+		$variation_attribute = ProductVariations::get_attribute( $label );
+		if ( ! $variation_attribute ) {
+			return $label;
+		}
+		return $variation_attribute->description;
+	}
+
+	/**
+	 * Filter variation option name
+	 *
+	 * Changes how variation attribute names appear in the drop down menu on
+	 * each product page, replacing the reference code from DK with its
+	 * name/description.
+	 *
+	 * @param string $name The variation name code.
+	 */
+	public static function filter_variation_option_name( string $name ): string {
+		return ProductVariations::get_attribute_name( $name );
 	}
 
 	/**
