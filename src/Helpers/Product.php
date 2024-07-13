@@ -233,7 +233,10 @@ class Product {
 			return false;
 		}
 
-		if ( 'product_variation' === $wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' ) ) {
+		if (
+			'product_variation' ===
+			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
 			return false;
 		}
 
