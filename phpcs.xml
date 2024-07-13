@@ -58,6 +58,8 @@
 		-->
 		<exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"></exclude>
 
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda"></exclude>
+
 		<exclude-pattern>./tests/**</exclude-pattern>
 	</rule>
 
@@ -106,6 +108,10 @@
 	<!-- Disallow "sloppy" equals operators -->
 	<rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators">
 	</rule>
+
+	<rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"></rule>
+
+	<rule ref="Generic.ControlStructures.DisallowYodaConditions"></rule>
 
 	<!--
 	Exclude the vendor direcotry because of course
