@@ -89,6 +89,14 @@ class DKApiRequest {
 		return $this->parse_wp_http_response( $request );
 	}
 
+	/**
+	 * Get a result directly from a DK table
+	 *
+	 * @param string $table The DK table to check.
+	 * @param array  $fields The names of the fields to get.
+	 * @param string $key The key to use for filtering (i.e. WHERE $key = $keyvalue).
+	 * @param string $keyvalue They value to use for filtering.
+	 */
 	public function get_table_result(
 		string $table,
 		array $fields,
