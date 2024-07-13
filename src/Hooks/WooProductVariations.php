@@ -139,6 +139,12 @@ class WooProductVariations {
 		$product_variation->save();
 	}
 
+	/**
+	 * Set the variation price as the same as its parent
+	 *
+	 * @param int                  $id The variation ID (unused).
+	 * @param WC_Product_Variation $product_variation The variation object.
+	 */
 	public static function set_price_to_same_as_parent(
 		int $id,
 		WC_Product_Variation $product_variation
@@ -158,6 +164,12 @@ class WooProductVariations {
 		}
 	}
 
+	/**
+	 * Set the origin meta to the same as the parent product
+	 *
+	 * @param int                  $id The variation ID (unused).
+	 * @param WC_Product_Variation $product_variation The variation object.
+	 */
 	public static function set_origin_to_same_as_parent(
 		int $id,
 		WC_Product_Variation $product_variation
