@@ -319,8 +319,7 @@ class Product {
 			return false;
 		}
 
-		$post       = get_post( $product_id );
-		$post_title = $post->post_title;
+		$post = get_post( $product_id );
 
 		if ( is_null( $post ) ) {
 			return false;
@@ -335,7 +334,6 @@ class Product {
 		}
 
 		$wc_product->set_parent_id( $parent_id );
-		$wc_product->set_name( $post_title );
 
 		// We indicate it here that this variant was originally a product.
 		$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
