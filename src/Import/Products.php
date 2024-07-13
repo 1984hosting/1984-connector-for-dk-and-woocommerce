@@ -230,6 +230,7 @@ class Products {
 
 		if ( true === $json_object->IsVariation ) {
 			$wc_product = wc_get_product_object( 'variable' );
+			$wc_product->save();
 
 			$variant_code = ProductVariations::get_product_variant_code_by_sku(
 				$json_object->ItemCode
@@ -258,6 +259,7 @@ class Products {
 			self::update_variations( $merged_variations, $wc_product );
 		} else {
 			$wc_product = wc_get_product_object( 'simple' );
+			$wc_product->save();
 			$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
 		}
 
