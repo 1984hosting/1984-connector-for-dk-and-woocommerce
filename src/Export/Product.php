@@ -365,6 +365,7 @@ class Product {
 	public static function to_new_product_body(
 		WC_Product $wc_product
 	): stdClass {
+		$parent        = wc_get_product( $wc_product->get_parent_id() );
 		$product_props = array(
 			'ItemCode'               => $wc_product->get_sku(),
 			'Description'            => $wc_product->get_title(),
@@ -380,6 +381,30 @@ class Product {
 			'Inactive'               => false,
 		);
 
+		if ( $wc_product instanceof WC_Product_Variation ) {
+			if ( 'product' === $wc_product->get_meta( '1984_dk_woo_origin' ) ) {
+				$product_props['Description'] = $wc_product->get_meta(
+					'1984_dk_woo_original_name',
+					true
+				);
+
+				if ( $parent ) {
+					$description = implode(
+						'; ',
+						array(
+							$wc_product->get_title(),
+							$wc_product->get_attribute_summary(),
+						)
+					);
+
+					$product_props['Description2'] = $description;
+				}
+			} else {
+				$product_props['Description']  = $wc_product->get_title();
+				$product_props['Description2'] = $wc_product->get_attribute_summary();
+			}
+		}
+
 		if ( true === wc_prices_include_tax() ) {
 			$product_props['UnitPrice1WithTax'] = $wc_product->get_regular_price();
 		} else {
@@ -390,10 +415,6 @@ class Product {
 			$product_props['ShowItemInWebShop'] = true;
 		} else {
 			$product_props['ShowItemInWebShop'] = false;
-		}
-
-		if ( $wc_product instanceof WC_Product_Variation ) {
-			$product_props['Description2'] = $wc_product->get_attribute_summary();
 		}
 
 		$ledger_codes = ProductHelper::get_ledger_codes( $wc_product );
@@ -423,15 +444,25 @@ class Product {
 		$product_props = array();
 
 		if ( ProductHelper::name_sync_enabled( $wc_product ) ) {
-			$name_props = array(
-				'Description' => $wc_product->get_name(),
-			);
-
 			if ( $wc_product instanceof WC_Product_Variation ) {
-				$name_props['Description2'] = $wc_product->get_attribute_summary();
-			}
+				$name = $wc_product->get_meta(
+					'1984_dk_woo_original_name',
+					true
+				);
 
-			$product_props = array_merge( $product_props, $name_props );
+				$description = implode(
+					'; ',
+					array(
+						$wc_product->get_title(),
+						$wc_product->get_attribute_summary(),
+					)
+				);
+
+				$product_props['Description']  = $name;
+				$product_props['Description2'] = $description;
+			} else {
+				$product_props['Description'] = $wc_product->get_name();
+			}
 		}
 
 		if ( ProductHelper::price_sync_enabled( $wc_product ) ) {

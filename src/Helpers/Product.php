@@ -322,13 +322,18 @@ class Product {
 			return false;
 		}
 
-		$post = get_post( $product_id );
+		$post  = get_post( $product_id );
+		$title = $post->post_title;
 
 		if ( is_null( $post ) ) {
 			return false;
 		}
 
-		set_post_type( $product_id, 'product_variation' );
+		$parent = wc_get_product( $parent_id );
+
+		if ( ! $parent ) {
+			return false;
+		}
 
 		$wc_product = wc_get_product( $product_id );
 
@@ -340,6 +345,7 @@ class Product {
 
 		// We indicate it here that this variant was originally a product.
 		$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
+		$wc_product->update_meta_data( '1984_dk_woo_original_name', $title );
 
 		if ( 0 !== $wc_product->save() ) {
 			return $wc_product->get_id();
