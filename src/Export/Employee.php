@@ -40,7 +40,7 @@ class Employee {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -65,7 +65,7 @@ class Employee {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 

@@ -66,7 +66,7 @@ class Order {
 
 		$customer_id = $wc_order->get_customer_id();
 
-		if ( 0 !== $customer_id ) {
+		if ( $customer_id !== 0 ) {
 			$customer           = new WC_Customer( $customer_id );
 			$customer_kennitala = $customer->get_meta(
 				'kennitala',
@@ -74,7 +74,7 @@ class Order {
 				'edit'
 			);
 
-			if ( false === empty( $customer_kennitala ) ) {
+			if ( ! empty( $customer_kennitala ) ) {
 				return $customer_kennitala;
 			}
 		}

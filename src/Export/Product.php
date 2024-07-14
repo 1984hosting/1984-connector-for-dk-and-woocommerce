@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
 use WC_Product;
 use WP_Error;
@@ -36,7 +35,7 @@ class Product {
 	public static function activate_in_dk(
 		WC_Product $wc_product
 	): bool|WP_Error {
-		if ( false === (bool) $wc_product->get_sku() ) {
+		if ( ! (bool) $wc_product->get_sku() ) {
 			return false;
 		}
 
@@ -52,7 +51,7 @@ class Product {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -72,7 +71,7 @@ class Product {
 	public static function deactivate_in_dk(
 		WC_Product $wc_product
 	): bool|WP_Error {
-		if ( false === (bool) $wc_product->get_sku() ) {
+		if ( ! (bool) $wc_product->get_sku() ) {
 			return false;
 		}
 
@@ -88,7 +87,7 @@ class Product {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -108,11 +107,11 @@ class Product {
 	public static function hide_from_webshop_in_dk(
 		WC_Product $wc_product
 	): bool|WP_Error {
-		if ( false === (bool) $wc_product->get_sku() ) {
+		if ( ! (bool) $wc_product->get_sku() ) {
 			return false;
 		}
 
-		if ( true !== self::is_in_dk( $wc_product ) ) {
+		if ( self::is_in_dk( $wc_product ) !== true ) {
 			return false;
 		}
 
@@ -128,7 +127,7 @@ class Product {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -148,11 +147,11 @@ class Product {
 	public static function show_in_webshop_in_dk(
 		WC_Product $wc_product
 	): bool|WP_Error {
-		if ( false === (bool) $wc_product->get_sku() ) {
+		if ( ! (bool) $wc_product->get_sku() ) {
 			return false;
 		}
 
-		if ( true !== self::is_in_dk( $wc_product ) ) {
+		if ( self::is_in_dk( $wc_product ) !== true ) {
 			return false;
 		}
 
@@ -168,7 +167,7 @@ class Product {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -188,7 +187,7 @@ class Product {
 	 *                       if there was a connection error.
 	 */
 	public static function create_in_dk( WC_Product $wc_product ): bool|WP_Error {
-		if ( false === (bool) $wc_product->get_sku() ) {
+		if ( ! (bool) $wc_product->get_sku() ) {
 			return false;
 		}
 
@@ -208,7 +207,7 @@ class Product {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -228,7 +227,7 @@ class Product {
 	 *                       if there was a connection error.
 	 */
 	public static function update_in_dk( WC_Product $wc_product ): bool|WP_Error {
-		if ( false === (bool) $wc_product->get_sku() ) {
+		if ( ! (bool) $wc_product->get_sku() ) {
 			return false;
 		}
 
@@ -247,7 +246,7 @@ class Product {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -270,7 +269,7 @@ class Product {
 		if ( is_string( $wc_product ) ) {
 			$sku = $wc_product;
 		} else {
-			if ( false === (bool) $wc_product->get_sku() ) {
+			if ( ! (bool) $wc_product->get_sku() ) {
 				return false;
 			}
 
@@ -287,7 +286,7 @@ class Product {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -309,7 +308,7 @@ class Product {
 	 *                       false on failure.
 	 */
 	public static function hide_in_dk( WC_Product $wc_product ): bool|WP_Error {
-		if ( false === (bool) $wc_product->get_sku() ) {
+		if ( ! (bool) $wc_product->get_sku() ) {
 			return false;
 		}
 
@@ -329,7 +328,7 @@ class Product {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -382,7 +381,7 @@ class Product {
 		);
 
 		if ( $wc_product instanceof WC_Product_Variation ) {
-			if ( 'product' === $wc_product->get_meta( '1984_dk_woo_origin' ) ) {
+			if ( $wc_product->get_meta( '1984_dk_woo_origin' ) === 'product' ) {
 				$product_props['Description'] = $wc_product->get_meta(
 					'1984_dk_woo_original_name',
 					true
@@ -405,13 +404,13 @@ class Product {
 			}
 		}
 
-		if ( true === wc_prices_include_tax() ) {
+		if ( wc_prices_include_tax() ) {
 			$product_props['UnitPrice1WithTax'] = $wc_product->get_regular_price();
 		} else {
 			$product_props['UnitPrice1'] = $wc_product->get_regular_price();
 		}
 
-		if ( 'publish' === $wc_product->get_status() ) {
+		if ( $wc_product->get_status() === 'publish' ) {
 			$product_props['ShowItemInWebShop'] = true;
 		} else {
 			$product_props['ShowItemInWebShop'] = false;
@@ -419,7 +418,7 @@ class Product {
 
 		$ledger_codes = ProductHelper::get_ledger_codes( $wc_product );
 
-		if ( false !== $ledger_codes ) {
+		if ( is_object( $ledger_codes ) ) {
 			$product_props['SalesLedgerCode']    = $ledger_codes->sales;
 			$product_props['PurchaseLedgerCode'] = $ledger_codes->purchase;
 		}
@@ -474,7 +473,7 @@ class Product {
 				'PropositionDateTo'   => ProductHelper::format_date_on_sale_for_dk( 'to', $wc_product ),
 			);
 
-			if ( true === wc_prices_include_tax() ) {
+			if ( wc_prices_include_tax() === true ) {
 				$price_props['UnitPrice1WithTax'] = $wc_product->get_regular_price();
 			} else {
 				$price_props['UnitPrice1'] = $wc_product->get_regular_price();
@@ -482,7 +481,7 @@ class Product {
 
 			$ledger_codes = ProductHelper::get_ledger_codes( $wc_product );
 
-			if ( false !== $ledger_codes ) {
+			if ( $ledger_codes !== false ) {
 				$price_props['SalesLedgerCode']    = $ledger_codes->sales;
 				$price_props['PurchaseLedgerCode'] = $ledger_codes->purchase;
 			}

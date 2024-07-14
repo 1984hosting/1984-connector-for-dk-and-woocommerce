@@ -9,7 +9,6 @@ use NineteenEightyFour\NineteenEightyWoo\Export\Product;
 use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson;
 use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
-use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations;
 use stdClass;
 use WP_Screen;
 
@@ -37,7 +36,7 @@ class Admin {
 
 		// Superlobal is not passed into anything.
 		// phpcs:ignore WordPress.Security.NonceVerification
-		if ( ( isset( $_GET['page'] ) ) && ( '1984-dk-woo' === $_GET['page'] ) ) {
+		if ( ( isset( $_GET['page'] ) ) && ( $_GET['page'] === '1984-dk-woo' ) ) {
 			add_action(
 				'admin_init',
 				array( __CLASS__, 'enqueue_styles_and_scripts' )
@@ -75,7 +74,7 @@ class Admin {
 	): void {
 		if (
 			current_user_can( 'edit_others_posts' ) &&
-			'edit-product' === $current_screen->id
+			$current_screen->id === 'edit-product'
 		) {
 			wp_enqueue_style(
 				handle: 'nineteen-eighty-woo-products',
@@ -135,7 +134,7 @@ class Admin {
 			return $sendback;
 		}
 
-		if ( 'convert_to_variant' !== $doaction ) {
+		if ( $doaction !== 'convert_to_variant' ) {
 			return $sendback;
 		}
 
@@ -153,7 +152,7 @@ class Admin {
 			)
 		);
 
-		if ( false === wc_get_product( $parent_id ) ) {
+		if ( ! wc_get_product( $parent_id ) ) {
 			return $sendback;
 		}
 
@@ -253,7 +252,7 @@ class Admin {
 	 * }
 	 */
 	public static function info_for_service_sku( string $sku ): stdClass {
-		if ( false === Config::get_dk_api_key() ) {
+		if ( ! Config::get_dk_api_key() ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant SKU.
 				__(
@@ -265,7 +264,7 @@ class Admin {
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		} elseif ( true === Product::is_in_dk( $sku ) ) {
+		} elseif ( Product::is_in_dk( $sku ) === true ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant SKU.
 				__(
@@ -326,7 +325,7 @@ class Admin {
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		} elseif ( true === SalesPerson::is_in_dk( $number ) ) {
+		} elseif ( SalesPerson::is_in_dk( $number ) === true ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant sales person number.
 				__(
@@ -385,7 +384,7 @@ class Admin {
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		} elseif ( true === Customer::is_in_dk( Config::get_default_kennitala() ) ) {
+		} elseif ( Customer::is_in_dk( Config::get_default_kennitala() ) === true ) {
 			$text = sprintf(
 				// Translators: The %s stands for the kennitala.
 				__(

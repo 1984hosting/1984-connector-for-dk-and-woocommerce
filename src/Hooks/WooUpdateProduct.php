@@ -68,21 +68,17 @@ class WooUpdateProduct {
 			return;
 		}
 
-		if ( is_null( $wc_product ) || false === $wc_product ) {
+		if ( is_null( $wc_product ) || ! $wc_product ) {
 			return;
 		}
 
-		if (
-			'product_variation' ===
-			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
-		) {
-			return;
-		}
+		$product_origin = $wc_product->get_meta(
+			'1984_dk_woo_origin',
+			true,
+			'edit'
+		);
 
-		if (
-			'product_variation' ===
-			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
-		) {
+		if ( $product_origin === 'product_variation' ) {
 			return;
 		}
 
@@ -114,14 +110,17 @@ class WooUpdateProduct {
 
 		$wc_product = wc_get_product( $post_id );
 
-		if ( is_null( $wc_product ) || false === $wc_product ) {
+		if ( is_null( $wc_product ) || ! $wc_product ) {
 			return;
 		}
 
-		if (
-			'product_variation' ===
-			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
-		) {
+		$product_origin = $wc_product->get_meta(
+			'1984_dk_woo_origin',
+			true,
+			'edit'
+		);
+
+		if ( $product_origin === 'product_variation' ) {
 			return;
 		}
 
@@ -173,14 +172,17 @@ class WooUpdateProduct {
 
 		$wc_product = wc_get_product( $post->ID );
 
-		if ( is_null( $wc_product ) || false === $wc_product ) {
+		if ( is_null( $wc_product ) || ! $wc_product ) {
 			return;
 		}
 
-		if (
-			'product_variation' ===
-			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
-		) {
+		$product_origin = $wc_product->get_meta(
+			'1984_dk_woo_origin',
+			true,
+			'edit'
+		);
+
+		if ( $product_origin === 'product_variation' ) {
 			return;
 		}
 

@@ -34,7 +34,7 @@ class Currency {
 		string $currency,
 		int|float $rate
 	): bool|WP_Error {
-		if ( 1 !== preg_match( self::CURRENCY_CODE_REGEX, $currency ) ) {
+		if ( preg_match( self::CURRENCY_CODE_REGEX, $currency ) !== 1 ) {
 			return self::invalid_currency_code_error( $currency );
 		}
 
@@ -58,7 +58,7 @@ class Currency {
 	public static function get_rate(
 		string $currency
 	): float|WP_Error {
-		if ( 1 !== preg_match( self::CURRENCY_CODE_REGEX, $currency ) ) {
+		if ( preg_match( self::CURRENCY_CODE_REGEX, $currency ) !== 1 ) {
 			return self::invalid_currency_code_error( $currency );
 		}
 
@@ -66,7 +66,7 @@ class Currency {
 
 		$rate = get_option( $option_name, 0 );
 
-		if ( false === $rate ) {
+		if ( ! $rate ) {
 			return self::rate_not_set_error( $currency );
 		}
 
@@ -96,11 +96,11 @@ class Currency {
 			$to = Config::get_dk_currency();
 		}
 
-		if ( 1 !== preg_match( self::CURRENCY_CODE_REGEX, $from ) ) {
+		if ( preg_match( self::CURRENCY_CODE_REGEX, $from ) !== 1 ) {
 			return self::invalid_currency_code_error( $from );
 		}
 
-		if ( 1 !== preg_match( self::CURRENCY_CODE_REGEX, $to ) ) {
+		if ( preg_match( self::CURRENCY_CODE_REGEX, $to ) !== 1 ) {
 			return self::invalid_currency_code_error( $to );
 		}
 
@@ -108,7 +108,7 @@ class Currency {
 			'1984_woo_dk_currency_rate_' . strtolower( $from ),
 		);
 
-		if ( false === $from_rate ) {
+		if ( ! $from_rate ) {
 			return self::rate_not_set_error( $from );
 		}
 
@@ -127,7 +127,7 @@ class Currency {
 			'1984_woo_dk_currency_rate_' . strtolower( $to )
 		);
 
-		if ( false === $to_rate ) {
+		if ( ! $to_rate ) {
 			return self::rate_not_set_error( $to );
 		}
 

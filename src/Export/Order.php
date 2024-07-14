@@ -4,17 +4,12 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
-use Automattic\WooCommerce\Admin\API\Customers;
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
-use NineteenEightyFour\NineteenEightyWoo\Export\Customer as ExportCustomer;
 use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations;
-use WC_Customer;
 use WC_Order;
-use WC_Product_Variation;
 use WC_Order_Item_Product;
 use WP_Error;
 
@@ -49,7 +44,7 @@ class Order {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -67,7 +62,7 @@ class Order {
 	 *                       WP_Error if here was a connection error.
 	 */
 	public static function is_in_dk( WC_Order $wc_order ): bool|WP_Error {
-		if ( true === empty( self::get_dk_order_number( $wc_order ) ) ) {
+		if ( empty( self::get_dk_order_number( $wc_order ) ) ) {
 			return false;
 		}
 
@@ -81,7 +76,7 @@ class Order {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -177,8 +172,8 @@ class Order {
 			$variation    = wc_get_product( $order_item_product->get_variation_id() );
 
 			if (
-				'product_variation' === $origin &&
-				false !== $variation
+				$origin === 'product_variation' &&
+				$variation !== false
 			) {
 				$attributes = ProductVariations::attributes_to_woocommerce_variation_attributes( $variant_code );
 
@@ -202,7 +197,7 @@ class Order {
 			$order_props['Lines'][] = $order_line_item;
 		}
 
-		if ( 0 < count( $wc_order->get_fees() ) ) {
+		if ( count( $wc_order->get_fees() ) > 0 ) {
 			foreach ( $wc_order->get_fees() as $fee ) {
 				$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
 
@@ -216,9 +211,9 @@ class Order {
 			}
 		}
 
-		if ( 0 < count( $wc_order->get_shipping_methods() ) ) {
+		if ( count( $wc_order->get_shipping_methods() ) > 0 ) {
 			foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
-				if ( 0.0 === floatval( $shipping_method->get_total() ) ) {
+				if ( floatval( $shipping_method->get_total() ) === 0.0 ) {
 					continue;
 				}
 
@@ -238,7 +233,7 @@ class Order {
 			}
 		}
 
-		if ( 0 < $wc_order->get_total_discount() ) {
+		if ( $wc_order->get_total_discount() > 0 ) {
 			$order_props['Discount'] = $wc_order->get_total_discount();
 		}
 

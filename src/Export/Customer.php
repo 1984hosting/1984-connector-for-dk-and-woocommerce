@@ -44,7 +44,7 @@ class Customer {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -80,7 +80,7 @@ class Customer {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -113,7 +113,7 @@ class Customer {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -148,7 +148,7 @@ class Customer {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -168,9 +168,7 @@ class Customer {
 	public static function has_dk_customer_number(
 		WC_Customer $customer
 	): bool {
-		if ( true === empty(
-			$customer->get_meta( '1984_woo_dk_customer_number' )
-		) ) {
+		if ( empty( $customer->get_meta( '1984_woo_dk_customer_number' ) ) ) {
 			return false;
 		}
 
@@ -193,7 +191,7 @@ class Customer {
 		WC_Customer $customer
 	): string {
 		$kennitala = (string) $customer->get_meta( 'kennitala', true, 'edit' );
-		if ( false === empty( $kennitala ) ) {
+		if ( ! empty( $kennitala ) ) {
 			return $kennitala;
 		}
 

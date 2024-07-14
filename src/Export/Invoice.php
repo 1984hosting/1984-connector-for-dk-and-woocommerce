@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Export;
 
-use Automattic\WooCommerce\Admin\API\Customers;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Export\Order as ExportOrder;
 use NineteenEightyFour\NineteenEightyWoo\Export\Customer as ExportCustomer;
@@ -42,7 +41,7 @@ class Invoice {
 
 		$invoice_number = self::get_dk_invoice_number( $wc_order );
 
-		if ( false === empty( $invoice_number ) ) {
+		if ( ! empty( $invoice_number ) ) {
 			return false;
 		}
 
@@ -58,7 +57,7 @@ class Invoice {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -90,7 +89,7 @@ class Invoice {
 		$api_request    = new DKApiRequest();
 		$invoice_number = self::get_dk_invoice_number( $wc_order );
 
-		if ( true === empty( $invoice_number ) ) {
+		if ( empty( $invoice_number ) ) {
 			return false;
 		}
 
@@ -108,7 +107,7 @@ class Invoice {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -136,7 +135,7 @@ class Invoice {
 		string $invoice_type = 'debit'
 	): bool|WP_Error {
 		if (
-			false === in_array(
+			! in_array(
 				$invoice_type,
 				array( 'debit', 'credit' ),
 				true
@@ -147,7 +146,7 @@ class Invoice {
 
 		$to = $wc_order->get_billing_email();
 
-		if ( true === empty( $to ) ) {
+		if ( empty( $to ) ) {
 			return false;
 		}
 
@@ -164,15 +163,15 @@ class Invoice {
 
 		$api_request = new DKApiRequest();
 
-		if ( 'debit' === $invoice_type ) {
+		if ( $invoice_type === 'debit' ) {
 			$invoice_number = self::get_dk_invoice_number( $wc_order );
 		}
 
-		if ( 'credit' === $invoice_type ) {
+		if ( $invoice_type === 'credit' ) {
 			$invoice_number = self::get_dk_credit_invoice_number( $wc_order );
 		}
 
-		if ( true === empty( $invoice_number ) ) {
+		if ( empty( $invoice_number ) ) {
 			return false;
 		}
 
@@ -185,11 +184,11 @@ class Invoice {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
-		if ( 200 === $result->response_code ) {
+		if ( $result->response_code === 200 ) {
 			return true;
 		}
 
@@ -214,8 +213,7 @@ class Invoice {
 			$wc_order->get_payment_method()
 		);
 
-		if ( true === $wc_order->is_paid() ) {
-
+		if ( $wc_order->is_paid() ) {
 			$invoice_body['Payments'] = array(
 				array(
 					'ID'     => $payment_mapping->dk_id,
