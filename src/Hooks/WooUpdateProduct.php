@@ -54,11 +54,11 @@ class WooUpdateProduct {
 	 * Update product in DK when it is is updated in WooCommerce
 	 *
 	 * @param int        $id The product's post ID (not used).
-	 * @param WC_Product $product The WooCommrece product.
+	 * @param WC_Product $wc_product The WooCommrece product.
 	 */
 	public static function on_product_update(
 		int $id,
-		WC_Product $product
+		WC_Product $wc_product
 	): void {
 		if ( defined( 'DOING_CRON' ) ) {
 			return;
@@ -68,12 +68,30 @@ class WooUpdateProduct {
 			return;
 		}
 
-		if ( ! ProductHelper::should_sync( $product ) ) {
+		if ( is_null( $wc_product ) || false === $wc_product ) {
+			return;
+		}
+
+		if (
+			'product_variation' ===
+			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
+			return;
+		}
+
+		if (
+			'product_variation' ===
+			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
+			return;
+		}
+
+		if ( ! ProductHelper::should_sync( $wc_product ) ) {
 			return;
 		}
 
 		// Create or update the product in DK.
-		ExportProduct::create_in_dk( $product );
+		ExportProduct::create_in_dk( $wc_product );
 	}
 
 	/**
@@ -94,9 +112,26 @@ class WooUpdateProduct {
 			return;
 		}
 
-		if ( 'product' === get_post_type( $post_id ) ) {
-			$wc_product = wc_get_product( $post_id );
+		$wc_product = wc_get_product( $post_id );
 
+		if ( is_null( $wc_product ) || false === $wc_product ) {
+			return;
+		}
+
+		if (
+			'product_variation' ===
+			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
+			return;
+		}
+
+		if (
+			in_array(
+				get_post_type( $post_id ),
+				array( 'product', 'product_variation' ),
+				true
+			)
+		) {
 			if ( ! ProductHelper::should_sync( $wc_product ) ) {
 				return;
 			}
@@ -126,11 +161,28 @@ class WooUpdateProduct {
 			return;
 		}
 
-		if ( 'product' !== get_post_type( $post ) ) {
+		if (
+			! in_array(
+				get_post_type( $post ),
+				array( 'product', 'product_variation' ),
+				true
+			)
+		) {
 			return;
 		}
 
-		$wc_product = wc_get_product( $post );
+		$wc_product = wc_get_product( $post->ID );
+
+		if ( is_null( $wc_product ) || false === $wc_product ) {
+			return;
+		}
+
+		if (
+			'product_variation' ===
+			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
+			return;
+		}
 
 		if ( ! ProductHelper::should_sync( $wc_product ) ) {
 			return;
@@ -138,6 +190,9 @@ class WooUpdateProduct {
 
 		switch ( $new_status ) {
 			case 'draft':
+				ExportProduct::hide_from_webshop_in_dk( $wc_product );
+				break;
+			case 'private':
 				ExportProduct::hide_from_webshop_in_dk( $wc_product );
 				break;
 			case 'publish':

@@ -16,6 +16,9 @@ use WC_DateTime;
 use WC_Product;
 use WP_Error;
 use WC_Tax;
+use WC_Product_Variation;
+use WP_Query;
+use WC_Data_Store;
 
 /**
  * The Products import class
@@ -34,7 +37,7 @@ class Products {
 		'TotalQuantityInWarehouse,UnitPrice1,TaxPercent,' .
 		'AllowNegativeInventiry,ExtraDesc1,ExtraDesc2,ShowItemInWebShop,' .
 		'Inactive,Deleted,PropositionDateTo,PropositionDateFrom,CurrencyCode,' .
-		'CurrencyPrices';
+		'CurrencyPrices,IsVariation,Warehouses';
 
 	/**
 	 * Save all products from DK
@@ -225,7 +228,40 @@ class Products {
 			return false;
 		}
 
-		$wc_product = new WC_Product();
+		if ( true === $json_object->IsVariation ) {
+			$wc_product = wc_get_product_object( 'variable' );
+			$wc_product->save();
+
+			$variant_code = ProductVariations::get_product_variant_code_by_sku(
+				$json_object->ItemCode
+			);
+			$wc_product->update_meta_data(
+				'1984_dk_woo_origin',
+				'product_variation'
+			);
+			$wc_product->update_meta_data(
+				'1984_dk_woo_variant_code',
+				$variant_code
+			);
+			$wc_product->set_attributes(
+				ProductVariations::variation_attributes_to_wc_product_attributes(
+					$variant_code
+				)
+			);
+			$merged_variations = self::merge_variations(
+				$json_object,
+				$variant_code
+			);
+			$wc_product->update_meta_data(
+				'1984_dk_woo_variations',
+				$merged_variations
+			);
+			self::update_variations( $merged_variations, $wc_product );
+		} else {
+			$wc_product = wc_get_product_object( 'simple' );
+			$wc_product->save();
+			$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
+		}
 
 		$wc_product->set_sku( $json_object->ItemCode );
 
@@ -261,6 +297,11 @@ class Products {
 			$wc_product->update_meta_data(
 				'1984_woo_dk_dk_currency',
 				$price->currency
+			);
+
+			$wc_product->update_meta_data(
+				'1984_dk_woo_price',
+				$price,
 			);
 		} else {
 			return false;
@@ -326,10 +367,46 @@ class Products {
 			return false;
 		}
 
+		if ( true === $json_object->IsVariation ) {
+			$variant_code = ProductVariations::get_product_variant_code_by_sku(
+				$json_object->ItemCode
+			);
+			$wc_product->update_meta_data(
+				'1984_dk_woo_origin',
+				'product_variation'
+			);
+			$wc_product->update_meta_data(
+				'1984_dk_woo_variant_code',
+				$variant_code
+			);
+			$wc_product->set_attributes(
+				ProductVariations::variation_attributes_to_wc_product_attributes(
+					$variant_code
+				)
+			);
+			$merged_variations = self::merge_variations(
+				$json_object,
+				$variant_code
+			);
+			$wc_product->update_meta_data(
+				'1984_dk_woo_variations',
+				$merged_variations
+			);
+			self::update_variations( $merged_variations, $wc_product );
+		} else {
+			$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
+			$wc_product->update_meta_data( '1984_dk_woo_variant_code', '' );
+			$wc_product->update_meta_data( '1984_dk_woo_variations', '' );
+		}
+
 		if ( true === $json_object->ShowItemInWebShop ) {
 			$wc_product->set_status( 'Publish' );
 		} else {
-			$wc_product->set_status( 'Draft' );
+			if ( $wc_product instanceof WC_Product_Variation ) {
+				$wc_product->set_status( 'Private' );
+			} else {
+				$wc_product->set_status( 'Draft' );
+			}
 		}
 
 		if (
@@ -358,6 +435,11 @@ class Products {
 				$wc_product->update_meta_data(
 					'1984_woo_dk_dk_currency',
 					$price->currency
+				);
+
+				$wc_product->update_meta_data(
+					'1984_dk_woo_price',
+					$price,
 				);
 			} else {
 				return false;
@@ -610,5 +692,187 @@ class Products {
 		}
 
 		return '';
+	}
+
+	/**
+	 * Merge product variations
+	 *
+	 * Variations for each product in DK belong to its "warehouses" objects.
+	 * This means that you can have a certain quantity in certain warehouses and
+	 * those quantities need to be summed up into a single value.
+	 *
+	 * DK also does not supply the variation attribute names in their product
+	 * API response and we use the opportunity to fetch them here.
+	 *
+	 * The resulting array is then saved as product meta.
+	 *
+	 * @param stdClass $json_object The product JSON object.
+	 * @param string   $variant_code The product's variant code.
+	 */
+	public static function merge_variations(
+		stdClass $json_object,
+		string $variant_code
+	): array {
+		$attribute_names  = ProductVariations::get_variation_attribute_codes( $variant_code );
+		$warehouses       = $json_object->Warehouses;
+		$variations_array = array();
+
+		foreach ( $warehouses as $w ) {
+			foreach ( $w->Variations as $v ) {
+				foreach ( $variations_array as $key => $s ) {
+					if ( self::compare_variations( $s, $v ) ) {
+						$variations_array[ $key ]->quantity = BigDecimal::of(
+							$s->quantity
+						)->plus(
+							$v->Quantity
+						)->toFloat();
+						break;
+					}
+				}
+				$variation = array(
+					'quantity'    => (float) $v->Quantity,
+					'attribute_1' => strtolower( $attribute_names[0] ),
+					'code_1'      => strtolower( $v->Code ),
+				);
+
+				if ( property_exists( $v, 'Code2' ) ) {
+					$variation['attribute_2'] = strtolower( $attribute_names[1] );
+					$variation['code_2']      = strtolower( $v->Code2 );
+				}
+
+				$variations_array[] = (object) $variation;
+			}
+		}
+
+		return $variations_array;
+	}
+
+	/**
+	 * Compare a variation from DK product response with one from the product meta
+	 *
+	 * @param stdClass $dk_variation Variation as it comes from DK.
+	 * @param stdClass $saved_variation Variation as saved as product meta.
+	 */
+	public static function compare_variations(
+		stdClass $dk_variation,
+		stdClass $saved_variation
+	): bool {
+		if (
+			property_exists( $dk_variation, 'Code' ) &&
+			property_exists( $saved_variation, 'code_1' ) &&
+			$dk_variation->Code === $saved_variation->code_1
+		) {
+			if (
+				property_exists( $dk_variation, 'Code2' ) &&
+				property_exists( $saved_variation, 'code_2' ) &&
+				$dk_variation->Code2 !== $saved_variation->code_2
+			) {
+				return false;
+			}
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Update and delete product variants based on saved variations
+	 *
+	 * Creates, updates and deletes product variants based on the available
+	 * variations from DK that are saved from the product meta.
+	 *
+	 * If a variant already exsists, it is updated, if it does not it is created
+	 * and if it no longer is in DK, it gets deleted.
+	 *
+	 * @param array      $variations_array The variation parent product meta array.
+	 * @param WC_Product $wc_product The parent product.
+	 */
+	public static function update_variations(
+		array $variations_array,
+		WC_Product $wc_product
+	): array {
+		$data_store             = WC_Data_Store::load( 'product' );
+		$affected_variation_ids = array();
+
+		foreach ( $variations_array as $v ) {
+			$attributes = array(
+				sanitize_title( 'attribute_' . $v->attribute_1 ) => $v->code_1,
+			);
+
+			if ( property_exists( $v, 'code_2' ) ) {
+				$key                = sanitize_title( 'attribute_' . $v->attribute_2 );
+				$attributes[ $key ] = $v->code_2;
+			}
+
+			$variation_id = $data_store->find_matching_product_variation(
+				$wc_product,
+				$attributes
+			);
+
+			if ( 0 === $variation_id ) {
+				$variation = wc_get_product_object( 'variation' );
+
+				$variation->set_parent_id( $wc_product->get_id() );
+				$variation->set_attributes( $attributes );
+				$variation->set_stock_quantity( $v->quantity );
+				$variation->set_weight( $wc_product->get_weight() );
+				$variation->set_manage_stock( $wc_product->get_manage_stock() );
+
+				$price = $wc_product->get_meta( '1984_dk_woo_price' );
+
+				if ( is_object( $price ) ) {
+					$variation->set_regular_price( $price->price );
+					$variation->set_sale_price( $price->sale_price );
+					$variation->set_date_on_sale_from( $price->date_on_sale_from );
+					$variation->set_date_on_sale_to( $price->date_on_sale_to );
+					$variation->set_tax_class( $price->tax_class );
+				}
+
+				$affected_variation_ids[] = $variation->save();
+			} else {
+				$variation = wc_get_product( $variation_id );
+				if (
+					$variation instanceof WC_Product_Variation &&
+					$wc_product->get_id() === $variation->get_parent_id()
+				) {
+					$variation->set_parent_id( $wc_product->get_id() );
+					$variation->set_attributes( $attributes );
+					if ( ProductHelper::quantity_sync_enabled( $wc_product ) ) {
+						$variation->set_stock_quantity( $v->quantity );
+						$variation->set_weight( $wc_product->get_weight() );
+						$variation->set_manage_stock( $wc_product->get_manage_stock() );
+					}
+					if ( ProductHelper::price_sync_enabled( $wc_product ) ) {
+						$price = $wc_product->get_meta( '1984_dk_woo_price' );
+
+						if ( is_object( $price ) ) {
+							$variation->set_regular_price( $price->price );
+							$variation->set_sale_price( $price->sale_price );
+							$variation->set_date_on_sale_from( $price->date_on_sale_from );
+							$variation->set_date_on_sale_to( $price->date_on_sale_to );
+							$variation->set_tax_class( $price->tax_class );
+						}
+					}
+
+					$affected_variation_ids[] = $variation->save();
+				}
+			}
+		}
+
+		$variations_to_delete = wc_get_products(
+			array(
+				'type'    => 'variation',
+				'parent'  => $wc_product->get_id(),
+				'exclude' => $affected_variation_ids,
+				'limit'   => -1,
+			)
+		);
+
+		foreach ( $variations_to_delete as $vd ) {
+			$affected_variation_ids[] = $vd->get_id();
+			$vd->delete();
+		}
+
+		return $affected_variation_ids;
 	}
 }

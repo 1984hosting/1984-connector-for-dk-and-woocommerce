@@ -90,6 +90,40 @@ class DKApiRequest {
 	}
 
 	/**
+	 * Get a result directly from a DK table
+	 *
+	 * @param string $table The DK table to check.
+	 * @param array  $fields The names of the fields to get.
+	 * @param string $key The key to use for filtering (i.e. WHERE $key = $keyvalue).
+	 * @param string $keyvalue They value to use for filtering.
+	 */
+	public function get_table_result(
+		string $table,
+		array $fields,
+		?string $key = null,
+		?string $keyvalue = null
+	): WP_Error|stdClass {
+		$path = self::DK_API_URL . '/general/table/' . $table . '/records/';
+
+		$fields_string = implode( ',', $fields );
+		$query_string  = "?fields=$fields_string";
+
+		if ( ! empty( $key ) && ! empty( $keyvalue ) ) {
+			$query_string .= "&key=$key&value=$keyvalue";
+		}
+
+		$request = $this->wp_http->get(
+			$path . $query_string,
+			array(
+				'httpversion' => '1.1',
+				'headers'     => $this->get_headers,
+			),
+		);
+
+		return $this->parse_wp_http_response( $request );
+	}
+
+	/**
 	 * Send a resource modifying request to the DK API
 	 *
 	 * @param string $path   The internal path do the API resource.

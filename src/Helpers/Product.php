@@ -7,9 +7,12 @@ namespace NineteenEightyFour\NineteenEightyWoo\Helpers;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
+use NineteenEightyFour\NineteenEightyWoo\Hooks\WooUpdateProduct as WooUpdateProductHooks;
 use WC_Product;
+use WC_Product_Variation;
 use WC_Tax;
 use WC_DateTime;
+use WP_Post;
 
 /**
  * The Product Helper Class
@@ -28,6 +31,10 @@ class Product {
 	 * @return bool True if name sync is enabled, false if not.
 	 */
 	public static function name_sync_enabled( WC_Product $wc_product ): bool {
+		if ( $wc_product instanceof WC_Product_Variation ) {
+			$wc_product = wc_get_product( $wc_product->get_parent_id() );
+		}
+
 		$meta_value = $wc_product->get_meta(
 			'1984_woo_dk_name_sync',
 			true,
@@ -55,6 +62,26 @@ class Product {
 	 * @return bool True if price sync is enabled, false if not.
 	 */
 	public static function price_sync_enabled( WC_Product $wc_product ): bool {
+		if ( $wc_product instanceof WC_Product_Variation ) {
+			$parent = wc_get_product( $wc_product->get_parent_id() );
+			if ( $parent ) {
+				$wc_product = $parent;
+			}
+		}
+
+		$product_dk_currency = $wc_product->get_meta(
+			'1984_woo_dk_dk_currency',
+			true,
+			'edit'
+		);
+
+		if (
+			( ! empty( $product_dk_currency ) ) &&
+			( get_woocommerce_currency() !== $product_dk_currency )
+		) {
+			return false;
+		}
+
 		$meta_value = $wc_product->get_meta(
 			'1984_woo_dk_price_sync',
 			true,
@@ -84,6 +111,13 @@ class Product {
 	public static function quantity_sync_enabled(
 		WC_Product $wc_product
 	): bool {
+		if ( $wc_product instanceof WC_Product_Variation ) {
+			$parent = wc_get_product( $wc_product->get_parent_id() );
+			if ( $parent ) {
+				$wc_product = $parent;
+			}
+		}
+
 		$meta_value = $wc_product->get_meta(
 			'1984_woo_dk_stock_sync',
 			true,
@@ -199,6 +233,29 @@ class Product {
 			return false;
 		}
 
+		if (
+			'product_variation' ===
+			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
+		) {
+			return false;
+		}
+
+		$parent_id = $wc_product->get_parent_id();
+
+		if ( 0 !== $parent_id ) {
+			$parent = wc_get_product( $parent_id );
+
+			if (
+				'product_variation' === $parent->get_meta(
+					'1984_dk_woo_origin',
+					true,
+					'edit'
+				)
+			) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -246,6 +303,54 @@ class Product {
 					'purchase' => Config::get_ledger_code( 'standard_purchase' ),
 				);
 		}
+		return false;
+	}
+
+	/**
+	 * Convert a product to variant
+	 *
+	 * @param int $product_id The product ID.
+	 * @param int $parent_id The ID of the new variant's parent.
+	 *
+	 * @return bool True on success, false on failure.
+	 */
+	public static function convert_to_variant(
+		int $product_id,
+		int $parent_id
+	): int|false {
+		if ( 'product' !== get_post_type( $product_id ) ) {
+			return false;
+		}
+
+		$post  = get_post( $product_id );
+		$title = $post->post_title;
+
+		if ( is_null( $post ) ) {
+			return false;
+		}
+
+		$parent = wc_get_product( $parent_id );
+
+		if ( ! $parent ) {
+			return false;
+		}
+
+		$wc_product = wc_get_product( $product_id );
+
+		if ( 'draft' === $wc_product->get_status( 'edit' ) ) {
+			$wc_product->set_status( 'private' );
+		}
+
+		$wc_product->set_parent_id( $parent_id );
+
+		// We indicate it here that this variant was originally a product.
+		$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
+		$wc_product->update_meta_data( '1984_dk_woo_original_name', $title );
+
+		if ( 0 !== $wc_product->save() ) {
+			return $wc_product->get_id();
+		}
+
 		return false;
 	}
 }
