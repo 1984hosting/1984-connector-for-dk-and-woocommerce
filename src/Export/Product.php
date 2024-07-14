@@ -363,8 +363,7 @@ class Product {
 	 */
 	public static function to_new_product_body(
 		WC_Product $wc_product
-	): stdClass {
-		$parent        = wc_get_product( $wc_product->get_parent_id() );
+	): stdClass|false {
 		$product_props = array(
 			'ItemCode'               => $wc_product->get_sku(),
 			'Description'            => $wc_product->get_title(),
@@ -381,26 +380,34 @@ class Product {
 		);
 
 		if ( $wc_product instanceof WC_Product_Variation ) {
-			if ( $wc_product->get_meta( '1984_dk_woo_origin' ) === 'product' ) {
-				$product_props['Description'] = $wc_product->get_meta(
-					'1984_dk_woo_original_name',
-					true
-				);
+			$parent_id = $wc_product->get_parent_id( 'edit' );
 
-				if ( $parent ) {
-					$description = implode(
-						'; ',
-						array(
-							$wc_product->get_title(),
-							$wc_product->get_attribute_summary(),
-						)
-					);
+			if ( $parent_id === 0 ) {
+				return false;
+			}
 
-					$product_props['Description2'] = $description;
-				}
-			} else {
+			if ( empty( $wc_product->get_title() ) ) {
+				return false;
+			}
+
+			if ( empty( $wc_product->get_attribute_summary() ) ) {
+				return false;
+			}
+
+			if ( empty( $name ) ) {
 				$product_props['Description']  = $wc_product->get_title();
 				$product_props['Description2'] = $wc_product->get_attribute_summary();
+			} else {
+				$description = implode(
+					'; ',
+					array(
+						$wc_product->get_title(),
+						$wc_product->get_attribute_summary(),
+					)
+				);
+
+				$product_props['Description']  = $name;
+				$product_props['Description2'] = $description;
 			}
 		}
 
@@ -444,21 +451,26 @@ class Product {
 
 		if ( ProductHelper::name_sync_enabled( $wc_product ) ) {
 			if ( $wc_product instanceof WC_Product_Variation ) {
-				$name = $wc_product->get_meta(
+				$original_name = $wc_product->get_meta(
 					'1984_dk_woo_original_name',
 					true
 				);
 
-				$description = implode(
-					'; ',
-					array(
-						$wc_product->get_title(),
-						$wc_product->get_attribute_summary(),
-					)
-				);
+				if ( empty( $original_name ) ) {
+					$product_props['Description']  = $wc_product->get_title();
+					$product_props['Description2'] = $wc_product->get_attribute_summary();
+				} else {
+					$description = implode(
+						'; ',
+						array(
+							$wc_product->get_title(),
+							$wc_product->get_attribute_summary(),
+						)
+					);
 
-				$product_props['Description']  = $name;
-				$product_props['Description2'] = $description;
+					$product_props['Description']  = $original_name;
+					$product_props['Description2'] = $description;
+				}
 			} else {
 				$product_props['Description'] = $wc_product->get_name();
 			}
