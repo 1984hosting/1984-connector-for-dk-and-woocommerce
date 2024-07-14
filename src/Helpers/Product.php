@@ -7,12 +7,10 @@ namespace NineteenEightyFour\NineteenEightyWoo\Helpers;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
-use NineteenEightyFour\NineteenEightyWoo\Hooks\WooUpdateProduct as WooUpdateProductHooks;
 use WC_Product;
 use WC_Product_Variation;
 use WC_Tax;
 use WC_DateTime;
-use WP_Post;
 
 /**
  * The Product Helper Class
@@ -142,7 +140,7 @@ class Product {
 	 * @return float A floating point representation of the tax rate percentage.
 	 */
 	public static function tax_rate( WC_Product $wc_product ): float {
-		if ( true === is_null( WC()->countries ) ) {
+		if ( is_null( WC()->countries ) ) {
 			return 0;
 		}
 
@@ -213,7 +211,7 @@ class Product {
 				return $price->dividedBy( $tax_fraction->plus( 1 ) )->toFloat();
 			}
 		} else {
-			if ( false === empty( $wc_product->get_sale_price() ) ) {
+			if ( ! empty( $wc_product->get_sale_price() ) ) {
 				return $wc_product->get_sale_price();
 			}
 		}
@@ -229,29 +227,36 @@ class Product {
 	 * @return bool True if it should sync, false if not.
 	 */
 	public static function should_sync( WC_Product $wc_product ): bool {
-		if ( false === (bool) $wc_product->get_sku() ) {
+		if ( ! (bool) $wc_product->get_sku() ) {
 			return false;
 		}
 
-		if (
-			'product_variation' ===
-			$wc_product->get_meta( '1984_dk_woo_origin', true, 'edit' )
-		) {
+		$product_origin = $wc_product->get_meta(
+			'1984_dk_woo_origin',
+			true,
+			'edit'
+		);
+
+		if ( $product_origin === 'product_variation' ) {
 			return false;
 		}
 
 		$parent_id = $wc_product->get_parent_id();
 
-		if ( 0 !== $parent_id ) {
+		if ( $parent_id !== 0 ) {
 			$parent = wc_get_product( $parent_id );
 
-			if (
-				'product_variation' === $parent->get_meta(
-					'1984_dk_woo_origin',
-					true,
-					'edit'
-				)
-			) {
+			if ( ! $parent ) {
+				return false;
+			}
+
+			$parent_origin = $parent->get_meta(
+				'1984_dk_woo_origin',
+				true,
+				'edit'
+			);
+
+			if ( $parent_origin === 'product_variation' ) {
 				return false;
 			}
 		}
@@ -318,7 +323,7 @@ class Product {
 		int $product_id,
 		int $parent_id
 	): int|false {
-		if ( 'product' !== get_post_type( $product_id ) ) {
+		if ( get_post_type( $product_id ) !== 'product' ) {
 			return false;
 		}
 
@@ -337,7 +342,7 @@ class Product {
 
 		$wc_product = wc_get_product( $product_id );
 
-		if ( 'draft' === $wc_product->get_status( 'edit' ) ) {
+		if ( $wc_product->get_status( 'edit' ) === 'draft' ) {
 			$wc_product->set_status( 'private' );
 		}
 
@@ -347,7 +352,7 @@ class Product {
 		$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
 		$wc_product->update_meta_data( '1984_dk_woo_original_name', $title );
 
-		if ( 0 !== $wc_product->save() ) {
+		if ( $wc_product->save() !== 0 ) {
 			return $wc_product->get_id();
 		}
 

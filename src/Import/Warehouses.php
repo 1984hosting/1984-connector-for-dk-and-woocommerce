@@ -24,10 +24,10 @@ class Warehouses {
 	public static function get(): array {
 		$transient = get_transient( '1984_woo_dk_warehouses' );
 
-		if ( false === $transient ) {
+		if ( ! $transient ) {
 			$warehouses_from_dk = self::get_from_dk();
 
-			if ( true === is_array( $warehouses_from_dk ) ) {
+			if ( is_array( $warehouses_from_dk ) ) {
 				self::save( $warehouses_from_dk );
 				return $warehouses_from_dk;
 			}
@@ -49,7 +49,7 @@ class Warehouses {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 

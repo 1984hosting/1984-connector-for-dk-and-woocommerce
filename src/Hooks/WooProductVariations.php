@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
 use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
 use WC_Product_Variation;
 
 /**
@@ -123,17 +122,23 @@ class WooProductVariations {
 			return;
 		}
 
-		if (
-			'product_variation' ===
-			$product_variation->get_meta( '1984_dk_woo_origin', true, 'edit' )
-		) {
+		$variation_origin = $product_variation->get_meta(
+			'1984_dk_woo_origin',
+			true,
+			'edit'
+		);
+
+		if ( $variation_origin === 'product_variation' ) {
 			return;
 		}
 
-		if (
-			'product_variation' ===
-			$parent->get_meta( '1984_dk_woo_origin', true, 'edit' )
-		) {
+		$parent_origin = $parent->get_meta(
+			'1984_dk_woo_origin',
+			true,
+			'edit'
+		);
+
+		if ( $parent_origin === 'product_variation' ) {
 			return;
 		}
 

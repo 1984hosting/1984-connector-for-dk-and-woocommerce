@@ -52,7 +52,7 @@ class SalesPayments {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -141,7 +141,7 @@ class SalesPayments {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -220,10 +220,10 @@ class SalesPayments {
 	public static function get_methods(): array {
 		$methods_transient = get_transient( '1984_woo_dk_payment_methods' );
 
-		if ( false === $methods_transient ) {
+		if ( ! $methods_transient ) {
 			$methods_from_dk = self::get_methods_from_dk();
 
-			if ( true === is_array( $methods_from_dk ) ) {
+			if ( is_array( $methods_from_dk ) ) {
 				self::save_methods( $methods_from_dk );
 				return $methods_from_dk;
 			}
@@ -247,7 +247,7 @@ class SalesPayments {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 

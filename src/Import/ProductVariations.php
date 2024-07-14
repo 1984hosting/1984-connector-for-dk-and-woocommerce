@@ -197,7 +197,7 @@ class ProductVariations {
 			$variation_code
 		);
 
-		if ( $result instanceof stdClass && 200 === $result->response_code ) {
+		if ( $result instanceof stdClass && $result->response_code === 200 ) {
 			return array_column( $result->data, 'ITEMCODE' );
 		}
 
@@ -249,7 +249,7 @@ class ProductVariations {
 			return $result;
 		}
 
-		if ( 200 === $result->response_code ) {
+		if ( $result->response_code === 200 ) {
 			return self::parse_variations_json( $result->data );
 		}
 
@@ -306,7 +306,7 @@ class ProductVariations {
 			return false;
 		}
 
-		if ( 200 === $result->response_code ) {
+		if ( $result->response_code === 200 ) {
 			$object      = $result->data[0];
 			$description = (string) $object->DESCRIPTION;
 			$record_id   = (int) $object->RECORDID;
@@ -377,7 +377,7 @@ class ProductVariations {
 			(string) $variation_id
 		);
 
-		if ( 200 === $result->response_code ) {
+		if ( $result->response_code === 200 ) {
 			$attributes = array();
 
 			foreach ( $result->data as $a ) {
@@ -457,7 +457,7 @@ class ProductVariations {
 			self::ATTRIBUTE_VALUES_FIELDS,
 		);
 
-		if ( 200 === $result->response_code ) {
+		if ( $result->response_code === 200 ) {
 			$values = array();
 
 			foreach ( $result->data as $v ) {

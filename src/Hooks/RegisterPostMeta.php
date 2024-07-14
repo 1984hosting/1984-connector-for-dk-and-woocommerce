@@ -105,7 +105,7 @@ class RegisterPostMeta {
 		WP_Post $post,
 		bool $update
 	): void {
-		if ( false === $update ) {
+		if ( ! $update ) {
 			$product = new WC_Product( $id );
 			$product->set_manage_stock( true );
 			$product->save();
@@ -128,7 +128,7 @@ class RegisterPostMeta {
 		WP_REST_Request $request,
 		bool $creating
 	): void {
-		if ( true === $creating ) {
+		if ( $creating ) {
 			$product = new WC_Product( $object->get_id() );
 			$product->set_manage_stock( true );
 			$product->save();

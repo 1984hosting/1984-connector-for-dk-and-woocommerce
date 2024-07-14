@@ -60,7 +60,7 @@ class WooOrderStatusChanges {
 	): void {
 		$wc_order = new WC_Order( $order_id );
 
-		if ( false === empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
+		if ( ! empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
 			return;
 		}
 
@@ -107,7 +107,7 @@ class WooOrderStatusChanges {
 
 		$invoice_number = ExportInvoice::create_in_dk( $wc_order );
 
-		if ( 'string' === gettype( $invoice_number ) ) {
+		if ( is_string( $invoice_number ) ) {
 			$wc_order->add_order_note(
 				sprintf(
 					// Translators: %1$s is a placeholder for the invoice number generated in DK.
@@ -120,7 +120,7 @@ class WooOrderStatusChanges {
 			);
 
 			if ( Config::get_email_invoice() ) {
-				if ( true === ExportInvoice::email_in_dk( $wc_order ) ) {
+				if ( ExportInvoice::email_in_dk( $wc_order ) === true ) {
 					$wc_order->add_order_note(
 						__(
 							'An email containing the invoice as a PDF attachment was sent to the customer.',
@@ -136,7 +136,7 @@ class WooOrderStatusChanges {
 					);
 				}
 			}
-		} elseif ( false === $invoice_number ) {
+		} elseif ( ! $invoice_number ) {
 			$wc_order->add_order_note(
 				__(
 					'An invoice could not be created in DK due to an error. The most common reason is the SKU for the WooCommece product does not match the ‘Item Code’ for the corresponding product in DK.',
@@ -169,13 +169,13 @@ class WooOrderStatusChanges {
 
 		$wc_order = new WC_Order( $order_id );
 
-		if ( false === empty( ExportInvoice::get_dk_credit_invoice_number( $wc_order ) ) ) {
+		if ( ! empty( ExportInvoice::get_dk_credit_invoice_number( $wc_order ) ) ) {
 			return;
 		}
 
 		$credit_invoice_number = ExportInvoice::reverse_in_dk( $wc_order );
 
-		if ( 'string' === gettype( $credit_invoice_number ) ) {
+		if ( is_string( $credit_invoice_number ) ) {
 			$wc_order->add_order_note(
 				sprintf(
 					// Translators: %1$s is a placeholder for the invoice number generated in DK.
@@ -188,7 +188,7 @@ class WooOrderStatusChanges {
 			);
 
 			if ( Config::get_email_invoice() ) {
-				if ( true === ExportInvoice::email_in_dk( $wc_order, 'credit' ) ) {
+				if ( ExportInvoice::email_in_dk( $wc_order, 'credit' ) === true ) {
 					$wc_order->add_order_note(
 						__(
 							'An email containing the credit invoice as a PDF attachment was sent to the customer.',
@@ -204,7 +204,7 @@ class WooOrderStatusChanges {
 					);
 				}
 			}
-		} elseif ( false === $credit_invoice_number ) {
+		} elseif ( ! $credit_invoice_number ) {
 			$wc_order->add_order_note(
 				__(
 					'Connection was established to DK but a credit invoice was not created due to an error.',

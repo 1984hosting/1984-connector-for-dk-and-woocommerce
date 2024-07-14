@@ -96,7 +96,7 @@ class Settings {
 		$validator  = new Validator();
 		$validation = $validator->validate( $rest_json, self::JSON_SCHEMA );
 
-		if ( true === $validation->hasError() ) {
+		if ( $validation->hasError() ) {
 			return new WP_Error(
 				'bad_request',
 				'Bad Request',
@@ -104,7 +104,7 @@ class Settings {
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'api_key' ) ) {
+		if ( property_exists( $rest_json, 'api_key' ) ) {
 			Config::set_dk_api_key( $rest_json->api_key );
 		}
 
@@ -119,7 +119,7 @@ class Settings {
 			);
 		}
 
-		if ( 200 !== $company_result->response_code ) {
+		if ( $company_result->response_code !== 200 ) {
 			return new WP_Error(
 				'unauthorized',
 				'Unauthorized',
@@ -127,7 +127,7 @@ class Settings {
 			);
 		}
 
-		if ( true === $company_result->data->General->CurrencyEnabled ) {
+		if ( $company_result->data->General->CurrencyEnabled ) {
 			Config::set_dk_currency( $company_result->data->General->DefaultCurrency );
 		} else {
 			Config::set_dk_currency( Currency::BASE_CURRENCY );
@@ -159,81 +159,81 @@ class Settings {
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'ledger_code_standard' ) ) {
+		if ( property_exists( $rest_json, 'ledger_code_standard' ) ) {
 			Config::set_ledger_code(
 				'standard',
 				$rest_json->ledger_code_standard
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'ledger_code_standard_purchase' ) ) {
+		if ( property_exists( $rest_json, 'ledger_code_standard_purchase' ) ) {
 			Config::set_ledger_code(
 				'standard_purchase',
 				$rest_json->ledger_code_standard_purchase
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'ledger_code_reduced' ) ) {
+		if ( property_exists( $rest_json, 'ledger_code_reduced' ) ) {
 			Config::set_ledger_code(
 				'reduced',
 				$rest_json->ledger_code_reduced
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'ledger_code_reduced_purchase' ) ) {
+		if ( property_exists( $rest_json, 'ledger_code_reduced_purchase' ) ) {
 			Config::set_ledger_code(
 				'reduced_purchase',
 				$rest_json->ledger_code_reduced_purchase
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'shipping_sku' ) ) {
+		if ( property_exists( $rest_json, 'shipping_sku' ) ) {
 			Config::set_shipping_sku( $rest_json->shipping_sku );
 		}
 
-		if ( true === property_exists( $rest_json, 'cost_sku' ) ) {
+		if ( property_exists( $rest_json, 'cost_sku' ) ) {
 			Config::set_cost_sku( $rest_json->cost_sku );
 		}
 
-		if ( true === property_exists( $rest_json, 'default_sales_person' ) ) {
+		if ( property_exists( $rest_json, 'default_sales_person' ) ) {
 			Config::set_default_sales_person_number(
 				$rest_json->default_sales_person
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'default_kennitala' ) ) {
+		if ( property_exists( $rest_json, 'default_kennitala' ) ) {
 			Config::set_default_kennitala( $rest_json->default_kennitala );
 		}
 
-		if ( true === property_exists( $rest_json, 'enable_kennitala' ) ) {
+		if ( property_exists( $rest_json, 'enable_kennitala' ) ) {
 			Config::set_kennitala_classic_field_enabled(
 				$rest_json->enable_kennitala
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'customer_requests_kennitala_invoice' ) ) {
+		if ( property_exists( $rest_json, 'customer_requests_kennitala_invoice' ) ) {
 			Config::set_customer_requests_kennitala_invoice(
 				$rest_json->customer_requests_kennitala_invoice
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'email_credit_invoice' ) ) {
+		if ( property_exists( $rest_json, 'email_credit_invoice' ) ) {
 			Config::set_make_credit_invoice( $rest_json->make_credit_invoice );
 		}
 
-		if ( true === property_exists( $rest_json, 'make_invoice_if_kennitala_is_set' ) ) {
+		if ( property_exists( $rest_json, 'make_invoice_if_kennitala_is_set' ) ) {
 			Config::set_make_invoice_if_kennitala_is_set(
 				$rest_json->make_invoice_if_kennitala_is_set
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'make_invoice_if_kennitala_is_missing' ) ) {
+		if ( property_exists( $rest_json, 'make_invoice_if_kennitala_is_missing' ) ) {
 			Config::set_make_invoice_if_kennitala_is_missing(
 				$rest_json->make_invoice_if_kennitala_is_missing
 			);
 		}
 
-		if ( true === property_exists( $rest_json, 'email_invoice' ) ) {
+		if ( property_exists( $rest_json, 'email_invoice' ) ) {
 			Config::set_email_invoice(
 				$rest_json->email_invoice
 			);
@@ -268,7 +268,7 @@ class Settings {
 
 		if (
 			property_exists( $rest_json, 'fetch_products' ) &&
-			( true === $rest_json->fetch_products )
+			$rest_json->fetch_products
 		) {
 			ImportProducts::save_all_from_dk();
 		}
@@ -315,7 +315,7 @@ class Settings {
 		$validator  = new Validator();
 		$validation = $validator->validate( $rest_json, self::JSON_SCHEMA );
 
-		if ( true === $validation->hasError() ) {
+		if ( $validation->hasError() ) {
 			return false;
 		}
 

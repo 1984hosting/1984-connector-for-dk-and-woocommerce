@@ -43,11 +43,11 @@ class Config {
 	 * 3. The 1984_woo_dk_api_key WP option
 	 */
 	public static function get_dk_api_key(): string|false {
-		if ( true === defined( 'DK_API_KEY' ) ) {
+		if ( defined( 'DK_API_KEY' ) ) {
 			return constant( 'DK_API_KEY' );
 		}
 
-		if ( false !== getenv( 'DK_API_KEY' ) ) {
+		if ( getenv( 'DK_API_KEY' ) ) {
 			return getenv( 'DK_API_KEY' );
 		}
 
@@ -63,7 +63,7 @@ class Config {
 	 * @param string $value The API key value.
 	 */
 	public static function set_dk_api_key( string $value ): bool {
-		if ( 0 === preg_match( '/' . self::DK_API_KEY_REGEX . '/', $value ) ) {
+		if ( preg_match( '/' . self::DK_API_KEY_REGEX . '/', $value ) === 0 ) {
 			return false;
 		}
 		return update_option( '1984_woo_dk_api_key', $value );
@@ -87,7 +87,7 @@ class Config {
 	): bool {
 		$dk_payment_method = ImportSalesPayments::find_by_id( $dk_id );
 
-		if ( false === $dk_payment_method ) {
+		if ( ! $dk_payment_method ) {
 			return false;
 		}
 
@@ -117,7 +117,7 @@ class Config {
 		string $woo_id,
 		bool $empty_object = true
 	): stdClass {
-		if ( true === $empty_object ) {
+		if ( $empty_object ) {
 			$default = (object) array(
 				'woo_id'  => '',
 				'dk_id'   => '',

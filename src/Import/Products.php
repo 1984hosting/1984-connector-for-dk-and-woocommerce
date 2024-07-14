@@ -17,7 +17,6 @@ use WC_Product;
 use WP_Error;
 use WC_Tax;
 use WC_Product_Variation;
-use WP_Query;
 use WC_Data_Store;
 
 /**
@@ -45,13 +44,13 @@ class Products {
 	 * This should be run at least nightly as a wp-cron job.
 	 */
 	public static function save_all_from_dk(): void {
-		if ( false === defined( 'DOING_DK_SYNC' ) ) {
+		if ( ! defined( 'DOING_DK_SYNC' ) ) {
 			define( 'DOING_DK_SYNC', true );
 		}
 
 		$json_objects = self::get_all_from_dk();
 
-		if ( true === is_array( $json_objects ) ) {
+		if ( is_array( $json_objects ) ) {
 			foreach ( $json_objects as $json_object ) {
 				self::save_from_dk(
 					$json_object->ItemCode,
@@ -88,7 +87,7 @@ class Products {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -115,13 +114,13 @@ class Products {
 			$json_object = self::get_from_dk( $sku );
 		}
 
-		if ( false === is_object( $json_object ) ) {
+		if ( ! is_object( $json_object ) ) {
 			return false;
 		}
 
 		$wc_product = self::json_to_product( $json_object );
 
-		if ( false === $wc_product ) {
+		if ( ! $wc_product ) {
 			return false;
 		}
 
@@ -154,7 +153,7 @@ class Products {
 			return $result;
 		}
 
-		if ( 200 !== $result->response_code ) {
+		if ( $result->response_code !== 200 ) {
 			return false;
 		}
 
@@ -175,7 +174,7 @@ class Products {
 	): WC_Product|false {
 		$product_id = wc_get_product_id_by_sku( $json_object->ItemCode );
 
-		if ( 0 === $product_id ) {
+		if ( $product_id === 0 ) {
 			$wc_product = self::json_to_new_product( $json_object );
 		} else {
 			$wc_product = self::update_product_from_json(
@@ -207,7 +206,7 @@ class Products {
 	): WC_Product|false {
 		if (
 			property_exists( $json_object, 'Deleted' ) &&
-			true === $json_object->Deleted
+			$json_object->Deleted
 		) {
 			return false;
 		}
@@ -228,7 +227,7 @@ class Products {
 			return false;
 		}
 
-		if ( true === $json_object->IsVariation ) {
+		if ( $json_object->IsVariation ) {
 			$wc_product = wc_get_product_object( 'variable' );
 			$wc_product->save();
 
@@ -360,14 +359,14 @@ class Products {
 			$json_object->Inactive ||
 			(
 				property_exists( $json_object, 'Deleted' ) &&
-				true === $json_object->Deleted
+				$json_object->Deleted
 			)
 		) {
 			wp_delete_post( $wc_product->get_id() );
 			return false;
 		}
 
-		if ( true === $json_object->IsVariation ) {
+		if ( $json_object->IsVariation ) {
 			$variant_code = ProductVariations::get_product_variant_code_by_sku(
 				$json_object->ItemCode
 			);
@@ -399,7 +398,7 @@ class Products {
 			$wc_product->update_meta_data( '1984_dk_woo_variations', '' );
 		}
 
-		if ( true === $json_object->ShowItemInWebShop ) {
+		if ( $json_object->ShowItemInWebShop ) {
 			$wc_product->set_status( 'Publish' );
 		} else {
 			if ( $wc_product instanceof WC_Product_Variation ) {
@@ -518,7 +517,7 @@ class Products {
 		if ( wc_prices_include_tax() ) {
 			$price = $price_with_tax;
 
-			if ( 0 < $sale_price_before_tax ) {
+			if ( $sale_price_before_tax > 0 ) {
 				$sale_price = self::calculate_price_after_tax(
 					$sale_price_before_tax,
 					$json_object->TaxPercent
@@ -529,7 +528,7 @@ class Products {
 		} else {
 			$price = $price_before_tax;
 
-			if ( 0 < $sale_price_before_tax ) {
+			if ( $sale_price_before_tax > 0 ) {
 				$sale_price = $sale_price_before_tax;
 			} else {
 				$sale_price = '';
@@ -574,7 +573,7 @@ class Products {
 		float|int $price_before_tax,
 		float $tax_rate
 	): float {
-		if ( 0 === $tax_rate ) {
+		if ( $tax_rate === 0 ) {
 			return (float) $price_before_tax;
 		}
 
@@ -646,7 +645,7 @@ class Products {
 		$result['stock_quantity'] = $json_object->TotalQuantityInWarehouse;
 
 		// 'Inventiry' is the spelling that DK uses. I'm dead serious.
-		if ( true === $json_object->AllowNegativeInventiry ) {
+		if ( $json_object->AllowNegativeInventiry ) {
 			$result['backorders'] = 'yes';
 		} else {
 			$result['backorders'] = 'no';
@@ -664,11 +663,11 @@ class Products {
 	 *                default rate.
 	 */
 	public static function tax_class_from_rate( float $percentage ): string {
-		if ( true === is_null( WC()->countries ) ) {
+		if ( is_null( WC()->countries ) ) {
 			return '';
 		}
 
-		if ( 0.0 === $percentage ) {
+		if ( $percentage === 0.0 ) {
 			return 'Zero rate';
 		}
 
@@ -680,7 +679,7 @@ class Products {
 			$values = array_values(
 				WC_Tax::get_base_tax_rates( $tax_class )
 			);
-			if ( false === empty( $values ) ) {
+			if ( ! empty( $values ) ) {
 				$tax_rates[ $tax_class ] = $values[0];
 			}
 		}
@@ -809,7 +808,7 @@ class Products {
 				$attributes
 			);
 
-			if ( 0 === $variation_id ) {
+			if ( $variation_id === 0 ) {
 				$variation = wc_get_product_object( 'variation' );
 
 				$variation->set_parent_id( $wc_product->get_id() );
