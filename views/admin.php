@@ -570,7 +570,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 				<tbody>
 					<?php foreach ( ( new WC_Payment_Gateways() )->payment_gateways as $p ) : ?>
 						<?php
-						if ( 'no' === $p->enabled ) {
+						if ( $p->enabled === 'no' ) {
 							continue;
 						}
 						$payment_map = Config::get_payment_mapping( $p->id );

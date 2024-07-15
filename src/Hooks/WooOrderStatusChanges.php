@@ -64,6 +64,17 @@ class WooOrderStatusChanges {
 			return;
 		}
 
+		if (
+			! empty(
+				$wc_order->get_meta(
+					'1984_dk_woo_invoice_creation_error',
+					true
+				)
+			)
+		) {
+			return;
+		}
+
 		$kennitala = OrderHelper::get_kennitala( $wc_order );
 
 		if (
@@ -136,17 +147,30 @@ class WooOrderStatusChanges {
 					);
 				}
 			}
-		} elseif ( ! $invoice_number ) {
-			$wc_order->add_order_note(
-				__(
-					'An invoice could not be created in DK due to an error. The most common reason is the SKU for the WooCommece product does not match the ‘Item Code’ for the corresponding product in DK.',
-					'1984-dk-woo'
-				)
-			);
 		} elseif ( $invoice_number instanceof WP_Error ) {
+			$wc_order->update_meta_data(
+				'1984_dk_woo_invoice_creation_error',
+				$invoice_number->get_error_code()
+			);
+			$wc_order->update_meta_data(
+				'1984_dk_woo_invoice_creation_error_message',
+				$invoice_number->get_error_message()
+			);
+			$wc_order->update_meta_data(
+				'1984_dk_woo_invoice_creation_error_data',
+				$invoice_number->get_error_data()
+			);
 			$wc_order->add_order_note(
 				__(
-					'Unable to establish a connection with DK to create an invoice.',
+					'Unable to create an invoice in DK: ',
+					'1984-dk-woo'
+				) . $invoice_number->get_error_code()
+			);
+			$wc_order->save();
+		} else {
+			$wc_order->add_order_note(
+				__(
+					'An invoice could not be created in DK due to an unhandled error.',
 					'1984-dk-woo'
 				)
 			);
@@ -169,7 +193,22 @@ class WooOrderStatusChanges {
 
 		$wc_order = new WC_Order( $order_id );
 
-		if ( ! empty( ExportInvoice::get_dk_credit_invoice_number( $wc_order ) ) ) {
+		if (
+			! empty(
+				ExportInvoice::get_dk_credit_invoice_number( $wc_order )
+			)
+		) {
+			return;
+		}
+
+		if (
+			! empty(
+				$wc_order->get_meta(
+					'1984_dk_woo_credit_invoice_creation_error',
+					true
+				)
+			)
+		) {
 			return;
 		}
 
@@ -204,17 +243,29 @@ class WooOrderStatusChanges {
 					);
 				}
 			}
-		} elseif ( ! $credit_invoice_number ) {
-			$wc_order->add_order_note(
-				__(
-					'Connection was established to DK but a credit invoice was not created due to an error.',
-					'1984-dk-woo'
-				)
-			);
 		} elseif ( $credit_invoice_number instanceof WP_Error ) {
+			$wc_order->update_meta_data(
+				'1984_dk_woo_credit_invoice_creation_error',
+				$credit_invoice_number->get_error_code()
+			);
+			$wc_order->update_meta_data(
+				'1984_dk_woo_credit_invoice_creation_error_message',
+				$credit_invoice_number->get_error_message()
+			);
+			$wc_order->update_meta_data(
+				'1984_dk_woo_credit_invoice_creation_error_data',
+				$credit_invoice_number->get_error_data()
+			);
 			$wc_order->add_order_note(
 				__(
-					'Unable to establish a connection with DK to create a credit invoice.',
+					'Unable to create an invoice in DK: ',
+					'1984-dk-woo'
+				) . $credit_invoice_number->get_error_code()
+			);
+		} else {
+			$wc_order->add_order_note(
+				__(
+					'A credit invoice could not be created in DK due to an unhandled error.',
 					'1984-dk-woo'
 				)
 			);
