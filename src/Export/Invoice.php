@@ -35,7 +35,11 @@ class Invoice {
 	public static function create_in_dk(
 		WC_Order $wc_order
 	): string|false|WP_Error {
-		if ( ! ExportCustomer::is_in_dk( OrderHelper::get_kennitala( $wc_order ) ) ) {
+		if (
+			! ExportCustomer::is_in_dk(
+				OrderHelper::get_kennitala( $wc_order )
+			)
+		) {
 			Customer::create_in_dk_from_order( $wc_order );
 		}
 
@@ -58,7 +62,16 @@ class Invoice {
 		}
 
 		if ( $result->response_code !== 200 ) {
-			return false;
+			if ( property_exists( $result->data, 'Message' ) ) {
+				$error_message = $result->data->Message;
+			} else {
+				$error_message = '';
+			}
+			return new WP_Error(
+				'http_' . (string) $result->response_code,
+				$error_message,
+				$result->data
+			);
 		}
 
 		if ( property_exists( $result->data, 'Number' ) ) {
@@ -93,6 +106,10 @@ class Invoice {
 			return false;
 		}
 
+		if ( ! empty( self::get_dk_credit_invoice_number( $wc_order ) ) ) {
+			return false;
+		}
+
 		$date           = new DateTime();
 		$formatted_date = $date->format( 'Y-m-d' );
 
@@ -108,7 +125,16 @@ class Invoice {
 		}
 
 		if ( $result->response_code !== 200 ) {
-			return false;
+			if ( property_exists( $result->data, 'Message' ) ) {
+				$error_message = $result->data->Message;
+			} else {
+				$error_message = '';
+			}
+			return new WP_Error(
+				'http_' . (string) $result->response_code,
+				$error_message,
+				$result->data
+			);
 		}
 
 		if ( property_exists( $result->data, 'Number' ) ) {

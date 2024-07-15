@@ -217,7 +217,7 @@ class Settings {
 			);
 		}
 
-		if ( property_exists( $rest_json, 'email_credit_invoice' ) ) {
+		if ( property_exists( $rest_json, 'make_credit_invoice' ) ) {
 			Config::set_make_credit_invoice( $rest_json->make_credit_invoice );
 		}
 
