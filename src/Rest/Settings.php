@@ -266,6 +266,24 @@ class Settings {
 			);
 		}
 
+		if ( property_exists( $rest_json, 'use_attribute_description' ) ) {
+			Config::set_use_attribute_description(
+				$rest_json->use_attribute_description
+			);
+		}
+
+		if ( property_exists( $rest_json, 'use_attribute_value_description' ) ) {
+			Config::set_use_attribute_value_description(
+				$rest_json->use_attribute_value_description
+			);
+		}
+
+		if ( property_exists( $rest_json, 'product_convertion_to_variation_enabled' ) ) {
+			Config::set_product_convertion_to_variation_enabled(
+				$rest_json->product_convertion_to_variation_enabled
+			);
+		}
+
 		if (
 			property_exists( $rest_json, 'fetch_products' ) &&
 			$rest_json->fetch_products

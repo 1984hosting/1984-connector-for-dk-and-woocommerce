@@ -164,6 +164,88 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 					</tr>
 				</tbody>
 			</table>
+			<h3><?php esc_html_e( 'Variations and Attributes', '1984-dk-woo' ); ?></h3>
+			<p>
+				<?php
+				esc_html_e(
+					'While the variation and attribute codes from DK are used internally, their values can be displayed as the descriptions that are set for each of them in DK. Here you can also enable the product conversion feature.',
+					'1984-dk-woo'
+				);
+				?>
+			</p>
+			<table id="dk-variations-table" class="form-table">
+				<tbody>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="use_attribute_description_label_field"
+								name="use_attribute_description_label"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_use_attribute_description() ? 'checked' : '' ); ?>
+							/>
+							<label for="use_attribute_description_label_field">
+								<?php esc_html_e( 'Display the Attribute Label Description from DK', '1984-dk-woo' ); ?>
+							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'If enabled, the code for attribute labels will be replaced with the attribute description from DK. Disable this if you only need the attribute label code.',
+									'1984-dk-woo'
+								);
+								?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="use_attribute_description_value_field"
+								name="use_attribute_description_value"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_use_attribute_value_description() ? 'checked' : '' ); ?>
+							/>
+							<label for="use_attribute_description_value_field">
+								<?php esc_html_e( 'Display the Attribute Value Description from DK', '1984-dk-woo' ); ?>
+							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'If enabled, the code for attribute values will be replaced with the attribute description from DK. Disable this if you only need the attribute value code.',
+									'1984-dk-woo'
+								);
+								?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="product_conversion_field"
+								name="product_conversion"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_product_convertion_to_variation_enabled() ? 'checked' : '' ); ?>
+							/>
+							<label for="product_conversion_field">
+								<?php esc_html_e( 'Enable Product-to-Variation Conversion', '1984-dk-woo' ); ?>
+							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'If enabled, any product can be converted into a variant of anohter as a bulk action. This is a very sharp tool, so only use this one if you know what you are doing.',
+									'1984-dk-woo'
+								);
+								?>
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 			<h3><?php esc_html_e( 'Ledger Codes', '1984-dk-woo' ); ?></h3>
 			<p>
 				<?php
@@ -377,7 +459,7 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 							<p class="description">
 								<?php
 								esc_html_e(
-									'If enabled, an email containing the invoice will be sent to the customer automatically after checkout.',
+									'If enabled, an email containing the invoice will be sent to the customer automatically after checkout. This uses the DK email functionality, so make sure that email delivery is configured correctly in DK.',
 									'1984-dk-woo'
 								);
 								?>

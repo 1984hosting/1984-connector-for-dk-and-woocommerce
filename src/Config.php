@@ -721,4 +721,50 @@ class Config {
 			(string) $value
 		);
 	}
+
+	public static function get_use_attribute_description(): bool {
+		return (bool) (
+			get_option( '1984_woo_dk_use_attribute_description', true )
+		);
+	}
+
+	public static function set_use_attribute_description( bool $value ): bool {
+		return update_option(
+			'1984_woo_dk_use_attribute_description',
+			(bool) $value
+		);
+	}
+
+	public static function get_use_attribute_value_description(): bool {
+		return (bool) (
+			get_option( '1984_woo_dk_use_attribute_value_description', true )
+		);
+	}
+
+	public static function set_use_attribute_value_description(
+		bool $value
+	): bool {
+		return update_option(
+			'1984_woo_dk_use_attribute_value_description',
+			(bool) $value
+		);
+	}
+
+	public static function get_product_convertion_to_variation_enabled(): bool {
+		return (bool) (
+			get_option(
+				'1984_woo_dk_product_convertion_to_variation_enabled',
+				false
+			)
+		);
+	}
+
+	public static function set_product_convertion_to_variation_enabled(
+		bool $value
+	): bool {
+		return update_option(
+			'1984_woo_dk_product_convertion_to_variation_enabled',
+			(bool) $value
+		);
+	}
 }
