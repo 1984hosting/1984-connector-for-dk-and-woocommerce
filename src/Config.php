@@ -722,12 +722,27 @@ class Config {
 		);
 	}
 
+	/**
+	 * Get wether attribute descriptions from DK are used for variant product
+	 * attributes in WooCommerce
+	 *
+	 * For example, the label tag on the product page can either have the
+	 * attribute label set to the description from DK or its code. The code is
+	 * however generally used internally.
+	 */
 	public static function get_use_attribute_description(): bool {
 		return (bool) (
 			get_option( '1984_woo_dk_use_attribute_description', true )
 		);
 	}
 
+	/**
+	 * Set wether attribute descriptions from DK are used for variant product
+	 * attributes in WooCommerce
+	 *
+	 * @param bool $value True to use attribute descriptions from DK, false to
+	 *                    use the codes from DK instead.
+	 */
 	public static function set_use_attribute_description( bool $value ): bool {
 		return update_option(
 			'1984_woo_dk_use_attribute_description',
@@ -735,12 +750,27 @@ class Config {
 		);
 	}
 
+	/**
+	 * Get wether attribute value descriptions from DK are used as the visible
+	 * title for each attribute value
+	 *
+	 * For example inner contents of the option tags on the product page can
+	 * either be the description or the code, with the value tag always being
+	 * the code. The code is also used internally despite this value.
+	 */
 	public static function get_use_attribute_value_description(): bool {
 		return (bool) (
 			get_option( '1984_woo_dk_use_attribute_value_description', true )
 		);
 	}
 
+	/**
+	 * Get wether attribute value descriptions from DK are used as the visible
+	 * title for each attribute value
+	 *
+	 * @param bool $value True to use the description as the visible attribute
+	 *                    value or false to use its code.
+	 */
 	public static function set_use_attribute_value_description(
 		bool $value
 	): bool {
@@ -750,6 +780,12 @@ class Config {
 		);
 	}
 
+	/**
+	 * Get ether the product-to-variation conversion feature is enabled
+	 *
+	 * With this enabled, a bulk action to convert products into variations of
+	 * another appears on the product overview page.
+	 */
 	public static function get_product_convertion_to_variation_enabled(): bool {
 		return (bool) (
 			get_option(
@@ -759,6 +795,11 @@ class Config {
 		);
 	}
 
+	/**
+	 * Enable to disable the product-to-variation conversion feature
+	 *
+	 * @param bool $value True to enable, false to disable.
+	 */
 	public static function set_product_convertion_to_variation_enabled(
 		bool $value
 	): bool {
