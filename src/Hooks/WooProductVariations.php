@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
+use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations;
 use WC_Product_Variation;
 
@@ -38,26 +39,30 @@ class WooProductVariations {
 			2
 		);
 
-		add_filter(
-			'woocommerce_variation_option_name',
-			array( __CLASS__, 'filter_variation_option_name' ),
-			10,
-			1
-		);
+		if ( Config::get_use_attribute_value_description() ) {
+			add_filter(
+				'woocommerce_variation_option_name',
+				array( __CLASS__, 'filter_variation_option_name' ),
+				10,
+				1
+			);
 
-		add_filter(
-			'woocommerce_attribute_label',
-			array( __CLASS__, 'filter_variation_label' ),
-			10,
-			3
-		);
+			add_filter(
+				'woocommerce_order_item_display_meta_value',
+				array( __CLASS__, 'filter_woocommerce_order_meta_value' ),
+				10,
+				1
+			);
+		}
 
-		add_filter(
-			'woocommerce_order_item_display_meta_value',
-			array( __CLASS__, 'filter_woocommerce_order_meta_value' ),
-			10,
-			1
-		);
+		if ( Config::get_use_attribute_description() ) {
+			add_filter(
+				'woocommerce_attribute_label',
+				array( __CLASS__, 'filter_variation_label' ),
+				10,
+				3
+			);
+		}
 	}
 
 	/**

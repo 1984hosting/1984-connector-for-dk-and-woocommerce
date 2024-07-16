@@ -49,18 +49,20 @@ class Admin {
 			10
 		);
 
-		add_filter(
-			'bulk_actions-edit-product',
-			array( __CLASS__, 'register_product_to_variant_bulk_action' ),
-			10
-		);
+		if ( Config::get_product_convertion_to_variation_enabled() ) {
+			add_filter(
+				'bulk_actions-edit-product',
+				array( __CLASS__, 'register_product_to_variant_bulk_action' ),
+				10
+			);
 
-		add_filter(
-			'handle_bulk_actions-edit-product',
-			array( __CLASS__, 'handle_product_to_variant_bulk_action' ),
-			10,
-			3
-		);
+			add_filter(
+				'handle_bulk_actions-edit-product',
+				array( __CLASS__, 'handle_product_to_variant_bulk_action' ),
+				10,
+				3
+			);
+		}
 	}
 
 	/**
