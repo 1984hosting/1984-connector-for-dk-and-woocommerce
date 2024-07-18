@@ -35,24 +35,10 @@ class Admin {
 
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu_page' ) );
 
-		if (
-			(
-				// Superlobal is not passed into anything.
-				// phpcs:ignore WordPress.Security.NonceVerification
-				isset( $_GET['page'] )
-			)
-			&&
-			(
-				// Superlobal is not passed into anything.
-				// phpcs:ignore WordPress.Security.NonceVerification
-				$_GET['page'] === '1984-dk-woo' || $_GET['page'] === 'wc-orders'
-			)
-		) {
-			add_action(
-				'admin_init',
-				array( __CLASS__, 'enqueue_styles_and_scripts' )
-			);
-		}
+		add_action(
+			'admin_init',
+			array( __CLASS__, 'enqueue_styles_and_scripts' )
+		);
 
 		add_action(
 			'current_screen',
@@ -66,8 +52,21 @@ class Admin {
 			10
 		);
 
+		add_filter(
+			'manage_edit-shop_order_columns',
+			array( __CLASS__, 'add_dk_invoice_column' ),
+			10
+		);
+
 		add_action(
 			'woocommerce_shop_order_list_table_custom_column',
+			array( __CLASS__, 'dk_invoice_column' ),
+			10,
+			2
+		);
+
+		add_action(
+			'manage_shop_order_posts_custom_column',
 			array( __CLASS__, 'dk_invoice_column' ),
 			10,
 			2
@@ -109,13 +108,16 @@ class Admin {
 	/**
 	 * Action for the DK Invoice column in the orders table
 	 *
-	 * @param string   $column_name The column name (dk_invoice_id in our case).
-	 * @param WC_Order $wc_order The WooCommerce order.
+	 * @param string       $column_name The column name (dk_invoice_id in our case).
+	 * @param WC_Order|int $wc_order The WooCommerce order.
 	 */
 	public static function dk_invoice_column(
 		string $column_name,
-		WC_Order $wc_order
+		WC_Order|int $wc_order
 	): void {
+		if ( is_int( $wc_order ) ) {
+			$wc_order = wc_get_order( $wc_order );
+		}
 		if ( $column_name === 'dk_invoice_id' ) {
 			$invoice_number = $wc_order->get_meta(
 				'1984_woo_dk_invoice_number',
