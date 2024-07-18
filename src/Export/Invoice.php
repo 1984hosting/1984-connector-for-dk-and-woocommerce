@@ -233,6 +233,7 @@ class Invoice {
 	): array {
 		$invoice_body = ExportOrder::to_dk_order_body( $wc_order );
 
+		$invoice_body['PosInvoice']  = $wc_order->get_id();
 		$invoice_body['SalesPerson'] = Config::get_default_sales_person_number();
 
 		$payment_mapping = Config::get_payment_mapping(

@@ -128,8 +128,6 @@ class Order {
 		$recipient_array = array();
 		$customer_array  = array( 'Number' => $kennitala );
 
-		$order_props['Reference'] = 'WC-' . $wc_order->get_id();
-
 		$recipient_array['Name']     = $wc_order->get_formatted_billing_full_name();
 		$recipient_array['Address1'] = $wc_order->get_shipping_address_1();
 		$recipient_array['Address2'] = $wc_order->get_shipping_address_2();
