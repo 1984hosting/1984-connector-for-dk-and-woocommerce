@@ -15,7 +15,9 @@ use WP_Http;
  * Handles the low-level HTTP requests to the DK JSON API.
  */
 class DKApiRequest {
-	const DK_API_URL = 'https://api.dkplus.is/api/v1';
+	const DK_API_URL   = 'https://api.dkplus.is/api/v1';
+	const GET_TIMEOUT  = 10.0;
+	const POST_TIMEOUT = 15.0;
 
 	/**
 	 * The DK API key
@@ -83,6 +85,7 @@ class DKApiRequest {
 			array(
 				'httpversion' => '1.1',
 				'headers'     => $this->get_headers,
+				'timeout'     => self::GET_TIMEOUT,
 			),
 		);
 
@@ -117,6 +120,7 @@ class DKApiRequest {
 			array(
 				'httpversion' => '1.1',
 				'headers'     => $this->get_headers,
+				'timeout'     => self::GET_TIMEOUT,
 			),
 		);
 
@@ -155,6 +159,7 @@ class DKApiRequest {
 				'httpversion' => '1.1',
 				'headers'     => $this->post_headers,
 				'body'        => $body,
+				'timeout'     => self::POST_TIMEOUT,
 			),
 		);
 
