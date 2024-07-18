@@ -89,6 +89,13 @@ class Admin {
 		}
 	}
 
+	/**
+	 * Filter for adding the DK invoice column to the orders table
+	 *
+	 * @param array $columns The current set of columns.
+	 *
+	 * @return array The columns array with dk_invoice_id added.
+	 */
 	public static function add_dk_invoice_column( array $columns ): array {
 		$first = array_slice( $columns, 0, 2, true );
 		$last  = array_slice( $columns, 2, null, true );
@@ -99,10 +106,16 @@ class Admin {
 		);
 	}
 
+	/**
+	 * Action for the DK Invoice column in the orders table
+	 *
+	 * @param string   $column_name The column name (dk_invoice_id in our case).
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 */
 	public static function dk_invoice_column(
 		string $column_name,
 		WC_Order $wc_order
-	) {
+	): void {
 		if ( $column_name === 'dk_invoice_id' ) {
 			$invoice_number = $wc_order->get_meta(
 				'1984_woo_dk_invoice_number',
