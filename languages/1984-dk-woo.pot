@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1984 Connector for DK and WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-16 12:43+0000\n"
+"POT-Creation-Date: 2024-07-18 20:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -58,13 +58,13 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:404
+#: src/Hooks/Admin.php:501
 #, php-format
 msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:392
+#: src/Hooks/Admin.php:489
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr ""
@@ -74,13 +74,13 @@ msgid "A or B Giro Request (ABG)"
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:333
+#: src/Hooks/Admin.php:430
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:345
+#: src/Hooks/Admin.php:442
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
@@ -167,11 +167,11 @@ msgstr ""
 msgid "Cheque Payment (TGR)"
 msgstr ""
 
-#: src/Hooks/Admin.php:189 src/Hooks/Admin.php:190
+#: src/Hooks/Admin.php:280 src/Hooks/Admin.php:281
 msgid "Connector for DK"
 msgstr ""
 
-#: src/Hooks/Admin.php:112
+#: src/Hooks/Admin.php:203
 msgid "Convert to Product Variant"
 msgstr ""
 
@@ -231,6 +231,10 @@ msgstr ""
 msgid "Display the Attribute Value Description from DK"
 msgstr ""
 
+#: src/Hooks/Admin.php:103
+msgid "DK Invoice"
+msgstr ""
+
 #: views/admin.php:530
 msgid ""
 "DK treats shipping and other costs as line items on invoices. In order for "
@@ -243,6 +247,10 @@ msgstr ""
 
 #: views/admin.php:235
 msgid "Enable Product-to-Variation Conversion"
+msgstr ""
+
+#: src/Hooks/Admin.php:157
+msgid "Error"
 msgstr ""
 
 #: src/Export/Order.php:206
@@ -406,6 +414,10 @@ msgstr ""
 msgid "Ledger Codes"
 msgstr ""
 
+#: views/admin.php:647
+msgid "Method ID in DK"
+msgstr ""
+
 #: views/admin.php:779
 msgid "Ninteen-Eighty-Four"
 msgstr ""
@@ -423,8 +435,16 @@ msgstr ""
 msgid "Payment Gateways"
 msgstr ""
 
+#: views/admin.php:648
+msgid "Payment Mode in DK"
+msgstr ""
+
+#: views/admin.php:649
+msgid "Payment Terms in DK"
+msgstr ""
+
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:380
+#: src/Hooks/Admin.php:477
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -432,7 +452,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:260
+#: src/Hooks/Admin.php:357
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -440,7 +460,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:321
+#: src/Hooks/Admin.php:418
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -597,18 +617,18 @@ msgid ""
 "record called “Various Customers” etc."
 msgstr ""
 
-#: src/Service/DKApiRequest.php:77 src/Service/DKApiRequest.php:147
+#: src/Service/DKApiRequest.php:79 src/Service/DKApiRequest.php:151
 msgid "The DK API key is missing."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:272
+#: src/Hooks/Admin.php:369
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:284
+#: src/Hooks/Admin.php:381
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr ""

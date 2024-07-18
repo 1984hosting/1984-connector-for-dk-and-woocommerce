@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: 1984 Connector for DK and WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-18 23:42+0000\n"
-"PO-Revision-Date: 2024-07-16 13:02+0000\n"
+"PO-Revision-Date: 2024-07-18 20:39+0000\n"
 "Last-Translator: \n"
-"Language-Team: Icelandic\n"
+"Language-Team: Íslenska\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
@@ -62,13 +62,13 @@ msgstr ""
 "er %1$s."
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:404
+#: src/Hooks/Admin.php:501
 #, php-format
 msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst ekki í DK."
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:392
+#: src/Hooks/Admin.php:489
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í DK."
@@ -78,13 +78,13 @@ msgid "A or B Giro Request (ABG)"
 msgstr "A- eða B-gíróseðill (ABG)"
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:333
+#: src/Hooks/Admin.php:430
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:345
+#: src/Hooks/Admin.php:442
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst ekki í DK."
@@ -94,15 +94,15 @@ msgid ""
 "An email containing the credit invoice as a PDF attachment was sent to the "
 "customer."
 msgstr ""
-"Tölvupóstur var sendur til viðskiptavinarins sem innihélt kreditreikninginn "
-"sem viðhengi á PDF-formi."
+"Tölvupóstur sem innihélt kreditreikninginn sem viðhengi á PDF-formi var "
+"sendur til viðskiptavinarins."
 
 #: src/Hooks/WooOrderStatusChanges.php:136
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer."
 msgstr ""
-"Tölvupóstur var sendur til viðskiptavinarins sem innihélt reikninginn sem "
-"viðhengi á PDF-formi."
+"Tölvupóstur sem innihélt reikninginn sem viðhengi á PDF-formi var sendur til "
+"viðskiptavinarins."
 
 #: src/Hooks/WooOrderStatusChanges.php:172
 msgid "An invoice could not be created in DK due to an unhandled error."
@@ -190,11 +190,11 @@ msgstr "Staðgreiðsla (STGR)"
 msgid "Cheque Payment (TGR)"
 msgstr "Tékkagreiðsla (TGR)"
 
-#: src/Hooks/Admin.php:189 src/Hooks/Admin.php:190
+#: src/Hooks/Admin.php:280 src/Hooks/Admin.php:281
 msgid "Connector for DK"
 msgstr "Tengill fyrir DK"
 
-#: src/Hooks/Admin.php:112
+#: src/Hooks/Admin.php:203
 msgid "Convert to Product Variant"
 msgstr "Breyta vöru í afbrigði"
 
@@ -254,6 +254,10 @@ msgstr "Birta lýsingu skráningar eiginleika vöruafbrigða úr DK"
 msgid "Display the Attribute Value Description from DK"
 msgstr "Birta lýsingu eiginleika vöruafbrigða úr DK"
 
+#: src/Hooks/Admin.php:103
+msgid "DK Invoice"
+msgstr "Reikningur í DK"
+
 #: views/admin.php:530
 msgid ""
 "DK treats shipping and other costs as line items on invoices. In order for "
@@ -269,6 +273,10 @@ msgstr "Kveikja á reit fyrir kennitölu í afgreiðsluforminu"
 #: views/admin.php:235
 msgid "Enable Product-to-Variation Conversion"
 msgstr "Virkja breytingu á vörum í vöruafbrigði"
+
+#: src/Hooks/Admin.php:157
+msgid "Error"
+msgstr "Villa"
 
 #: src/Export/Order.php:206
 msgid "Fee"
@@ -473,6 +481,10 @@ msgstr "Bókunarflokkur fyrir erlenda skuldunauta"
 msgid "Ledger Codes"
 msgstr "Bókunarflokkar"
 
+#: views/admin.php:647
+msgid "Method ID in DK"
+msgstr "Auðkenni greiðslumáta í DK"
+
 #: views/admin.php:779
 msgid "Ninteen-Eighty-Four"
 msgstr "Nítjánhundruð-áttatíu-og-fjögur"
@@ -490,8 +502,16 @@ msgstr "Nei"
 msgid "Payment Gateways"
 msgstr "Greiðslugáttir"
 
+#: views/admin.php:648
+msgid "Payment Mode in DK"
+msgstr "Greiðslumáti í DK"
+
+#: views/admin.php:649
+msgid "Payment Terms in DK"
+msgstr "Greiðsluskilmálar í DK"
+
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:380
+#: src/Hooks/Admin.php:477
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -501,7 +521,7 @@ msgstr ""
 "í DK áður en haldið er áfram."
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:260
+#: src/Hooks/Admin.php:357
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -511,7 +531,7 @@ msgstr ""
 "haldið er áfram."
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:321
+#: src/Hooks/Admin.php:418
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -700,18 +720,18 @@ msgstr ""
 "afgreiðslu. Þetta ætti að stemma við skuldunaut í DK sem heitir t.d. ‚Ýmsir "
 "skuldunautar‘"
 
-#: src/Service/DKApiRequest.php:77 src/Service/DKApiRequest.php:147
+#: src/Service/DKApiRequest.php:79 src/Service/DKApiRequest.php:151
 msgid "The DK API key is missing."
 msgstr "API-lykillinn fyrir DK vantar."
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:272
+#: src/Hooks/Admin.php:369
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:284
+#: src/Hooks/Admin.php:381
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst ekki í DK."
