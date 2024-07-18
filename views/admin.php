@@ -644,9 +644,9 @@ use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 				<thead>
 					<tr>
 						<th scope="col"></th>
-						<th scope="col">Method ID in DK</th>
-						<th scope="col">Payment Mode in DK</th>
-						<th scope="col">Payment Terms in DK</th>
+						<th scope="col"><?php esc_html_e( 'Method ID in DK', '1984-dk-woo' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Payment Mode in DK', '1984-dk-woo' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Payment Terms in DK', '1984-dk-woo' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
