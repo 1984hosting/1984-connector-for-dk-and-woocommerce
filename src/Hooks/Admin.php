@@ -10,6 +10,7 @@ use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson;
 use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
 use stdClass;
+use WC_Order;
 use WP_Screen;
 
 /**
@@ -34,9 +35,17 @@ class Admin {
 
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu_page' ) );
 
-		// Superlobal is not passed into anything.
-		// phpcs:ignore WordPress.Security.NonceVerification
-		if ( ( isset( $_GET['page'] ) ) && ( $_GET['page'] === '1984-dk-woo' ) ) {
+		if (
+			(
+				isset( $_GET['page'] )
+			)
+			&&
+			(
+				// Superlobal is not passed into anything.
+				// phpcs:ignore WordPress.Security.NonceVerification
+				$_GET['page'] === '1984-dk-woo' || $_GET['page'] === 'wc-orders'
+			)
+		) {
 			add_action(
 				'admin_init',
 				array( __CLASS__, 'enqueue_styles_and_scripts' )
@@ -47,6 +56,19 @@ class Admin {
 			'current_screen',
 			array( __CLASS__, 'enqueue_products_styles_and_scripts' ),
 			10
+		);
+
+		add_filter(
+			'woocommerce_shop_order_list_table_columns',
+			array( __CLASS__, 'add_dk_invoice_column' ),
+			10
+		);
+
+		add_action(
+			'woocommerce_shop_order_list_table_custom_column',
+			array( __CLASS__, 'dk_invoice_column' ),
+			10,
+			2
 		);
 
 		if ( Config::get_product_convertion_to_variation_enabled() ) {
@@ -65,6 +87,51 @@ class Admin {
 		}
 	}
 
+	public static function add_dk_invoice_column( array $columns ): array {
+		$first = array_slice( $columns, 0, 2, true );
+		$last  = array_slice( $columns, 2, null, true );
+		return array_merge(
+			$first,
+			array( 'dk_invoice_id' => esc_html__( 'DK Invoice', '1984-dk-woo' ) ),
+			$last
+		);
+	}
+
+	public static function dk_invoice_column(
+		string $column_name,
+		WC_Order $wc_order
+	) {
+		if ( $column_name === 'dk_invoice_id' ) {
+			$invoice_number = $wc_order->get_meta(
+				'1984_woo_dk_invoice_number',
+				true,
+				'view'
+			);
+
+			$invoice_creation_error = $wc_order->get_meta(
+				'1984_dk_woo_invoice_creation_error',
+				true,
+				'view'
+			);
+
+			if ( ! empty( $invoice_number ) ) {
+				echo '<span class="dashicons dashicons-yes debit_invoice"></span> ';
+				echo '<span class="debit_invoice">';
+				echo esc_html( $invoice_number );
+				echo '</span>';
+				return;
+			}
+
+			if ( ! empty( $invoice_creation_error ) ) {
+				echo '<span class="dashicons dashicons-no invoice_error"></span> ';
+				echo '<span class="invoice_error">';
+				echo 'Error';
+				echo '</span>';
+				return;
+			}
+		}
+	}
+
 	/**
 	 * Enqueue the styles and scripts for the products screen
 	 *
@@ -78,11 +145,6 @@ class Admin {
 			current_user_can( 'edit_others_posts' ) &&
 			$current_screen->id === 'edit-product'
 		) {
-			wp_enqueue_style(
-				handle: 'nineteen-eighty-woo-products',
-				src: plugins_url( 'style/products.css', dirname( __DIR__ ) ),
-				ver: self::ASSET_VERSION
-			);
 
 			wp_enqueue_script(
 				'nineteen-eighty-woo',
@@ -210,6 +272,12 @@ class Admin {
 		wp_enqueue_style(
 			handle: 'nineteen-eighty-woo',
 			src: plugins_url( 'style/admin.css', dirname( __DIR__ ) ),
+			ver: self::ASSET_VERSION
+		);
+
+		wp_enqueue_style(
+			handle: 'nineteen-eighty-woo-products',
+			src: plugins_url( 'style/products.css', dirname( __DIR__ ) ),
 			ver: self::ASSET_VERSION
 		);
 

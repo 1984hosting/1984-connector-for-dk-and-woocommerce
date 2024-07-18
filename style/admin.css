@@ -172,6 +172,20 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	display: none;
 }
 
+.column-dk_invoice_id .dashicons {
+	padding: 4px 0px 4px 4px;
+}
+
+.column-dk_invoice_id .debit_invoice {
+	color: rgb(0, 50, 100);
+	font-weight: 600;
+}
+
+.column-dk_invoice_id .invoice_error {
+	color: #900;
+	font-weight: 600;
+}
+
 @media screen and (max-width: 782px) {
 	#nineteen-eighty-woo-wrap h1 {
 		margin-left: 21px;
