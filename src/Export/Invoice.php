@@ -234,6 +234,7 @@ class Invoice {
 		$invoice_body = ExportOrder::to_dk_order_body( $wc_order );
 
 		$invoice_body['SalesPerson'] = Config::get_default_sales_person_number();
+		$invoice_body['Text2']       = $wc_order->get_customer_note( 'view' );
 
 		$payment_mapping = Config::get_payment_mapping(
 			$wc_order->get_payment_method()
