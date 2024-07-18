@@ -208,7 +208,10 @@ class Product {
 					roundingMode: RoundingMode::HALF_UP
 				);
 
-				return $price->dividedBy( $tax_fraction->plus( 1 ) )->toFloat();
+				return $price->dividedBy(
+					$tax_fraction->plus( 1 ),
+					roundingMode: RoundingMode::HALF_UP
+				)->toFloat();
 			}
 		} else {
 			if ( ! empty( $wc_product->get_sale_price() ) ) {
