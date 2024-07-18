@@ -5,6 +5,10 @@ declare(strict_types = 1);
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 global $post;
 
 $wc_product       = new WC_Product( $post );
