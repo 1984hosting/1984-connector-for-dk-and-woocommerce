@@ -37,6 +37,8 @@ class Admin {
 
 		if (
 			(
+				// Superlobal is not passed into anything.
+				// phpcs:ignore WordPress.Security.NonceVerification
 				isset( $_GET['page'] )
 			)
 			&&
@@ -137,7 +139,7 @@ class Admin {
 			if ( ! empty( $invoice_creation_error ) ) {
 				echo '<span class="dashicons dashicons-no invoice_error"></span> ';
 				echo '<span class="invoice_error">';
-				echo 'Error';
+				esc_html_e( 'Error', '1984-dk-woo' );
 				echo '</span>';
 				return;
 			}
