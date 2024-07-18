@@ -172,16 +172,21 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	display: none;
 }
 
-.column-dk_invoice_id .dashicons {
+.wc-orders-list-table .column-dk_invoice_id .dashicons {
 	padding: 4px 0px 4px 4px;
 }
 
-.column-dk_invoice_id .debit_invoice {
-	color: rgb(0, 50, 100);
+.wc-orders-list-table .column-dk_invoice_id .debit_invoice {
+	color: rgb(0, 120, 60);
 	font-weight: 600;
 }
 
-.column-dk_invoice_id .invoice_error {
+.wc-orders-list-table .column-dk_invoice_id .credit_invoice {
+	color: #333;
+	font-weight: 600;
+}
+
+.wc-orders-list-table .column-dk_invoice_id .invoice_error {
 	color: #900;
 	font-weight: 600;
 }

@@ -108,6 +108,12 @@ class Admin {
 				'view'
 			);
 
+			$credit_invoice_number = $wc_order->get_meta(
+				'1984_woo_dk_credit_invoice_number',
+				true,
+				'view'
+			);
+
 			$invoice_creation_error = $wc_order->get_meta(
 				'1984_dk_woo_invoice_creation_error',
 				true,
@@ -119,6 +125,12 @@ class Admin {
 				echo '<span class="debit_invoice">';
 				echo esc_html( $invoice_number );
 				echo '</span>';
+				if ( ! empty( $credit_invoice_number ) ) {
+					echo ' / ';
+					echo '<span class="credit_invoice">';
+					echo esc_html( $credit_invoice_number );
+					echo '</span>';
+				}
 				return;
 			}
 
