@@ -20,37 +20,6 @@ use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
  * Handles the `NineteenEightyWoo/v1/settings/` REST endpoint.
  */
 class Settings {
-	const JSON_SCHEMA = <<<'JSON'
-	{
-		"$schema": "http://json-schema.org/draft-07/schema#",
-		"type": "object",
-		"properties": {
-			"api_key": { "type": "string" },
-			"product_price_sync": { "type": "boolean" },
-			"product_quantity_sync": { "type": "boolean" },
-			"product_name_sync": { "type": "boolean" },
-			"default_kennitala": { "type": "string" },
-			"shipping_sku": { "type": "string" },
-			"kennitala_classic_field_enabled": { "type": "boolean" },
-			"kennitala_block_field_enabled": { "type": "boolean" },
-			"default_sales_person": { "type": "string" },
-			"fetch_products": { "type": "boolean" },
-			"payment_methods": {
-				"type": "array",
-				"items": {
-					"type": "object",
-					"properties": {
-						"woo_id": { "type": "string" },
-						"dk_id": { "type": "number" },
-						"dk_term": { "type": "string" }
-					},
-					"required": ["woo_id", "dk_id" ]
-				}
-			}
-		}
-	}
-	JSON;
-
 	/**
 	 * The Constructor for the Settings REST endpoint
 	 *
@@ -94,7 +63,7 @@ class Settings {
 		$rest_json = json_decode( $rest_body );
 
 		$validator  = new Validator();
-		$validation = $validator->validate( $rest_json, self::JSON_SCHEMA );
+		$validation = $validator->validate( $rest_json, self::json_schema() );
 
 		if ( $validation->hasError() ) {
 			return new WP_Error(
@@ -314,7 +283,7 @@ class Settings {
 	 * @return object The schema as a standard PHP object.
 	 */
 	public static function get_schema(): object {
-		return json_decode( self::JSON_SCHEMA );
+		return json_decode( self::json_schema() );
 	}
 
 	/**
@@ -331,12 +300,22 @@ class Settings {
 		$rest_json = json_decode( $rest_body );
 
 		$validator  = new Validator();
-		$validation = $validator->validate( $rest_json, self::JSON_SCHEMA );
+		$validation = $validator->validate( $rest_json, self::json_schema() );
 
 		if ( $validation->hasError() ) {
 			return false;
 		}
 
 		return true;
+	}
+
+	/**
+	 * Get the JSON schema for POST requests to the settings endpoint
+	 */
+	public static function json_schema(): string {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		return file_get_contents(
+			dirname( __DIR__, 2 ) . '/json_schemas/rest/settings.json'
+		);
 	}
 }
