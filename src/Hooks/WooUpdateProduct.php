@@ -64,7 +64,7 @@ class WooUpdateProduct {
 			return;
 		}
 
-		if ( defined( 'DOING_DK_SYNC' ) ) {
+		if ( defined( '1984_DK_WOO_DOING_SYNC' ) ) {
 			return;
 		}
 
@@ -104,7 +104,7 @@ class WooUpdateProduct {
 			return;
 		}
 
-		if ( defined( 'DOING_DK_SYNC' ) ) {
+		if ( defined( '1984_DK_WOO_DOING_SYNC' ) ) {
 			return;
 		}
 
@@ -156,7 +156,7 @@ class WooUpdateProduct {
 			return;
 		}
 
-		if ( defined( 'DOING_DK_SYNC' ) ) {
+		if ( defined( '1984_DK_WOO_DOING_SYNC' ) ) {
 			return;
 		}
 

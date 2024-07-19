@@ -111,17 +111,15 @@ class WooMetaboxes {
 	): void {
 		// As the hook seems to be run twice for some reason, this should
 		// prevent the function to run twice during the same HTTP request.
-		global $nineteen_eighty_four_woo_dk_meta_update_has_run;
-		if ( isset( $nineteen_eighty_four_woo_dk_meta_update_has_run ) ) {
+		if ( defined( '1984_DK_WOO_META_UPDATE_HAS_RUN' ) ) {
 			return;
 		}
+
+		define( '1984_DK_WOO_META_UPDATE_HAS_RUN', true );
 
 		self::set_product_sync_meta_from_post( $wc_product, 'price' );
 		self::set_product_sync_meta_from_post( $wc_product, 'stock' );
 		self::set_product_sync_meta_from_post( $wc_product, 'name' );
-
-		$nineteen_eighty_four_woo_dk_meta_update_has_run = true;
-		global $nineteen_eighty_four_woo_dk_meta_update_has_run;
 	}
 
 	/**
