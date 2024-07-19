@@ -58,4 +58,4 @@ However, if you do not need that granularity anyway and can make do with global 
 
 == Disclaimer ==
 
-This plugin's functionality depends on connecting to the dkPlus API, provided by DK Hugbúnaður ehf (DK). DK provides its services as per their own terms, conditions and policies. This plugin is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.
+This plugin's functionality depends on connecting to the dkPlus API, provided by DK Hugbúnaður ehf (DK). DK provides its services as per [their own terms, conditions](https://www.dk.is/um-dk/stefnur-og-skilmalar/almennir-vidskiptaskilmalar) and [privacy policy](https://www.dk.is/um-dk/stefnur-og-skilmalar/personuverndarstefna#nanar). This plugin is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.
