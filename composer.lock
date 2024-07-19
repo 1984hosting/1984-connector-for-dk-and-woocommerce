@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf15070644cd978f52c05cff4cc53fa8",
+    "content-hash": "6848c2fcbf5305c591e7aee12b5e21c0",
     "packages": [
         {
             "name": "brick/math",
@@ -1400,16 +1400,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.27",
+            "version": "10.5.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2425f713b2a5350568ccb1a2d3984841a23e83c5"
+                "reference": "ff7fb85cdf88131b83e721fb2a327b664dbed275"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2425f713b2a5350568ccb1a2d3984841a23e83c5",
-                "reference": "2425f713b2a5350568ccb1a2d3984841a23e83c5",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ff7fb85cdf88131b83e721fb2a327b664dbed275",
+                "reference": "ff7fb85cdf88131b83e721fb2a327b664dbed275",
                 "shasum": ""
             },
             "require": {
@@ -1481,7 +1481,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.27"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.28"
             },
             "funding": [
                 {
@@ -1497,7 +1497,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-10T11:48:06+00:00"
+            "time": "2024-07-18T14:54:16+00:00"
         },
         {
             "name": "psr/container",
