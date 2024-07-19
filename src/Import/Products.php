@@ -44,8 +44,8 @@ class Products {
 	 * This should be run at least nightly as a wp-cron job.
 	 */
 	public static function save_all_from_dk(): void {
-		if ( ! defined( 'DOING_DK_SYNC' ) ) {
-			define( 'DOING_DK_SYNC', true );
+		if ( ! defined( '1984_DK_WOO_DOING_SYNC' ) ) {
+			define( '1984_DK_WOO_DOING_SYNC', true );
 		}
 
 		$json_objects = self::get_all_from_dk();
