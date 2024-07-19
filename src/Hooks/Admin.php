@@ -20,7 +20,7 @@ use WP_Screen;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION = '0.4.2';
+	const ASSET_VERSION = '0.4.3';
 
 	/**
 	 * Constructor for the Admin interface class
