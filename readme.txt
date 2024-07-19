@@ -42,7 +42,7 @@ In short, yes. As long as price and name sync are enabled and the API key is ass
 
 = Can my DK customer records be affected by the plugin? =
 
-Customers providing a kennitala will be registed as debtors in DK if they are not registered already. Kennitala entry is not check and your customers may possibly enter typos and make other mistakes. The plugin will not overwrite exsisting customer records however.
+Customers providing a kennitala will be registed as debtors in DK if they are not registered already. Kennitala entry is not checked for validity and your customers may possibly enter typos and make other mistakes. The plugin will not overwrite exsisting customer records however.
 
 If the kennitala field is disabled or a kennitala is not provided on checkout, invoices will be assigned to a ‘default kennitala’, symbolising an anonymous cash payment.
 
