@@ -40,6 +40,12 @@ Product infromation is generally synced bidirectionally. Some functionality, suc
 
 In short, yes. As long as price and name sync are enabled and the API key is assigned to a user with sufficient privileges, price and name changes in WooCommerce are reflected in DK. This can be disabled by disabling those sync options.
 
+= Can my DK customer records be affected by the plugin? =
+
+Customers providing a kennitala will be registed as debtors in DK if they are not registered already. Kennitala entry is not check and your customers may possibly enter typos and make other mistakes. The plugin will not overwrite exsisting customer records however.
+
+If the kennitala field is disabled or a kennitala is not provided on checkout, invoices will be assigned to a ‘default kennitala’, symbolising an anonymous cash payment.
+
 = Do I need to set up email delivery for invoices? =
 
 The plugin does not depend on WordPress or your web server being able to send emails. As we are leveraging DK's own email functionality, you need to enter the correct settings into DK and set the appropriate DNS settings such as your domain's SPF record in order for invoice delivery to work.
