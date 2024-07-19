@@ -19,6 +19,10 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 new Hooks\Admin();

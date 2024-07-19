@@ -7,6 +7,10 @@ use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
 use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 ?>
 <div
 	class="wrap nineteen-eighty-woo-wrap"
