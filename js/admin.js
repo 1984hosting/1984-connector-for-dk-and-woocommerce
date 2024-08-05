@@ -90,6 +90,7 @@ class NineteenEightyWoo {
 			make_credit_invoice: Boolean( formData.get( 'make_credit_invoice' ) ),
 			domestic_customer_ledger_code: formData.get( 'domestic_customer_ledger_code' ),
 			international_customer_ledger_code: formData.get( 'international_customer_ledger_code' ),
+			product_convertion_to_variation_enabled: Boolean( formData.get( 'product_conversion' ) ),
 			fetch_products: true
 		}
 
@@ -128,22 +129,14 @@ window.addEventListener(
 	'DOMContentLoaded',
 	() => {
 		if (document.body) {
-			if (
-				document.body.classList.contains(
-					'woocommerce_page_1984-dk-woo'
-				)
-			) {
+			if ( NineteenEightyWoo.settingsForm() ) {
 				NineteenEightyWoo.settingsForm().addEventListener(
 					'submit',
 					NineteenEightyWoo.onSettingsFormSubmit
 				);
 			}
 
-			if (
-				document.body.classList.contains(
-					'post-type-product'
-				)
-			) {
+			if ( NineteenEightyWoo.settingsForm() ) {
 				NineteenEightyWoo.settingsForm().addEventListener(
 					'submit',
 					NineteenEightyWoo.onSettingsFormSubmit
