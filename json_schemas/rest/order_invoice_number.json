@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "type": {
+            "type": "string",
+            "enum": [ "debit", "credit" ]
+        },
+        "order_id": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "invoice_number": {
+            "type": "integer",
+            "minimum": 1
+        }
+    },
+    "required": [ "type", "order_id", "invoice_number" ]
+}

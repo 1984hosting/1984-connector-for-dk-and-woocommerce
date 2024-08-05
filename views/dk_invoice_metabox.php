@@ -15,12 +15,12 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 
 <div
 	class="input-set"
-	aria-labelledby="1984-dk-woo-dk-invoice-metabox-invoice-number-label"
+	aria-labelledby="nineteen-eighty-woo-dk-invoice-metabox-invoice-number-label"
 >
 	<div class="input">
-		<label id="1984-dk-woo-dk-invoice-metabox-invoice-number-label" for="1984-dk-woo-dk-invoice-metabox-invoice-number-input">Invoice Number</label>
+		<label id="nineteen-eighty-woo-dk-invoice-metabox-invoice-number-label" for="nineteen-eighty-woo-dk-invoice-metabox-invoice-number-input">Invoice Number</label>
 		<input
-			id="1984-dk-woo-dk-invoice-metabox-invoice-number-input"
+			id="nineteen-eighty-woo-dk-invoice-metabox-invoice-number-input"
 			class="regular-text"
 			name="1984_woo_dk_invoice_number"
 			type="text"
@@ -28,10 +28,15 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 		/>
 	</div>
 	<div class="buttons">
-		<button class="button button-small button-secondary">Update</button>
+		<button
+			id="nineteen-eighty-woo-dk-invoice-metabox-invoice-number-update-button"
+			class="button button-small button-secondary"
+		>
+			Update
+		</button>
 		<button class="button button-small button-primary" disabled>Create in DK</button>
 		<img
-			class="loader"
+			class="loader hidden"
 			src="<?php echo esc_url( get_admin_url() . 'images/wpspin_light-2x.gif' ); ?>"
 			width="16"
 			height="16"
@@ -53,7 +58,7 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 	<div class="buttons">
 		<button class="button button-small button-secondary">Update</button>
 		<img
-			class="loader"
+			class="loader hidden"
 			src="<?php echo esc_url( get_admin_url() . 'images/wpspin_light-2x.gif' ); ?>"
 			width="16"
 			height="16"
