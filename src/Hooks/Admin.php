@@ -71,6 +71,11 @@ class Admin {
 			2
 		);
 
+		add_action(
+			'add_meta_boxes',
+			array( __CLASS__, 'add_dk_invoice_metabox' )
+		);
+
 		if ( Config::get_product_convertion_to_variation_enabled() ) {
 			add_filter(
 				'bulk_actions-edit-product',
@@ -85,6 +90,21 @@ class Admin {
 				3
 			);
 		}
+	}
+
+	public static function add_dk_invoice_metabox() {
+		add_meta_box(
+			'1984-dk-woo-dk-invoice-metabox',
+			__( 'DK Invoice', '1984-dk-woo' ),
+			array( __CLASS__, 'render_dk_invoice_metabox' ),
+			'shop_order',
+			context: 'side',
+			priority: 'high'
+		);
+	}
+
+	public static function render_dk_invoice_metabox() {
+		require dirname( __DIR__, 2 ) . '/views/dk_invoice_metabox.php';
 	}
 
 	/**
