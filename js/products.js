@@ -1,3 +1,5 @@
+const { __, _x, _n, _nx } = wp.i18n;
+
 class NineteenEightyWooProducts {
 	static actionSelect() {
 		return document.getElementById( 'bulk-action-selector-top' );
@@ -12,7 +14,10 @@ class NineteenEightyWooProducts {
 		productIdInput.setAttribute( 'type', 'text' );
 		productIdInput.setAttribute( 'name', 'action_post_id' );
 		productIdInput.setAttribute( 'id', 'action_post_id_input' );
-		productIdInput.setAttribute( 'placeholder', 'Parent ID' );
+		productIdInput.setAttribute(
+			'placeholder',
+			__( 'Parent ID', '1984-dk-woo' )
+		);
 
 		actionsContainer.insertBefore( productIdInput, actionButton );
 		actionsContainer.insertBefore( spacerTextNode, actionButton );
@@ -38,11 +43,13 @@ class NineteenEightyWooProducts {
 window.addEventListener(
 	'DOMContentLoaded',
 	() => {
-		NineteenEightyWooProducts.actionSelect().addEventListener(
-			'change',
-			( e ) => {
-				NineteenEightyWooProducts.selectMenuEvent( e );
-			}
-		);
+		if ( NineteenEightyWooProducts.actionSelect() ) {
+			NineteenEightyWooProducts.actionSelect().addEventListener(
+				'change',
+				( e ) => {
+					NineteenEightyWooProducts.selectMenuEvent( e );
+				}
+			);
+		}
 	}
 );

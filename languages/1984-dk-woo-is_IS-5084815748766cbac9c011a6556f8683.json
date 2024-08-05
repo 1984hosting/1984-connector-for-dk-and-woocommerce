@@ -1,0 +1,18 @@
+{
+    "translation-revision-date": "2024-08-05 15:41+0000",
+    "generator": "Loco https://localise.biz/",
+    "source": "js/products.js",
+    "domain": "1984-dk-woo",
+    "locale_data": {
+        "1984-dk-woo": {
+            "": {
+                "domain": "",
+                "lang": "is_IS",
+                "plural-forms": "nplurals=2; plural=n != 1;"
+            },
+            "Parent ID": [
+                "ID-n\u00famer m\u00f3\u00f0ur"
+            ]
+        }
+    }
+}

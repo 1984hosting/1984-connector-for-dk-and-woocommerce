@@ -11,7 +11,6 @@ use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
 use stdClass;
 use WC_Order;
-use WP_Screen;
 
 /**
  * The NineteenEightyWoo Admin class
@@ -41,7 +40,7 @@ class Admin {
 		);
 
 		add_action(
-			'current_screen',
+			'admin_init',
 			array( __CLASS__, 'enqueue_products_styles_and_scripts' ),
 			10
 		);
@@ -163,26 +162,8 @@ class Admin {
 
 	/**
 	 * Enqueue the styles and scripts for the products screen
-	 *
-	 * @param WP_Screen $current_screen The current screen. In our case it
-	 *                  should be the `edit-product` screen.
 	 */
-	public static function enqueue_products_styles_and_scripts(
-		WP_Screen $current_screen
-	): void {
-		if (
-			current_user_can( 'edit_others_posts' ) &&
-			$current_screen->id === 'edit-product'
-		) {
-
-			wp_enqueue_script(
-				'nineteen-eighty-woo',
-				plugins_url( 'js/products.js', dirname( __DIR__ ) ),
-				array( 'wp-api', 'wp-data' ),
-				self::ASSET_VERSION,
-				false,
-			);
-		}
+	public static function enqueue_products_styles_and_scripts(): void {
 	}
 
 	/**
@@ -311,11 +292,25 @@ class Admin {
 		);
 
 		wp_enqueue_script(
-			'nineteen-eighty-woo',
+			'nineteen-eighty-woo-admin',
 			plugins_url( 'js/admin.js', dirname( __DIR__ ) ),
 			array( 'wp-api', 'wp-data' ),
 			self::ASSET_VERSION,
 			false,
+		);
+
+		wp_enqueue_script(
+			'nineteen-eighty-woo-products',
+			plugins_url( 'js/products.js', dirname( __DIR__ ) ),
+			array( 'wp-api', 'wp-data', 'wp-i18n' ),
+			self::ASSET_VERSION,
+			false,
+		);
+
+		wp_set_script_translations(
+			'nineteen-eighty-woo-products',
+			'1984-dk-woo',
+			dirname( plugin_dir_path( __FILE__ ), 2 ) . '/languages'
 		);
 	}
 

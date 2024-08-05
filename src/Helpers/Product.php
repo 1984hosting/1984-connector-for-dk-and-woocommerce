@@ -356,6 +356,7 @@ class Product {
 		$wc_product->update_meta_data( '1984_dk_woo_original_name', $title );
 
 		if ( $wc_product->save() !== 0 ) {
+			set_post_type( $post->ID, 'product_variation' );
 			return $wc_product->get_id();
 		}
 
