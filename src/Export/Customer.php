@@ -261,9 +261,37 @@ class Customer {
 			$ledger_code = Config::get_international_customer_ledger_code();
 		}
 
+		$kennitala_date_integer = intval(
+			substr( OrderHelper::get_kennitala( $wc_order ), 0, 2 )
+		);
+
+		if (
+			( OrderHelper::get_kennitala( $wc_order ) !== Config::get_default_kennitala() ) &&
+			( $kennitala_date_integer > 40 ) && ( $kennitala_date_integer < 72 )
+		) {
+			$customer_kennitala_is_company = true;
+		} else {
+			$customer_kennitala_is_company = false;
+		}
+
+		if (
+			$customer_kennitala_is_company &&
+			! empty( $wc_order->get_billing_company() )
+		) {
+			$customer_name = $wc_order->get_billing_company();
+			$contacts      = array(
+				(object) array(
+					'Name' => $wc_order->get_formatted_billing_full_name(),
+				),
+			);
+		} else {
+			$customer_name = $wc_order->get_formatted_billing_full_name();
+			$contacts      = array();
+		}
+
 		return (object) array(
 			'Number'      => OrderHelper::get_kennitala( $wc_order ),
-			'Name'        => $wc_order->get_formatted_billing_full_name(),
+			'Name'        => $customer_name,
 			'Address1'    => $wc_order->get_billing_address_1(),
 			'Address2'    => $wc_order->get_billing_address_2(),
 			'Country'     => $wc_order->get_billing_country(),
@@ -275,6 +303,7 @@ class Customer {
 			'PaymentMode' => $payment_mapping->dk_mode,
 			'PaymentTerm' => $payment_mapping->dk_term,
 			'LedgerCode'  => $ledger_code,
+			'Contacts'    => $contacts,
 		);
 	}
 }
