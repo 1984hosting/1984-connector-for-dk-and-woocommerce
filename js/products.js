@@ -14,7 +14,10 @@ class NineteenEightyWooProducts {
 		productIdInput.setAttribute( 'type', 'text' );
 		productIdInput.setAttribute( 'name', 'action_post_id' );
 		productIdInput.setAttribute( 'id', 'action_post_id_input' );
-		productIdInput.setAttribute( 'placeholder', __( 'Parent ID', '1984-dk-woo' ) );
+		productIdInput.setAttribute(
+			'placeholder',
+			__( 'Parent ID', '1984-dk-woo' )
+		);
 
 		actionsContainer.insertBefore( productIdInput, actionButton );
 		actionsContainer.insertBefore( spacerTextNode, actionButton );
