@@ -191,6 +191,36 @@ table .column-dk_invoice_id .invoice_error {
 	font-weight: 600;
 }
 
+#nineteen-eighty-woo-dk-invoice-metabox .input-set {
+	margin: 1rem 0;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox .input {
+	display: flex;
+	flex-direction: column;
+	margin: 0.5rem 0;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox .input label {
+	font-weight: 600;
+	margin-bottom: 0.25rem;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox input[type="text"] {
+	width: 100%;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox .buttons {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 0.5rem 0;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox .buttons button {
+	margin-right: 0.5rem;
+}
+
 @media screen and (max-width: 782px) {
 	#nineteen-eighty-woo-wrap h1 {
 		margin-left: 21px;

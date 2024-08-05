@@ -94,7 +94,7 @@ class Admin {
 
 	public static function add_dk_invoice_metabox() {
 		add_meta_box(
-			'1984-dk-woo-dk-invoice-metabox',
+			'nineteen-eighty-woo-dk-invoice-metabox',
 			__( 'DK Invoice', '1984-dk-woo' ),
 			array( __CLASS__, 'render_dk_invoice_metabox' ),
 			'shop_order',
