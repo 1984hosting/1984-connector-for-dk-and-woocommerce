@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1984 Connector for DK and WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-06 12:50+0000\n"
+"POT-Creation-Date: 2024-08-06 23:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -58,13 +58,13 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:524
+#: src/Hooks/Admin.php:530
 #, php-format
 msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:512
+#: src/Hooks/Admin.php:518
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr ""
@@ -74,13 +74,13 @@ msgid "A or B Giro Request (ABG)"
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:453
+#: src/Hooks/Admin.php:459
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:465
+#: src/Hooks/Admin.php:471
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
@@ -91,7 +91,7 @@ msgid ""
 "customer."
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:136
+#: src/Rest/OrderDKInvoice.php:85 src/Hooks/WooOrderStatusChanges.php:136
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer."
 msgstr ""
@@ -107,7 +107,7 @@ msgid ""
 msgstr ""
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Hooks/WooOrderStatusChanges.php:125
+#: src/Rest/OrderDKInvoice.php:74 src/Hooks/WooOrderStatusChanges.php:125
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
@@ -167,11 +167,11 @@ msgstr ""
 msgid "Cheque Payment (TGR)"
 msgstr ""
 
-#: src/Hooks/Admin.php:281 src/Hooks/Admin.php:282
+#: src/Hooks/Admin.php:287 src/Hooks/Admin.php:288
 msgid "Connector for DK"
 msgstr ""
 
-#: src/Hooks/Admin.php:204
+#: src/Hooks/Admin.php:210
 msgid "Convert to Product Variant"
 msgstr ""
 
@@ -197,6 +197,12 @@ msgstr ""
 
 #: views/dk_invoice_metabox.php:87
 msgid "Credit Invoice Number"
+msgstr ""
+
+#. %1$s is a placeholder for the invoice number that was manually entered.
+#: src/Rest/OrderInvoiceNumber.php:108
+#, php-format
+msgid "Credit invoice number set to %1$s."
 msgstr ""
 
 #: src/Import/SalesPayments.php:79
@@ -239,7 +245,7 @@ msgstr ""
 msgid "Display the Attribute Value Description from DK"
 msgstr ""
 
-#: src/Hooks/Admin.php:98 src/Hooks/Admin.php:122
+#: src/Hooks/Admin.php:101 src/Hooks/Admin.php:128
 msgid "DK Invoice"
 msgstr ""
 
@@ -257,7 +263,7 @@ msgstr ""
 msgid "Enable Product-to-Variation Conversion"
 msgstr ""
 
-#: src/Hooks/Admin.php:176
+#: src/Hooks/Admin.php:182
 msgid "Error"
 msgstr ""
 
@@ -390,27 +396,25 @@ msgid ""
 "equal the Item Code in DK. It is set in the %3$sInventory Panel%4$s."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:43
-msgid "Invalid Invoice Number"
-msgstr ""
-
 #: src/Hooks/KennitalaField.php:595
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
-msgstr ""
-
-#: views/dk_invoice_metabox.php:103
-msgid "Invoice Credit Invoice Number"
 msgstr ""
 
 #: views/dk_invoice_metabox.php:27
 msgid "Invoice Number"
 msgstr ""
 
+#. %1$s is a placeholder for the invoice number that was manually entered.
+#: src/Rest/OrderInvoiceNumber.php:85
+#, php-format
+msgid "Invoice number set to %1$s."
+msgstr ""
+
 #: views/admin.php:333
 msgid "Invoices"
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:143
+#: src/Rest/OrderDKInvoice.php:92 src/Hooks/WooOrderStatusChanges.php:143
 #: src/Hooks/WooOrderStatusChanges.php:239
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
@@ -440,6 +444,10 @@ msgstr ""
 
 #: views/admin.php:651
 msgid "Method ID in DK"
+msgstr ""
+
+#: views/dk_invoice_metabox.php:43 views/dk_invoice_metabox.php:103
+msgid "Needs to be numeric"
 msgstr ""
 
 #: views/admin.php:783
@@ -472,7 +480,7 @@ msgid "Payment Terms in DK"
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:500
+#: src/Hooks/Admin.php:506
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -480,7 +488,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:380
+#: src/Hooks/Admin.php:386
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -488,7 +496,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:441
+#: src/Hooks/Admin.php:447
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -650,13 +658,13 @@ msgid "The DK API key is missing."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:392
+#: src/Hooks/Admin.php:398
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:404
+#: src/Hooks/Admin.php:410
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr ""
@@ -737,7 +745,7 @@ msgid "Yes"
 msgstr ""
 
 #. The %1$s is a placeholder for the site's title.
-#: src/Export/Invoice.php:181
+#: src/Export/Invoice.php:187
 #, php-format
 msgid "Your Invoice From %1$s"
 msgstr ""
