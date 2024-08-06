@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-04-18 23:42+0000\n"
-"PO-Revision-Date: 2024-08-06 12:52+0000\n"
+"PO-Revision-Date: 2024-08-06 23:21+0000\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
@@ -62,13 +62,13 @@ msgstr ""
 "er %1$s."
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:524
+#: src/Hooks/Admin.php:530
 #, php-format
 msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst ekki í DK."
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:512
+#: src/Hooks/Admin.php:518
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í DK."
@@ -78,13 +78,13 @@ msgid "A or B Giro Request (ABG)"
 msgstr "A- eða B-gíróseðill (ABG)"
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:453
+#: src/Hooks/Admin.php:459
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:465
+#: src/Hooks/Admin.php:471
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst ekki í DK."
@@ -97,7 +97,7 @@ msgstr ""
 "Tölvupóstur sem innihélt kreditreikninginn sem viðhengi á PDF-formi var "
 "sendur til viðskiptavinarins."
 
-#: src/Hooks/WooOrderStatusChanges.php:136
+#: src/Rest/OrderDKInvoice.php:85 src/Hooks/WooOrderStatusChanges.php:136
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer."
 msgstr ""
@@ -117,7 +117,7 @@ msgstr ""
 "fyrir vöru eða þjónustu."
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Hooks/WooOrderStatusChanges.php:125
+#: src/Rest/OrderDKInvoice.php:74 src/Hooks/WooOrderStatusChanges.php:125
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
@@ -187,11 +187,11 @@ msgstr "Staðgreiðsla (STGR)"
 msgid "Cheque Payment (TGR)"
 msgstr "Tékkagreiðsla (TGR)"
 
-#: src/Hooks/Admin.php:281 src/Hooks/Admin.php:282
+#: src/Hooks/Admin.php:287 src/Hooks/Admin.php:288
 msgid "Connector for DK"
 msgstr "Tengill fyrir DK"
 
-#: src/Hooks/Admin.php:204
+#: src/Hooks/Admin.php:210
 msgid "Convert to Product Variant"
 msgstr "Breyta vöru í afbrigði"
 
@@ -218,6 +218,12 @@ msgstr "Gera reikninga sjálfkrafa fyrir pantanir án kennitölu"
 #: views/dk_invoice_metabox.php:87
 msgid "Credit Invoice Number"
 msgstr "Númer kreditreiknings"
+
+#. %1$s is a placeholder for the invoice number that was manually entered.
+#: src/Rest/OrderInvoiceNumber.php:108
+#, php-format
+msgid "Credit invoice number set to %1$s."
+msgstr "Númer kreditreiknings stillt á %1$s."
 
 #: src/Import/SalesPayments.php:79
 msgid "Current Month (LM)"
@@ -259,7 +265,7 @@ msgstr "Birta lýsingu skráningar eiginleika vöruafbrigða úr DK"
 msgid "Display the Attribute Value Description from DK"
 msgstr "Birta lýsingu eiginleika vöruafbrigða úr DK"
 
-#: src/Hooks/Admin.php:98 src/Hooks/Admin.php:122
+#: src/Hooks/Admin.php:101 src/Hooks/Admin.php:128
 msgid "DK Invoice"
 msgstr "Reikningur í DK"
 
@@ -279,7 +285,7 @@ msgstr "Kveikja á reit fyrir kennitölu í afgreiðsluforminu"
 msgid "Enable Product-to-Variation Conversion"
 msgstr "Virkja breytingu á vörum í vöruafbrigði"
 
-#: src/Hooks/Admin.php:176
+#: src/Hooks/Admin.php:182
 msgid "Error"
 msgstr "Villa"
 
@@ -452,27 +458,25 @@ msgstr ""
 "%1$sSKU%2$s þarf að vera sett inn og þarf að jafngilda vörunúmeri í DK. Það "
 "er stillt undir %3$sInventory%4$s hér til vinstri."
 
-#: views/dk_invoice_metabox.php:43
-msgid "Invalid Invoice Number"
-msgstr "Númer reiknings er ógilt"
-
 #: src/Hooks/KennitalaField.php:595
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr "Ógild kennitala. Kennitölur eru runur af 10 tölustöfum."
-
-#: views/dk_invoice_metabox.php:103
-msgid "Invoice Credit Invoice Number"
-msgstr "Númer kreditreiknings er ógilt"
 
 #: views/dk_invoice_metabox.php:27
 msgid "Invoice Number"
 msgstr "Númer reiknings"
 
+#. %1$s is a placeholder for the invoice number that was manually entered.
+#: src/Rest/OrderInvoiceNumber.php:85
+#, php-format
+msgid "Invoice number set to %1$s."
+msgstr "Númer reiknings stillt á %1$s."
+
 #: views/admin.php:333
 msgid "Invoices"
 msgstr "Reikningar"
 
-#: src/Hooks/WooOrderStatusChanges.php:143
+#: src/Rest/OrderDKInvoice.php:92 src/Hooks/WooOrderStatusChanges.php:143
 #: src/Hooks/WooOrderStatusChanges.php:239
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
@@ -506,6 +510,10 @@ msgstr "Bókunarflokkar"
 msgid "Method ID in DK"
 msgstr "Auðkenni greiðslumáta í DK"
 
+#: views/dk_invoice_metabox.php:43 views/dk_invoice_metabox.php:103
+msgid "Needs to be numeric"
+msgstr "Þarf að vera talnaruna"
+
 #: views/admin.php:783
 msgid "Ninteen-Eighty-Four"
 msgstr "Nítjánhundruð-áttatíu-og-fjögur"
@@ -536,7 +544,7 @@ msgid "Payment Terms in DK"
 msgstr "Greiðsluskilmálar í DK"
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:500
+#: src/Hooks/Admin.php:506
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -546,7 +554,7 @@ msgstr ""
 "í DK áður en haldið er áfram."
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:380
+#: src/Hooks/Admin.php:386
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -556,7 +564,7 @@ msgstr ""
 "haldið er áfram."
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:441
+#: src/Hooks/Admin.php:447
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -738,13 +746,13 @@ msgid "The DK API key is missing."
 msgstr "API-lykillinn fyrir DK vantar."
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:392
+#: src/Hooks/Admin.php:398
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:404
+#: src/Hooks/Admin.php:410
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst ekki í DK."
@@ -839,7 +847,7 @@ msgid "Yes"
 msgstr "Já"
 
 #. The %1$s is a placeholder for the site's title.
-#: src/Export/Invoice.php:181
+#: src/Export/Invoice.php:187
 #, php-format
 msgid "Your Invoice From %1$s"
 msgstr "Reikningurinn þinn frá %1$s"
