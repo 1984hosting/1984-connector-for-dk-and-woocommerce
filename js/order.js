@@ -150,6 +150,7 @@ class NineteenEightyWooOrder {
 			order_id: postID,
 			invoice_number: invoiceNumber,
 		};
+
 		const response = await fetch(
 			wpApiSettings.root + 'NineteenEightyWoo/v1/order_invoice_number',
 			{
@@ -204,17 +205,17 @@ class NineteenEightyWooOrder {
 
 		if ( /^[1-9][0-9]{0,}$/.test( invoiceNumber ) ) {
 			this.updateInvoiceButton().disabled = false;
-			this.getPdfButton().disabled = false;
-			this.invoiceNumberInvalid().classList.add('hidden');
+			this.getPdfButton().disabled        = false;
+			this.invoiceNumberInvalid().classList.add( 'hidden' );
 		} else {
 			this.updateInvoiceButton().disabled = true;
-			this.getPdfButton().disabled = true;
-			this.invoiceNumberInvalid().classList.remove('hidden');
+			this.getPdfButton().disabled        = true;
+			this.invoiceNumberInvalid().classList.remove( 'hidden' );
 		}
 
 		if ( invoiceNumber === '' ) {
 			this.createDkInvoiceButton().disabled = false;
-			this.invoiceNumberInvalid().classList.add('hidden');
+			this.invoiceNumberInvalid().classList.add( 'hidden' );
 		} else {
 			this.createDkInvoiceButton().disabled = true;
 		}
@@ -227,16 +228,16 @@ class NineteenEightyWooOrder {
 
 		if ( /^[1-9][0-9]{0,}$/.test( creditInvoiceNumber ) ) {
 			this.updateCreditInvoiceButton().disabled = false;
-			this.getCreditPdfButton().disabled = false;
-			this.creditInvoiceInvalid().classList.add('hidden');
+			this.getCreditPdfButton().disabled        = false;
+			this.creditInvoiceInvalid().classList.add( 'hidden' );
 		} else {
 			this.updateCreditInvoiceButton().disabled = true;
-			this.getCreditPdfButton().disabled = true;
-			this.creditInvoiceInvalid().classList.remove('hidden');
+			this.getCreditPdfButton().disabled        = true;
+			this.creditInvoiceInvalid().classList.remove( 'hidden' );
 		}
 
 		if ( creditInvoiceNumber === '' ) {
-			this.creditInvoiceInvalid().classList.add('hidden');
+			this.creditInvoiceInvalid().classList.add( 'hidden' );
 		}
 	}
 
@@ -255,13 +256,13 @@ class NineteenEightyWooOrder {
 		if ( response ) {
 			this.invoiceLoader().classList.add( 'hidden' );
 			this.updateInvoiceButton().disabled = false;
-			this.invoiceNumberInput().value = '';
+			this.invoiceNumberInput().value     = '';
 		}
 
 		if ( response.ok ) {
-			const json = await response.json();
+			const json                      = await response.json();
 			this.invoiceNumberInput().value = json;
-			this.getPdfButton().disabled = false;
+			this.getPdfButton().disabled    = false;
 		}
 	}
 
