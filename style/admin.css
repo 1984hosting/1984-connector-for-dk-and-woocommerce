@@ -46,17 +46,26 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	border-color: #900;
 }
 
-#nineteen-eighty-woo-settings-form .validity, #nineteen-eighty-woo-settings-form .infotext {
+#nineteen-eighty-woo-settings-form .validity,
+#nineteen-eighty-woo-settings-form .infotext,
+#nineteen-eighty-woo-dk-invoice-metabox .infotext {
 	display: none;
 	font-weight: 600;
 }
 
-#nineteen-eighty-woo-settings-form input:valid ~ .valid, #nineteen-eighty-woo-settings-form .infotext.ok {
+#nineteen-eighty-woo-dk-invoice-metabox .infotext {
+	margin: 0.25rem 0 0 0;
+}
+
+#nineteen-eighty-woo-settings-form input:valid ~ .valid,
+#nineteen-eighty-woo-settings-form .infotext.ok {
 	display: block;
 	color: #060;
 }
 
-#nineteen-eighty-woo-settings-form input:invalid ~ .invalid, #nineteen-eighty-woo-settings-form .infotext.error {
+#nineteen-eighty-woo-settings-form input:invalid ~ .invalid,
+#nineteen-eighty-woo-settings-form .infotext.error,
+#nineteen-eighty-woo-dk-invoice-metabox .infotext.error {
 	display: block;
 	color: #900;
 }
@@ -189,6 +198,40 @@ table .column-dk_invoice_id .credit_invoice {
 table .column-dk_invoice_id .invoice_error {
 	color: #900;
 	font-weight: 600;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox .input-set {
+	margin: 1rem 0;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox .input {
+	display: flex;
+	flex-direction: column;
+	margin: 0.5rem 0;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox .input label {
+	font-weight: 600;
+	margin-bottom: 0.25rem;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox input[type="text"] {
+	width: 100%;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox .buttons {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 0.5rem 0;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox .buttons button {
+	margin-right: 0.5rem;
+}
+
+#nineteen-eighty-woo-dk-invoice-metabox .hidden {
+	display: none !important;
 }
 
 @media screen and (max-width: 782px) {

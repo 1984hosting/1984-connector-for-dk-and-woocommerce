@@ -71,6 +71,11 @@ class Admin {
 			2
 		);
 
+		add_action(
+			'add_meta_boxes',
+			array( __CLASS__, 'add_dk_invoice_metabox' )
+		);
+
 		if ( Config::get_product_convertion_to_variation_enabled() ) {
 			add_filter(
 				'bulk_actions-edit-product',
@@ -85,6 +90,27 @@ class Admin {
 				3
 			);
 		}
+	}
+
+	/**
+	 * Add the invoice metabox to the order editor
+	 */
+	public static function add_dk_invoice_metabox(): void {
+		add_meta_box(
+			'nineteen-eighty-woo-dk-invoice-metabox',
+			__( 'DK Invoice', '1984-dk-woo' ),
+			array( __CLASS__, 'render_dk_invoice_metabox' ),
+			'shop_order',
+			context: 'side',
+			priority: 'high'
+		);
+	}
+
+	/**
+	 * Render the order invoice metabox
+	 */
+	public static function render_dk_invoice_metabox(): void {
+		require dirname( __DIR__, 2 ) . '/views/dk_invoice_metabox.php';
 	}
 
 	/**
@@ -303,6 +329,14 @@ class Admin {
 			'nineteen-eighty-woo-products',
 			plugins_url( 'js/products.js', dirname( __DIR__ ) ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
+			self::ASSET_VERSION,
+			false,
+		);
+
+		wp_enqueue_script(
+			'nineteen-eighty-woo-order',
+			plugins_url( 'js/order.js', dirname( __DIR__ ) ),
+			array( 'wp-api', 'wp-data' ),
 			self::ASSET_VERSION,
 			false,
 		);

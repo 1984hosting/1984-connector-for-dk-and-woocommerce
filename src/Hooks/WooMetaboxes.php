@@ -18,6 +18,8 @@ class WooMetaboxes {
 		'1984_woo_dk_stock_sync',
 		'1984_woo_dk_name_sync',
 		'1984_woo_dk_dk_currency',
+		'1984_woo_dk_credit_invoice_number',
+		'1984_woo_dk_invoice_number',
 		'last_downstream_sync',
 	);
 
