@@ -87,9 +87,29 @@ class NineteenEightyWooOrder {
 		this.getPdfInvoiceButtonClickAction();
 	}
 
+	static getCreditPdfClickEvent( e ) {
+		e.preventDefault();
+		this.getPdfCreditInvoiceButtonClickAction();
+	}
+
 	static getPdfInvoiceButtonClickAction() {
 		this.invoiceLoader().classList.remove( 'hidden' );
-		this.getInvoicePdf();
+
+		const invoiceID = NineteenEightyWooOrder.formData().get(
+			'1984_woo_dk_invoice_number'
+		);
+
+		this.getInvoicePdf( invoiceID );
+	}
+
+	static getPdfCreditInvoiceButtonClickAction() {
+		this.creditInvoiceLoader().classList.remove( 'hidden' );
+
+		const creditInvoiceID = NineteenEightyWooOrder.formData().get(
+			'1984_woo_dk_credit_invoice_number'
+		);
+
+		this.getInvoicePdf( creditInvoiceID );
 	}
 
 	static formData() {
@@ -97,11 +117,7 @@ class NineteenEightyWooOrder {
 		return new FormData( form );
 	}
 
-	static async getInvoicePdf() {
-		const invoiceID = NineteenEightyWooOrder.formData().get(
-			'1984_woo_dk_invoice_number'
-	);
-
+	static async getInvoicePdf( invoiceID ) {
 		const response = await fetch(
 			wpApiSettings.root + 'NineteenEightyWoo/v1/order_invoice_pdf/' + invoiceID,
 			{
@@ -115,6 +131,7 @@ class NineteenEightyWooOrder {
 
 		if ( response ) {
 			this.invoiceLoader().classList.add( 'hidden' );
+			this.creditInvoiceLoader().classList.add( 'hidden' );
 		}
 
 		if ( response.ok ) {
@@ -222,6 +239,40 @@ class NineteenEightyWooOrder {
 			this.creditInvoiceInvalid().classList.add('hidden');
 		}
 	}
+
+	static async requestNewDkInvoice( orderId ) {
+		const response = await fetch(
+			wpApiSettings.root + 'NineteenEightyWoo/v1/order_dk_invoice/' + orderId,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json;charset=UTF-8',
+					'X-WP-Nonce': wpApiSettings.nonce,
+				}
+			}
+		);
+
+		if ( response ) {
+			this.invoiceLoader().classList.add( 'hidden' );
+			this.updateInvoiceButton().disabled = false;
+			this.invoiceNumberInput().value = '';
+		}
+
+		if ( response.ok ) {
+			const json = await response.json();
+			this.invoiceNumberInput().value = json;
+			this.getPdfButton().disabled = false;
+		}
+	}
+
+	static createDkInvoiceClickAction() {
+		const orderId = this.formData().get( 'post_ID' );
+
+		this.invoiceLoader().classList.remove( 'hidden' );
+		this.createDkInvoiceButton().disabled = true;
+
+		this.requestNewDkInvoice( orderId );
+	}
 }
 
 window.addEventListener(
@@ -249,6 +300,13 @@ window.addEventListener(
 				}
 			);
 
+			NineteenEightyWooOrder.getCreditPdfButton().addEventListener(
+				'click',
+				( e ) => {
+					NineteenEightyWooOrder.getCreditPdfClickEvent( e );
+				}
+			);
+
 			NineteenEightyWooOrder.invoiceNumberInput().addEventListener(
 				'input',
 				( e ) => {
@@ -266,6 +324,13 @@ window.addEventListener(
 			);
 
 			NineteenEightyWooOrder.disableUpdateCreditInvoiceFieldIfInvalid();
+
+			NineteenEightyWooOrder.createDkInvoiceButton().addEventListener(
+				'click',
+				( e ) => {
+					NineteenEightyWooOrder.createDkInvoiceClickAction();
+				}
+			);
 		}
 	}
 );

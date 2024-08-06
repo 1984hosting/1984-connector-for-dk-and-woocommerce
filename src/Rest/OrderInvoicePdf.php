@@ -7,19 +7,26 @@ namespace NineteenEightyFour\NineteenEightyWoo\Rest;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use NineteenEightyFour\NineteenEightyWoo\Opis\JsonSchema\Validator;
-use NineteenEightyFour\NineteenEightyWoo\Rest\GetEndpointTemplate;
+use NineteenEightyFour\NineteenEightyWoo\Rest\EmptyBodyEndpointTemplate;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 
-class OrderInvoicePdf implements GetEndpointTemplate {
+/**
+ * The Order Invoice PDF REST API endpoint
+ */
+class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
 	const NAMESPACE = 'NineteenEightyWoo/v1';
 	const PATH      = '/order_invoice_pdf/(?P<invoice_number>[\d]+)';
-	const SCHEMA    = 'rest/order_invoice_number.json';
 
+	/**
+	 * The constructor
+	 */
 	public function __construct() {
 		add_action( 'rest_api_init', array( __CLASS__, 'register_route' ) );
 	}
 
+	/**
+	 * Register the REST API route
+	 */
 	public static function register_route(): bool {
 		return register_rest_route(
 			self::NAMESPACE,
@@ -32,6 +39,11 @@ class OrderInvoicePdf implements GetEndpointTemplate {
 		);
 	}
 
+	/**
+	 * The REST API callback
+	 *
+	 * @param WP_REST_Request $request The REST API callback.
+	 */
 	public static function rest_api_callback(
 		WP_REST_Request $request
 	): WP_REST_Response|WP_Error {
@@ -61,11 +73,15 @@ class OrderInvoicePdf implements GetEndpointTemplate {
 		return new WP_REST_Response(
 			array(
 				'status' => 200,
+				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 				'data'   => base64_encode( $result['body'] ),
 			)
 		);
 	}
 
+	/**
+	 * The permission check
+	 */
 	public static function permission_check(): bool {
 		return current_user_can( 'edit_others_posts' );
 	}

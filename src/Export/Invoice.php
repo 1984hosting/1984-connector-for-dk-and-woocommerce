@@ -26,6 +26,9 @@ class Invoice {
 	 * Create an invoice in DK based on A WooCommerce order
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order.
+	 * @param bool     $force Wether to force the creation of the invoice, even
+	 *                        if it the order has been assigned with an invoice
+	 *                        number from DK.
 	 *
 	 * @return string|false|WP_Error A string representing the invoice number
 	 *                               from DK on success, false if connection was
@@ -33,7 +36,8 @@ class Invoice {
 	 *                               WC_Error if there was a connection error.
 	 */
 	public static function create_in_dk(
-		WC_Order $wc_order
+		WC_Order $wc_order,
+		bool $force = false
 	): string|false|WP_Error {
 		if (
 			! ExportCustomer::is_in_dk(
@@ -43,10 +47,12 @@ class Invoice {
 			Customer::create_in_dk_from_order( $wc_order );
 		}
 
-		$invoice_number = self::get_dk_invoice_number( $wc_order );
+		if ( ! $force ) {
+			$invoice_number = self::get_dk_invoice_number( $wc_order );
 
-		if ( ! empty( $invoice_number ) ) {
-			return false;
+			if ( ! empty( $invoice_number ) ) {
+				return false;
+			}
 		}
 
 		$api_request  = new DKApiRequest();

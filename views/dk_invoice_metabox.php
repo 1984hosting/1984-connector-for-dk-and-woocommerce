@@ -40,7 +40,7 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 				class="infotext error hidden"
 			>
 				<span class="dashicons dashicons-no"></span>
-				<?php esc_html_e( 'Invalid Invoice Number', '1984-dk-woo' ); ?>
+				<?php esc_html_e( 'Needs to be numeric', '1984-dk-woo' ); ?>
 			</p>
 		</div>
 	</div>
@@ -100,7 +100,7 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 				class="infotext error hidden"
 			>
 				<span class="dashicons dashicons-no"></span>
-				<?php esc_html_e( 'Invoice Credit Invoice Number', '1984-dk-woo' ); ?>
+				<?php esc_html_e( 'Needs to be numeric', '1984-dk-woo' ); ?>
 			</p>
 		</div>
 	</div>

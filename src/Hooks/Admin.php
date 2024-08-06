@@ -92,7 +92,10 @@ class Admin {
 		}
 	}
 
-	public static function add_dk_invoice_metabox() {
+	/**
+	 * Add the invoice metabox to the order editor
+	 */
+	public static function add_dk_invoice_metabox(): void {
 		add_meta_box(
 			'nineteen-eighty-woo-dk-invoice-metabox',
 			__( 'DK Invoice', '1984-dk-woo' ),
@@ -103,7 +106,10 @@ class Admin {
 		);
 	}
 
-	public static function render_dk_invoice_metabox() {
+	/**
+	 * Render the order invoice metabox
+	 */
+	public static function render_dk_invoice_metabox(): void {
 		require dirname( __DIR__, 2 ) . '/views/dk_invoice_metabox.php';
 	}
 

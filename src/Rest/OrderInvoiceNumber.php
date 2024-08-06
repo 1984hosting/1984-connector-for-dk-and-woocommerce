@@ -12,15 +12,24 @@ use NineteenEightyFour\NineteenEightyWoo\Opis\JsonSchema\Validator;
 use NineteenEightyFour\NineteenEightyWoo\Rest\PostEndpointTemplate;
 use NineteenEightyFour\NineteenEightyWoo\Export\Invoice as ExportInvoice;
 
+/**
+ * The Order Invoice Number REST API class
+ */
 class OrderInvoiceNumber implements PostEndpointTemplate {
 	const NAMESPACE = 'NineteenEightyWoo/v1';
 	const PATH      = '/order_invoice_number/';
 	const SCHEMA    = 'rest/order_invoice_number.json';
 
+	/**
+	 * The constructor
+	 */
 	public function __construct() {
 		add_action( 'rest_api_init', array( __CLASS__, 'register_route' ) );
 	}
 
+	/**
+	 * Register the REST route
+	 */
 	public static function register_route(): bool {
 		return register_rest_route(
 			self::NAMESPACE,
@@ -35,6 +44,13 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 		);
 	}
 
+	/**
+	 * The response callback
+	 *
+	 * Saves the debit or credit invoice number to the order.
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 */
 	public static function rest_api_callback(
 		WP_REST_Request $request
 	): WP_REST_Response|WP_Error {
@@ -55,26 +71,64 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 		$wc_order = wc_get_order( $rest_json->order_id );
 
 		if ( $rest_json->type === 'debit' ) {
-			ExportInvoice::assign_dk_invoice_number(
-				$wc_order,
-				(string) $rest_json->invoice_number
-			);
+			$original_invoice_number = ExportInvoice::get_dk_invoice_number( $wc_order );
+
+			if ( $rest_json->invoice_number !== $original_invoice_number ) {
+				ExportInvoice::assign_dk_invoice_number(
+					$wc_order,
+					(string) $rest_json->invoice_number
+				);
+
+				$wc_order->add_order_note(
+					sprintf(
+						// Translators: %1$s is a placeholder for the invoice number that was manually entered.
+						__(
+							'Invoice number set to %1$s.',
+							'1984-dk-woo'
+						),
+						$rest_json->invoice_number
+					)
+				);
+			}
 		}
 
 		if ( $rest_json->type === 'credit' ) {
-			ExportInvoice::assign_dk_credit_invoice_number(
-				$wc_order,
-				(string) $rest_json->invoice_number
+			$original_credit_invoice_number = ExportInvoice::get_dk_credit_invoice_number( $wc_order );
+
+			if ( $rest_json->invoice_number !== $original_credit_invoice_number ) {
+				ExportInvoice::assign_dk_credit_invoice_number(
+					$wc_order,
+					(string) $rest_json->invoice_number
+				);
+			}
+
+			$wc_order->add_order_note(
+				sprintf(
+					// Translators: %1$s is a placeholder for the invoice number that was manually entered.
+					__(
+						'Credit invoice number set to %1$s.',
+						'1984-dk-woo'
+					),
+					$rest_json->invoice_number
+				)
 			);
 		}
 
 		return new WP_REST_Response( status: 200 );
 	}
 
+	/**
+	 * The permission check
+	 */
 	public static function permission_check(): bool {
 		return current_user_can( 'edit_others_posts' );
 	}
 
+	/**
+	 * The request validation check
+	 *
+	 * @param WP_REST_Request $request The REST API request object.
+	 */
 	public static function validate_request( WP_REST_Request $request ): bool {
 		$rest_body = $request->get_body();
 		$rest_json = json_decode( $rest_body );
@@ -89,10 +143,16 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 		return true;
 	}
 
+	/**
+	 * Get the request body JSON schema as an object
+	 */
 	public static function get_schema(): stdClass {
 		return (object) json_decode( self::json_schema() );
 	}
 
+	/**
+	 * Get the request body JSON schema as a string
+	 */
 	public static function json_schema(): string {
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		return file_get_contents(

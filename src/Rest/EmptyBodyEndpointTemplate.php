@@ -4,12 +4,14 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Rest;
 
-use stdClass;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
 
-interface GetEndpointTemplate {
+/**
+ * Interface for REST API endpoints without a body
+ */
+interface EmptyBodyEndpointTemplate {
 	/**
 	 * The constructor
 	 */
