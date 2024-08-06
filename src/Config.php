@@ -746,7 +746,7 @@ class Config {
 	public static function set_use_attribute_description( bool $value ): bool {
 		return update_option(
 			'1984_woo_dk_use_attribute_description',
-			(bool) $value
+			(int) $value
 		);
 	}
 
@@ -776,7 +776,7 @@ class Config {
 	): bool {
 		return update_option(
 			'1984_woo_dk_use_attribute_value_description',
-			(bool) $value
+			(int) $value
 		);
 	}
 

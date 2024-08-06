@@ -185,7 +185,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<td>
 							<input
 								id="use_attribute_description_label_field"
-								name="use_attribute_description_label"
+								name="use_attribute_description"
 								type="checkbox"
 								<?php echo esc_attr( Config::get_use_attribute_description() ? 'checked' : '' ); ?>
 							/>
@@ -208,7 +208,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<td>
 							<input
 								id="use_attribute_description_value_field"
-								name="use_attribute_description_value"
+								name="use_attribute_value_description"
 								type="checkbox"
 								<?php echo esc_attr( Config::get_use_attribute_value_description() ? 'checked' : '' ); ?>
 							/>
