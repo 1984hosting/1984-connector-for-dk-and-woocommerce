@@ -618,8 +618,11 @@ class KennitalaField {
 		if ( empty( $kennitala ) ) {
 			return '';
 		}
-		$first_six = substr( $kennitala, 0, 6 );
-		$last_four = substr( $kennitala, 6, 4 );
+
+		$sanitized_kennitala = self::sanitize_kennitala( $kennitala );
+
+		$first_six = substr( $sanitized_kennitala, 0, 6 );
+		$last_four = substr( $sanitized_kennitala, 6, 4 );
 
 		return $first_six . $divider . $last_four;
 	}
