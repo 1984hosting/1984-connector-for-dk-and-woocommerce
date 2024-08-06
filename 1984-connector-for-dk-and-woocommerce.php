@@ -29,6 +29,7 @@ new Hooks\Admin();
 new Cron\Schedule();
 new Rest\Settings();
 new Rest\OrderInvoiceNumber();
+new Rest\OrderInvoicePdf();
 new Hooks\KennitalaField();
 new Hooks\RegisterPostMeta();
 new Hooks\WooMetaboxes();

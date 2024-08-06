@@ -327,6 +327,14 @@ class Admin {
 			false,
 		);
 
+		wp_enqueue_script(
+			'nineteen-eighty-woo-order',
+			plugins_url( 'js/order.js', dirname( __DIR__ ) ),
+			array( 'wp-api', 'wp-data' ),
+			self::ASSET_VERSION,
+			false,
+		);
+
 		wp_set_script_translations(
 			'nineteen-eighty-woo-products',
 			'1984-dk-woo',

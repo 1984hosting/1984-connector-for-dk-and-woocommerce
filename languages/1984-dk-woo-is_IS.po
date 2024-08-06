@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-04-18 23:42+0000\n"
-"PO-Revision-Date: 2024-08-05 15:41+0000\n"
+"PO-Revision-Date: 2024-08-06 12:52+0000\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
@@ -62,13 +62,13 @@ msgstr ""
 "er %1$s."
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:495
+#: src/Hooks/Admin.php:524
 #, php-format
 msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst ekki í DK."
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:483
+#: src/Hooks/Admin.php:512
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í DK."
@@ -78,13 +78,13 @@ msgid "A or B Giro Request (ABG)"
 msgstr "A- eða B-gíróseðill (ABG)"
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:424
+#: src/Hooks/Admin.php:453
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:436
+#: src/Hooks/Admin.php:465
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst ekki í DK."
@@ -187,11 +187,11 @@ msgstr "Staðgreiðsla (STGR)"
 msgid "Cheque Payment (TGR)"
 msgstr "Tékkagreiðsla (TGR)"
 
-#: src/Hooks/Admin.php:266 src/Hooks/Admin.php:267
+#: src/Hooks/Admin.php:281 src/Hooks/Admin.php:282
 msgid "Connector for DK"
 msgstr "Tengill fyrir DK"
 
-#: src/Hooks/Admin.php:184
+#: src/Hooks/Admin.php:204
 msgid "Convert to Product Variant"
 msgstr "Breyta vöru í afbrigði"
 
@@ -203,6 +203,10 @@ msgstr "SKU fyrir kostnað og gjöld"
 msgid "Create a credit invoice when an order is labelled as refunded"
 msgstr "Gera kreditreikning þegar pöntun er merkt sem endurgreidd"
 
+#: views/dk_invoice_metabox.php:70
+msgid "Create in DK"
+msgstr "Búa til í DK"
+
 #: views/admin.php:401
 msgid "Create Invoices Automatically for Orders With a Kennitala"
 msgstr "Gera reikninga sjálfkrafa fyrir pantanir með kennitölu"
@@ -210,6 +214,10 @@ msgstr "Gera reikninga sjálfkrafa fyrir pantanir með kennitölu"
 #: views/admin.php:429
 msgid "Create Invoices Automatically for Orders Without a Kennitala"
 msgstr "Gera reikninga sjálfkrafa fyrir pantanir án kennitölu"
+
+#: views/dk_invoice_metabox.php:87
+msgid "Credit Invoice Number"
+msgstr "Númer kreditreiknings"
 
 #: src/Import/SalesPayments.php:79
 msgid "Current Month (LM)"
@@ -251,7 +259,7 @@ msgstr "Birta lýsingu skráningar eiginleika vöruafbrigða úr DK"
 msgid "Display the Attribute Value Description from DK"
 msgstr "Birta lýsingu eiginleika vöruafbrigða úr DK"
 
-#: src/Hooks/Admin.php:102
+#: src/Hooks/Admin.php:98 src/Hooks/Admin.php:122
 msgid "DK Invoice"
 msgstr "Reikningur í DK"
 
@@ -271,7 +279,7 @@ msgstr "Kveikja á reit fyrir kennitölu í afgreiðsluforminu"
 msgid "Enable Product-to-Variation Conversion"
 msgstr "Virkja breytingu á vörum í vöruafbrigði"
 
-#: src/Hooks/Admin.php:156
+#: src/Hooks/Admin.php:176
 msgid "Error"
 msgstr "Villa"
 
@@ -289,6 +297,10 @@ msgstr ""
 "Við mælum með því að búa til aðskilinn notanda sem er með öll réttindi og er "
 "ekki tengdur ákveðnum starfsmanni í dkPlus til að búa til API-lykil út frá "
 "honum undir ‚auðkenningar tákn‘ á stillingasíðu þess notanda."
+
+#: views/dk_invoice_metabox.php:62 views/dk_invoice_metabox.php:121
+msgid "Get PDF"
+msgstr "Sækja PDF"
 
 #: src/Import/SalesPayments.php:171
 msgid "Giro Transfer (GM)"
@@ -440,9 +452,21 @@ msgstr ""
 "%1$sSKU%2$s þarf að vera sett inn og þarf að jafngilda vörunúmeri í DK. Það "
 "er stillt undir %3$sInventory%4$s hér til vinstri."
 
-#: src/Hooks/KennitalaField.php:593
+#: views/dk_invoice_metabox.php:43
+msgid "Invalid Invoice Number"
+msgstr "Númer reiknings er ógilt"
+
+#: src/Hooks/KennitalaField.php:595
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr "Ógild kennitala. Kennitölur eru runur af 10 tölustöfum."
+
+#: views/dk_invoice_metabox.php:103
+msgid "Invoice Credit Invoice Number"
+msgstr "Númer kreditreiknings er ógilt"
+
+#: views/dk_invoice_metabox.php:27
+msgid "Invoice Number"
+msgstr "Númer reiknings"
 
 #: views/admin.php:333
 msgid "Invoices"
@@ -458,11 +482,11 @@ msgstr ""
 "reikninginn sem viðhengi á PDF-formi"
 
 #: src/Hooks/KennitalaField.php:229 src/Hooks/KennitalaField.php:253
-#: src/Hooks/KennitalaField.php:410 src/Hooks/KennitalaField.php:524
+#: src/Hooks/KennitalaField.php:410 src/Hooks/KennitalaField.php:526
 msgid "Kennitala"
 msgstr "Kennitala"
 
-#: src/Hooks/KennitalaField.php:528
+#: src/Hooks/KennitalaField.php:530
 msgid "Kennitala (Optional)"
 msgstr "Kennitala (Valfrjálst)"
 
@@ -495,7 +519,7 @@ msgstr "Nítjánhundruð-áttatíu-og-fjögur"
 msgid "No"
 msgstr "Nei"
 
-#: js/products.js:17
+#: js/products.js:19
 msgid "Parent ID"
 msgstr "ID-númer móður"
 
@@ -512,7 +536,7 @@ msgid "Payment Terms in DK"
 msgstr "Greiðsluskilmálar í DK"
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:471
+#: src/Hooks/Admin.php:500
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -522,7 +546,7 @@ msgstr ""
 "í DK áður en haldið er áfram."
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:351
+#: src/Hooks/Admin.php:380
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -532,7 +556,7 @@ msgstr ""
 "haldið er áfram."
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:412
+#: src/Hooks/Admin.php:441
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -577,11 +601,11 @@ msgstr "Innkaup"
 msgid "Purchase Booking Category"
 msgstr "Bókunarflokkur innkaupa"
 
-#: src/Hooks/KennitalaField.php:424 src/Hooks/KennitalaField.php:547
+#: src/Hooks/KennitalaField.php:425 src/Hooks/KennitalaField.php:549
 msgid "Request an Invoice with Kennitala"
 msgstr "Biðja um reikning með kennitölu"
 
-#: src/Hooks/KennitalaField.php:551
+#: src/Hooks/KennitalaField.php:553
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr "Biðja um reikning með kennitölu (valfrjálst)"
 
@@ -714,13 +738,13 @@ msgid "The DK API key is missing."
 msgstr "API-lykillinn fyrir DK vantar."
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:363
+#: src/Hooks/Admin.php:392
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:375
+#: src/Hooks/Admin.php:404
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst ekki í DK."
@@ -754,6 +778,10 @@ msgstr ""
 #: src/Hooks/WooOrderStatusChanges.php:260
 msgid "Unable to create an invoice in DK: "
 msgstr "Gat ekki búið til reikning í DK: "
+
+#: views/dk_invoice_metabox.php:54 views/dk_invoice_metabox.php:113
+msgid "Update"
+msgstr "Uppfæra"
 
 #. %1$s is the current yes/no value.
 #: views/product_options_advanced_partial.php:32
