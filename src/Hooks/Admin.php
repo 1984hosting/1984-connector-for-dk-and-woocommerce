@@ -100,6 +100,15 @@ class Admin {
 			'nineteen-eighty-woo-dk-invoice-metabox',
 			__( 'DK Invoice', '1984-dk-woo' ),
 			array( __CLASS__, 'render_dk_invoice_metabox' ),
+			'woocommerce_page_wc-orders',
+			context: 'side',
+			priority: 'high'
+		);
+
+		add_meta_box(
+			'nineteen-eighty-woo-dk-invoice-metabox',
+			__( 'DK Invoice', '1984-dk-woo' ),
+			array( __CLASS__, 'render_dk_invoice_metabox' ),
 			'shop_order',
 			context: 'side',
 			priority: 'high'

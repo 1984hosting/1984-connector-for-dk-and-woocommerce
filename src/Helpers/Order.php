@@ -23,7 +23,11 @@ class Order {
 	 * @return bool True if the order can be invoiced, false if not.
 	 */
 	public static function can_be_invoiced( WC_Order $wc_order ): bool {
-		foreach ( $wc_order->get_items( 'line_item' ) as $order_item ) {
+		foreach ( $wc_order->get_items() as $order_item ) {
+			if ( $order_item->get_product() === false ) {
+				return false;
+			}
+
 			if ( $order_item instanceof WC_Order_Item_Product ) {
 				if ( empty( $order_item->get_product()->get_sku() ) ) {
 					return false;

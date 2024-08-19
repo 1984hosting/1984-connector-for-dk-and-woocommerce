@@ -2,13 +2,32 @@
 
 declare(strict_types = 1);
 
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 global $post;
 
-$wc_order = wc_get_order( $post->ID );
+
+if ( $post ) {
+	$wc_order = wc_get_order( $post->ID );
+} else {
+	// Nonce check is handled by the WooCommerce, which does not make a global
+	// "product" object available in this case.
+	// phpcs:ignore WordPress.Security.NonceVerification
+	if ( isset( $_GET['id'] ) ) {
+		$wc_order = wc_get_order(
+			// Nonce check is handled by the WooCommerce, which does not make a
+			// global "product" object available in this case.
+			// phpcs:ignore WordPress.Security.NonceVerification
+			sanitize_text_field( wp_unslash( $_GET['id'] ) )
+		);
+	} else {
+		exit;
+	}
+}
 
 $invoice_number        = $wc_order->get_meta( '1984_woo_dk_invoice_number', true, 'edit' );
 $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number', true, 'edit' );
@@ -29,6 +48,7 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 		<input
 			id="nineteen-eighty-woo-dk-invoice-metabox-invoice-number-input"
 			class="regular-text"
+			aria-live="polite"
 			name="1984_woo_dk_invoice_number"
 			type="text"
 			autocomplete="off"
@@ -48,7 +68,7 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 		<button
 			id="nineteen-eighty-woo-dk-invoice-metabox-invoice-number-update-button"
 			class="button button-small button-secondary"
-			title="Update the invoice number reference without generating a new invoice in DK"
+			title="<?php esc_html_e( 'Update the invoice number reference without generating a new invoice in DK', '1984-dk-woo' ); ?>"
 			<?php echo empty( $invoice_number ) ? 'disabled' : ''; ?>
 		>
 			<?php esc_html_e( 'Update', '1984-dk-woo' ); ?>
@@ -56,19 +76,21 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 		<button
 			id="nineteen-eighty-woo-dk-invoice-metabox-invoice-get-pdf-button"
 			class="button button-small button-primary"
-			title="Get the invoice as a PDF file"
+			title="<?php esc_html_e( 'Get the invoice as a PDF file', '1984-dk-woo' ); ?>"
 			<?php echo empty( $invoice_number ) ? 'disabled' : ''; ?>
 		>
 			<?php esc_html_e( 'Get PDF', '1984-dk-woo' ); ?>
 		</button>
+		<?php if ( OrderHelper::can_be_invoiced( $wc_order ) ) : ?>
 		<button
 			id="nineteen-eighty-woo-dk-invoice-metabox-make-dk-invoice-button"
 			class="button button-small button-primary"
-			title="Generate a new invoice for this order in DK and assign it to this order"
+			title="<?php esc_html_e( 'Generate a new invoice for this order in DK and assign it to this order', '1984-dk-woo' ); ?>"
 			<?php echo empty( $invoice_number ) ? '' : 'disabled'; ?>
 		>
 			<?php esc_html_e( 'Create in DK', '1984-dk-woo' ); ?>
 		</button>
+		<?php endif ?>
 		<img
 			id="nineteen-eighty-woo-dk-invoice-metabox-invoice-loader"
 			class="loader hidden"
@@ -76,6 +98,43 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 			width="16"
 			height="16"
 		/>
+	</div>
+	<div id="nineteen-eighty-woo-dk-invoice-messages" class="errors" aria-live="polite">
+		<p
+			id="nineteen-eighty-woo-dk-invoice-metabox-created-message"
+			class="infotext ok hidden"
+		>
+			<span class="dashicons dashicons-yes"></span>
+			<?php esc_html_e( 'Invoice has been created in DK.', '1984-dk-woo' ); ?>
+		</p>
+		<p
+			id="nineteen-eighty-woo-dk-invoice-metabox-creation-error"
+			class="infotext error hidden"
+		>
+			<span class="dashicons dashicons-no"></span>
+			<?php esc_html_e( 'Unable to create invoice in DK.', '1984-dk-woo' ); ?>
+		</p>
+		<p
+			id="nineteen-eighty-woo-dk-invoice-metabox-number-assigned-message"
+			class="infotext ok hidden"
+		>
+			<span class="dashicons dashicons-yes"></span>
+			<?php esc_html_e( 'Invoice number has been assigned.', '1984-dk-woo' ); ?>
+		</p>
+		<p
+			id="nineteen-eighty-woo-dk-invoice-metabox-number-not-assigned-error"
+			class="infotext error hidden"
+		>
+			<span class="dashicons dashicons-yes"></span>
+			<?php esc_html_e( 'Invoice number was not assigned.', '1984-dk-woo' ); ?>
+		</p>
+		<p
+			id="nineteen-eighty-woo-dk-invoice-metabox-pdf-not-found-error"
+			class="infotext error hidden"
+		>
+			<span class="dashicons dashicons-no"></span>
+			<?php esc_html_e( 'Invoice not found in DK.', '1984-dk-woo' ); ?>
+		</p>
 	</div>
 </div>
 
@@ -109,6 +168,7 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 			id="nineteen-eighty-woo-dk-invoice-metabox-credit-invoice-number-update-button"
 			class="button button-small button-secondary"
 			title="Update the credit invoice number reference without generating a new credit invoice in DK"
+			<?php echo empty( $credit_invoice_number ) ? 'disabled' : ''; ?>
 		>
 			<?php esc_html_e( 'Update', '1984-dk-woo' ); ?>
 		</button>

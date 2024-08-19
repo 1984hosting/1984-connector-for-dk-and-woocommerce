@@ -47,18 +47,18 @@ body.woocommerce_page_1984-dk-woo .wrap {
 }
 
 #nineteen-eighty-woo-settings-form .validity,
-#nineteen-eighty-woo-settings-form .infotext,
-#nineteen-eighty-woo-dk-invoice-metabox .infotext {
+#nineteen-eighty-woo-settings-form .infotext {
 	display: none;
-	font-weight: 600;
 }
 
 #nineteen-eighty-woo-dk-invoice-metabox .infotext {
+	font-weight: 600;
 	margin: 0.25rem 0 0 0;
 }
 
 #nineteen-eighty-woo-settings-form input:valid ~ .valid,
-#nineteen-eighty-woo-settings-form .infotext.ok {
+#nineteen-eighty-woo-settings-form .infotext.ok,
+#nineteen-eighty-woo-dk-invoice-metabox .infotext.ok {
 	display: block;
 	color: #060;
 }
@@ -222,6 +222,7 @@ table .column-dk_invoice_id .invoice_error {
 #nineteen-eighty-woo-dk-invoice-metabox .buttons {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	align-items: center;
 	margin: 0.5rem 0;
 }
