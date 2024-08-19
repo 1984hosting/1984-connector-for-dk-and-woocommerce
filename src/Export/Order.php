@@ -12,6 +12,7 @@ use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations;
 use WC_Order;
 use WC_Order_Item_Product;
 use WP_Error;
+use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
 
 /**
  * The Order Export class
@@ -156,15 +157,19 @@ class Order {
 			$product            = wc_get_product( $product_id );
 			$sku                = $product->get_sku();
 
+			$item_discount = BigDecimal::of(
+				$wc_order->get_item_subtotal( $item, 1 )
+			)->minus(
+				$wc_order->get_item_total( $item, 1 )
+			);
+
 			$order_line_item = array(
-				'ItemCode'     => $sku,
-				'Text'         => $item->get_name(),
-				'Quantity'     => $item->get_quantity(),
-				'Price'        => $wc_order->get_item_total(
-					$item,
-					wc_prices_include_tax()
-				),
-				'IncludingVAT' => wc_prices_include_tax(),
+				'ItemCode'       => $sku,
+				'Text'           => $item->get_name(),
+				'Quantity'       => $item->get_quantity(),
+				'Price'          => $wc_order->get_item_subtotal( $item, 1 ),
+				'DiscountAmount' => $item_discount->toFloat(),
+				'IncludingVAT'   => true,
 			);
 
 			$origin       = $product->get_meta( '1984_dk_woo_origin', true, 'edit' );
@@ -201,48 +206,85 @@ class Order {
 			foreach ( $wc_order->get_fees() as $fee ) {
 				$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
 
+				$fee_price_with_tax = BigDecimal::of(
+					$fee->get_total()
+				)->plus(
+					$fee->get_total_tax()
+				)->toFloat();
+
 				$order_props['Lines'][] = array(
 					'ItemCode'     => Config::get_cost_sku(),
 					'Text'         => __( 'Fee', '1984-dk-woo' ),
 					'Text2'        => $sanitized_name,
-					'Price'        => $fee->get_total(),
-					'IncludingVAT' => false,
+					'Price'        => $fee_price_with_tax,
+					'IncludingVAT' => true,
 				);
 			}
 		}
 
-		if ( count( $wc_order->get_shipping_methods() ) > 0 ) {
-			foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
-				if ( floatval( $shipping_method->get_total() ) === 0.0 ) {
-					continue;
+		foreach ( $wc_order->get_refunds() as $refund ) {
+			foreach ( $refund->get_items() as $refund_item ) {
+				$order_item_product = new WC_Order_Item_Product( $item->get_id() );
+				$product_id         = $order_item_product->get_product_id();
+				$product            = wc_get_product( $product_id );
+				$sku                = $product->get_sku();
+
+				if ( $refund_item->get_quantity() < -1 ) {
+					$qty = $refund_item->get_quantity();
+
+					$price = BigDecimal::of(
+						$refund->get_line_subtotal( $refund_item )
+					)->plus(
+						$refund->get_line_tax( $refund_item )
+					)->dividedBy(
+						$refund_item->get_quantity(),
+						12,
+						RoundingMode::HALF_UP
+					);
+				} else {
+					$qty = 1;
+
+					$price = BigDecimal::of(
+						$refund->get_line_subtotal( $refund_item )
+					)->plus(
+						$refund->get_line_tax( $refund_item )
+					);
 				}
 
-				$shipping_price_with_tax = (
-					$shipping_method->get_total() +
-					$shipping_method->get_total_tax()
+				if ( $refund->get_line_tax( $refund_item ) < 0 ) {
+					$including_vat = true;
+				} else {
+					$including_vat = false;
+				}
+
+				$refund_line = array(
+					'ItemCode'     => $sku,
+					'Text'         => $refund_item->get_name(),
+					'Quantity'     => $qty,
+					'Price'        => $price->toFloat(),
+					'IncludingVAT' => $including_vat,
 				);
 
-				$order_props['Lines'][] = array(
-					'ItemCode'     => Config::get_shipping_sku(),
-					'Text'         => __( 'Shipping', '1984-dk-woo' ),
-					'Text2'        => $shipping_method->get_method_title(),
-					'Quantity'     => 1,
-					'Price'        => $shipping_method->get_total(),
-					'IncludingVAT' => $shipping_price_with_tax,
-				);
+				$order_props['Lines'][] = $refund_line;
 			}
 		}
 
-		if ( $wc_order->get_total_discount() > 0 ) {
-			$order_props['Discount'] = $wc_order->get_total_discount();
+		foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
+			$shipping_total = BigDecimal::of(
+				$shipping_method->get_total()
+			)->plus(
+				$shipping_method->get_total_tax()
+			)->toFloat();
+
+			$order_props['Lines'][] = array(
+				'ItemCode'     => Config::get_shipping_sku(),
+				'Text'         => __( 'Shipping', '1984-dk-woo' ),
+				'Text2'        => $shipping_method->get_name(),
+				'Quantity'     => 1,
+				'Price'        => $shipping_total,
+				'IncludingVAT' => true,
+			);
 		}
-
-		$total        = BigDecimal::of( $wc_order->get_total() );
-		$total_tax    = BigDecimal::of( $wc_order->get_total_tax() );
-		$total_amount = $total->minus( $total_tax );
-
-		$order_props['TotalAmount']        = $total_amount->toFloat();
-		$order_props['TotalAmountWithTax'] = $total->toFloat();
 
 		return $order_props;
 	}

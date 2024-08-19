@@ -215,7 +215,7 @@ class Product {
 			}
 		} else {
 			if ( ! empty( $wc_product->get_sale_price() ) ) {
-				return $wc_product->get_sale_price();
+				return (float) $wc_product->get_sale_price();
 			}
 		}
 

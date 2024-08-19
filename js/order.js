@@ -72,6 +72,46 @@ class NineteenEightyWooOrder {
 		);
 	}
 
+	static invoicePdfNotFoundError() {
+		return document.getElementById(
+			'nineteen-eighty-woo-dk-invoice-metabox-pdf-not-found-error'
+		);
+	}
+
+	static invoiceNumberAssignedMessage() {
+		return document.getElementById(
+			'nineteen-eighty-woo-dk-invoice-metabox-number-assigned-message'
+		);
+	}
+
+	static invoiceAssignmentError() {
+		return document.getElementById(
+			'nineteen-eighty-woo-dk-invoice-metabox-number-not-assigned-error'
+		);
+	}
+
+	static invoiceCreatedMessage() {
+		return document.getElementById(
+			'nineteen-eighty-woo-dk-invoice-metabox-created-message'
+		);
+	}
+
+	static invoiceCreationError() {
+		return document.getElementById(
+			'nineteen-eighty-woo-dk-invoice-metabox-creation-error'
+		);
+	}
+
+	static resetMessages() {
+		const messageNodes = document.querySelectorAll(
+			'#nineteen-eighty-woo-dk-invoice-messages p'
+		);
+
+		messageNodes.forEach( (node) => {
+			node.classList.add( 'hidden' );
+		});
+	}
+
 	static updateInvoiceButtonClickEvent( e ) {
 		e.preventDefault();
 		this.updateInvoiceButtonClickAction();
@@ -93,6 +133,7 @@ class NineteenEightyWooOrder {
 	}
 
 	static getPdfInvoiceButtonClickAction() {
+		this.resetMessages();
 		this.invoiceLoader().classList.remove( 'hidden' );
 
 		const invoiceID = NineteenEightyWooOrder.formData().get(
@@ -109,11 +150,11 @@ class NineteenEightyWooOrder {
 			'1984_woo_dk_credit_invoice_number'
 		);
 
-		this.getInvoicePdf( creditInvoiceID );
+		this.getCreditInvoicePdf( creditInvoiceID );
 	}
 
 	static formData() {
-		let form = document.getElementById( 'post' );
+		let form = document.querySelector( 'form#post, form#order' );
 		return new FormData( form );
 	}
 
@@ -131,6 +172,35 @@ class NineteenEightyWooOrder {
 
 		if ( response ) {
 			this.invoiceLoader().classList.add( 'hidden' );
+			this.creditInvoiceLoader().classList.add( 'hidden' );
+			this.invoicePdfNotFoundError().classList.add('hidden');
+		}
+
+		if ( response.ok ) {
+			const json = await response.json();
+
+			window.open(
+				'data:application/pdf;base64,' + json.data,
+				'_blank'
+			)
+		} else {
+			this.invoicePdfNotFoundError().classList.remove('hidden');
+		}
+	}
+
+	static async getCreditInvoicePdf( invoiceID ) {
+		const response = await fetch(
+			wpApiSettings.root + 'NineteenEightyWoo/v1/order_invoice_pdf/' + invoiceID,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json;charset=UTF-8',
+					'X-WP-Nonce': wpApiSettings.nonce,
+				}
+			}
+		);
+
+		if ( response ) {
 			this.creditInvoiceLoader().classList.add( 'hidden' );
 		}
 
@@ -173,6 +243,18 @@ class NineteenEightyWooOrder {
 				default:
 					this.invoiceLoader().classList.add( 'hidden' );
 					this.updateInvoiceButton().disabled = false;
+					this.invoiceNumberAssignedMessage().classList.remove( 'hidden' );
+					break;
+			}
+		} else {
+			switch (type) {
+				case 'credit':
+					break;
+
+				default:
+					this.invoiceLoader().classList.add( 'hidden' );
+					this.updateInvoiceButton().disabled = false;
+					this.invoiceAssignmentError().classList.remove( 'hidden' );
 					break;
 			}
 		}
@@ -180,6 +262,7 @@ class NineteenEightyWooOrder {
 
 	static updateInvoiceButtonClickAction() {
 		this.invoiceLoader().classList.remove( 'hidden' );
+		this.resetMessages();
 		this.updateInvoiceButton().disabled = true;
 
 		const postID        = parseInt( this.formData().get( 'post_ID' ) );
@@ -214,10 +297,14 @@ class NineteenEightyWooOrder {
 		}
 
 		if ( invoiceNumber === '' ) {
-			this.createDkInvoiceButton().disabled = false;
+			if ( this.createDkInvoiceButton() ) {
+				this.createDkInvoiceButton().disabled = false;
+			}
 			this.invoiceNumberInvalid().classList.add( 'hidden' );
 		} else {
-			this.createDkInvoiceButton().disabled = true;
+			if ( this.createDkInvoiceButton() ) {
+				this.createDkInvoiceButton().disabled = true;
+			}
 		}
 	}
 
@@ -255,19 +342,29 @@ class NineteenEightyWooOrder {
 
 		if ( response ) {
 			this.invoiceLoader().classList.add( 'hidden' );
-			this.updateInvoiceButton().disabled = false;
 			this.invoiceNumberInput().value     = '';
 		}
 
 		if ( response.ok ) {
 			const json                      = await response.json();
 			this.invoiceNumberInput().value = json;
-			this.getPdfButton().disabled    = false;
+
+			this.updateInvoiceButton().disabled = false;
+			this.getPdfButton().disabled        = false;
+
+			this.invoiceCreatedMessage().classList.remove( 'hidden' );
+		} else {
+			this.updateInvoiceButton().disabled = true;
+			this.createDkInvoiceButton().disabled = false;
+
+			this.invoiceCreationError().classList.remove( 'hidden' );
 		}
 	}
 
 	static createDkInvoiceClickAction() {
 		const orderId = this.formData().get( 'post_ID' );
+
+		this.resetMessages();
 
 		this.invoiceLoader().classList.remove( 'hidden' );
 		this.createDkInvoiceButton().disabled = true;
@@ -326,12 +423,14 @@ window.addEventListener(
 
 			NineteenEightyWooOrder.disableUpdateCreditInvoiceFieldIfInvalid();
 
-			NineteenEightyWooOrder.createDkInvoiceButton().addEventListener(
-				'click',
-				( e ) => {
-					NineteenEightyWooOrder.createDkInvoiceClickAction();
-				}
-			);
+			if ( NineteenEightyWooOrder.createDkInvoiceButton() ) {
+				NineteenEightyWooOrder.createDkInvoiceButton().addEventListener(
+					'click',
+					( e ) => {
+						NineteenEightyWooOrder.createDkInvoiceClickAction();
+					}
+				);
+			}
 		}
 	}
 );

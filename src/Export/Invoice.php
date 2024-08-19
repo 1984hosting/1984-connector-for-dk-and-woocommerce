@@ -12,6 +12,7 @@ use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use WC_Order;
 use WP_Error;
 use DateTime;
+use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
 
 /**
  * The Invoice Export class
@@ -247,11 +248,17 @@ class Invoice {
 		);
 
 		if ( $wc_order->is_paid() ) {
+			$total = BigDecimal::of(
+				$wc_order->get_total()
+			)->minus(
+				$wc_order->get_total_refunded()
+			);
+
 			$invoice_body['Payments'] = array(
 				array(
 					'ID'     => $payment_mapping->dk_id,
 					'Name'   => $payment_mapping->dk_name,
-					'Amount' => $wc_order->get_total(),
+					'Amount' => $total->toFloat(),
 				),
 			);
 		}
