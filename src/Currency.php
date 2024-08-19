@@ -38,7 +38,7 @@ class Currency {
 			return self::invalid_currency_code_error( $currency );
 		}
 
-		$option_name = '1984_woo_dk_currency_rate_' . strtolower( $currency );
+		$option_name = '1984_woo_dk_currency_rate_' . mb_strtolower( $currency );
 
 		$float_value = (float) $rate;
 
@@ -62,7 +62,7 @@ class Currency {
 			return self::invalid_currency_code_error( $currency );
 		}
 
-		$option_name = '1984_woo_dk_currency_rate_' . strtolower( $currency );
+		$option_name = '1984_woo_dk_currency_rate_' . mb_strtolower( $currency );
 
 		$rate = get_option( $option_name, 0 );
 
@@ -105,7 +105,7 @@ class Currency {
 		}
 
 		$from_rate = get_option(
-			'1984_woo_dk_currency_rate_' . strtolower( $from ),
+			'1984_woo_dk_currency_rate_' . mb_strtolower( $from ),
 		);
 
 		if ( ! $from_rate ) {
@@ -124,7 +124,7 @@ class Currency {
 		}
 
 		$to_rate = get_option(
-			'1984_woo_dk_currency_rate_' . strtolower( $to )
+			'1984_woo_dk_currency_rate_' . mb_strtolower( $to )
 		);
 
 		if ( ! $to_rate ) {

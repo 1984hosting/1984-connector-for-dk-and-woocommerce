@@ -215,15 +215,24 @@ class Products {
 			return false;
 		}
 
-		if ( strtolower( Config::get_shipping_sku() ) === strtolower( $json_object->ItemCode ) ) {
+		if (
+			mb_strtolower( Config::get_shipping_sku() ) ===
+			mb_strtolower( $json_object->ItemCode )
+		) {
 			return false;
 		}
 
-		if ( strtolower( Config::get_cost_sku() ) === strtolower( $json_object->ItemCode ) ) {
+		if (
+			mb_strtolower( Config::get_cost_sku() ) ===
+			mb_strtolower( $json_object->ItemCode )
+		) {
 			return false;
 		}
 
-		if ( ! $json_object->ShowItemInWebShop && ! Config::get_import_nonweb_products() ) {
+		if (
+			! $json_object->ShowItemInWebShop &&
+			! Config::get_import_nonweb_products()
+		) {
 			return false;
 		}
 
@@ -730,13 +739,13 @@ class Products {
 				}
 				$variation = array(
 					'quantity'    => (float) $v->Quantity,
-					'attribute_1' => strtolower( $attribute_names[0] ),
-					'code_1'      => strtolower( $v->Code ),
+					'attribute_1' => mb_strtolower( $attribute_names[0] ),
+					'code_1'      => mb_strtolower( $v->Code ),
 				);
 
 				if ( property_exists( $v, 'Code2' ) ) {
-					$variation['attribute_2'] = strtolower( $attribute_names[1] );
-					$variation['code_2']      = strtolower( $v->Code2 );
+					$variation['attribute_2'] = mb_strtolower( $attribute_names[1] );
+					$variation['code_2']      = mb_strtolower( $v->Code2 );
 				}
 
 				$variations_array[] = (object) $variation;
