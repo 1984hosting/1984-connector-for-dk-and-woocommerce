@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1984 Connector for DK and WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-06 12:50+0000\n"
+"POT-Creation-Date: 2024-08-19 01:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -58,13 +58,13 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:524
+#: src/Hooks/Admin.php:539
 #, php-format
 msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:512
+#: src/Hooks/Admin.php:527
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr ""
@@ -74,13 +74,13 @@ msgid "A or B Giro Request (ABG)"
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:453
+#: src/Hooks/Admin.php:468
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:465
+#: src/Hooks/Admin.php:480
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
@@ -91,7 +91,7 @@ msgid ""
 "customer."
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:136
+#: src/Rest/OrderDKInvoice.php:97 src/Hooks/WooOrderStatusChanges.php:136
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer."
 msgstr ""
@@ -100,14 +100,14 @@ msgstr ""
 msgid "An invoice could not be created in DK due to an unhandled error."
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:110
+#: src/Rest/OrderDKInvoice.php:65 src/Hooks/WooOrderStatusChanges.php:110
 msgid ""
 "An invoice could not be created in DK for this order as a line item in this "
 "order does not have a SKU."
 msgstr ""
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Hooks/WooOrderStatusChanges.php:125
+#: src/Rest/OrderDKInvoice.php:86 src/Hooks/WooOrderStatusChanges.php:125
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
@@ -116,13 +116,13 @@ msgstr ""
 #: src/Hooks/WooOrderStatusChanges.php:99
 msgid ""
 "An invoice was not created as the customer did not enter a kennitala. The "
-"invoice needs to be created manually in DK."
+"invoice needs to be created manually."
 msgstr ""
 
 #: src/Hooks/WooOrderStatusChanges.php:85
 msgid ""
 "An invoice was not created as the customer entered a kennitala. The invoice "
-"needs to be created manually in DK."
+"needs to be created manually."
 msgstr ""
 
 #: views/admin.php:42
@@ -167,11 +167,11 @@ msgstr ""
 msgid "Cheque Payment (TGR)"
 msgstr ""
 
-#: src/Hooks/Admin.php:281 src/Hooks/Admin.php:282
+#: src/Hooks/Admin.php:296 src/Hooks/Admin.php:297
 msgid "Connector for DK"
 msgstr ""
 
-#: src/Hooks/Admin.php:204
+#: src/Hooks/Admin.php:219
 msgid "Convert to Product Variant"
 msgstr ""
 
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Create a credit invoice when an order is labelled as refunded"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:70
+#: views/dk_invoice_metabox.php:91
 msgid "Create in DK"
 msgstr ""
 
@@ -195,8 +195,14 @@ msgstr ""
 msgid "Create Invoices Automatically for Orders Without a Kennitala"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:87
+#: views/dk_invoice_metabox.php:146
 msgid "Credit Invoice Number"
+msgstr ""
+
+#. %1$s is a placeholder for the invoice number that was manually entered.
+#: src/Rest/OrderInvoiceNumber.php:112
+#, php-format
+msgid "Credit invoice number set to %1$s."
 msgstr ""
 
 #: src/Import/SalesPayments.php:79
@@ -239,7 +245,7 @@ msgstr ""
 msgid "Display the Attribute Value Description from DK"
 msgstr ""
 
-#: src/Hooks/Admin.php:98 src/Hooks/Admin.php:122
+#: src/Hooks/Admin.php:101 src/Hooks/Admin.php:110 src/Hooks/Admin.php:137
 msgid "DK Invoice"
 msgstr ""
 
@@ -257,11 +263,11 @@ msgstr ""
 msgid "Enable Product-to-Variation Conversion"
 msgstr ""
 
-#: src/Hooks/Admin.php:176
+#: src/Hooks/Admin.php:191
 msgid "Error"
 msgstr ""
 
-#: src/Export/Order.php:206
+#: src/Export/Order.php:217
 msgid "Fee"
 msgstr ""
 
@@ -273,8 +279,16 @@ msgid ""
 "page."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:62 views/dk_invoice_metabox.php:121
+#: views/dk_invoice_metabox.php:88
+msgid "Generate a new invoice for this order in DK and assign it to this order"
+msgstr ""
+
+#: views/dk_invoice_metabox.php:82 views/dk_invoice_metabox.php:181
 msgid "Get PDF"
+msgstr ""
+
+#: views/dk_invoice_metabox.php:79
+msgid "Get the invoice as a PDF file"
 msgstr ""
 
 #: src/Import/SalesPayments.php:171
@@ -390,27 +404,41 @@ msgid ""
 "equal the Item Code in DK. It is set in the %3$sInventory Panel%4$s."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:43
-msgid "Invalid Invoice Number"
-msgstr ""
-
 #: src/Hooks/KennitalaField.php:595
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:103
-msgid "Invoice Credit Invoice Number"
+#: views/dk_invoice_metabox.php:108
+msgid "Invoice has been created in DK."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:27
+#: views/dk_invoice_metabox.php:136
+msgid "Invoice not found in DK."
+msgstr ""
+
+#: views/dk_invoice_metabox.php:46
 msgid "Invoice Number"
+msgstr ""
+
+#: views/dk_invoice_metabox.php:122
+msgid "Invoice number has been assigned."
+msgstr ""
+
+#. %1$s is a placeholder for the invoice number that was manually entered.
+#: src/Rest/OrderInvoiceNumber.php:87
+#, php-format
+msgid "Invoice number set to %1$s."
+msgstr ""
+
+#: views/dk_invoice_metabox.php:129
+msgid "Invoice number was not assigned."
 msgstr ""
 
 #: views/admin.php:333
 msgid "Invoices"
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:143
+#: src/Rest/OrderDKInvoice.php:104 src/Hooks/WooOrderStatusChanges.php:143
 #: src/Hooks/WooOrderStatusChanges.php:239
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
@@ -442,6 +470,10 @@ msgstr ""
 msgid "Method ID in DK"
 msgstr ""
 
+#: views/dk_invoice_metabox.php:63 views/dk_invoice_metabox.php:162
+msgid "Needs to be numeric"
+msgstr ""
+
 #: views/admin.php:783
 msgid "Ninteen-Eighty-Four"
 msgstr ""
@@ -453,10 +485,6 @@ msgstr ""
 #: views/product_options_pricing_partial.php:50
 #: views/product_options_pricing_partial.php:53
 msgid "No"
-msgstr ""
-
-#: js/products.js:19
-msgid "Parent ID"
 msgstr ""
 
 #: views/admin.php:645
@@ -472,7 +500,7 @@ msgid "Payment Terms in DK"
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:500
+#: src/Hooks/Admin.php:515
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -480,7 +508,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:380
+#: src/Hooks/Admin.php:395
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -488,7 +516,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:441
+#: src/Hooks/Admin.php:456
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -557,7 +585,7 @@ msgstr ""
 msgid "Service SKUs"
 msgstr ""
 
-#: src/Export/Order.php:227
+#: src/Export/Order.php:281
 msgid "Shipping"
 msgstr ""
 
@@ -650,13 +678,13 @@ msgid "The DK API key is missing."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:392
+#: src/Hooks/Admin.php:407
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:404
+#: src/Hooks/Admin.php:419
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr ""
@@ -686,8 +714,17 @@ msgstr ""
 msgid "Unable to create an invoice in DK: "
 msgstr ""
 
-#: views/dk_invoice_metabox.php:54 views/dk_invoice_metabox.php:113
+#: views/dk_invoice_metabox.php:115
+msgid "Unable to create invoice in DK."
+msgstr ""
+
+#: views/dk_invoice_metabox.php:74 views/dk_invoice_metabox.php:173
 msgid "Update"
+msgstr ""
+
+#: views/dk_invoice_metabox.php:71
+msgid ""
+"Update the invoice number reference without generating a new invoice in DK"
 msgstr ""
 
 #. %1$s is the current yes/no value.
@@ -737,7 +774,7 @@ msgid "Yes"
 msgstr ""
 
 #. The %1$s is a placeholder for the site's title.
-#: src/Export/Invoice.php:181
+#: src/Export/Invoice.php:188
 #, php-format
 msgid "Your Invoice From %1$s"
 msgstr ""
