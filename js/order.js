@@ -107,9 +107,11 @@ class NineteenEightyWooOrder {
 			'#nineteen-eighty-woo-dk-invoice-messages p'
 		);
 
-		messageNodes.forEach( (node) => {
-			node.classList.add( 'hidden' );
-		});
+		messageNodes.forEach(
+			 (node) => {
+					node.classList.add( 'hidden' );
+		}
+			);
 	}
 
 	static updateInvoiceButtonClickEvent( e ) {
@@ -173,7 +175,7 @@ class NineteenEightyWooOrder {
 		if ( response ) {
 			this.invoiceLoader().classList.add( 'hidden' );
 			this.creditInvoiceLoader().classList.add( 'hidden' );
-			this.invoicePdfNotFoundError().classList.add('hidden');
+			this.invoicePdfNotFoundError().classList.add( 'hidden' );
 		}
 
 		if ( response.ok ) {
@@ -184,7 +186,7 @@ class NineteenEightyWooOrder {
 				'_blank'
 			)
 		} else {
-			this.invoicePdfNotFoundError().classList.remove('hidden');
+			this.invoicePdfNotFoundError().classList.remove( 'hidden' );
 		}
 	}
 
@@ -342,7 +344,7 @@ class NineteenEightyWooOrder {
 
 		if ( response ) {
 			this.invoiceLoader().classList.add( 'hidden' );
-			this.invoiceNumberInput().value     = '';
+			this.invoiceNumberInput().value = '';
 		}
 
 		if ( response.ok ) {
@@ -354,7 +356,7 @@ class NineteenEightyWooOrder {
 
 			this.invoiceCreatedMessage().classList.remove( 'hidden' );
 		} else {
-			this.updateInvoiceButton().disabled = true;
+			this.updateInvoiceButton().disabled   = true;
 			this.createDkInvoiceButton().disabled = false;
 
 			this.invoiceCreationError().classList.remove( 'hidden' );
