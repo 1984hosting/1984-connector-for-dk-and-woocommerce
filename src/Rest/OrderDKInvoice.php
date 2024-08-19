@@ -10,6 +10,7 @@ use WP_Error;
 use NineteenEightyFour\NineteenEightyWoo\Rest\EmptyBodyEndpointTemplate;
 use NineteenEightyFour\NineteenEightyWoo\Export\Invoice as ExportInvoice;
 use NineteenEightyFour\NineteenEightyWoo\Config;
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
 
 /**
  * The Order DK Invoice endpoint class
@@ -59,13 +60,24 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 	): WP_REST_Response|WP_Error {
 		$wc_order = wc_get_order( $request['order_id'] );
 
+		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
+			$wc_order->add_order_note(
+				__(
+					'An invoice could not be created in DK for this order as a line item in this order does not have a SKU.',
+					'1984-dk-woo'
+				)
+			);
+
+			return new WP_REST_Response( status: 400 );
+		}
+
 		$invoice_number = ExportInvoice::create_in_dk(
 			$wc_order,
 			true
 		);
 
 		if ( ! is_string( $invoice_number ) ) {
-			return new WP_Error();
+			return new WP_REST_Response( status: 400 );
 		}
 
 		$wc_order->add_order_note(
@@ -96,6 +108,16 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 				);
 			}
 		}
+
+		$wc_order->delete_meta_data(
+			'1984_dk_woo_invoice_creation_error'
+		);
+
+		$wc_order->delete_meta_data(
+			'1984_dk_woo_invoice_creation_error_message'
+		);
+
+		$wc_order->save_meta_data();
 
 		return new WP_REST_Response(
 			$invoice_number,

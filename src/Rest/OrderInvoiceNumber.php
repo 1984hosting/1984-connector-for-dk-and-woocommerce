@@ -71,7 +71,9 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 		$wc_order = wc_get_order( $rest_json->order_id );
 
 		if ( $rest_json->type === 'debit' ) {
-			$original_invoice_number = ExportInvoice::get_dk_invoice_number( $wc_order );
+			$original_invoice_number = ExportInvoice::get_dk_invoice_number(
+				$wc_order
+			);
 
 			if ( $rest_json->invoice_number !== $original_invoice_number ) {
 				ExportInvoice::assign_dk_invoice_number(
@@ -93,7 +95,9 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 		}
 
 		if ( $rest_json->type === 'credit' ) {
-			$original_credit_invoice_number = ExportInvoice::get_dk_credit_invoice_number( $wc_order );
+			$original_credit_invoice_number = ExportInvoice::get_dk_credit_invoice_number(
+				$wc_order
+			);
 
 			if ( $rest_json->invoice_number !== $original_credit_invoice_number ) {
 				ExportInvoice::assign_dk_credit_invoice_number(
@@ -113,6 +117,16 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 				)
 			);
 		}
+
+		$wc_order->delete_meta_data(
+			'1984_dk_woo_invoice_creation_error'
+		);
+
+		$wc_order->delete_meta_data(
+			'1984_dk_woo_invoice_creation_error_message'
+		);
+
+		$wc_order->save_meta_data();
 
 		return new WP_REST_Response( status: 200 );
 	}
