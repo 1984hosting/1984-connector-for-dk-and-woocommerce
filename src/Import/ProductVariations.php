@@ -87,14 +87,16 @@ class ProductVariations {
 			return array();
 		}
 
+		$lower_case_code = mb_strtolower( $code );
+
 		$variations = self::get_variations();
 
-		$attributes = $variations[ $code ]->attributes;
+		$attributes = $variations[ $lower_case_code ]->attributes;
 
 		$woocommerce_variation_attributes = array();
 
 		foreach ( $attributes as $code => $attribute ) {
-			$woocommerce_variation_attributes[ strtolower( $code ) ] = array_keys(
+			$woocommerce_variation_attributes[ $lower_case_code ] = array_keys(
 				$attribute->values
 			);
 		}
@@ -313,7 +315,7 @@ class ProductVariations {
 			$code        = $object->CODE;
 			return (object) array(
 				'id'          => $record_id,
-				'code'        => strtolower( $code ),
+				'code'        => mb_strtolower( $code ),
 				'description' => $description,
 				'values'      => self::get_variation_attributes( $record_id ),
 			);
@@ -381,8 +383,8 @@ class ProductVariations {
 			$attributes = array();
 
 			foreach ( $result->data as $a ) {
-				$code     = strtolower( $a->HEADCODE );
-				$code_key = strtolower( $code );
+				$code     = mb_strtolower( $a->HEADCODE );
+				$code_key = mb_strtolower( $code );
 
 				$attributes[ $code ] = (object) array(
 					'code' => $code,
@@ -406,7 +408,7 @@ class ProductVariations {
 	public static function get_attribute_name( string $code ): string {
 		$attribute_values = self::get_attribute_values();
 
-		$key = strtolower( $code );
+		$key = mb_strtolower( $code );
 
 		if ( ! key_exists( $key, $attribute_values ) ) {
 			return $code;
@@ -469,8 +471,8 @@ class ProductVariations {
 					$name = $code;
 				}
 
-				$values[ strtolower( $code ) ] = (object) array(
-					'code' => strtolower( $code ),
+				$values[ mb_strtolower( $code ) ] = (object) array(
+					'code' => mb_strtolower( $code ),
 					'name' => $name,
 				);
 			}
@@ -491,7 +493,7 @@ class ProductVariations {
 
 		foreach ( $variation_json as $vj ) {
 			$variation   = array();
-			$code        = strtolower( $vj->CODE );
+			$code        = mb_strtolower( $vj->CODE );
 			$description = $vj->DESCRIPTION;
 
 			$variation['skus'] = self::get_product_skus_by_variation_from_dk(
@@ -499,18 +501,18 @@ class ProductVariations {
 			);
 
 			$variations[ $code ] = array(
-				'code'        => strtolower( $code ),
+				'code'        => mb_strtolower( $code ),
 				'description' => $description,
 			);
 
 			if ( property_exists( $vj, 'SUBGROUP1' ) ) {
-				$variation['attributes'][ strtolower( $vj->SUBGROUP1 ) ] =
-				self::get_attribute( strtolower( $vj->SUBGROUP1 ) );
+				$variation['attributes'][ mb_strtolower( $vj->SUBGROUP1 ) ] =
+				self::get_attribute( mb_strtolower( $vj->SUBGROUP1 ) );
 			}
 
 			if ( property_exists( $vj, 'SUBGROUP2' ) ) {
-				$variation['attributes'][ strtolower( $vj->SUBGROUP2 ) ] =
-				self::get_attribute( strtolower( $vj->SUBGROUP2 ) );
+				$variation['attributes'][ mb_strtolower( $vj->SUBGROUP2 ) ] =
+				self::get_attribute( mb_strtolower( $vj->SUBGROUP2 ) );
 			}
 
 			$variations[ $code ] = (object) $variation;
