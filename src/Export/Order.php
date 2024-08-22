@@ -12,7 +12,6 @@ use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations;
 use WC_Order;
 use WC_Order_Item_Product;
 use WP_Error;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
 
 /**
  * The Order Export class
@@ -219,53 +218,6 @@ class Order {
 					'Price'        => $fee_price_with_tax,
 					'IncludingVAT' => true,
 				);
-			}
-		}
-
-		foreach ( $wc_order->get_refunds() as $refund ) {
-			foreach ( $refund->get_items() as $refund_item ) {
-				$order_item_product = new WC_Order_Item_Product( $item->get_id() );
-				$product_id         = $order_item_product->get_product_id();
-				$product            = wc_get_product( $product_id );
-				$sku                = $product->get_sku();
-
-				if ( $refund_item->get_quantity() < -1 ) {
-					$qty = $refund_item->get_quantity();
-
-					$price = BigDecimal::of(
-						$refund->get_line_subtotal( $refund_item )
-					)->plus(
-						$refund->get_line_tax( $refund_item )
-					)->dividedBy(
-						$refund_item->get_quantity(),
-						12,
-						RoundingMode::HALF_UP
-					);
-				} else {
-					$qty = 1;
-
-					$price = BigDecimal::of(
-						$refund->get_line_subtotal( $refund_item )
-					)->plus(
-						$refund->get_line_tax( $refund_item )
-					);
-				}
-
-				if ( $refund->get_line_tax( $refund_item ) < 0 ) {
-					$including_vat = true;
-				} else {
-					$including_vat = false;
-				}
-
-				$refund_line = array(
-					'ItemCode'     => $sku,
-					'Text'         => $refund_item->get_name(),
-					'Quantity'     => $qty,
-					'Price'        => $price->toFloat(),
-					'IncludingVAT' => $including_vat,
-				);
-
-				$order_props['Lines'][] = $refund_line;
 			}
 		}
 
