@@ -38,13 +38,6 @@ class WooOrderStatusChanges {
 			10,
 			1
 		);
-
-		add_action(
-			'woocommerce_order_status_refunded',
-			array( __CLASS__, 'maybe_send_credit_invoice_on_refund' ),
-			10,
-			1
-		);
 	}
 
 	/**
@@ -171,101 +164,6 @@ class WooOrderStatusChanges {
 			$wc_order->add_order_note(
 				__(
 					'An invoice could not be created in DK due to an unhandled error.',
-					'1984-dk-woo'
-				)
-			);
-		}
-	}
-
-	/**
-	 * Send a credit invoice after an order has been fully refunded
-	 *
-	 * Used for the `woocommerce_order_status_refunded` hook and creates a
-	 * credit invoice for an order in DK, finally sending it to the customer, if
-	 * a credit invoice has not yet been created.
-	 *
-	 * @param int $order_id The WooCommerce order ID.
-	 */
-	public static function maybe_send_credit_invoice_on_refund( int $order_id ): void {
-		if ( ! Config::get_make_credit_invoice() ) {
-			return;
-		}
-
-		$wc_order = new WC_Order( $order_id );
-
-		if (
-			! empty(
-				ExportInvoice::get_dk_credit_invoice_number( $wc_order )
-			)
-		) {
-			return;
-		}
-
-		if (
-			! empty(
-				$wc_order->get_meta(
-					'1984_dk_woo_credit_invoice_creation_error',
-					true
-				)
-			)
-		) {
-			return;
-		}
-
-		$credit_invoice_number = ExportInvoice::reverse_in_dk( $wc_order );
-
-		if ( is_string( $credit_invoice_number ) ) {
-			$wc_order->add_order_note(
-				sprintf(
-					// Translators: %1$s is a placeholder for the invoice number generated in DK.
-					__(
-						'A credit invoice for the refund has been created in DK. The invoice number is %1$s.',
-						'1984-dk-woo'
-					),
-					$credit_invoice_number
-				)
-			);
-
-			if ( Config::get_email_invoice() ) {
-				if ( ExportInvoice::email_in_dk( $wc_order, 'credit' ) === true ) {
-					$wc_order->add_order_note(
-						__(
-							'An email containing the credit invoice as a PDF attachment was sent to the customer.',
-							'1984-dk-woo'
-						)
-					);
-				} else {
-					$wc_order->add_order_note(
-						__(
-							'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-							'1984-dk-woo'
-						)
-					);
-				}
-			}
-		} elseif ( $credit_invoice_number instanceof WP_Error ) {
-			$wc_order->update_meta_data(
-				'1984_dk_woo_credit_invoice_creation_error',
-				$credit_invoice_number->get_error_code()
-			);
-			$wc_order->update_meta_data(
-				'1984_dk_woo_credit_invoice_creation_error_message',
-				$credit_invoice_number->get_error_message()
-			);
-			$wc_order->update_meta_data(
-				'1984_dk_woo_credit_invoice_creation_error_data',
-				$credit_invoice_number->get_error_data()
-			);
-			$wc_order->add_order_note(
-				__(
-					'Unable to create an invoice in DK: ',
-					'1984-dk-woo'
-				) . $credit_invoice_number->get_error_code()
-			);
-		} else {
-			$wc_order->add_order_note(
-				__(
-					'A credit invoice could not be created in DK due to an unhandled error.',
 					'1984-dk-woo'
 				)
 			);
