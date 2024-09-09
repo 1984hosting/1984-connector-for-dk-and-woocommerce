@@ -331,9 +331,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<section class="section">
 			<h2><?php esc_html_e( 'Invoices', '1984-dk-woo' ); ?></h2>
+			<p>
+				<?php
+				esc_html_e(
+					'Invoices may be made in DK upon successful checkout, or manually from the WooCommerce Order Editor. This can based on wether the customer supplies a kennitala, and a kennitala field can be enabled as well.',
+					'1984-dk-woo'
+				);
+				?>
+			</p>
 			<table id="dk-invoices-table" class="form-table">
 				<tbody>
-				<tr>
+					<tr>
 						<th scope="row" class="column-title column-primary">
 							<label for="default_kennitala_field">
 								<?php
@@ -492,34 +500,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php
 								esc_html_e(
 									'If this is enabled, a checkbox is added to the checkout form, that the customer needs to tick in order to have a kennitala assigned to their invoice, or the invoice will be treated like one with out a kennitala.',
-									'1984-dk-woo'
-								);
-								?>
-							</p>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row" class="column-title column-primary">
-						</th>
-						<td>
-							<input
-								id="make_credit_invoice_field"
-								name="make_credit_invoice"
-								type="checkbox"
-								<?php echo esc_attr( Config::get_make_credit_invoice() ? 'checked' : '' ); ?>
-							/>
-							<label for="make_credit_invoice_field">
-								<?php
-								esc_html_e(
-									'Create a credit invoice when an order is labelled as refunded',
-									'1984-dk-woo'
-								);
-								?>
-							</label>
-							<p class="description">
-								<?php
-								esc_html_e(
-									'If enabled, a credit invoice is automatically created when an order is labelled as refunded in WooCommerce.',
 									'1984-dk-woo'
 								);
 								?>

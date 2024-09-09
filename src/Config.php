@@ -640,23 +640,6 @@ class Config {
 	}
 
 	/**
-	 * Get wether to make a credit invoice when an order is labelled as refunded
-	 */
-	public static function get_make_credit_invoice(): bool {
-		return (bool) get_option( '1984_woo_dk_make_credit_invoice', false );
-	}
-
-	/**
-	 * Set wether to make a credit invoice when an order is labelled as refunded
-	 *
-	 * @param bool $value True to enable credit invoices,
-	 *             false to disable it.
-	 */
-	public static function set_make_credit_invoice( bool $value ): bool {
-		return update_option( '1984_woo_dk_make_credit_invoice', (int) $value );
-	}
-
-	/**
 	 * Get the ledger code for domestic customers
 	 *
 	 * This is the ledger code that is used of the customer's country is the
