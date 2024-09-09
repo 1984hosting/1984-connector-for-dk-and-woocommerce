@@ -20,7 +20,9 @@ Variant products, sale prices and stock quantity can be set to sync globally and
 
 You will need to finish setting up your WooCommerce shop, including tax rates, payment methods, whether prices are VAT-inclusive etc in accordance with how things are set up in your DK installation before you install, activate and configure the plugin.
 
-In order to get started, you need to set up an account with DK's dkPlus web service. Enter your API key in the form provided for a user with sufficient privileges under WooCommerce -> Connector for DK, correlate your WooCommerce Payment Gateways with the Payment Methods in your DK account and make sure that other settings are in accordance with how they are set up in DK.
+In order to get started, you need to set up an account with DK's dkPlus web service:
+
+Enter your API key in the form provided for a user with sufficient privileges under *WooCommerce 🠆 Connector for DK*, correlate your WooCommerce Payment Gateways with the Payment Methods in your DK account and make sure that other settings are in accordance with how they are set up in DK.
 
 Once a connection has been established, the plugin will work right away and will register products and other records in DK on creation in WooCommerce, as long as the correct inventory codes are set and a correct SKU is set for each item.
 
@@ -31,6 +33,10 @@ Once a connection has been established, the plugin will work right away and will
 3. The plugin also supports reading stock status from DK and displaying it in your WooCommerce shop.
 
 == Frequently Asked Questions ==
+
+= Does the plugin support self-hosted DK? =
+
+As the plugin uses the dkPlus API and dkPlus does not support self-hosted DK setups as far as we know, they are currently unsupported. (But do let us know if you find out that's not the case and we will be happy to work with you!)
 
 = Is data synchronisation fully bi-directional? =
 
@@ -48,14 +54,20 @@ If the kennitala field is disabled or a kennitala is not provided on checkout, i
 
 = Do I need to set up email delivery for invoices? =
 
-The plugin does not depend on WordPress or your web server being able to send emails. As we are leveraging DK's own email functionality, you need to enter the correct settings into DK and set the appropriate DNS settings such as your domain's SPF record in order for invoice delivery to work.
+The plugin does not depend on WordPress or your web server being able to send emails. As we are leveraging DK’s own email functionality, you need to enter the correct settings into DK and set the appropriate DNS settings such as your domain's SPF record in order for invoice delivery to work.
 
-= Does the plugin support the new WooCommerce Product form? =
+= Does the plugin support the new block based WooCommerce Product form? =
 
 As the WooCommerce product form is still under development and does not offer the possibility to add custom form fields to specify if you do not want to sync prices, number of items stock etc. for certain Products, that sort of granularity is not supported.
 
 However, if you do not need that granularity anyway and can make do with global settings, then it will work as long as you enter a SKU that corresponds with the product's Item Code in DK.
 
-== Disclaimer ==
+= Does the plugin support the new block based WooCommerce Checkout form? =
 
-This plugin's functionality depends on connecting to the dkPlus API, provided by DK Hugbúnaður ehf (DK). DK provides its services as per [their own terms, conditions](https://www.dk.is/um-dk/stefnur-og-skilmalar/almennir-vidskiptaskilmalar) and [privacy policy](https://www.dk.is/um-dk/stefnur-og-skilmalar/personuverndarstefna#nanar). This plugin is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.
+Yes. There are still issues with the kennitala field
+
+== Policies, Privacy and Legal ==
+
+This plugin's functionality depends on connecting to the dkPlus API, provided by DK Hugbúnaður ehf (DK). DK provides its services as per [their own General Terms and Conditions](https://dk.kreatives.is/wp-content/uploads/2024/08/General_Terms_and_Conditions_1_2024.pdf) (PDF) and [Privacy Policy](https://www.dk.is/um-dk/stefnur-og-skilmalar/personuverndarstefna#nanarenglish) (PDF).
+
+This plugin is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf. 1984's own Terms of Service can be found at [https://1984.hosting/tos/](https://1984.hosting/tos/).
