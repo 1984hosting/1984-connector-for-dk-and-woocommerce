@@ -2,9 +2,9 @@
 Stable tag: 0.4.4
 Contributors: @1984cto, @aldavigdis
 Tags: DK, dkPlus, Accounting, Inventory, Invoicing
-Requires at least: 6.2.4
+Requires at least: 6.2.6
 Tested up to: 6.6
-Requires PHP: 8.0
+Requires PHP: 8.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
