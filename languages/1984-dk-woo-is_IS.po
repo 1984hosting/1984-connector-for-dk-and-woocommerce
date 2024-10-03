@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: 1984 Connector for DK and WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
-"Language-Team: Icelandic\n"
+"Language-Team: Íslenska\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-04-18 23:42+0000\n"
-"PO-Revision-Date: 2024-08-19 01:37+0000\n"
+"PO-Revision-Date: 2024-10-03 14:45+0000\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.11; wp-6.5.5\n"
+"X-Loco-Version: 2.6.11; wp-6.6.1\n"
 "X-Domain: 1984-dk-woo\n"
 
 #. The %1$s and %2$s indicate an opening and closing <strong> tag.
@@ -125,7 +125,6 @@ msgstr ""
 "Reikningur fyrir þessa pöntun var búinn til í DK. Númer reikningsins er %1$s."
 
 #: src/Hooks/WooOrderStatusChanges.php:99
-#, fuzzy
 #| msgid ""
 #| "An invoice was not created as the customer did not enter a kennitala. The "
 #| "invoice needs to be created manually in DK."
@@ -137,7 +136,6 @@ msgstr ""
 "Það þarf að gera reikninginn handvirkt í DK."
 
 #: src/Hooks/WooOrderStatusChanges.php:85
-#, fuzzy
 #| msgid ""
 #| "An invoice was not created as the customer entered a kennitala. The "
 #| "invoice needs to be created manually in DK."
@@ -480,7 +478,7 @@ msgstr "Ógild kennitala. Kennitölur eru runur af 10 tölustöfum."
 
 #: views/dk_invoice_metabox.php:108
 msgid "Invoice has been created in DK."
-msgstr "Reikningur var ekki búinn til í DK"
+msgstr "Reikningur var búinn til í DK"
 
 #: views/dk_invoice_metabox.php:136
 msgid "Invoice not found in DK."
