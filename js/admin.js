@@ -87,7 +87,6 @@ class NineteenEightyWoo {
 			make_invoice_if_kennitala_is_set: Boolean( formData.get( 'make_invoice_if_kennitala_is_set' ) ),
 			make_invoice_if_kennitala_is_missing: Boolean( formData.get( 'make_invoice_if_kennitala_is_missing' ) ),
 			email_invoice: Boolean( formData.get( 'email_invoice' ) ),
-			make_credit_invoice: Boolean( formData.get( 'make_credit_invoice' ) ),
 			domestic_customer_ledger_code: formData.get( 'domestic_customer_ledger_code' ),
 			international_customer_ledger_code: formData.get( 'international_customer_ledger_code' ),
 			use_attribute_description: Boolean( formData.get( 'use_attribute_description' ) ),
