@@ -124,6 +124,23 @@ class KennitalaField {
 			10,
 			2
 		);
+
+		add_action(
+			'edit_form_top',
+			array( __CLASS__, 'add_nonce_to_order_editor' ),
+			10,
+			2
+		);
+	}
+
+	/**
+	 * Add our own nonce field to the post editor
+	 */
+	public static function add_nonce_to_order_editor(): void {
+		wp_nonce_field(
+			'1984_dk_woo_edit',
+			'1984_dk_woo_edit_nonce_field'
+		);
 	}
 
 	/**
@@ -163,12 +180,25 @@ class KennitalaField {
 		int $post_id,
 		WP_Post|WC_Order $wc_order
 	): void {
-		// Nonce check is handled by WooCommerce.
-		// phpcs:ignore WordPress.Security.NonceVerification
+		if ( ! isset( $_POST['1984_dk_woo_edit_nonce_field'] ) ) {
+			return;
+		}
+
+		if (
+			! wp_verify_nonce(
+				sanitize_text_field(
+					wp_unslash(
+						$_POST['1984_dk_woo_edit_nonce_field']
+					)
+				),
+				'1984_dk_woo_edit'
+			)
+		) {
+			return;
+		}
+
 		if ( isset( $_POST['_billing_kennitala'] ) ) {
 			$kennitala = sanitize_text_field(
-				// Nonce check is handled by WooCommerce.
-				// phpcs:ignore WordPress.Security.NonceVerification
 				wp_unslash( $_POST['_billing_kennitala'] )
 			);
 
@@ -402,6 +432,11 @@ class KennitalaField {
 			$kennitala = '';
 		}
 
+		wp_nonce_field(
+			'classic_checkout_set_kennitala',
+			'classic_checkout_set_kennitala_nonce_field'
+		);
+
 		woocommerce_form_field(
 			'billing_kennitala',
 			array(
@@ -439,13 +474,27 @@ class KennitalaField {
 	 * taken care of that for us at this point.
 	 */
 	public static function check_classic_checkout_field(): void {
-		// Nonce check is handled by WooCommerce.
-		// phpcs:ignore WordPress.Security.NonceVerification
+		if ( ! isset( $_POST['classic_checkout_set_kennitala_nonce_field'] ) ) {
+			return;
+		}
+
+		if (
+			! wp_verify_nonce(
+				sanitize_text_field(
+					wp_unslash(
+						$_POST['classic_checkout_set_kennitala_nonce_field']
+					)
+				),
+				'classic_checkout_set_kennitala'
+			)
+		) {
+			wp_die( 'Kennitala nonce not valid!' );
+			return;
+		}
+
 		if ( isset( $_POST['kennitala'] ) ) {
 
 			$kennitala = sanitize_text_field(
-				// Nonce check is handled by WooCommerce.
-				// phpcs:ignore WordPress.Security.NonceVerification
 				wp_unslash( $_POST['kennitala'] )
 			);
 
@@ -467,7 +516,7 @@ class KennitalaField {
 	}
 
 	/**
-	 * Save the kennitala from the block-based checkout process
+	 * Save the kennitala from the "classic" checkout process
 	 *
 	 * This is used by the `woocommerce_checkout_update_order_meta` hook.
 	 *
@@ -477,14 +526,28 @@ class KennitalaField {
 	 * @param int $order_id The order id.
 	 */
 	public static function save_classic_checkout_field( int $order_id ): void {
+		if ( ! isset( $_POST['classic_checkout_set_kennitala_nonce_field'] ) ) {
+			return;
+		}
+
+		if (
+			! wp_verify_nonce(
+				sanitize_text_field(
+					wp_unslash(
+						$_POST['classic_checkout_set_kennitala_nonce_field']
+					)
+				),
+				'classic_checkout_set_kennitala'
+			)
+		) {
+			wp_die( 'Kennitala nonce not valid!' );
+			return;
+		}
+
 		$order_object = new WC_Order( $order_id );
 
-		// Nonce check is handled by WooCommerce.
-		// phpcs:ignore WordPress.Security.NonceVerification
 		if ( isset( $_POST['billing_kennitala'] ) ) {
 			$kennitala = sanitize_text_field(
-				// Nonce check is handled by WooCommerce.
-				// phpcs:ignore WordPress.Security.NonceVerification
 				wp_unslash( $_POST['billing_kennitala'] )
 			);
 
@@ -496,8 +559,6 @@ class KennitalaField {
 			);
 		}
 
-		// Nonce check is handled by WooCommerce.
-		// phpcs:ignore WordPress.Security.NonceVerification
 		if ( isset( $_POST['kennitala_invoice_requested'] ) ) {
 			$order_object->update_meta_data( 'kennitala_invoice_requested', 1 );
 		} else {
