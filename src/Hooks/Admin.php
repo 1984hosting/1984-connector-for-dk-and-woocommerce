@@ -239,6 +239,14 @@ class Admin {
 		string $doaction,
 		array $post_ids
 	): string {
+		if ( ! isset( $_GET['action_1984_dk_woo_nonce'] ) ) {
+			return $sendback;
+		}
+
+		if ( ! isset( $_GET['action_post_id'] ) ) {
+			return $sendback;
+		}
+
 		if ( ! current_user_can( 'edit_others_posts' ) ) {
 			return $sendback;
 		}
@@ -247,9 +255,13 @@ class Admin {
 			return $sendback;
 		}
 
-		// Nonce check is handled by the WP Core.
-		// phpcs:ignore WordPress.Security.NonceVerification
-		if ( ! isset( $_GET['action_post_id'] ) ) {
+		if ( ! wp_verify_nonce(
+			sanitize_text_field(
+				wp_unslash( $_GET['action_1984_dk_woo_nonce'] )
+			),
+			'wp_rest'
+		)
+		) {
 			return $sendback;
 		}
 
