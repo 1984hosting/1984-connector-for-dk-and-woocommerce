@@ -10,6 +10,7 @@ class NineteenEightyWooProducts {
 		let actionButton     = document.getElementById( 'doaction' );
 		let productIdInput   = document.createElement( 'input' );
 		let spacerTextNode   = document.createTextNode( ' ' );
+		let nonceInput       = document.createElement( 'input' );
 
 		productIdInput.setAttribute( 'type', 'text' );
 		productIdInput.setAttribute( 'name', 'action_post_id' );
@@ -19,8 +20,14 @@ class NineteenEightyWooProducts {
 			__( 'Parent ID', '1984-dk-woo' )
 		);
 
+		nonceInput.setAttribute( 'type', 'hidden' );
+		nonceInput.setAttribute( 'name', 'action_1984_dk_woo_nonce' );
+		nonceInput.setAttribute( 'id', 'action_1984_dk_woo_nonce_input' );
+		nonceInput.value = wpApiSettings.nonce;
+
 		actionsContainer.insertBefore( productIdInput, actionButton );
 		actionsContainer.insertBefore( spacerTextNode, actionButton );
+		actionsContainer.insertBefore( nonceInput, actionButton );
 	}
 
 	static removeProductInputFromActions() {
