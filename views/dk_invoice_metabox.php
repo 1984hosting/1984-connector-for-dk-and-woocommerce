@@ -10,24 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $post;
 
-
-if ( $post ) {
-	$wc_order = wc_get_order( $post->ID );
-} else {
-	// Nonce check is handled by the WooCommerce, which does not make a global
-	// "product" object available in this case.
-	// phpcs:ignore WordPress.Security.NonceVerification
-	if ( isset( $_GET['id'] ) ) {
-		$wc_order = wc_get_order(
-			// Nonce check is handled by the WooCommerce, which does not make a
-			// global "product" object available in this case.
-			// phpcs:ignore WordPress.Security.NonceVerification
-			sanitize_text_field( wp_unslash( $_GET['id'] ) )
-		);
-	} else {
-		exit;
-	}
-}
+$wc_order = wc_get_order( $post->ID );
 
 $invoice_number        = $wc_order->get_meta( '1984_woo_dk_invoice_number', true, 'edit' );
 $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number', true, 'edit' );
