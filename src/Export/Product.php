@@ -478,7 +478,6 @@ class Product {
 
 		if ( ProductHelper::price_sync_enabled( $wc_product ) ) {
 			$price_props = array(
-				'CurrencyCode'        => get_woocommerce_currency(),
 				'TaxPercent'          => ProductHelper::tax_rate( $wc_product ),
 				'PropositionPrice'    => ProductHelper::format_sale_price_for_dk( $wc_product ),
 				'PropositionDateFrom' => ProductHelper::format_date_on_sale_for_dk( 'from', $wc_product ),
