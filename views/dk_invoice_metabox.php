@@ -8,13 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $post;
-
-$wc_order = wc_get_order( $post->ID );
+$wc_order = wc_get_order();
 
 $invoice_number        = $wc_order->get_meta( '1984_woo_dk_invoice_number', true, 'edit' );
 $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number', true, 'edit' );
-
 ?>
 
 <div

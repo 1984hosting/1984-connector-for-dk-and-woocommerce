@@ -8,9 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $post;
-
-$wc_product = new WC_Product( $post );
+$wc_product = wc_get_product();
 
 ?>
 
