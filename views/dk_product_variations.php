@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -16,89 +18,314 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 
 ?>
 
-<div id="dk_variations_tab" class="panel hidden" style="width: 80%; float: left;">
+<div id="dk_variations_tab" class="panel hidden">
+	<?php wp_nonce_field( 'set_1984_woo_dk_variations', 'set_1984_woo_dk_variations_nonce' ); ?>
 	<div class="inline notice woocommerce-message show_if_variable">
-		<img class="info-icon" src="<?php echo esc_url( WC_ADMIN_IMAGES_FOLDER_URL . '/icons/info.svg' ); ?>" />
-		<p style="margin-left: 1em;">
-			With the 1984 Connector for DK and WooCommerce enabled, it is not possible to edit or delete product variations directly via WooCommerce. You will need to use DK's own ‘Product Variations’ feature to remove or edit variations. This may not be enabled by default as a feature in your DK installation.
+		<img
+			class="info-icon"
+			src="<?php echo esc_url( WC_ADMIN_IMAGES_FOLDER_URL . '/icons/info.svg' ); ?>"
+		/>
+		<p>
+			<?php
+			echo esc_html(
+				__(
+					"DK's own ‘Product Variations’ feature is required to add or remove product variations that originate in DK.",
+					'1984-dk-woo'
+				)
+			);
+			?>
+			<br />
+			<?php
+			echo esc_html(
+				__(
+					'Products are listed in the same order as they are retreived from DK.',
+					'1984-dk-woo'
+				)
+			);
+			?>
 		</p>
 	</div>
 
-	<div class="dk-variations" style="margin-top: 2em;">
-		<?php foreach ( $wc_variable_product->get_available_variations( 'objects' ) as $i => $variation ) : ?>
-		<div class="dk-variation" style="padding: 1em 2em; border-top: 1px solid #eee;">
-			<h3 style="margin: 0em; margin-bottom: 0.5em;">#<?php echo esc_html( $variation->get_id() ); ?> - <?php echo esc_html( implode( ', ', $variation->get_attributes() ) ); ?></h3>
+	<div class="dk-variations">
+		<?php foreach ( $wc_variable_product->get_children() as $variation_id ) : ?>
+			<?php $variation = new WC_Product_Variation( $variation_id ); ?>
+			<div class="dk-variation">
+				<h3>
+					<?php
+					echo esc_html(
+						sprintf(
+							// Translators: The %d is the variation ID.
+							__( 'Variation #%d', '1984-dk-woo' ),
+							$variation_id
+						)
+					);
+					?>
+				</h3>
 
-			<div style="margin-top: 1em;">
-				<img
-					src="<?php echo $variation->get_image_id( 'edit' ) ? esc_url( wp_get_attachment_thumb_url( $variation->get_image_id( 'edit' ) ) ) : esc_url( wc_placeholder_img_src() ); ?>"
-					width="100px"
-					height="100px"
-					style="border: 1px solid #ccc; border-radius: 4px;"
-				/>
-			</div>
-
-			<div>
-				<ul>
-					<li>
-						<strong>Stock quantity:</strong>
-						<?php echo esc_html( $variation->get_stock_quantity( 'edit' ) ); ?>
-					</li>
-				</ul>
-			</div>
-
-			<div class="" style="display: flex;">
-				<div class="" style="margin-right: 2em;">
-					<label>
-						<input
-							type="checkbox"
-							class="checkbox"
-							name="dk_variable_enabled[<?php echo esc_attr( $variation->get_id() ); ?>]"
-							<?php checked( in_array( $variation->get_status( 'edit' ), array( 'publish', false ), true ), true ); ?>
+				<div class="dk-variation-image">
+					<button
+						class="add-thumbnail-button"
+						title="<?php echo esc_html( __( 'Replace Image', '1984-dk-woo' ) ); ?>"
+						data-variation-thumbnail-for="<?php echo esc_html( $variation_id ); ?>"
+					>
+						<img
+							src="<?php echo $variation->get_image_id( 'edit' ) ? esc_url( wp_get_attachment_image_url( $variation->get_image_id( 'edit' ), 'medium' ) ) : esc_url( wc_placeholder_img_src() ); ?>"
+							alt="<?php echo $variation->get_image_id( 'edit' ) ? esc_attr( get_post_meta( $variation->get_image_id( 'edit' ), '_wp_attachment_image_alt', true ) ) : ''; ?>"
+							data-placeholer-src="<?php echo esc_url( wc_placeholder_img_src() ); ?>"
 						/>
-						Enalbed
-					</label>
+					</button>
+					<button
+						class="remove-thumbnail-button button button-small button-secondary"
+						data-remove-thumbnail-for="<?php echo esc_html( $variation_id ); ?>"
+						<?php disabled( empty( $variation->get_image_id( 'edit' ) ) ); ?>
+					>
+						<?php echo esc_html( __( 'Remove Image', '1984-dk-woo' ) ); ?>
+					</button>
+					<input
+						type="hidden"
+						name="dk_variable_image_id[<?php echo esc_html( $variation_id ); ?>]"
+						value="<?php echo esc_attr( $variation->get_image_id( 'edit' ) ); ?>"
+						disabled
+						data-variation-image-id-for="<?php echo esc_attr( $variation_id ); ?>"
+					/>
 				</div>
-				<div class="" style="margin-right: 2em;">
-					<label>
-						<input
-							type="checkbox"
-							class="checkbox variable_is_downloadable"
-							name="dk_variable_is_downloadable[<?php echo esc_attr( $i ); ?>]"
-							<?php checked( $variation->get_downloadable( 'edit' ), true ); ?>
-						/>
-						Downloadable
-					</label>
-				</div>
-				<div class="" style="margin-right: 2em;">
-					<label>
-						<input
-							type="checkbox"
-							class="checkbox variable_is_virtual"
-							name="dk_variable_is_virtual[<?php echo esc_attr( $i ); ?>]"
-							<?php checked( $variation->get_virtual( 'edit' ), true ); ?>
-						/>
-						Virtual
-					</label>
-				</div>
-			</div>
 
-			<div>
-				<?php
-				woocommerce_wp_textarea_input(
-					array(
-						'id'            => "variable_description{$i}",
-						'name'          => "variable_description[{$i}]",
-						'value'         => $variation->get_description( 'edit' ),
-						'label'         => 'Description (not synced with DK)',
-						'desc_tip'      => true,
-						'description'   => 'Enter an optional description for this variation.',
-						'wrapper_class' => 'form-row form-row-full',
-					)
-				);
-				?>
+				<div class="dk-variation-fields">
+					<div class="dk-variation-options">
+						<ul class="dk-variation-props">
+							<?php foreach ( ProductHelper::attributes_with_descriptions( $variation ) as $label => $value ) : ?>
+							<li>
+								<strong>
+									<?php echo esc_html( $label ); ?>:
+								</strong>
+								<span>
+									<?php echo esc_html( $value ); ?>
+								</span>
+							</li>
+							<?php endforeach ?>
+						</ul>
+						<div class="dk-variation-checkbox">
+							<label>
+								<input
+									type="checkbox"
+									name="dk_variable_price_override[<?php echo esc_attr( $variation_id ); ?>]"
+									data-variation-price-checkbox-for="<?php echo esc_attr( $variation_id ); ?>"
+									<?php checked( ProductHelper::variation_price_override( $variation ) ); ?>
+								/>
+								<span>
+									<?php echo esc_html( __( 'Override the product price from DK for this variation', '1984-dk-woo' ) ); ?>
+								</span>
+							</label>
+						</div>
+						<div
+							class="dk-variation-fields dk-variation-prices <?php echo ( ! ProductHelper::variation_price_override( $variation ) ) ? 'hidden' : ''; ?>"
+							data-variation-price-fields-for="<?php echo esc_attr( $variation_id ); ?>"
+						>
+							<div class="dk-variation-field">
+								<label>
+									<span>
+										<?php
+										echo esc_html(
+											sprintf(
+												// Translators: The %s is the currency symbol for WooCommerce.
+												__( 'Price (%s)', '1984-dk-woo' ),
+												get_woocommerce_currency_symbol()
+											)
+										);
+										?>
+									</span>
+									<input
+										type="number"
+										name="dk_variable_price[<?php echo esc_attr( $variation_id ); ?>]"
+										value="<?php echo esc_attr( $variation->get_regular_price( 'edit' ) ); ?>"
+										min="0"
+										<?php disabled( ! ProductHelper::variation_price_override( $variation ) ); ?>
+									/>
+								</label>
+							</div>
+							<div class="dk-variation-field">
+								<label>
+									<span>
+										<?php
+										echo esc_html(
+											sprintf(
+												// Translators: The %s is the currency symbol for WooCommerce.
+												__( 'Sale Price (%s)', '1984-dk-woo' ),
+												get_woocommerce_currency_symbol()
+											)
+										);
+										?>
+									</span>
+									<input
+										type="number"
+										name="dk_variable_sale_price[<?php echo esc_attr( $variation_id ); ?>]"
+										value="<?php echo esc_attr( $variation->get_sale_price( 'edit' ) ); ?>"
+										min="0"
+										<?php disabled( ! ProductHelper::variation_price_override( $variation ) ); ?>
+									/>
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="dk-variation-options">
+						<div class="dk-variation-checkbox">
+							<label>
+								<input
+									type="checkbox"
+									name="dk_variable_inventory_override[<?php echo esc_attr( $variation_id ); ?>]"
+									data-variation-inventory-checkbox-for="<?php echo esc_attr( $variation_id ); ?>"
+									<?php checked( ProductHelper::variation_inventory_override( $variation ) ); ?>
+								/>
+								<span>
+									<?php echo esc_html( __( 'Override DK inventory for this variation', '1984-dk-woo' ) ); ?>
+								</span>
+							</label>
+						</div>
+						<div
+							class="dk-variation-fields dk-variation-inventory <?php echo ( ! ProductHelper::variation_inventory_override( $variation ) ) ? 'hidden' : ''; ?>"
+							data-variation-inventory-fields-for="<?php echo esc_attr( $variation_id ); ?>"
+						>
+							<div class="dk-variation-subcheckbox">
+								<label>
+									<input
+										type="checkbox"
+										name="dk_variable_quantity_track_in_wc[<?php echo esc_attr( $variation_id ); ?>]"
+										data-variation-inventory-qty-checkbox-for="<?php echo esc_attr( $variation_id ); ?>"
+										<?php disabled( ! ProductHelper::variation_inventory_override( $variation ) ); ?>
+										<?php checked( ProductHelper::variation_inventory_track_in_wc( $variation ) ); ?>
+									/>
+									<span>
+										<?php echo esc_html( __( 'Track sock quantity in WooCommerce', '1984-dk-woo' ) ); ?>
+									</span>
+								</label>
+							</div>
+							<div
+								class="togglable <?php echo ( ProductHelper::variation_inventory_track_in_wc( $variation ) ) ? '' : 'hidden'; ?>"
+							>
+								<div class="dk-variation-field">
+									<label>
+										<span>
+											<?php echo esc_html( __( 'Quantity', '1984-dk-woo' ) ); ?>
+										</span>
+										<input
+											type="number"
+											name="dk_variable_quantity[<?php echo esc_attr( $variation_id ); ?>]"
+											value="<?php echo esc_attr( $variation->get_stock_quantity( 'edit' ) ); ?>"
+											<?php disabled( ! ProductHelper::variation_inventory_track_in_wc( $variation ) ); ?>
+										/>
+									</label>
+								</div>
+								<fieldset>
+									<legend>
+										<?php echo esc_html( __( 'Backorders', '1984-dk-woo' ) ); ?>
+									</legend>
+									<div class="dk-variation-subcheckbox">
+										<label>
+											<input
+												type="radio"
+												value="no"
+												name="dk_variable_override_allow_backorders_in_wc[<?php echo esc_attr( $variation_id ); ?>]"
+												<?php checked( $variation->get_backorders() === 'no' ); ?>
+												<?php disabled( ! ProductHelper::variation_inventory_override( $variation ) || ! $variation->get_manage_stock( 'edit' ) ); ?>
+											/>
+											<span>
+												<?php echo esc_html( __( 'Do not allow backorders', '1984-dk-woo' ) ); ?>
+											</span>
+										</label>
+									</div>
+									<div class="dk-variation-subcheckbox">
+										<label>
+											<input
+												type="radio"
+												value="notify"
+												name="dk_variable_override_allow_backorders_in_wc[<?php echo esc_attr( $variation_id ); ?>]"
+												<?php checked( $variation->get_backorders() === 'notify' ); ?>
+												<?php disabled( ! ProductHelper::variation_inventory_override( $variation ) || ! $variation->get_manage_stock( 'edit' ) ); ?>
+											/>
+											<span>
+												<?php echo esc_html( __( 'Allow backorders, but notify customer', '1984-dk-woo' ) ); ?>
+											</span>
+										</label>
+									</div>
+									<div class="dk-variation-subcheckbox">
+										<label>
+											<input
+												type="radio"
+												value="yes"
+												name="dk_variable_override_allow_backorders_in_wc[<?php echo esc_attr( $variation_id ); ?>]"
+												<?php checked( $variation->get_backorders() === 'yes' ); ?>
+												<?php disabled( ! ProductHelper::variation_inventory_override( $variation ) || ! $variation->get_manage_stock( 'edit' ) ); ?>
+											/>
+											<span>
+												<?php echo esc_html( __( 'Allow backorders', '1984-dk-woo' ) ); ?>
+											</span>
+										</label>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+
+					<div class="variation-textarea">
+						<?php
+						woocommerce_wp_textarea_input(
+							array(
+								'id'            => "dk_variable_description_{$variation_id}",
+								'name'          => "dk_variable_description[{$variation_id}]",
+								'value'         => $variation->get_description( 'edit' ),
+								'label'         => __( 'Description (not synced with DK)', '1984-dk-woo' ),
+								'desc_tip'      => true,
+								'description'   => __( 'Enter an optional description for this variation.', '1984-dk-woo' ),
+								'wrapper_class' => 'form-row form-row-full',
+							)
+						);
+						?>
+					</div>
+
+					<div class="dk-variation-checkboxes">
+						<div class="dk-variation-checkbox">
+							<label>
+								<input
+									type="checkbox"
+									class="checkbox"
+									name="dk_variable_enabled[<?php echo esc_attr( $variation_id ); ?>]"
+									<?php checked( in_array( $variation->get_status( 'edit' ), array( 'publish', false ), true ), true ); ?>
+								/>
+								<span>
+									<?php echo esc_html( __( 'Enabled', '1984-dk-woo' ) ); ?>
+								</span>
+							</label>
+						</div>
+						<div class="dk-variation-checkbox">
+							<label>
+								<input
+									type="checkbox"
+									class="checkbox variable_is_downloadable"
+									name="dk_variable_is_downloadable[<?php echo esc_attr( $variation_id ); ?>]"
+									<?php checked( $variation->get_downloadable( 'edit' ), true ); ?>
+								/>
+								<span>
+									<?php echo esc_html( __( 'Downloadable', '1984-dk-woo' ) ); ?>
+								</span>
+							</label>
+						</div>
+						<div class="dk-variation-checkbox">
+							<label>
+								<input
+									type="checkbox"
+									class="checkbox variable_is_virtual"
+									name="dk_variable_is_virtual[<?php echo esc_attr( $variation_id ); ?>]"
+									<?php checked( $variation->get_virtual( 'edit' ), true ); ?>
+								/>
+								<span>
+									<?php echo esc_html( __( 'Virtual', '1984-dk-woo' ) ); ?>
+								</span>
+							</label>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
 		<?php endforeach ?>
 	</div>
 </div>

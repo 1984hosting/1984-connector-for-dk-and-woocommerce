@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Helpers;
 
+use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations as ImportProductVariations;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
 use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
@@ -11,6 +12,7 @@ use WC_Product;
 use WC_Product_Variation;
 use WC_Tax;
 use WC_DateTime;
+use WC_Product_Variable;
 
 /**
  * The Product Helper Class
@@ -61,6 +63,9 @@ class Product {
 	 */
 	public static function price_sync_enabled( WC_Product $wc_product ): bool {
 		if ( $wc_product instanceof WC_Product_Variation ) {
+			if ( self::variation_price_override( $wc_product ) ) {
+				return false;
+			}
 			$parent = wc_get_product( $wc_product->get_parent_id() );
 			if ( $parent ) {
 				$wc_product = $parent;
@@ -110,6 +115,10 @@ class Product {
 		WC_Product $wc_product
 	): bool {
 		if ( $wc_product instanceof WC_Product_Variation ) {
+			if ( self::variation_inventory_override( $wc_product ) ) {
+				return false;
+			}
+
 			$parent = wc_get_product( $wc_product->get_parent_id() );
 			if ( $parent ) {
 				$wc_product = $parent;
@@ -314,52 +323,187 @@ class Product {
 		return false;
 	}
 
-	/**
-	 * Convert a product to variant
-	 *
-	 * @param int $product_id The product ID.
-	 * @param int $parent_id The ID of the new variant's parent.
-	 *
-	 * @return bool True on success, false on failure.
-	 */
-	public static function convert_to_variant(
-		int $product_id,
-		int $parent_id
-	): int|false {
-		if ( get_post_type( $product_id ) !== 'product' ) {
-			return false;
+	public static function variation_price_override(
+		WC_Product_Variation $wc_product_variation
+	): bool {
+		if (
+			$wc_product_variation->get_meta(
+				'1984_dk_woo_variable_price_override',
+				true,
+				'edit'
+			)
+		) {
+			return true;
 		}
-
-		$post  = get_post( $product_id );
-		$title = $post->post_title;
-
-		if ( is_null( $post ) ) {
-			return false;
-		}
-
-		$parent = wc_get_product( $parent_id );
-
-		if ( ! $parent ) {
-			return false;
-		}
-
-		$wc_product = wc_get_product( $product_id );
-
-		if ( $wc_product->get_status( 'edit' ) === 'draft' ) {
-			$wc_product->set_status( 'private' );
-		}
-
-		$wc_product->set_parent_id( $parent_id );
-
-		// We indicate it here that this variant was originally a product.
-		$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
-		$wc_product->update_meta_data( '1984_dk_woo_original_name', $title );
-
-		if ( $wc_product->save() !== 0 ) {
-			set_post_type( $post->ID, 'product_variation' );
-			return $wc_product->get_id();
-		}
-
 		return false;
+	}
+
+	public static function variation_inventory_override(
+		WC_Product_Variation $wc_product_variation
+	): bool {
+		if (
+			$wc_product_variation->get_meta(
+				'1984_dk_woo_variable_inventory_override',
+				true,
+				'edit'
+			)
+		) {
+			return true;
+		}
+		return false;
+	}
+
+	public static function variation_inventory_track_in_wc(
+		WC_Product_Variation $wc_product_variation
+	): bool {
+		if (
+			$wc_product_variation->get_meta(
+				'1984_dk_woo_variable_quantity_track_in_wc',
+				true,
+				'edit'
+			)
+		) {
+			return true;
+		}
+		return false;
+	}
+
+	public static function attribute_descriptions(
+		WC_Product_Variation|WC_Product_Variable $wc_product
+	): array {
+		$variations = ImportProductVariations::get_variations();
+		$parent     = wc_get_product( $wc_product->get_parent_id() );
+
+		if ( $parent ) {
+			$variant_code = $parent->get_meta( '1984_dk_woo_variant_code' );
+			$attributes   = $parent->get_attributes( 'edit' );
+		} else {
+			$variant_code = $wc_product->get_meta( '1984_dk_woo_variant_code' );
+			$attributes   = $wc_product->get_attributes( 'edit' );
+		}
+
+		$descriptions = array();
+
+		$attributes = $variations[ $variant_code ]->attributes;
+
+		if (
+			empty( $variant_code ) ||
+			! array_key_exists( $variant_code, $variations )
+		) {
+			foreach ( array_keys( $attributes ) as $attribute ) {
+				$descriptions[ $attribute ] = $attribute;
+			}
+		} else {
+			foreach ( array_keys( $attributes ) as $attribute ) {
+				$descriptions[ $attribute ] = $variations[ $variant_code ]->attributes[ $attribute ]->description;
+			}
+		}
+
+		return $descriptions;
+	}
+
+	public static function attribute_label_description(
+		WC_Product_Variation|WC_Product_Variable $wc_product,
+		string $attribute_code
+	): string {
+		$variations = ImportProductVariations::get_variations();
+		$parent     = wc_get_product( $wc_product->get_parent_id() );
+		$value      = $wc_product->get_attribute( $attribute_code );
+
+		if ( $parent ) {
+			$variant_code = $parent->get_meta( '1984_dk_woo_variant_code' );
+		} else {
+			$variant_code = $wc_product->get_meta( '1984_dk_woo_variant_code' );
+		}
+
+		if ( empty( $variant_code ) ) {
+			return $value;
+		}
+
+		return $variations[ $variant_code ]->attributes[ $attribute_code ]->description;
+	}
+
+	public static function attribute_value_description(
+		WC_Product_Variation|WC_Product_Variable $wc_product,
+		string $attribute_code,
+		string $value_code
+	): string {
+		$variations = ImportProductVariations::get_variations();
+		$parent     = wc_get_product( $wc_product->get_parent_id() );
+
+		if ( $parent ) {
+			$variant_code = $parent->get_meta( '1984_dk_woo_variant_code' );
+		} else {
+			$variant_code = $wc_product->get_meta( '1984_dk_woo_variant_code' );
+		}
+
+		$values = $variations[ $variant_code ]->attributes[ $attribute_code ]->values;
+
+		if (
+			empty( $variant_code ) ||
+			! array_key_exists( $value_code, $values ) ||
+			! property_exists( $values[ $value_code ], 'name' )
+		) {
+			return $value_code;
+		}
+
+		return $values[ $value_code ]->name;
+	}
+
+	public static function variation_attribute_value_description(
+		WC_Product_Variation $wc_product,
+		string $attribute_code,
+	): string {
+		$variations = ImportProductVariations::get_variations();
+		$parent     = wc_get_product( $wc_product->get_parent_id() );
+		$value      = $wc_product->get_attribute( $attribute_code );
+
+		if ( $parent ) {
+			$variant_code = $parent->get_meta( '1984_dk_woo_variant_code' );
+		} else {
+			$variant_code = $wc_product->get_meta( '1984_dk_woo_variant_code' );
+		}
+
+		if ( empty( $variant_code ) ) {
+			return $value;
+		}
+
+		return $variations[ $variant_code ]->attributes[ $attribute_code ]->values[ $value ]->name;
+	}
+
+	public static function attributes_with_descriptions(
+		WC_Product_Variation $variation,
+	) {
+		$summary_array = array();
+
+		foreach ( $variation->get_attributes() as $label => $value ) {
+			if ( Config::get_use_attribute_description() ) {
+				$label_description = self::attribute_label_description( $variation, $label );
+			} else {
+				$label_description = $label;
+			}
+
+			if ( Config::get_use_attribute_value_description() ) {
+				$value_description = self::attribute_value_description( $variation, $label, $value );
+			} else {
+				$value_description = $label;
+			}
+
+			$summary_array[ $label_description ] = $value_description;
+		}
+
+		return $summary_array;
+	}
+
+	public static function attribute_summary_with_descriptions(
+		WC_Product_Variation $variation,
+	) {
+		$pairs = array();
+
+		foreach ( self::attributes_with_descriptions( $variation ) as $label => $value ) {
+			$pairs[] = "$label: $value";
+		}
+
+		return implode( ', ', $pairs );
 	}
 }

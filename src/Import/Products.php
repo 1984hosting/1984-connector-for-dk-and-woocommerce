@@ -10,6 +10,7 @@ use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
 use NineteenEightyFour\NineteenEightyWoo\Currency;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
+use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations as ImportProductVariations;
 use DateTime;
 use stdClass;
 use WC_DateTime;
@@ -17,7 +18,7 @@ use WC_Product;
 use WP_Error;
 use WC_Tax;
 use WC_Product_Variation;
-use WC_Data_Store;
+use WC_Product_Variable;
 
 /**
  * The Products import class
@@ -271,6 +272,11 @@ class Products {
 			$wc_product->save();
 		}
 
+		$wc_product->update_meta_data(
+			'1984_dk_woo_product_json',
+			wp_json_encode( $json_object, JSON_PRETTY_PRINT )
+		);
+
 		$wc_product->set_sku( $json_object->ItemCode );
 
 		if ( ! $json_object->ShowItemInWebShop ) {
@@ -382,6 +388,11 @@ class Products {
 			wp_delete_post( $wc_product->get_id() );
 			return false;
 		}
+
+		$wc_product->update_meta_data(
+			'1984_dk_woo_product_json',
+			wp_json_encode( $json_object, JSON_PRETTY_PRINT )
+		);
 
 		if ( $json_object->IsVariation ) {
 			$variant_code = ProductVariations::get_product_variant_code_by_sku(
@@ -498,7 +509,7 @@ class Products {
 	 */
 	public static function get_product_price_from_json(
 		stdClass $json_object
-	): stdClass|false {
+	): stdClass|false|WP_Error {
 		$store_currency = get_woocommerce_currency();
 		$dk_currency    = Config::get_dk_currency();
 
@@ -807,7 +818,6 @@ class Products {
 		array $variations_array,
 		WC_Product $wc_product
 	): array {
-		$data_store             = WC_Data_Store::load( 'product' );
 		$affected_variation_ids = array();
 
 		$variation_count = count( $wc_product->get_children() );
@@ -822,9 +832,9 @@ class Products {
 				$attributes[ $key ] = $v->code_2;
 			}
 
-			$variation_id = $data_store->find_matching_product_variation(
+			$variation_id = self::match_variation(
 				$wc_product,
-				$attributes
+				$v
 			);
 
 			if ( $variation_id === 0 ) {
@@ -861,12 +871,13 @@ class Products {
 
 					$variation->set_parent_id( $wc_product->get_id() );
 					$variation->set_attributes( $attributes );
-					if ( ProductHelper::quantity_sync_enabled( $wc_product ) ) {
+					$variation->set_weight( $wc_product->get_weight() );
+					if ( ProductHelper::quantity_sync_enabled( $variation ) ) {
 						$variation->set_stock_quantity( $v->quantity );
-						$variation->set_weight( $wc_product->get_weight() );
 						$variation->set_manage_stock( $wc_product->get_manage_stock() );
+						$variation->set_backorders( $wc_product->get_backorders() );
 					}
-					if ( ProductHelper::price_sync_enabled( $wc_product ) ) {
+					if ( ProductHelper::price_sync_enabled( $variation ) ) {
 						$price = $wc_product->get_meta( '1984_dk_woo_price' );
 
 						if ( is_object( $price ) ) {
@@ -898,5 +909,80 @@ class Products {
 		}
 
 		return $affected_variation_ids;
+	}
+
+	/**
+	 * Match a variation from DK with one in WooCommerce
+	 *
+	 * @param WC_Product_Variable $wc_product The parent product of the WooCommerce variant.
+	 * @param stdClass            $variation_json_object The JSON object returned from the merge_variations function.
+	 *
+	 * @return int The ID of the variation if it exsists, 0 if not.
+	 */
+	public static function match_variation(
+		WC_Product_Variable $wc_product,
+		stdClass $variation_json_object
+	): int {
+		foreach ( $wc_product->get_children() as $variation_id ) {
+			$variation = new WC_Product_Variation( $variation_id );
+
+			$variation_attributes = $variation->get_attributes();
+			$variation_keys       = array_keys( $variation_attributes );
+			$variation_values     = array_values( $variation_attributes );
+
+			if (
+				$variation_json_object->attribute_1 === $variation_keys[0] &&
+				$variation_json_object->code_1 === $variation_values[0]
+			) {
+				if (
+					! property_exists( $variation_json_object, 'attribute_2' ) &&
+					! property_exists( $variation_json_object, 'code_2' )
+				) {
+					return $variation_id;
+				}
+
+				if (
+					$variation_json_object->attribute_2 === $variation_keys[1] &&
+					$variation_json_object->code_2 === $variation_values[1]
+				) {
+					return $variation_id;
+				}
+			}
+		}
+		return 0;
+	}
+
+	/**
+	 * Get the total quantity of a variation form a product JSON response
+	 *
+	 * @param stdClass $json_object The product JSON response form DK.
+	 * @param array    $codes An array of objects representing the variation attribures to check for.
+	 *
+	 * @return float The quanity, or 0.0 if no variation is found.
+	 */
+	public static function get_variation_quantity_from_json(
+		stdClass $json_object,
+		array $codes,
+	): float {
+		$variations = self::merge_variations(
+			$json_object,
+			ImportProductVariations::get_product_variant_code_by_sku(
+				$json_object->ItemCode
+			)
+		);
+
+		foreach ( $variations as $variation ) {
+			if ( $variation->code_1 === $codes[0] ) {
+				if ( array_key_exists( 1, $codes ) ) {
+					if ( $codes[1] === $variation->code_2 ) {
+						return $variation->quantity;
+					}
+				} else {
+					return $variation->quantity;
+				}
+			}
+		}
+
+		return 0.0;
 	}
 }

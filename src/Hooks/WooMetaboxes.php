@@ -4,7 +4,10 @@ declare(strict_types = 1);
 
 namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
 
+use NineteenEightyFour\NineteenEightyWoo\Import\Products as ImportProducts;
 use WC_Product;
+use WC_Product_Variable;
+use WC_Product_Variation;
 
 /**
  * The WooMetaboxes class
@@ -55,6 +58,63 @@ class WooMetaboxes {
 			10,
 			2
 		);
+
+		add_filter(
+			'woocommerce_product_data_tabs',
+			array( __CLASS__, 'remove_variations_from_product_editor' ),
+			98,
+			1
+		);
+
+		add_action(
+			'woocommerce_product_data_panels',
+			array( __CLASS__, 'variations_panel' )
+		);
+	}
+
+	/**
+	 * Remove the default WooCommerce variations UI from the product meta tabs
+	 *
+	 * As we are relying on DK's variant products feature, we replace the
+	 * WooCommerce product variations interface with our own, which is primarily
+	 * read-only.
+	 *
+	 * This replaces our previous approach, which was to trust users to
+	 * manipulate product variations in WooCommerce, which may conflict with
+	 * DK's variation feature. This was assumed to be an acceptable approach
+	 * before we realised that DK supported variations, but that the feature had
+	 * to be enabled by DK's support as it is not on by default.
+	 *
+	 * @param array $tabs The tabs array to be filtered.
+	 */
+	public static function remove_variations_from_product_editor(
+		array $tabs
+	): array {
+		$wc_product = wc_get_product();
+
+		if ( $wc_product->get_meta( '1984_dk_woo_origin' ) !== 'product_variation' ) {
+			return $tabs;
+		}
+
+		unset( $tabs['variations'] );
+
+		$tabs['attribute']['class'] = array( 'hide_if_variable' );
+
+		$tabs['1984_dk_woo_variations'] = array(
+			'label'    => 'DK Variations',
+			'target'   => 'dk_variations_tab',
+			'priority' => 60,
+			'class'    => array( 'show_if_variable' ),
+		);
+
+		return $tabs;
+	}
+
+	/**
+	 * Render the DK variations panel
+	 */
+	public static function variations_panel(): void {
+		require dirname( __DIR__, 2 ) . '/views/dk_product_variations.php';
 	}
 
 	/**
@@ -122,6 +182,10 @@ class WooMetaboxes {
 		self::set_product_sync_meta_from_post( $wc_product, 'price' );
 		self::set_product_sync_meta_from_post( $wc_product, 'stock' );
 		self::set_product_sync_meta_from_post( $wc_product, 'name' );
+
+		if ( is_a( $wc_product, 'WC_Product_Variable' ) ) {
+			self::set_product_variation_meta_from_post( $wc_product );
+		}
 	}
 
 	/**
@@ -164,5 +228,217 @@ class WooMetaboxes {
 				$wc_product->save_meta_data();
 			}
 		}
+	}
+
+	/**
+	 * Save information about the product variations from the POST superglobal
+	 *
+	 * Checks the relevant nonce and sets the relevant status and other
+	 * attributes for the variable product's variations.
+	 *
+	 * @param WC_Product_Variable $wc_product The WooCommerce product.
+	 */
+	private static function set_product_variation_meta_from_post(
+		WC_Product_Variable $wc_product
+	): void {
+		$nonce_superglobal = 'set_1984_woo_dk_variations_nonce';
+
+		if (
+			! empty( $_POST[ $nonce_superglobal ] ) &&
+			wp_verify_nonce(
+				sanitize_text_field(
+					wp_unslash( $_POST[ $nonce_superglobal ] )
+				),
+				'set_1984_woo_dk_variations'
+			)
+		) {
+			$product_variation_ids = $wc_product->get_children();
+
+			$product_json = ImportProducts::get_from_dk( $wc_product->get_sku() );
+
+			foreach ( $product_variation_ids as $variation_id ) {
+				$variation = wc_get_product( $variation_id );
+
+				if ( $variation === false ) {
+					continue;
+				}
+
+				if ( isset( $_POST['dk_variable_enabled'][ $variation_id ] ) ) {
+					if ( $variation->get_status( 'edit' ) !== 'publish' ) {
+						$variation->set_status( 'publish' );
+					}
+				} else {
+					if ( $variation->get_status( 'edit' ) !== 'private' ) {
+						$variation->set_status( 'private' );
+					}
+				}
+
+				if ( isset( $_POST['dk_variable_is_downloadable'][ $variation_id ] ) ) {
+					$variation->set_downloadable( true );
+				} else {
+					$variation->set_downloadable( false );
+				}
+
+				if ( isset( $_POST['dk_variable_is_virtual'][ $variation_id ] ) ) {
+					$variation->set_virtual( true );
+				} else {
+					$variation->set_virtual( false );
+				}
+
+				if ( isset( $_POST['dk_variable_description'][ $variation_id ] ) ) {
+					$variation->set_description(
+						sanitize_text_field(
+							wp_unslash(
+								$_POST['dk_variable_description'][ $variation_id ]
+							)
+						)
+					);
+				}
+
+				if ( isset( $_POST['dk_variable_price_override'][ $variation_id ] ) ) {
+					$variation->update_meta_data(
+						'1984_dk_woo_variable_price_override',
+						1
+					);
+					if ( isset( $_POST['dk_variable_price'][ $variation_id ] ) ) {
+						$variation->set_regular_price(
+							sanitize_text_field(
+								wp_unslash(
+									$_POST['dk_variable_price'][ $variation_id ]
+								)
+							)
+						);
+					}
+					if ( isset( $_POST['dk_variable_sale_price'][ $variation_id ] ) ) {
+						$variation->set_sale_price(
+							sanitize_text_field(
+								wp_unslash(
+									$_POST['dk_variable_sale_price'][ $variation_id ]
+								)
+							)
+						);
+					}
+				} else {
+					self::reset_variation_price( $variation );
+				}
+
+				if ( isset( $_POST['dk_variable_inventory_override'][ $variation_id ] ) ) {
+					$variation->update_meta_data(
+						'1984_dk_woo_variable_inventory_override',
+						'true'
+					);
+
+					if (
+						isset( $_POST['dk_variable_quantity_track_in_wc'][ $variation_id ] ) &&
+						isset( $_POST['dk_variable_quantity'][ $variation_id ] ) &&
+						isset( $_POST['dk_variable_override_allow_backorders_in_wc'][ $variation_id ] )
+					) {
+
+						$variation->update_meta_data(
+							'1984_dk_woo_variable_quantity_track_in_wc',
+							'true'
+						);
+
+						$variation->set_manage_stock( true );
+
+						$variation->set_stock_quantity(
+							(float) sanitize_text_field(
+								wp_unslash(
+									$_POST['dk_variable_quantity'][ $variation_id ]
+								)
+							)
+						);
+
+						$variation->set_backorders(
+							sanitize_text_field(
+								wp_unslash(
+									$_POST['dk_variable_override_allow_backorders_in_wc'][ $variation_id ]
+								)
+							)
+						);
+					} else {
+						self::reset_variation_stock( $variation );
+					}
+				} else {
+					self::reset_variation_stock( $variation );
+				}
+
+				if ( isset( $_POST['dk_variable_image_id'][ $variation_id ] ) ) {
+					$variation->set_image_id(
+						intval(
+							sanitize_text_field(
+								wp_unslash(
+									$_POST['dk_variable_image_id'][ $variation_id ]
+								)
+							)
+						)
+					);
+				}
+
+				$variation->save();
+			}
+		}
+	}
+
+	/**
+	 * Reset the prices for a WooCommerce product variation
+	 *
+	 * Sets the variant price back to the main DK price of the product and
+	 * enables price sync for the variant again.
+	 *
+	 * @param WC_Product_Variation $variation The WooCommerce product variation.
+	 */
+	private static function reset_variation_price(
+		WC_Product_Variation $variation
+	): void {
+		$variation->delete_meta_data(
+			'1984_dk_woo_variable_price_override',
+		);
+
+		$parent = wc_get_product( $variation->get_parent_id() );
+
+		$price = $parent->get_meta( '1984_dk_woo_price' );
+
+		if ( is_object( $price ) ) {
+			$variation->set_regular_price( $price->price );
+			$variation->set_sale_price( $price->sale_price );
+			$variation->set_date_on_sale_from( $price->date_on_sale_from );
+			$variation->set_date_on_sale_to( $price->date_on_sale_to );
+
+			$variation->save();
+		}
+	}
+
+	/**
+	 * Reset the stock quantity and inventory for product variation
+	 *
+	 * Sets the variant quantity to back to what is defined in DK and enbales
+	 * quantity sync for the variant.
+	 *
+	 * @param WC_Product_Variation $variation The WooCommerce product variation.
+	 */
+	private static function reset_variation_stock(
+		WC_Product_Variation $variation,
+	): void {
+		$parent = wc_get_product( $variation->get_parent_id() );
+
+		$variation->delete_meta_data( '1984_dk_woo_variable_inventory_override' );
+		$variation->delete_meta_data( '1984_dk_woo_variable_quantity_track_in_wc' );
+
+		$variation->set_manage_stock( $parent->get_manage_stock() );
+		$variation->set_backorders( $parent->get_backorders() );
+
+		$product_json = json_decode(
+			$parent->get_meta( '1984_dk_woo_product_json' )
+		);
+
+		$variation->set_stock_quantity(
+			ImportProducts::get_variation_quantity_from_json(
+				$product_json,
+				array_values( $variation->get_attributes() )
+			)
+		);
+
+		$variation->save();
 	}
 }

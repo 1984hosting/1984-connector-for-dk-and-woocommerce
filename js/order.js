@@ -110,8 +110,8 @@ class NineteenEightyWooOrder {
 		messageNodes.forEach(
 			 (node) => {
 					node.classList.add( 'hidden' );
-		}
-			);
+			}
+		);
 	}
 
 	static updateInvoiceButtonClickEvent( e ) {

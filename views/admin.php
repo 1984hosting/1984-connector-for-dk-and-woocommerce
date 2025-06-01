@@ -225,29 +225,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 							</p>
 						</td>
 					</tr>
-					<tr>
-						<th scope="row" class="column-title column-primary">
-						</th>
-						<td>
-							<input
-								id="product_conversion_field"
-								name="product_conversion"
-								type="checkbox"
-								<?php echo esc_attr( Config::get_product_convertion_to_variation_enabled() ? 'checked' : '' ); ?>
-							/>
-							<label for="product_conversion_field">
-								<?php esc_html_e( 'Enable Product-to-Variation Conversion', '1984-dk-woo' ); ?>
-							</label>
-							<p class="description">
-								<?php
-								esc_html_e(
-									'If enabled, any product can be converted into a variant of anohter as a bulk action. This is a very sharp tool, so only use this one if you know what you are doing.',
-									'1984-dk-woo'
-								);
-								?>
-							</p>
-						</td>
-					</tr>
 				</tbody>
 			</table>
 			<h3><?php esc_html_e( 'Ledger Codes', '1984-dk-woo' ); ?></h3>
