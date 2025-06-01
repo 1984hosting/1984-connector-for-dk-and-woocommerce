@@ -7,11 +7,11 @@
 > This is a code repository used for the development of **1984 Connector for DK and WooCommerce**, a WordPress plugin. Using the raw source files without installing dependencies using Composer will not work and the `main` branch is considered unstable.
 
 > [!NOTE]
-> To download a working version of the plugin, please visit the **[Releases Page](https://github.com/1984hosting/1984-dk-woo/releases)** and download the `1984-dk-woo.zip` file for a current version. In the future, you will be able visit [https://wordpress.org/plugins/1984-dk-woo/](https://wordpress.org/plugins/1984-dk-woo/) to get the currently stable release and get automatic updates.
+> To download a working version of the plugin, please visit the **[Releases Page](https://github.com/1984hosting/1984-dk-woo/releases)** and download the `1984-dk-woo.zip` file for a current version. In the future, you will be able visit [https://wordpress.org/plugins/1984-dk-woo/](https://wordpress.org/plugins/1984-connector-for-dk-and-woocommerce/) to get the currently stable release and get automatic updates.
 
 ## Developer Documentation
 
-Please note that there are two readme files. This one (reamde.md) and the user-facing readme ([readme.txt](https://github.com/1984hosting/1984-dk-woo/blob/main/readme.txt)) used for providing metadata to the WordPress.org plugin repository as well as a general introduction to the plugin.
+Please note that there are two readme files. This one (reamde.md) and the user-facing readme ([readme.txt](https://github.com/1984hosting/1984-connector-for-dk-and-woocommerce/blob/main/readme.txt)) used for providing metadata to the WordPress.org plugin repository as well as a general introduction to the plugin.
 
 This file is mainly intended for development and contribution purposes.
 
@@ -19,10 +19,10 @@ This file is mainly intended for development and contribution purposes.
 
 We use Github actions as a continious integration process to automatically test the plugin using the following PHP and WordPress versions:
 
-* PHP 8.1 and above
-* WordPress 6.1 and above
+* PHP 8.2 and above
+* WordPress 6.8 and above
 
-We generally assume that the most recent version of WooCommerce is in use and use that for testing across the supported PHP and WordPress versions.
+We generally assume that the most recent version of WooCommerce is in use and use that for testing across the supported PHP and WordPress versions. This is done using a test martrix in the Github CI process.
 
 ### Introduction and main concepts
 
@@ -32,62 +32,6 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 
 * The WooCommerce store is the source of truth for product prices and availability towards the customer
 * The DK setup is the source of truth for accounting transactions
-
-### MVP requirements
-
-#### User interface
-- [x] Add a settings page and corresponding JSON endpoint to wp-admin
-- [x] Design and add options for sync to the WooCommerce product editor
-
-#### Kennitala support
-- [x] Add a kennitala field to the shortcode based checkout page
-- [x] Add a kennitala field to the block based checkout page
-- [x] Integrate kennitala to the WooCommerce order editor
-- [x] Add a kennitala text field to the user profile editor
-
-#### Localisation/translation
-- [x] Add Icelandic locale files
-
-#### Products
-- [x] Create a corresponding *product* record in DK when a WooCommerce product is created
-- [x] Sync changes to *product* records upstream from WooCommerce on update
-- [x] Sync changes to *product* records downstream from DK on regular intervals or using web hooks
-
-#### Product Inventory
-- [x] Sync and create product inventory when a product is created in DK
-- [x] Assign a single *warehose* in DK for items in the WooCommerce store
-
-#### Customers
-- [x] Let customers add a kennitala to their billing address
-- [x] Create a corresponding *customer* record in DK when a WooCommerce customer is created
-- [x] Sync changes to *customer* records upstream from WooCommerce on update
-- [ ] Sync changes to *customer* records downstream from DK on regular intervals or using web hooks
-
-#### Orders and invoices
-- [x] Create and send *invoices* to customers via DK after a successful payment
-- [x] Create and send *credit invoices* on returns
-- [ ] Take over the WooCommerce *invoice email delivery mechanism* and use the same hooks to send invoices via DK
-
-#### Cost SKUs
-- [x] Assign SKU for *delivery costs*
-- [x] Assign a SKU for *other costs*
-- [x] Assign a SKU for *coupons*
-
-#### Payment methods
-- [x] Map Payment Gateways in WooCommerce with Payment Methods in DK
-
-#### Salesperson
-- [x] Assign a *salesperson* in DK for sales in WooCommerce
-
-#### Maths
-- [x] Use a BigDecimal-like library to handle tax calculations and such instead of depending on PHP's decimal support
-
-#### Error handling
-- [ ] Improve error handling and validation (Possibly replace `false` return values in Export classes with WP_Error, and then doing `wp_die()` on failure instead of failing softly).
-
-### Future Features (after the first release)
-- [ ] Sync WooCommerce orders with the *DK Sales Order* module
-- [ ] Assign a *price group* (1, 2, 3) for products
 
 ### The DK API
 
@@ -121,6 +65,36 @@ We are happy to receive patches and pull requests for new feature ideas, bug fix
 If you are reporting a bug, please describe the steps needed to be taken so that we can replicate it, if possible.
 
 And last but not least, be nice to us and others.
+
+### Coding Style and Best Practices
+
+A WPCS-based coding style is enforced using PHPCodeSniffer. We have done some modifications and exceptions that are documented in the `phpcs.xml` file.
+
+Our coding style rules apply to PHP, CSS and JS files. Please make sure that your editor supports and respects `.editorconfig` and that it integrates with the version of PHPCodeSniffer that is installed by Composer, in our `vendor` directory.
+
+We also use PHP Intelephense to enable autocompletion and syntax highlighting for WordPress and WooCommerce specific functions. Please facilitate it by using and defining object classes specific to your use case.
+
+* We are PHP 8.2 compliant, use strict mode, type hinting, strong typing and PSR-4 autoloading
+* Due to the nature of WordPress' hooks, while the code is written in an object oriented style, classes are written using static functions to a large extent
+* Functions, objects, variables etc. are named using Ruby conventions (i.e. snake case and no shorthand names)
+* Please keep runtime code within the `src` directory and install external dependencies using Composer
+* The linter rules enforce docblocks for PHP functions, methods, classes etc. using the same rules as in PSR-12
+* We try to stay within a soft 80-character line limit if we can, but we will not enforce it until a 120-character limit
+* Please run `composer lint` and `composer lint:fix` in order to check and fix your code before sending in a pull request
+* Please make sure that the few tests that we have work by running `composer test`
+* We do not have unit tests for everything, but we do appreciate them being written
+
+We use a Github Actions based CI process to check if pull requests adhere to the enforced coding standards. Pull requests may be rejected, re-written or re-done from scratch if they do not adhere to the coding standards and modern industry best practices.
+
+If you think your code warrants a modification to or exception from the PHPCodeSniffer rules, please let us know.
+
+#### Views
+
+The coding style for views and view partials, residing in the `views` directory varies a little bit from the rest of the codebase:
+
+* Views use ["colon syntax"](https://www.php.net/manual/en/control-structures.alternative-syntax.php) for control structures
+* No maximum line length is enforced for views to account for things such as long sentences within i18n functions, but please stay within sensible limits
+* For block-level HTML elements, attributes and text nodes are to be indented and kept on separate lines in order to limit line lengths
 
 ## Contact Us
 
