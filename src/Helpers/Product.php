@@ -323,6 +323,13 @@ class Product {
 		return false;
 	}
 
+	/**
+	 * Check if a product variation has price override enabled
+	 *
+	 * @param WC_Product_Variation $wc_product_variation The variation.
+	 *
+	 * @return bool True if price override is set, false if not.
+	 */
 	public static function variation_price_override(
 		WC_Product_Variation $wc_product_variation
 	): bool {
@@ -338,6 +345,13 @@ class Product {
 		return false;
 	}
 
+	/**
+	 * Check if a product variation has inventory override enabled
+	 *
+	 * @param WC_Product_Variation $wc_product_variation The variation.
+	 *
+	 * @return bool True if override is set. False if not.
+	 */
 	public static function variation_inventory_override(
 		WC_Product_Variation $wc_product_variation
 	): bool {
@@ -353,6 +367,13 @@ class Product {
 		return false;
 	}
 
+	/**
+	 * Check if a product variation has inventory tracking in WooCommerce enabled
+	 *
+	 * @param WC_Product_Variation $wc_product_variation The product variation.
+	 *
+	 * @return bool True if override is set. False if not.
+	 */
 	public static function variation_inventory_track_in_wc(
 		WC_Product_Variation $wc_product_variation
 	): bool {
@@ -368,6 +389,16 @@ class Product {
 		return false;
 	}
 
+	/**
+	 * Get the descriptions for a product's variation attribute codes
+	 *
+	 * This is essentially the "human readable" version of the variations'
+	 * attribute names.
+	 *
+	 * @param WC_Product_Variation|WC_Product_Variable $wc_product The WooCommerce product.
+	 *
+	 * @return array An array containing the attribute codes as keys and descriptions as values.
+	 */
 	public static function attribute_descriptions(
 		WC_Product_Variation|WC_Product_Variable $wc_product
 	): array {
@@ -402,6 +433,17 @@ class Product {
 		return $descriptions;
 	}
 
+	/**
+	 * Get attribute label description
+	 *
+	 * Gets the human-readable description for a product's specific attribute
+	 * code as set in DK.
+	 *
+	 * @param WC_Product_Variation|WC_Product_Variable $wc_product The variable product or variation to check.
+	 * @param string                                   $attribute_code The attribute code to check.
+	 *
+	 * @return string The attribute label description.
+	 */
 	public static function attribute_label_description(
 		WC_Product_Variation|WC_Product_Variable $wc_product,
 		string $attribute_code
@@ -423,6 +465,18 @@ class Product {
 		return $variations[ $variant_code ]->attributes[ $attribute_code ]->description;
 	}
 
+	/**
+	 * Get a single attribute value description as set in DK
+	 *
+	 * Gets the human-readable description for a product's specific attribute
+	 * code's value code as set in DK.
+	 *
+	 * @param WC_Product_Variation|WC_Product_Variable $wc_product The variable product or variation to check.
+	 * @param string                                   $attribute_code The attribute code to check.
+	 * @param string                                   $value_code The value code to check.
+	 *
+	 * @return string The attribute value description.
+	 */
 	public static function attribute_value_description(
 		WC_Product_Variation|WC_Product_Variable $wc_product,
 		string $attribute_code,
@@ -450,6 +504,14 @@ class Product {
 		return $values[ $value_code ]->name;
 	}
 
+	/**
+	 * Get attribute value description for a product variation
+	 *
+	 * @param WC_Product_Variation $wc_product The product variation to check.
+	 * @param string               $attribute_code The attribute code to get the description for.
+	 *
+	 * @return string              The attribute value description.
+	 */
 	public static function variation_attribute_value_description(
 		WC_Product_Variation $wc_product,
 		string $attribute_code,
@@ -471,20 +533,35 @@ class Product {
 		return $variations[ $variant_code ]->attributes[ $attribute_code ]->values[ $value ]->name;
 	}
 
+	/**
+	 * Get all attributes and descriptions for a product variation
+	 *
+	 * @param WC_Product_Variation $variation The product variation.
+	 *
+	 * @return array An array containing the label descriptions as the keys and
+	 *               the value descriptions as values.
+	 */
 	public static function attributes_with_descriptions(
 		WC_Product_Variation $variation,
-	) {
+	): array {
 		$summary_array = array();
 
 		foreach ( $variation->get_attributes() as $label => $value ) {
 			if ( Config::get_use_attribute_description() ) {
-				$label_description = self::attribute_label_description( $variation, $label );
+				$label_description = self::attribute_label_description(
+					$variation,
+					$label
+				);
 			} else {
 				$label_description = $label;
 			}
 
 			if ( Config::get_use_attribute_value_description() ) {
-				$value_description = self::attribute_value_description( $variation, $label, $value );
+				$value_description = self::attribute_value_description(
+					$variation,
+					$label,
+					$value
+				);
 			} else {
 				$value_description = $label;
 			}
@@ -495,12 +572,19 @@ class Product {
 		return $summary_array;
 	}
 
+	/**
+	 * Get a string containing a summary of a variation's attributes
+	 *
+	 * @param WC_Product_Variation $variation The product variation.
+	 */
 	public static function attribute_summary_with_descriptions(
 		WC_Product_Variation $variation,
-	) {
+	): string {
 		$pairs = array();
 
-		foreach ( self::attributes_with_descriptions( $variation ) as $label => $value ) {
+		$attributes = self::attributes_with_descriptions( $variation );
+
+		foreach ( $attributes as $label => $value ) {
 			$pairs[] = "$label: $value";
 		}
 
