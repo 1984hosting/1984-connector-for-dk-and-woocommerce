@@ -263,6 +263,22 @@ table .column-dk_invoice_id .invoice_error {
 	filter: brightness(50%);
 }
 
+#dk_variations_tab .dk-variations-defaults {
+	margin: 0 2em;
+}
+
+#dk_variations_tab .dk-variations-defaults .dk-variation-default {
+	display: flex;
+}
+
+#dk_variations_tab .dk-variations-defaults .dk-variation-default label {
+	margin-right: 1em;
+}
+
+#dk_variations_tab .dk-variations-defaults .dk-variation-default label span {
+	margin-right: 0.5em;
+}
+
 #dk_variations_tab .dk-variations {
 	margin-top: 2em;
 }
