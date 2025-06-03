@@ -8,7 +8,6 @@ use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
 use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
 use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
-use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations;
 use WC_Order;
 use WC_Order_Item_Product;
 use WP_Error;
@@ -171,26 +170,19 @@ class Order {
 				'IncludingVAT'   => true,
 			);
 
-			$origin       = $product->get_meta( '1984_dk_woo_origin', true, 'edit' );
-			$variant_code = $product->get_meta( '1984_dk_woo_variant_code', true, 'edit' );
-			$variation    = wc_get_product( $order_item_product->get_variation_id() );
+			$origin    = $product->get_meta( '1984_dk_woo_origin', true, 'edit' );
+			$variation = wc_get_product( $order_item_product->get_variation_id() );
 
-			if (
-				$origin === 'product_variation' &&
-				$variation !== false
-			) {
-				$attributes = ProductVariations::attributes_to_woocommerce_variation_attributes( $variant_code );
-
-				$variation_attributes = array_keys( $attributes );
+			if ( $origin === 'product_variation' && $variation !== false ) {
+				$variation_attributes = $variation->get_attributes();
+				$variation_values     = array_values( $variation_attributes );
 
 				$variation_line = array();
 
-				if ( key_exists( 0, $variation_attributes ) ) {
-					$variation_line['Code'] = $variation->get_attribute( $variation_attributes[0] );
-				}
+				$variation_line['Code'] = $variation_values[0];
 
-				if ( key_exists( 1, $variation_attributes ) ) {
-					$variation_line['Code2'] = $variation->get_attribute( $variation_attributes[1] );
+				if ( isset( $variation_values[1] ) ) {
+					$variation_line['Code2'] = array_values( $variation_values )[0];
 				}
 
 				$variation_line['Quantity'] = $item->get_quantity();
