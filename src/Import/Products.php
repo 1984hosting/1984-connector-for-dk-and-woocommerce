@@ -485,12 +485,12 @@ class Products {
 	 * @param stdClass $json_object A PHP object representing the JSON response
 	 *                              from the DK API.
 	 *
-	 * @return stdClass An object containing the properties
-	 *                  `price` (float or empty string),
-	 *                  `sale_price` (float or empty string),
-	 *                  `date_on_sale_from` (WC_DateTime or empty string)
-	 *                  and `date_on_sale_to` (WC_DateTime or empty string) or
-	 *                  `false` on failure.
+	 * @return stdClass|false An object containing the properties
+	 *                        `price` (float or empty string),
+	 *                        `sale_price` (float or empty string),
+	 *                        `date_on_sale_from` (WC_DateTime or empty string)
+	 *                         and `date_on_sale_to` (WC_DateTime or empty
+	 *                         string) or false` on failure.
 	 */
 	public static function get_product_price_from_json(
 		stdClass $json_object
@@ -512,7 +512,7 @@ class Products {
 			);
 
 			if ( $price_before_tax instanceof WP_Error ) {
-				return $price_before_tax;
+				return false;
 			}
 
 			$price_with_tax = self::calculate_price_after_tax(
