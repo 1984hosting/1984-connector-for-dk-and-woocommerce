@@ -97,7 +97,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 						data-variation-thumbnail-for="<?php echo esc_html( $variation_id ); ?>"
 					>
 						<img
-							src="<?php echo $variation->get_image_id( 'edit' ) ? esc_url( wp_get_attachment_image_url( $variation->get_image_id( 'edit' ), 'medium' ) ) : esc_url( wc_placeholder_img_src() ); ?>"
+							src="<?php echo $variation->get_image_id( 'edit' ) ? esc_url( wp_get_attachment_image_url( $variation->get_image_id( 'edit' ), '1984_dk_woo_variant' ) ) : esc_url( wc_placeholder_img_src() ); ?>"
 							alt="<?php echo $variation->get_image_id( 'edit' ) ? esc_attr( get_post_meta( $variation->get_image_id( 'edit' ), '_wp_attachment_image_alt', true ) ) : ''; ?>"
 							data-placeholer-src="<?php echo esc_url( wc_placeholder_img_src() ); ?>"
 						/>
