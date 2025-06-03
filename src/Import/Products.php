@@ -806,7 +806,9 @@ class Products {
 		$data_store             = WC_Data_Store::load( 'product' );
 		$affected_variation_ids = array();
 
-		foreach ( $variations_array as $v ) {
+		$variation_count = count( $wc_product->get_children() );
+
+		foreach ( $variations_array as $i => $v ) {
 			$attributes = array(
 				sanitize_title( 'attribute_' . $v->attribute_1 ) => $v->code_1,
 			);
@@ -823,6 +825,8 @@ class Products {
 
 			if ( $variation_id === 0 ) {
 				$variation = wc_get_product_object( 'variation' );
+
+				$variation->set_menu_order( intval( $i ) + $variation_count );
 
 				$variation->set_parent_id( $wc_product->get_id() );
 				$variation->set_attributes( $attributes );
@@ -847,6 +851,10 @@ class Products {
 					$variation instanceof WC_Product_Variation &&
 					$wc_product->get_id() === $variation->get_parent_id()
 				) {
+					if ( $variation->get_menu_order() < 0 ) {
+						$variation->set_menu_order( intval( $i ) + $variation_count );
+					}
+
 					$variation->set_parent_id( $wc_product->get_id() );
 					$variation->set_attributes( $attributes );
 					if ( ProductHelper::quantity_sync_enabled( $wc_product ) ) {
