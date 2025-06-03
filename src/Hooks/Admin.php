@@ -19,7 +19,7 @@ use WC_Order;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION = '0.4.5.3';
+	const ASSET_VERSION = '0.4.6';
 
 	/**
 	 * Constructor for the Admin interface class

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1984 Connector for DK and WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-19 01:35+0000\n"
+"POT-Creation-Date: 2025-06-03 21:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Domain: 1984-dk-woo"
 
 #. The %1$s and %2$s indicate an opening and closing <strong> tag.
-#: views/admin.php:750
+#: views/admin.php:730
 #, php-format
 msgid ""
 "%1$sError:%2$s Please check if all the information was entered correctly and "
@@ -45,26 +45,14 @@ msgstr ""
 msgid "30 Day Payment Deadline (D30)"
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:267
-msgid "A credit invoice could not be created in DK due to an unhandled error."
-msgstr ""
-
-#. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Hooks/WooOrderStatusChanges.php:221
-#, php-format
-msgid ""
-"A credit invoice for the refund has been created in DK. The invoice number "
-"is %1$s."
-msgstr ""
-
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:539
+#: src/Hooks/Admin.php:551
 #, php-format
 msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:527
+#: src/Hooks/Admin.php:539
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr ""
@@ -74,52 +62,46 @@ msgid "A or B Giro Request (ABG)"
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:468
+#: src/Hooks/Admin.php:480
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:480
+#: src/Hooks/Admin.php:492
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:232
-msgid ""
-"An email containing the credit invoice as a PDF attachment was sent to the "
-"customer."
-msgstr ""
-
-#: src/Rest/OrderDKInvoice.php:97 src/Hooks/WooOrderStatusChanges.php:136
+#: src/Rest/OrderDKInvoice.php:97 src/Hooks/WooOrderStatusChanges.php:129
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer."
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:172
+#: src/Hooks/WooOrderStatusChanges.php:165
 msgid "An invoice could not be created in DK due to an unhandled error."
 msgstr ""
 
-#: src/Rest/OrderDKInvoice.php:65 src/Hooks/WooOrderStatusChanges.php:110
+#: src/Rest/OrderDKInvoice.php:65 src/Hooks/WooOrderStatusChanges.php:103
 msgid ""
 "An invoice could not be created in DK for this order as a line item in this "
 "order does not have a SKU."
 msgstr ""
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Rest/OrderDKInvoice.php:86 src/Hooks/WooOrderStatusChanges.php:125
+#: src/Rest/OrderDKInvoice.php:86 src/Hooks/WooOrderStatusChanges.php:118
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:99
+#: src/Hooks/WooOrderStatusChanges.php:92
 msgid ""
 "An invoice was not created as the customer did not enter a kennitala. The "
 "invoice needs to be created manually."
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:85
+#: src/Hooks/WooOrderStatusChanges.php:78
 msgid ""
 "An invoice was not created as the customer entered a kennitala. The invoice "
 "needs to be created manually."
@@ -130,7 +112,7 @@ msgid "API Key"
 msgstr ""
 
 #. The %1$s is the product's original currency code and %2$s is the shop's currency.
-#: views/product_options_pricing_partial.php:25
+#: views/product_options_pricing_partial.php:23
 #, php-format
 msgid ""
 "As the product price is converted from ‘%1$s’ or is set manually to ‘%2$s’ "
@@ -167,7 +149,7 @@ msgstr ""
 msgid "Cheque Payment (TGR)"
 msgstr ""
 
-#: src/Hooks/Admin.php:296 src/Hooks/Admin.php:297
+#: src/Hooks/Admin.php:308 src/Hooks/Admin.php:309
 msgid "Connector for DK"
 msgstr ""
 
@@ -175,27 +157,23 @@ msgstr ""
 msgid "Convert to Product Variant"
 msgstr ""
 
-#: views/admin.php:565
+#: views/admin.php:545
 msgid "Cost SKU"
 msgstr ""
 
-#: views/admin.php:513
-msgid "Create a credit invoice when an order is labelled as refunded"
-msgstr ""
-
-#: views/dk_invoice_metabox.php:91
+#: views/dk_invoice_metabox.php:71
 msgid "Create in DK"
 msgstr ""
 
-#: views/admin.php:401
+#: views/admin.php:409
 msgid "Create Invoices Automatically for Orders With a Kennitala"
 msgstr ""
 
-#: views/admin.php:429
+#: views/admin.php:437
 msgid "Create Invoices Automatically for Orders Without a Kennitala"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:146
+#: views/dk_invoice_metabox.php:126
 msgid "Credit Invoice Number"
 msgstr ""
 
@@ -217,19 +195,19 @@ msgstr ""
 msgid "Current Month + 20 Days (M20)"
 msgstr ""
 
-#: views/admin.php:607
+#: views/admin.php:587
 msgid "Customers"
 msgstr ""
 
-#: views/admin.php:485
+#: views/admin.php:493
 msgid "Customers Need to Request to have a Kennitala on Invoices"
 msgstr ""
 
-#: views/admin.php:340
+#: views/admin.php:348
 msgid "Default Customer Kennitala"
 msgstr ""
 
-#: views/admin.php:585
+#: views/admin.php:565
 msgid "Default Sales Person Number"
 msgstr ""
 
@@ -249,13 +227,13 @@ msgstr ""
 msgid "DK Invoice"
 msgstr ""
 
-#: views/admin.php:534
+#: views/admin.php:514
 msgid ""
 "DK treats shipping and other costs as line items on invoices. In order for "
 "them to work, you need to assign a SKU to each of the following services."
 msgstr ""
 
-#: views/admin.php:381
+#: views/admin.php:389
 msgid "Enable Kennitala Field in the Checkout Form"
 msgstr ""
 
@@ -267,7 +245,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/Export/Order.php:217
+#: src/Export/Order.php:208
 msgid "Fee"
 msgstr ""
 
@@ -279,15 +257,15 @@ msgid ""
 "page."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:88
+#: views/dk_invoice_metabox.php:68
 msgid "Generate a new invoice for this order in DK and assign it to this order"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:82 views/dk_invoice_metabox.php:181
+#: views/dk_invoice_metabox.php:62 views/dk_invoice_metabox.php:161
 msgid "Get PDF"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:79
+#: views/dk_invoice_metabox.php:59
 msgid "Get the invoice as a PDF file"
 msgstr ""
 
@@ -307,13 +285,7 @@ msgstr ""
 msgid "https://github.com/1984hosting/1984-dk-woo"
 msgstr ""
 
-#: views/admin.php:521
-msgid ""
-"If enabled, a credit invoice is automatically created when an order is "
-"labelled as refunded in WooCommerce."
-msgstr ""
-
-#: views/admin.php:465
+#: views/admin.php:473
 msgid ""
 "If enabled, an email containing the invoice will be sent to the customer "
 "automatically after checkout. This uses the DK email functionality, so make "
@@ -379,14 +351,14 @@ msgid ""
 "value code."
 msgstr ""
 
-#: views/admin.php:493
+#: views/admin.php:501
 msgid ""
 "If this is enabled, a checkbox is added to the checkout form, that the "
 "customer needs to tick in order to have a kennitala assigned to their "
 "invoice, or the invoice will be treated like one with out a kennitala."
 msgstr ""
 
-#: views/admin.php:437
+#: views/admin.php:445
 msgid ""
 "If this is enabled, orders without a kennitala will be assigned the ‘Default "
 "Customer Kennitala’."
@@ -397,30 +369,30 @@ msgid "Import New Non-Web Products from DK as Drafts"
 msgstr ""
 
 #. %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s and %4$s stand for the opening and closing <strong> tags.
-#: views/product_options_pricing_partial.php:65
+#: views/product_options_pricing_partial.php:63
 #, php-format
 msgid ""
 "In order for price sync to work, the %1$sSKU%2$s needs to be set and must "
 "equal the Item Code in DK. It is set in the %3$sInventory Panel%4$s."
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:595
+#: src/Hooks/KennitalaField.php:656
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:108
+#: views/dk_invoice_metabox.php:88
 msgid "Invoice has been created in DK."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:136
+#: views/dk_invoice_metabox.php:116
 msgid "Invoice not found in DK."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:46
+#: views/dk_invoice_metabox.php:26
 msgid "Invoice Number"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:122
+#: views/dk_invoice_metabox.php:102
 msgid "Invoice number has been assigned."
 msgstr ""
 
@@ -430,7 +402,7 @@ msgstr ""
 msgid "Invoice number set to %1$s."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:129
+#: views/dk_invoice_metabox.php:109
 msgid "Invoice number was not assigned."
 msgstr ""
 
@@ -438,27 +410,33 @@ msgstr ""
 msgid "Invoices"
 msgstr ""
 
-#: src/Rest/OrderDKInvoice.php:104 src/Hooks/WooOrderStatusChanges.php:143
-#: src/Hooks/WooOrderStatusChanges.php:239
+#: views/admin.php:336
+msgid ""
+"Invoices may be made in DK upon successful checkout, or manually from the "
+"WooCommerce Order Editor. This can based on wether the customer supplies a "
+"kennitala, and a kennitala field can be enabled as well."
+msgstr ""
+
+#: src/Rest/OrderDKInvoice.php:104 src/Hooks/WooOrderStatusChanges.php:136
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
 "as a PDF attachment."
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:229 src/Hooks/KennitalaField.php:253
-#: src/Hooks/KennitalaField.php:410 src/Hooks/KennitalaField.php:526
+#: src/Hooks/KennitalaField.php:259 src/Hooks/KennitalaField.php:283
+#: src/Hooks/KennitalaField.php:445 src/Hooks/KennitalaField.php:587
 msgid "Kennitala"
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:530
+#: src/Hooks/KennitalaField.php:591
 msgid "Kennitala (Optional)"
 msgstr ""
 
-#: views/admin.php:613
+#: views/admin.php:593
 msgid "Ledger Code for Domestic Customers"
 msgstr ""
 
-#: views/admin.php:628
+#: views/admin.php:608
 msgid "Ledger Code for International Customers"
 msgstr ""
 
@@ -466,41 +444,41 @@ msgstr ""
 msgid "Ledger Codes"
 msgstr ""
 
-#: views/admin.php:651
+#: views/admin.php:631
 msgid "Method ID in DK"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:63 views/dk_invoice_metabox.php:162
+#: views/dk_invoice_metabox.php:43 views/dk_invoice_metabox.php:142
 msgid "Needs to be numeric"
 msgstr ""
 
-#: views/admin.php:783
+#: views/admin.php:763
 msgid "Ninteen-Eighty-Four"
 msgstr ""
 
-#: views/product_options_advanced_partial.php:33
-#: views/product_options_advanced_partial.php:36
-#: views/product_options_sku_partial.php:31
-#: views/product_options_sku_partial.php:34
-#: views/product_options_pricing_partial.php:50
-#: views/product_options_pricing_partial.php:53
+#: views/product_options_advanced_partial.php:31
+#: views/product_options_advanced_partial.php:34
+#: views/product_options_sku_partial.php:29
+#: views/product_options_sku_partial.php:32
+#: views/product_options_pricing_partial.php:48
+#: views/product_options_pricing_partial.php:51
 msgid "No"
 msgstr ""
 
-#: views/admin.php:645
+#: views/admin.php:625
 msgid "Payment Gateways"
 msgstr ""
 
-#: views/admin.php:652
+#: views/admin.php:632
 msgid "Payment Mode in DK"
 msgstr ""
 
-#: views/admin.php:653
+#: views/admin.php:633
 msgid "Payment Terms in DK"
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Hooks/Admin.php:515
+#: src/Hooks/Admin.php:527
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -508,7 +486,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:395
+#: src/Hooks/Admin.php:407
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -516,14 +494,14 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Hooks/Admin.php:456
+#: src/Hooks/Admin.php:468
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
 "before saving."
 msgstr ""
 
-#: views/admin.php:646
+#: views/admin.php:626
 msgid ""
 "Please select the payment method name for each payment gateway as it appears "
 "in DK as well as the payment mode:"
@@ -557,11 +535,11 @@ msgstr ""
 msgid "Purchase Booking Category"
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:425 src/Hooks/KennitalaField.php:549
+#: src/Hooks/KennitalaField.php:460 src/Hooks/KennitalaField.php:610
 msgid "Request an Invoice with Kennitala"
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:553
+#: src/Hooks/KennitalaField.php:614
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr ""
 
@@ -573,40 +551,40 @@ msgstr ""
 msgid "Sale Booking Category"
 msgstr ""
 
-#: views/admin.php:766
+#: views/admin.php:746
 msgid "Save"
 msgstr ""
 
-#: views/admin.php:457
+#: views/admin.php:465
 msgid "Send Invoices Automatically via Email"
 msgstr ""
 
-#: views/admin.php:531
+#: views/admin.php:511
 msgid "Service SKUs"
 msgstr ""
 
-#: src/Export/Order.php:281
+#: src/Export/Order.php:225
 msgid "Shipping"
 msgstr ""
 
-#: views/admin.php:545
+#: views/admin.php:525
 msgid "Shipping SKU"
 msgstr ""
 
-#: views/product_options_sku_partial.php:49
-#: views/product_options_pricing_partial.php:70
+#: views/product_options_sku_partial.php:47
+#: views/product_options_pricing_partial.php:68
 msgid "stock keeping unit"
 msgstr ""
 
-#: views/product_options_sku_partial.php:25
+#: views/product_options_sku_partial.php:23
 msgid "Sync Inventory with DK"
 msgstr ""
 
-#: views/product_options_advanced_partial.php:27
+#: views/product_options_advanced_partial.php:25
 msgid "Sync Name with DK"
 msgstr ""
 
-#: views/product_options_pricing_partial.php:44
+#: views/product_options_pricing_partial.php:42
 msgid "Sync Price with DK"
 msgstr ""
 
@@ -629,7 +607,7 @@ msgid ""
 msgstr ""
 
 #. %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s stands for a opening and %4$s for a closing <strong> tag.
-#: views/product_options_sku_partial.php:44
+#: views/product_options_sku_partial.php:42
 #, php-format
 msgid ""
 "The %1$sSKU%2$s needs to be set to a unique value and must equal the "
@@ -640,7 +618,7 @@ msgid ""
 "from DK."
 msgstr ""
 
-#: views/admin.php:776
+#: views/admin.php:756
 msgid ""
 "The 1984 Connector for DK and WooCommerce is developed, maintained and "
 "supported on goodwill basis by 1984 Hosting as free software without any "
@@ -666,7 +644,7 @@ msgstr ""
 msgid "The currency rate for ‘%s’ has not been set."
 msgstr ""
 
-#: views/admin.php:361
+#: views/admin.php:369
 msgid ""
 "The default kennitala is used for guest customers that don't have or supply "
 "a kennitala during checkout. This should correspond with a DK customer "
@@ -678,19 +656,19 @@ msgid "The DK API key is missing."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:407
+#: src/Hooks/Admin.php:419
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Hooks/Admin.php:419
+#: src/Hooks/Admin.php:431
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr ""
 
 #. %1$s stands for the opening and %2$s <a> tag in a hyperlink to the WooCommerce Payment Settings page.
-#: views/admin.php:736
+#: views/admin.php:716
 #, php-format
 msgid ""
 "The payment gateways themselves are handled by your WooCommerce Settings, "
@@ -709,28 +687,27 @@ msgid ""
 "labelled as ‘for online store’ you can do it here."
 msgstr ""
 
-#: src/Hooks/WooOrderStatusChanges.php:164
-#: src/Hooks/WooOrderStatusChanges.php:260
+#: src/Hooks/WooOrderStatusChanges.php:157
 msgid "Unable to create an invoice in DK: "
 msgstr ""
 
-#: views/dk_invoice_metabox.php:115
+#: views/dk_invoice_metabox.php:95
 msgid "Unable to create invoice in DK."
 msgstr ""
 
-#: views/dk_invoice_metabox.php:74 views/dk_invoice_metabox.php:173
+#: views/dk_invoice_metabox.php:54 views/dk_invoice_metabox.php:153
 msgid "Update"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:71
+#: views/dk_invoice_metabox.php:51
 msgid ""
 "Update the invoice number reference without generating a new invoice in DK"
 msgstr ""
 
 #. %1$s is the current yes/no value.
-#: views/product_options_advanced_partial.php:32
-#: views/product_options_sku_partial.php:30
-#: views/product_options_pricing_partial.php:49
+#: views/product_options_advanced_partial.php:30
+#: views/product_options_sku_partial.php:28
+#: views/product_options_pricing_partial.php:47
 #, php-format
 msgid "Use Default (Currently ‘%1$s’)"
 msgstr ""
@@ -743,7 +720,7 @@ msgstr ""
 msgid "Variations and Attributes"
 msgstr ""
 
-#: views/admin.php:409
+#: views/admin.php:417
 msgid ""
 "When a customer requests to have a kennitala assigned to an invoice, a "
 "customer record is created in DK if it does not already exist, using the "
@@ -764,12 +741,12 @@ msgid ""
 "DK. Here you can also enable the product conversion feature."
 msgstr ""
 
+#: views/product_options_advanced_partial.php:31
 #: views/product_options_advanced_partial.php:33
-#: views/product_options_advanced_partial.php:35
+#: views/product_options_sku_partial.php:29
 #: views/product_options_sku_partial.php:31
-#: views/product_options_sku_partial.php:33
+#: views/product_options_pricing_partial.php:48
 #: views/product_options_pricing_partial.php:50
-#: views/product_options_pricing_partial.php:52
 msgid "Yes"
 msgstr ""
 
