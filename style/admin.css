@@ -399,6 +399,12 @@ table .column-dk_invoice_id .invoice_error {
 	appearance: textfield;
 	width: 6em;
 	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+#dk_variations_tab .dk-variation-options .dk-variation-field input[type=date] {
+	width: 10em;
+	font-variant-numeric: tabular-nums;
 }
 
 #dk_variations_tab .dk-variation-options .dk-variation-field span {

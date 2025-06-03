@@ -193,6 +193,40 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 									/>
 								</label>
 							</div>
+							<div class="dk-variation-field">
+								<label>
+									<span>
+										<?php
+										echo esc_html(
+											__( 'On sale from', '1984-dk-woo' ),
+										);
+										?>
+									</span>
+									<input
+										type="date"
+										name="dk_variable_on_sale_from[<?php echo esc_attr( $variation_id ); ?>]"
+										value="<?php echo $variation->get_date_on_sale_from( 'edit' ) ? esc_attr( $variation->get_date_on_sale_from( 'edit' )->format( 'Y-m-d' ) ) : ''; ?>"
+										min="0"
+									/>
+								</label>
+							</div>
+							<div class="dk-variation-field">
+								<label>
+									<span>
+										<?php
+										echo esc_html(
+											__( 'On sale to', '1984-dk-woo' ),
+										);
+										?>
+									</span>
+									<input
+										type="date"
+										name="dk_variable_on_sale_to[<?php echo esc_attr( $variation_id ); ?>]"
+										value="<?php echo $variation->get_date_on_sale_to( 'edit' ) ? esc_attr( $variation->get_date_on_sale_to( 'edit' )->format( 'Y-m-d' ) ) : ''; ?>"
+										min="0"
+									/>
+								</label>
+							</div>
 						</div>
 					</div>
 

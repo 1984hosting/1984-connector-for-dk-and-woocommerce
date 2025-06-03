@@ -253,13 +253,11 @@ class WooMetaboxes {
 	private static function set_product_variation_meta_from_post(
 		WC_Product_Variable $wc_product
 	): void {
-		$nonce_superglobal = 'set_1984_woo_dk_variations_nonce';
-
 		if (
-			! empty( $_POST[ $nonce_superglobal ] ) &&
+			! empty( $_POST['set_1984_woo_dk_variations_nonce'] ) &&
 			wp_verify_nonce(
 				sanitize_text_field(
-					wp_unslash( $_POST[ $nonce_superglobal ] )
+					wp_unslash( $_POST['set_1984_woo_dk_variations_nonce'] )
 				),
 				'set_1984_woo_dk_variations'
 			)
@@ -306,24 +304,8 @@ class WooMetaboxes {
 						'1984_dk_woo_variable_price_override',
 						1
 					);
-					if ( isset( $_POST['dk_variable_price'][ $variation_id ] ) ) {
-						$variation->set_regular_price(
-							sanitize_text_field(
-								wp_unslash(
-									$_POST['dk_variable_price'][ $variation_id ]
-								)
-							)
-						);
-					}
-					if ( isset( $_POST['dk_variable_sale_price'][ $variation_id ] ) ) {
-						$variation->set_sale_price(
-							sanitize_text_field(
-								wp_unslash(
-									$_POST['dk_variable_sale_price'][ $variation_id ]
-								)
-							)
-						);
-					}
+
+					self::set_variation_prices_via_post( $variation );
 				} else {
 					self::reset_variation_price( $variation );
 				}
@@ -339,29 +321,12 @@ class WooMetaboxes {
 						isset( $_POST['dk_variable_quantity'][ $variation_id ] ) &&
 						isset( $_POST['dk_variable_override_allow_backorders_in_wc'][ $variation_id ] )
 					) {
-
 						$variation->update_meta_data(
 							'1984_dk_woo_variable_quantity_track_in_wc',
 							'true'
 						);
 
-						$variation->set_manage_stock( true );
-
-						$variation->set_stock_quantity(
-							(float) sanitize_text_field(
-								wp_unslash(
-									$_POST['dk_variable_quantity'][ $variation_id ]
-								)
-							)
-						);
-
-						$variation->set_backorders(
-							sanitize_text_field(
-								wp_unslash(
-									$_POST['dk_variable_override_allow_backorders_in_wc'][ $variation_id ]
-								)
-							)
-						);
+						self::set_inventory_via_post( $variation );
 					} else {
 						self::reset_variation_stock( $variation );
 					}
@@ -491,5 +456,105 @@ class WooMetaboxes {
 		$wc_product->set_default_attributes( $variation_defaults );
 
 		$wc_product->save();
+	}
+
+	private static function set_variation_prices_via_post(
+		WC_Product_Variation $variation
+	): void {
+		if (
+			! isset( $_POST['set_1984_woo_dk_variations_nonce'] ) ||
+			! wp_verify_nonce(
+				sanitize_text_field(
+					wp_unslash( $_POST['set_1984_woo_dk_variations_nonce'] )
+				),
+				'set_1984_woo_dk_variations'
+			)
+		) {
+			return;
+		}
+
+		if ( isset( $_POST['dk_variable_price'][ $variation->get_id() ] ) ) {
+			$variation->set_regular_price(
+				sanitize_text_field(
+					wp_unslash(
+						$_POST['dk_variable_price'][ $variation->get_id() ]
+					)
+				)
+			);
+		}
+		if ( isset( $_POST['dk_variable_sale_price'][ $variation->get_id() ] ) ) {
+			$variation->set_sale_price(
+				sanitize_text_field(
+					wp_unslash(
+						$_POST['dk_variable_sale_price'][ $variation->get_id() ]
+					)
+				)
+			);
+		}
+		if ( isset( $_POST['dk_variable_on_sale_from'][ $variation->get_id() ] ) ) {
+			if ( empty( $_POST['dk_variable_on_sale_from'][ $variation->get_id() ] ) ) {
+				$variation->set_date_on_sale_from( null );
+			} else {
+				$variation->set_date_on_sale_from(
+					sanitize_text_field(
+						wp_unslash(
+							$_POST['dk_variable_on_sale_from'][ $variation->get_id() ]
+						)
+					)
+				);
+			}
+		}
+
+		if ( isset( $_POST['dk_variable_on_sale_to'][ $variation->get_id() ] ) ) {
+			if ( empty( $_POST['dk_variable_on_sale_to'][ $variation->get_id() ] ) ) {
+				$variation->set_date_on_sale_to( null );
+			} else {
+				$variation->set_date_on_sale_to(
+					sanitize_text_field(
+						wp_unslash(
+							$_POST['dk_variable_on_sale_to'][ $variation->get_id() ]
+						)
+					)
+				);
+			}
+		}
+	}
+
+	private static function set_inventory_via_post(
+		WC_Product_Variation $variation
+	): void {
+		if (
+			! isset( $_POST['set_1984_woo_dk_variations_nonce'] ) ||
+			! wp_verify_nonce(
+				sanitize_text_field(
+					wp_unslash( $_POST['set_1984_woo_dk_variations_nonce'] )
+				),
+				'set_1984_woo_dk_variations'
+			)
+		) {
+			return;
+		}
+
+		$variation->set_manage_stock( true );
+
+		if ( isset( $_POST['dk_variable_quantity'][ $variation->get_id() ] ) ) {
+			$variation->set_stock_quantity(
+				(float) sanitize_text_field(
+					wp_unslash(
+						$_POST['dk_variable_quantity'][ $variation->get_id() ]
+					)
+				)
+			);
+		}
+
+		if ( isset( $_POST['dk_variable_override_allow_backorders_in_wc'][ $variation->get_id() ] ) ) {
+			$variation->set_backorders(
+				sanitize_text_field(
+					wp_unslash(
+						$_POST['dk_variable_override_allow_backorders_in_wc'][ $variation->get_id() ]
+					)
+				)
+			);
+		}
 	}
 }
