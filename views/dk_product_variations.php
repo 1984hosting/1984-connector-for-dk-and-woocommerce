@@ -2,6 +2,7 @@
 
 declare(strict_types = 1);
 
+use NineteenEightyFour\NineteenEightyWoo\Config;
 use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,6 +21,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 
 <div id="dk_variations_tab" class="panel hidden">
 	<?php wp_nonce_field( 'set_1984_woo_dk_variations', 'set_1984_woo_dk_variations_nonce' ); ?>
+
 	<div class="inline notice woocommerce-message show_if_variable">
 		<img
 			class="info-icon"
@@ -44,6 +46,32 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 			);
 			?>
 		</p>
+	</div>
+
+	<div class="dk-variations-defaults">
+		<h3><?php echo esc_html( __( 'Default Attributes', '1984-dk-woo' ) ); ?></h3>
+		<div class="dk-variation-default">
+			<?php foreach ( $wc_product->get_attributes( 'edit' ) as $key => $attribute ) : ?>
+			<label>
+				<span>
+					<?php echo Config::get_use_attribute_description() ? esc_html( ProductHelper::attribute_label_description( $wc_product, $key ) ) : esc_html( $key ); ?>
+				</span>
+				<select
+					name="dk_variable_defaults[<?php echo esc_attr( $key ); ?>]"
+				>
+					<option value=""><?php echo esc_html( __( '(None)', '1984-dk-woo' ) ); ?></option>
+					<?php foreach ( $attribute->get_options() as $option ) : ?>
+					<option
+						value="<?php echo esc_attr( $option ); ?>"
+						<?php selected( $option === $wc_product->get_default_attributes()[ $key ] ); ?>
+					>
+						<?php echo Config::get_use_attribute_value_description() ? esc_html( ProductHelper::attribute_value_description( $wc_product, $key, $option ) ) : esc_html( $option ); ?>
+					</option>
+					<?php endforeach ?>
+				</select>
+			</label>
+			<?php endforeach ?>
+		</div>
 	</div>
 
 	<div class="dk-variations">
