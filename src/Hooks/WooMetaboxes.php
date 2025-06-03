@@ -273,17 +273,13 @@ class WooMetaboxes {
 					}
 				}
 
-				if ( isset( $_POST['dk_variable_is_downloadable'][ $variation_id ] ) ) {
-					$variation->set_downloadable( true );
-				} else {
-					$variation->set_downloadable( false );
-				}
+				$variation->set_downloadable(
+					isset( $_POST['dk_variable_is_downloadable'][ $variation_id ] )
+				);
 
-				if ( isset( $_POST['dk_variable_is_virtual'][ $variation_id ] ) ) {
-					$variation->set_virtual( true );
-				} else {
-					$variation->set_virtual( false );
-				}
+				$variation->set_virtual(
+					isset( $_POST['dk_variable_is_virtual'][ $variation_id ] )
+				);
 
 				if ( isset( $_POST['dk_variable_description'][ $variation_id ] ) ) {
 					$variation->set_description(
