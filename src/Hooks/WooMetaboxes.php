@@ -70,6 +70,12 @@ class WooMetaboxes {
 			'woocommerce_product_data_panels',
 			array( __CLASS__, 'variations_panel' )
 		);
+
+		add_action( 'init', array( __CLASS__, 'add_image_sizes' ) );
+	}
+
+	public static function add_image_sizes(): void {
+		add_image_size( '1984_dk_woo_variant', 400 );
 	}
 
 	/**
