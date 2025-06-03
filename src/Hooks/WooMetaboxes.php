@@ -460,6 +460,14 @@ class WooMetaboxes {
 		$wc_product->save();
 	}
 
+	/**
+	 * Set the price of a product variant using the $_POST superglobal
+	 *
+	 * Sets the regular price, sale price and sale dates for a product variant
+	 * using the relevant $_POST attributes.
+	 *
+	 * @param WC_Product_Variation $variation The product variation.
+	 */
 	private static function set_variation_prices_via_post(
 		WC_Product_Variation $variation
 	): void {
@@ -522,6 +530,11 @@ class WooMetaboxes {
 		}
 	}
 
+	/**
+	 * Set the inventory attributes of a product variation via the $_POST superglobal
+	 *
+	 * @param WC_Product_Variation $variation The variation.
+	 */
 	private static function set_varation_inventory_via_post(
 		WC_Product_Variation $variation
 	): void {
@@ -560,6 +573,11 @@ class WooMetaboxes {
 		}
 	}
 
+	/**
+	 * Set the menu order of a variant using the $_POST superglobal
+	 *
+	 * @param WC_Product_Variation $variation The variation.
+	 */
 	private static function set_variant_menu_order_via_post(
 		WC_Product_Variation $variation
 	): void {
@@ -578,7 +596,7 @@ class WooMetaboxes {
 		if ( isset( $_POST['dk_variable_menu_order'][ $variation->get_id() ] ) ) {
 			$variation->set_menu_order(
 				(int) sanitize_text_field(
-					wp_unslash (
+					wp_unslash(
 						$_POST['dk_variable_menu_order'][ $variation->get_id() ]
 					)
 				)
