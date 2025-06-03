@@ -264,11 +264,11 @@ class Products {
 				'1984_dk_woo_variations',
 				$merged_variations
 			);
-			self::update_variations( $merged_variations, $wc_product );
+			$wc_product->save();
 		} else {
 			$wc_product = wc_get_product_object( 'simple' );
-			$wc_product->save();
 			$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
+			$wc_product->save();
 		}
 
 		$wc_product->set_sku( $json_object->ItemCode );
@@ -313,6 +313,10 @@ class Products {
 			);
 		} else {
 			return false;
+		}
+
+		if ( $json_object->IsVariation ) {
+			self::update_variations( $merged_variations, $wc_product );
 		}
 
 		if ( Config::get_product_quantity_sync() ) {
