@@ -74,6 +74,12 @@ class WooMetaboxes {
 		add_action( 'init', array( __CLASS__, 'add_image_sizes' ) );
 	}
 
+	/**
+	 * Addd the image sizes used by the plugin
+	 *
+	 * 400px with is 2x the with of the thumbnail we use in the variation
+	 * editor, accounting for high resolution displays.
+	 */
 	public static function add_image_sizes(): void {
 		add_image_size( '1984_dk_woo_variant', 400 );
 	}
