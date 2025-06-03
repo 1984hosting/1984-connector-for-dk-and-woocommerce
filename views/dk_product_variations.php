@@ -141,7 +141,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 									<?php checked( ProductHelper::variation_price_override( $variation ) ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Override the product price from DK for this variation', '1984-dk-woo' ) ); ?>
+									<?php echo esc_html( __( 'Override price for this product variation', '1984-dk-woo' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -206,7 +206,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 									<?php checked( ProductHelper::variation_inventory_override( $variation ) ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Override DK inventory for this variation', '1984-dk-woo' ) ); ?>
+									<?php echo esc_html( __( 'Override inventory', '1984-dk-woo' ) ); ?>
 								</span>
 							</label>
 						</div>
