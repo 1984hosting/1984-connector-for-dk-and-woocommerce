@@ -277,6 +277,7 @@ table .column-dk_invoice_id .invoice_error {
 
 #dk_variations_tab .dk-variations-defaults .dk-variation-default label span {
 	margin-right: 0.5em;
+	margin-bottom: 0;
 }
 
 #dk_variations_tab .dk-variations {
