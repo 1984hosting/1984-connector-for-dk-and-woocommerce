@@ -36,15 +36,6 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 				)
 			);
 			?>
-			<br />
-			<?php
-			echo esc_html(
-				__(
-					'Products are listed in the same order as they are retreived from DK.',
-					'1984-dk-woo'
-				)
-			);
-			?>
 		</p>
 	</div>
 
@@ -77,7 +68,12 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 	<div class="dk-variations">
 		<?php foreach ( $wc_variable_product->get_children() as $variation_id ) : ?>
 			<?php $variation = new WC_Product_Variation( $variation_id ); ?>
-			<div class="dk-variation">
+			<div
+				id="dk-variation-<?php echo esc_attr( $variation_id ); ?>"
+				class="dk-variation"
+				data-menu-order="<?php echo esc_attr( $variation->get_menu_order() ); ?>"
+				style="order: <?php echo esc_attr( $variation->get_menu_order() ); ?>;"
+			>
 				<h3>
 					<?php
 					echo esc_html(
@@ -119,19 +115,15 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 				</div>
 
 				<div class="dk-variation-fields">
+					<ul class="dk-variation-props">
+						<?php foreach ( ProductHelper::attributes_with_descriptions( $variation ) as $label => $value ) : ?>
+						<li>
+							<strong><?php echo esc_html( $label ); ?></strong>
+							<span><?php echo esc_html( $value ); ?></span>
+						</li>
+						<?php endforeach ?>
+					</ul>
 					<div class="dk-variation-options">
-						<ul class="dk-variation-props">
-							<?php foreach ( ProductHelper::attributes_with_descriptions( $variation ) as $label => $value ) : ?>
-							<li>
-								<strong>
-									<?php echo esc_html( $label ); ?>:
-								</strong>
-								<span>
-									<?php echo esc_html( $value ); ?>
-								</span>
-							</li>
-							<?php endforeach ?>
-						</ul>
 						<div class="dk-variation-checkbox">
 							<label>
 								<input
@@ -329,20 +321,15 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 						</div>
 					</div>
 
-					<div class="variation-textarea">
-						<?php
-						woocommerce_wp_textarea_input(
-							array(
-								'id'            => "dk_variable_description_{$variation_id}",
-								'name'          => "dk_variable_description[{$variation_id}]",
-								'value'         => $variation->get_description( 'edit' ),
-								'label'         => __( 'Description (not synced with DK)', '1984-dk-woo' ),
-								'desc_tip'      => true,
-								'description'   => __( 'Enter an optional description for this variation.', '1984-dk-woo' ),
-								'wrapper_class' => 'form-row form-row-full',
-							)
-						);
-						?>
+					<div class="dk-variation-textarea">
+						<label>
+							<span>
+								<?php echo esc_html( __( 'Description', '1984-dk-woo' ) ); ?>
+							</span>
+							<textarea
+								name="dk_variable_description[<?php echo esc_attr( $variation_id ); ?>]"
+							><?php echo esc_attr( $variation->get_description( 'edit' ) ); ?></textarea>
+						</label>
 					</div>
 
 					<div class="dk-variation-checkboxes">
@@ -385,6 +372,20 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 								</span>
 							</label>
 						</div>
+					</div>
+					<div class="dk-variation-textinput">
+						<label>
+							<span>
+								<?php echo esc_attr( __( 'Menu Order', '1984-dk-woo' ) ); ?>
+							</span>
+							<input
+								class="tiny"
+								type="number"
+								name="dk_variable_menu_order[<?php echo esc_attr( $variation_id ); ?>]"
+								value="<?php echo esc_attr( $variation->get_menu_order() ); ?>"
+								data-menu-order-for="<?php echo esc_attr( $variation_id ); ?>"
+							/>
+						</label>
 					</div>
 				</div>
 			</div>

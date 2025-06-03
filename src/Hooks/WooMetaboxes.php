@@ -326,7 +326,7 @@ class WooMetaboxes {
 							'true'
 						);
 
-						self::set_inventory_via_post( $variation );
+						self::set_varation_inventory_via_post( $variation );
 					} else {
 						self::reset_variation_stock( $variation );
 					}
@@ -345,6 +345,8 @@ class WooMetaboxes {
 						)
 					);
 				}
+
+				self::set_variant_menu_order_via_post( $variation );
 
 				$variation->save();
 			}
@@ -520,7 +522,7 @@ class WooMetaboxes {
 		}
 	}
 
-	private static function set_inventory_via_post(
+	private static function set_varation_inventory_via_post(
 		WC_Product_Variation $variation
 	): void {
 		if (
@@ -552,6 +554,32 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash(
 						$_POST['dk_variable_override_allow_backorders_in_wc'][ $variation->get_id() ]
+					)
+				)
+			);
+		}
+	}
+
+	private static function set_variant_menu_order_via_post(
+		WC_Product_Variation $variation
+	): void {
+		if (
+			! isset( $_POST['set_1984_woo_dk_variations_nonce'] ) ||
+			! wp_verify_nonce(
+				sanitize_text_field(
+					wp_unslash( $_POST['set_1984_woo_dk_variations_nonce'] )
+				),
+				'set_1984_woo_dk_variations'
+			)
+		) {
+			return;
+		}
+
+		if ( isset( $_POST['dk_variable_menu_order'][ $variation->get_id() ] ) ) {
+			$variation->set_menu_order(
+				(int) sanitize_text_field(
+					wp_unslash (
+						$_POST['dk_variable_menu_order'][ $variation->get_id() ]
 					)
 				)
 			);
