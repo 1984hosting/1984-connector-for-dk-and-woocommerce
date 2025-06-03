@@ -252,11 +252,9 @@ class WooMetaboxes {
 				'set_1984_woo_dk_variations'
 			)
 		) {
-			$product_variation_ids = $wc_product->get_children();
+			self::set_default_attributes_via_post( $wc_product );
 
-			$product_json = ImportProducts::get_from_dk( $wc_product->get_sku() );
-
-			foreach ( $product_variation_ids as $variation_id ) {
+			foreach ( $wc_product->get_children() as $variation_id ) {
 				$variation = wc_get_product( $variation_id );
 
 				if ( $variation === false ) {
@@ -436,5 +434,42 @@ class WooMetaboxes {
 		);
 
 		$variation->save();
+	}
+
+	private static function set_default_attributes_via_post(
+		WC_Product_Variable $wc_product
+	): void {
+		if (
+			! isset( $_POST['set_1984_woo_dk_variations_nonce'] ) ||
+			! wp_verify_nonce(
+				sanitize_text_field(
+					wp_unslash( $_POST['set_1984_woo_dk_variations_nonce'] )
+				),
+				'set_1984_woo_dk_variations'
+			) ||
+			! isset( $_POST['dk_variable_defaults'] )
+		) {
+			return;
+		}
+
+		$variation_attributes = array_keys( $wc_product->get_variation_attributes() );
+		$variation_defaults   = array();
+
+		foreach ( $variation_attributes as $attribute ) {
+			if (
+				isset( $_POST['dk_variable_defaults'][ $attribute ] ) &&
+				is_string( $_POST['dk_variable_defaults'][ $attribute ] )
+			) {
+				$variation_defaults[ $attribute ] = sanitize_text_field(
+					wp_unslash(
+						$_POST['dk_variable_defaults'][ $attribute ]
+					)
+				);
+			}
+		}
+
+		$wc_product->set_default_attributes( $variation_defaults );
+
+		$wc_product->save();
 	}
 }
