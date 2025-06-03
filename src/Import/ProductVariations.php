@@ -74,37 +74,6 @@ class ProductVariations {
 	}
 
 	/**
-	 * Get WooCommerce order variation attributes for a DK variation
-	 *
-	 * @param string $code The variant code.
-	 *
-	 * @return array An array of attribute codes.
-	 */
-	public static function attributes_to_woocommerce_variation_attributes(
-		string $code
-	): array {
-		if ( empty( $code ) ) {
-			return array();
-		}
-
-		$lower_case_code = mb_strtolower( $code );
-
-		$variations = self::get_variations();
-
-		$attributes = $variations[ $lower_case_code ]->attributes;
-
-		$woocommerce_variation_attributes = array();
-
-		foreach ( $attributes as $code => $attribute ) {
-			$woocommerce_variation_attributes[ $lower_case_code ] = array_keys(
-				$attribute->values
-			);
-		}
-
-		return $woocommerce_variation_attributes;
-	}
-
-	/**
 	 * Create WooCommerce product variation attributes from variation code
 	 *
 	 * @param string $variation_code The variation code.
