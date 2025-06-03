@@ -508,7 +508,7 @@ class Products {
 			);
 
 			if ( $price_before_tax instanceof WP_Error ) {
-				return $price_before_tax;
+				return false;
 			}
 
 			$price_with_tax = self::calculate_price_after_tax(
