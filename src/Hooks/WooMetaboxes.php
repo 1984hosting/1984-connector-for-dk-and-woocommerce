@@ -442,6 +442,14 @@ class WooMetaboxes {
 		$variation->save();
 	}
 
+	/**
+	 * Set the default product attributes via the $_POST superglobal
+	 *
+	 * Checks the nonce value and sets the default variation for a product via
+	 * $_POST['dk_variable_defaults'].
+	 *
+	 * @param WC_Product_Variable $wc_product The WooCommerce product.
+	 */
 	private static function set_default_attributes_via_post(
 		WC_Product_Variable $wc_product
 	): void {
