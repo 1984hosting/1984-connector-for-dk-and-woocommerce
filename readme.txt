@@ -1,9 +1,9 @@
 === 1984 Connector for DK and WooCommerce ===
 Stable tag: 0.4.6
-Contributors: @1984cto, @aldavigdis
+Contributors: @1984cto, @aldavigdis, @drupalviking
 Tags: DK, dkPlus, Accounting, Inventory, Invoicing
-Requires at least: 6.2.6
-Tested up to: 6.6
+Requires at least: 6.8
+Tested up to: 6.8.1
 Requires PHP: 8.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -33,6 +33,12 @@ Once a connection has been established, the plugin will work right away and will
 3. The plugin also supports reading stock status from DK and displaying it in your WooCommerce shop.
 
 == Frequently Asked Questions ==
+
+= How do I deal with different plugins providing a kennitala field as well? =
+
+The kennitala field that the plugin places in the checkout form is compatible with the one provided by the Icelandic Post plugin. To prevent the field from appearing twice, you can simply disable the one provided by the Iceland Post plugin and it should retain the same functionality.
+
+Please let us know if other plugins clash with this one and we will do our best to address the issue.
 
 = Does the plugin support self-hosted DK? =
 
