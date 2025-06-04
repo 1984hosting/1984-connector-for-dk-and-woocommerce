@@ -762,18 +762,4 @@ class Config {
 			(int) $value
 		);
 	}
-
-	/**
-	 * Enable to disable the product-to-variation conversion feature
-	 *
-	 * @param bool $value True to enable, false to disable.
-	 */
-	public static function set_product_convertion_to_variation_enabled(
-		bool $value
-	): bool {
-		return update_option(
-			'1984_woo_dk_product_convertion_to_variation_enabled',
-			(bool) $value
-		);
-	}
 }
