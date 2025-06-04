@@ -11,10 +11,7 @@ use WP_Post;
 use WC_Product;
 
 /**
- * The WooMetaboxes class
- *
- * The WooMetaboxes class adds fields to the WooCommerce editor metaboxes that
- * handle properties facilitating price and inventory sync with DK.
+ * The WooUpdateProduct class
  */
 class WooUpdateProduct {
 	/**

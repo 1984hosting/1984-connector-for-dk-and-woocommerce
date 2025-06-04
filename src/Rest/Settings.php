@@ -243,12 +243,6 @@ class Settings {
 			);
 		}
 
-		if ( property_exists( $rest_json, 'product_convertion_to_variation_enabled' ) ) {
-			Config::set_product_convertion_to_variation_enabled(
-				$rest_json->product_convertion_to_variation_enabled
-			);
-		}
-
 		if (
 			property_exists( $rest_json, 'fetch_products' ) &&
 			$rest_json->fetch_products

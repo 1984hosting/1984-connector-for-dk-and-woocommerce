@@ -106,11 +106,11 @@ class ProductVariations {
 	 * so we need to ping the database each time we see that it has variants at
 	 * all.
 	 *
-	 * @param string $sku The product SKU/ItemCode.
+	 * @param string|false $sku The product SKU/ItemCode, or false.
 	 */
 	public static function get_product_variant_code_by_sku(
 		string $sku
-	): string {
+	): string|false {
 		$variations = self::get_variations();
 
 		foreach ( $variations as $vk => $v ) {

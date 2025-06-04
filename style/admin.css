@@ -235,6 +235,241 @@ table .column-dk_invoice_id .invoice_error {
 	display: none !important;
 }
 
+#dk_variations_tab {
+	width: 80%;
+	float: left;
+}
+
+#dk_variations_tab label {
+	display: flex;
+	align-items: center;
+	align-content: center;
+}
+
+#dk_variations_tab .notice {
+	display: flex;
+	border-style: none;
+	align-items: center;
+	box-shadow: 0 0 0;
+	margin: 5px 0 0;
+}
+
+#dk_variations_tab .notice p {
+	margin-left: 1em;
+}
+
+#dk_variations_tab .notice img {
+	width: 1em;
+	filter: brightness(50%);
+}
+
+#dk_variations_tab .dk-variations-defaults {
+	margin: 0 2em;
+}
+
+#dk_variations_tab .dk-variations-defaults .dk-variation-default {
+	display: flex;
+}
+
+#dk_variations_tab .dk-variations-defaults .dk-variation-default label {
+	margin-right: 1em;
+}
+
+#dk_variations_tab .dk-variations-defaults .dk-variation-default label span {
+	margin-right: 0.5em;
+	margin-bottom: 0;
+}
+
+#dk_variations_tab .dk-variations {
+	margin-top: 2em;
+	display: flex;
+	flex-direction: column;
+}
+
+#dk_variations_tab .dk-variations .dk-variation {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 1em 2em;
+	border-top: 1px solid #eee;
+	order: 0;
+}
+
+#dk_variations_tab .dk-variations .dk-variation h3 {
+	flex: 1 1 100%;
+	font-size: 1.5em;
+	margin-top: 0.25em;
+	margin-bottom: 0.75em;
+}
+
+#dk_variations_tab .dk-variation-fields {
+	margin-left: 2em;
+	flex: 1;
+}
+
+#dk_variations_tab .dk-variation-fields legend {
+	margin: 1em 0 1em 7.75em;
+	font-weight: 600;
+}
+
+#dk_variations_tab .dk-variations .dk-variation .dk-variation-image {
+	display: flex;
+	flex-direction: column;
+}
+
+#dk_variations_tab .dk-variations .dk-variation .dk-variation-image .add-thumbnail-button {
+	cursor: pointer;
+	padding: 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	line-height: 1em;
+	overflow: hidden;
+}
+
+#dk_variations_tab .dk-variations .dk-variation .dk-variation-image .add-thumbnail-button:hover {
+	border: 1px solid #999;
+}
+
+#dk_variations_tab .dk-variations .dk-variation .dk-variation-image .remove-thumbnail-button {
+	align-self: flex-start;
+	margin: 1em 0;
+}
+
+#dk_variations_tab .dk-variations .dk-variation .dk-variation-image .remove-thumbnail-button:disabled {
+	display: none;
+}
+
+#dk_variations_tab .dk-variations .dk-variation .dk-variation-image img {
+	width: 200px;
+	height: auto;
+}
+
+#dk_variations_tab .dk-variations .dk-variation .dk-variation-checkboxes {
+	display: flex;
+}
+
+#dk_variations_tab .dk-variations .dk-variation .dk-variation-checkbox {
+	margin: 1em;
+}
+
+#dk_variations_tab label span {
+	font-weight: 600;
+	margin-bottom: 4px;
+	margin-left: 0.25em;
+}
+
+.variation-textarea {
+	margin-left: 1em;
+}
+
+#dk_variations_tab .dk-variation-props {
+	margin-left: 1em;
+	margin-top: 0;
+}
+
+#dk_variations_tab .dk-variation-props li {
+	display: grid;
+	grid-template-columns: fit-content(0) 1fr;
+	grid-template-rows: repeat(2, auto);
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+}
+
+#dk_variations_tab .dk-variation-props li strong {
+	margin-right: 0.5em;
+	width: 4em;
+}
+
+#dk_variations_tab .dk-variation-options {
+	display: flex;
+	flex-direction: column;
+}
+
+#dk_variations_tab .dk-variation-options .dk-variation-subcheckbox {
+	margin-bottom: 1em;
+	margin-left: 7.75em;
+	margin-right: 0.5em;
+}
+
+#dk_variations_tab .dk-variation-options .dk-variation-field {
+	display: flex;
+	margin-bottom: 0.5em;
+}
+
+#dk_variations_tab .dk-variation-field label {
+	display: flex;
+	align-items: center;
+}
+
+#dk_variations_tab .dk-variation-options .dk-variation-field input[type=number] {
+	appearance: textfield;
+	width: 6em;
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+#dk_variations_tab .dk-variation-options .dk-variation-field input[type=date] {
+	width: 10em;
+	font-variant-numeric: tabular-nums;
+}
+
+#dk_variations_tab .dk-variation-options .dk-variation-field span {
+	width: 7em;
+	text-align: right;
+	margin-right: 0.75em;
+	font-weight: 600;
+}
+
+#dk_variations_tab .dk-variation-fields .dk-variation-textarea label {
+	flex-direction: column;
+	align-items: flex-start;
+	margin-left: 1em;
+}
+
+#dk_variations_tab .dk-variation-fields .dk-variation-textarea textarea {
+	width: 100%;
+	padding: 0.5em;
+	height: 5em;
+}
+
+#dk_variations_tab .dk-variation-fields .dk-variation-textinput {
+	margin-left: 1em;
+}
+
+#dk_variations_tab .dk-variation-fields .dk-variation-textinput span {
+	margin-right: 0.5em;
+}
+
+#dk_variations_tab .dk-variation-fields .dk-variation-textinput input {
+	text-align: right;
+}
+
+#dk_variations_tab .dk-variation-fields .tiny {
+	width: 3em;
+	appearance: textfield;
+}
+
+@media screen and (max-width: 1200px) {
+	#dk_variations_tab .dk-variations .dk-variation {
+		flex-direction: column;
+	}
+
+	#dk_variations_tab .dk-variation-fields {
+		margin-left: 0;
+	}
+
+	#dk_variations_tab .dk-variations .dk-variation .dk-variation-image {
+		margin-bottom: 1em;
+	}
+
+	#dk_variations_tab .dk-variations .dk-variation .dk-variation-image .add-thumbnail-button {
+		width: fit-content;
+	}
+
+	#dk_variations_tab .dk-variations .dk-variation .dk-variation-image img {
+		width: auto;
+	}
+}
+
 @media screen and (max-width: 782px) {
 	#nineteen-eighty-woo-wrap h1 {
 		margin-left: 21px;

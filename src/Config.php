@@ -762,33 +762,4 @@ class Config {
 			(int) $value
 		);
 	}
-
-	/**
-	 * Get ether the product-to-variation conversion feature is enabled
-	 *
-	 * With this enabled, a bulk action to convert products into variations of
-	 * another appears on the product overview page.
-	 */
-	public static function get_product_convertion_to_variation_enabled(): bool {
-		return (bool) (
-			get_option(
-				'1984_woo_dk_product_convertion_to_variation_enabled',
-				false
-			)
-		);
-	}
-
-	/**
-	 * Enable to disable the product-to-variation conversion feature
-	 *
-	 * @param bool $value True to enable, false to disable.
-	 */
-	public static function set_product_convertion_to_variation_enabled(
-		bool $value
-	): bool {
-		return update_option(
-			'1984_woo_dk_product_convertion_to_variation_enabled',
-			(bool) $value
-		);
-	}
 }
