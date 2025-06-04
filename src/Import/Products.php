@@ -373,6 +373,10 @@ class Products {
 			(
 				property_exists( $json_object, 'Deleted' ) &&
 				$json_object->Deleted
+			) ||
+			(
+				! Config::get_import_nonweb_products() &&
+				$json_object->ShowItemInWebShop === false
 			)
 		) {
 			wp_delete_post( $wc_product->get_id() );
