@@ -250,7 +250,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 										<?php checked( ProductHelper::variation_inventory_track_in_wc( $variation ) ); ?>
 									/>
 									<span>
-										<?php echo esc_html( __( 'Track sock quantity in WooCommerce', '1984-dk-woo' ) ); ?>
+										<?php echo esc_html( __( 'Set stock quantity', '1984-dk-woo' ) ); ?>
 									</span>
 								</label>
 							</div>
