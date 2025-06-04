@@ -20,6 +20,7 @@ use WC_Order;
  */
 class Admin {
 	const ASSET_VERSION = '0.4.6';
+	const PLUGIN_SLUG   = '1984-connector-for-dk-and-woocommerce';
 
 	/**
 	 * Constructor for the Admin interface class
@@ -90,6 +91,105 @@ class Admin {
 				3
 			);
 		}
+
+		add_filter(
+			'plugin_row_meta',
+			array( __CLASS__, 'add_links_to_plugins_list' ),
+			10,
+			3
+		);
+
+		add_action(
+			'after_plugin_row_meta',
+			array( __CLASS__, 'add_notice_to_plugins_list' ),
+			10,
+			2
+		);
+	}
+
+	/**
+	 * Render our disclaimer int he wp-admin plugin list.
+	 *
+	 * Echoes out the plugin disclaimer. Used by the `after_plugin_row_meta` action.
+	 *
+	 * @param ?string $_unused Not used. This one is only defined for hook compatibility.
+	 * @param array   $plugin_data The plugin data as passed by the after_plugin_row_meta hook.
+	 */
+	public static function add_notice_to_plugins_list(
+		?string $_unused,
+		array $plugin_data
+	): void {
+		if ( $plugin_data['slug'] === self::PLUGIN_SLUG ) {
+			echo wp_kses( self::plugin_list_notice(), array( 'p' ) );
+		}
+	}
+
+	/**
+	 * The HTML formatted disclaimer to display in the wp-admin plugins list
+	 */
+	public static function plugin_list_notice(): string {
+		$text = __(
+			'Note: The 1984 Connector for DK and WooCommerce is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
+			'1984-dk-woo'
+		);
+
+		return "<p>$text</p>";
+	}
+
+	/**
+	 * Add settings and community support links to the plugin overview in wp-admin
+	 *
+	 * @param array   $plugin_meta The plugin meta as provided by the plugin_row_meta filter.
+	 * @param ?string $_unused Unused parameter.
+	 * @param array   $plugin_data The plugin data as provided by the plugin_row_meta filter.
+	 *
+	 * @return array The updated $plugin meta.
+	 */
+	public static function add_links_to_plugins_list(
+		array $plugin_meta,
+		?string $_unused,
+		array $plugin_data,
+	): array {
+		if ( $plugin_data['slug'] === self::PLUGIN_SLUG ) {
+			$plugin_meta['Settings']          = self::settings_link();
+			$plugin_meta['Community Support'] = self::community_link();
+		}
+		return $plugin_meta;
+	}
+
+	/**
+	 * Get the URL for the plugin settings page
+	 */
+	private static function settings_url(): string {
+		return get_admin_url( path: '?page=1984-dk-woo' );
+	}
+
+	/**
+	 * Get the HTML hyperlink for the plugin settings page
+	 *
+	 * Used in the plugin overview page in wp-admin.
+	 */
+	private static function settings_link(): string {
+		$url = self::settings_url();
+		return "<a href=\"$url\">Settings</a>";
+	}
+
+	/**
+	 * Get the URL for our community tab on WordPress.org
+	 */
+	private static function community_url(): string {
+		$slug = self::PLUGIN_SLUG;
+		return "https://wordpress.org/support/plugin/$slug/";
+	}
+
+	/**
+	 * Format the HTML hyperlink to our community tab on WordPress.org
+	 */
+	private static function community_link(): string {
+		$url  = self::community_url();
+		$text = __( 'Community Support', '1984-dk-woo' );
+
+		return "<a href=\"$url\" target=\"_blank\">$text</a>";
 	}
 
 	/**
@@ -134,7 +234,9 @@ class Admin {
 		$last  = array_slice( $columns, 2, null, true );
 		return array_merge(
 			$first,
-			array( 'dk_invoice_id' => esc_html__( 'DK Invoice', '1984-dk-woo' ) ),
+			array(
+				'dk_invoice_id' => esc_html__( 'DK Invoice', '1984-dk-woo' ),
+			),
 			$last
 		);
 	}

@@ -316,7 +316,6 @@ class Product {
 		$request_body = self::to_updated_product_body( $wc_product );
 
 		$request_body->ShowItemInWebShop = false;
-		$request_body->Inactive          = true;
 
 		$result = $api_request->request_result(
 			self::API_PATH . $wc_product->get_sku(),
